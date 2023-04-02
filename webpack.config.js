@@ -4,13 +4,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     mode: 'development',
     entry: {
-        bundle: path.resolve(__dirname, 'src/index.js'),
+        bundle: path.resolve(__dirname, 'src/index.ts'),
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name][contenthash].js',
+        filename: '[name]-[contenthash].js',
         clean: true,
         assetModuleFilename: '[name][ext]',
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js']
     },
     devtool: 'source-map',
     devServer: {
@@ -42,6 +45,11 @@ module.exports = {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: 'asset/resource'
             },
+            {
+                test: /\.tsx?$/,
+                use: ['babel-loader', 'ts-loader'],
+                exclude: /node_modules/,
+            }
         ]
     },
     plugins: [

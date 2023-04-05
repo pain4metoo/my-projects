@@ -10,7 +10,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name]-[contenthash].js',
         clean: true,
-        assetModuleFilename: '[name][ext]',
+        assetModuleFilename: 'assets/[name][ext]',
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js']
@@ -18,13 +18,12 @@ module.exports = {
     devtool: 'source-map',
     devServer: {
         static: {
-            directory: path.resolve(__dirname, 'dist'),
+            directory: path.join(__dirname, 'dist'),
         },
         port: 3000,
         open: true,
-        hot: true,
-        compress: true,
-        historyApiFallback: true,
+        hot: false,
+        liveReload: true,
     },
     module: {
         rules: [
@@ -42,26 +41,18 @@ module.exports = {
                 }
             },
             {
-                test: /\.(png|svg|jpg|jpeg|gif)$/i,
-                type: 'asset/resource'
+                test: /\.png|svg|jpe?g|gif|webp$/i,
+                type: 'asset/resource',
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
+                type: 'asset/resource',
             },
             {
                 test: /\.tsx?$/,
                 use: ['babel-loader', 'ts-loader'],
                 exclude: /node_modules/,
             },
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: '[name].[ext]',
-                            outputPath: 'fonts/'
-                        }
-                    }
-                ]
-            }
         ]
     },
     plugins: [

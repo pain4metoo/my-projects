@@ -1,0 +1,45 @@
+.main_welcome {
+  background-image: url('../assets/image/panda-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  position: relative;
+  min-height: 78rem;
+  &_inner {
+    position: absolute;
+    left: 70%;
+    margin-top: 9.2rem;
+    &::after {
+      content: '';
+      position: absolute;
+      width: 46.5rem;
+      height: 46.5rem;
+      background: linear-gradient(113.96deg, #f9804b 1.49%, #fe9013 101.44%);
+      left: -8.3rem;
+      top: -7.1rem;
+      border-radius: 50%;
+      z-index: $z-elements;
+    }
+  }
+  &_word {
+    font-size: 10.6rem;
+    line-height: 8rem;
+    margin: 0;
+    text-align: center;
+    font-weight: $fwb;
+    color: $header_text;
+    text-transform: uppercase;
+    z-index: $z-text;
+    position: relative;
+    user-select: none;
+  }
+  &_btn {
+    @extend .btn-default;
+    margin-top: 6.2rem;
+    margin-left: 9.4rem;
+  }
+  &_btn_link {
+    @extend .btn-text;
+  }
+}

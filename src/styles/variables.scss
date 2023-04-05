@@ -1,5 +1,8 @@
 $font-family: 'Roboto', sans-serif;
 
+$z-elements: 1;
+$z-text: 2;
+
 $fwb: 700;
 $fwm: 500;
 $fwr: 400;
@@ -7,6 +10,7 @@ $fwl: 300;
 
 $header_color: #000000;
 $header_text: #ffffff;
+$default_text: #ffffff;
 $green: #4b9200;
 $orange: #f9804b;
 $yellow: #ffee2e;
@@ -23,3 +27,35 @@ $default_btn: #f9804b;
 $hover_btn: #e47209;
 $active_btn: #4b9200;
 $disable_btn: #767474;
+
+$default_gradient: linear-gradient(113.96deg, #f9804b 1.49%, #fe9013 101.44%);
+
+.btn-default {
+  background-color: $default_btn;
+  max-width: 29.8rem;
+  width: 100%;
+  border-radius: 2.5rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 1.6rem 0;
+  text-transform: uppercase;
+  transition: 0.5s;
+  &:hover {
+    background-color: $hover_btn;
+  }
+  &:active {
+    background-color: $active_btn;
+  }
+  &:disabled {
+    background-color: $disable_btn;
+  }
+}
+
+.btn-text {
+  font-size: 1.6rem;
+  line-height: 2.24rem;
+  color: $default_text;
+  font-weight: $fwm;
+  text-decoration: none;
+}

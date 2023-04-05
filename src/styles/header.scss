@@ -2,13 +2,14 @@
   background-color: $header_color;
   display: flex;
   align-items: center;
+  justify-content: center;
   &_logo_inner {
     border: 0.5px solid #ffffff;
-    margin-left: 22.4rem;
     margin-top: 1.4rem;
     margin-bottom: 1.4rem;
     max-width: 8.2rem;
     width: 100%;
+    margin-right: 6.3rem;
   }
   &_logo_text {
     font-size: 1.9rem;
@@ -34,5 +35,28 @@
   }
   &_logo_link {
     text-decoration: none;
+  }
+  &_nav_list {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    width: 100%;
+  }
+  &_nav_item {
+    margin-right: 5.8rem;
+  }
+  &_nav_link {
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    font-weight: $fwm;
+    color: $header_text;
+    text-decoration: none;
+    transition: 0.5s;
+    &:hover {
+      color: $hover_btn;
+    }
+    &:active {
+      color: $hover_btn;
+    }
   }
 }

@@ -2,7 +2,8 @@
 @import './fonts.scss';
 @import './variables.scss';
 @import './header/header.scss';
-@import './welcome.scss';
+@import './main/welcome.scss';
+@import './main/works.scss';
 
 *,
 *::after,
@@ -21,4 +22,10 @@ body {
   font-size: 1.6rem;
   line-height: 2.24rem;
   font-weight: $fwr;
+}
+
+.container {
+  max-width: 117rem;
+  padding: 0 0.5rem;
+  margin: 0 auto;
 }

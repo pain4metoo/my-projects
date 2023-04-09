@@ -1,5 +1,5 @@
 class Signal<ListenerType> {
-  public listeners: Array<(params: ListenerType) => void>;
+  private listeners: Array<(params: ListenerType) => void>;
 
   constructor() {
     this.listeners = [];

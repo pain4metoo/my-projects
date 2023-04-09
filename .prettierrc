@@ -11,5 +11,7 @@
   "arrowParens": "always",
   "requirePragma": false,
   "insertPragma": false,
-  "proseWrap": "preserve"
+  "proseWrap": "preserve",
+  "editor.formatOnSave": false,
+  "editor.formatOnPaste": false
 }

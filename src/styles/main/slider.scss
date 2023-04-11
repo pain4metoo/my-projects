@@ -1,0 +1,99 @@
+.main_slider {
+  margin-top: 18rem;
+  &_inner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  &_item {
+    max-width: 36.6rem;
+    width: 100%;
+    border: 1px solid #fa6f32;
+    border-radius: 0.5rem;
+    &:nth-of-type(4),
+    &:nth-of-type(5),
+    &:nth-of-type(6) {
+      margin-top: 2rem;
+    }
+  }
+  &_img {
+    width: 36.4rem;
+    height: 36.6rem;
+    border-radius: 0.5rem;
+    &_1 {
+      background: url('../assets/image/slide_1.jpg') no-repeat center / cover;
+    }
+    &_2 {
+      background: url('../assets/image/slide_2.jpg') no-repeat center / cover;
+    }
+    &_3 {
+      background: url('../assets/image/slide_3.jpg') no-repeat center / cover;
+    }
+    &_4 {
+      background: url('../assets/image/slide_4.jpg') no-repeat center / cover;
+    }
+    &_5 {
+      background: url('../assets/image/slide_5.jpg') no-repeat center / cover;
+    }
+    &_6 {
+      background: url('../assets/image/slide_6.jpg') no-repeat center / cover;
+    }
+  }
+  &_text_title {
+    font-size: 1.6rem;
+    line-height: 2.24rem;
+    font-weight: $fwm;
+    color: #000000;
+    margin: 0;
+    margin-top: 0.8rem;
+    margin-left: 1.6rem;
+    text-transform: uppercase;
+  }
+  &_text{
+    position: relative;
+  }
+  &_text_img {
+    position: absolute;
+    right: 10px;
+    top: 12px; 
+    &_1 {
+      background: url('../assets/svg/banana.svg') no-repeat center / cover;
+      width: 3.3rem;
+      height: 3.7rem;
+    }
+    &_2 {
+      background: url('../assets/svg/fish.svg') no-repeat center / cover;
+      width: 4.8rem;
+      height: 3.8rem;
+    }
+    &_3 {
+      background: url('../assets/svg/banana.svg') no-repeat center / cover;
+      width: 3.3rem;
+      height: 3.7rem;
+    }
+    &_4 {
+      background: url('../assets/svg/banana.svg') no-repeat center / cover;
+      width: 3.3rem;
+      height: 3.7rem;
+    }
+    &_5 {
+      background: url('../assets/svg/fish.svg') no-repeat center / cover;
+      width: 4.8rem;
+      height: 3.8rem;
+    }
+    &_6 {
+      background: url('../assets/svg/fish.svg') no-repeat center / cover;
+      width: 4.8rem;
+      height: 3.8rem;
+    }
+  }
+  &_text_description {
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+    color: #000000;
+    font-weight: $fwl;
+    margin: 0;
+    margin-top: 0.8rem;
+    margin-bottom: 1.4rem;
+    margin-left: 1.6rem;
+  }
+}

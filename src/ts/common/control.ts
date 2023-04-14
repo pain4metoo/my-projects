@@ -8,7 +8,7 @@ class Control<NodeType extends HTMLElement = HTMLElement> {
     if (parentNode) {
       parentNode.append(el);
     }
-    
+
     this.node = el as NodeType;
   }
 

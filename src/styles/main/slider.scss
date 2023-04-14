@@ -1,5 +1,46 @@
 .main_slider {
   margin-top: 18rem;
+  position: relative;
+  &_flower_1 {
+    background: url('../assets/image/flower-green.png') no-repeat center /
+      contain;
+    width: 28.5rem;
+    height: 45rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  &_flower_2 {
+    background: url('../assets/image/flower-orange.png') no-repeat center/contain;
+    width: 28rem;
+    height: 21rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  &_arrow {
+    width: 6.2rem;
+    height: 6.2rem;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: block;
+    cursor: pointer;
+    transition: all 0.5s;
+    &:active .main_slider_circle {
+      fill: $green;
+      transition: all 5s;
+    }
+  }
+  &_arrow_left {
+    background: url('../assets/svg/arrow-left.svg') no-repeat center / cover;
+    left: 15%;
+    top: 50%;
+  }
+  &_arrow_right {
+    background: url('../assets/svg/arrow-right.svg') no-repeat center / cover;
+    right: 13%;
+    top: 50%;
+  }
   &_inner {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -48,13 +89,13 @@
     margin-left: 1.6rem;
     text-transform: uppercase;
   }
-  &_text{
+  &_text {
     position: relative;
   }
   &_text_img {
     position: absolute;
     right: 10px;
-    top: 12px; 
+    top: 12px;
     &_1 {
       background: url('../assets/svg/banana.svg') no-repeat center / cover;
       width: 3.3rem;

@@ -1,4 +1,5 @@
 import Control from '../../common/control';
+import './header.scss';
 
 export class Header extends Control {
   private navItems: Array<string> = ['Shuffle and start', 'Stop', 'Save', 'Results'];

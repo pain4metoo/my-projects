@@ -8,7 +8,9 @@ export class Header extends Control {
     const navList = new Control(nav.node, 'ul', 'header_list');
 
     this.navItems.forEach((el: string) => {
-      const navItem = new Control(navList.node, 'li', 'header_list_item', el);
+      const navItem = new Control(navList.node, 'li', 'header_list_item');
+      const navItemLink: Control<HTMLLinkElement> = new Control(navItem.node, 'a', 'header_item_link', el);
+      navItemLink.node.href = '#';
     });
   }
 }

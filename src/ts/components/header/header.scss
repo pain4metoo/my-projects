@@ -1,0 +1,17 @@
+@import '../../../style/variables.scss';
+
+.header {
+  &_list {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+  }
+  &_list_item:not(:last-child) {
+    margin-right: 2rem;
+  }
+  &_item_link {
+    color: $default-color;
+    text-decoration: none;
+  }
+}

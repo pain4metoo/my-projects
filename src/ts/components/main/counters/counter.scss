@@ -1,0 +1,29 @@
+@import '../../../../style/variables.scss';
+
+.main_counters {
+  display: flex;
+  justify-content: center;
+  &_moves {
+    margin-right: 2rem;
+    display: flex;
+    align-items: center;
+  }
+  &_text {
+    margin: 0;
+    margin-right: 0.5rem;
+  }
+  &_number {
+    margin: 0;
+  }
+  &_time {
+    display: flex;
+    align-items: center;
+  }
+  &_time_text {
+    margin: 0;
+    margin-right: 0.5rem;
+  }
+  &_time_number {
+    margin: 0;
+  }
+}

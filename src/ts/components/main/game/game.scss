@@ -27,4 +27,11 @@
       border: 2px solid wheat;
     }
   }
+  &_square_empty {
+    border: none;
+    cursor: auto;
+    &:hover {
+      border: none;
+    }
+  }
 }

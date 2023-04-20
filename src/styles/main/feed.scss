@@ -1,0 +1,159 @@
+.main_feed {
+  padding-top: 7rem;
+  padding-bottom: 10rem;
+  background: linear-gradient(
+      315.75deg,
+      rgba(254, 210, 144, 0.7) 30.06%,
+      #febdab 100.95%,
+      rgba(254, 210, 144, 0.7) 106.36%
+    ),
+    linear-gradient(
+      315.75deg,
+      rgba(254, 189, 171, 0.74) 30.06%,
+      rgba(243, 169, 248, 0.66) 50.74%,
+      #e0d8f0 80.49%,
+      #eaf7fe 127.9%,
+      #eaf7fe 149.54%
+    ),
+    linear-gradient(
+      315.75deg,
+      rgba(254, 189, 171, 0.74) 30.06%,
+      rgba(243, 169, 248, 0.66) 50.74%,
+      #e0d8f0 80.49%,
+      #eaf7fe 127.9%,
+      #eaf7fe 149.54%
+    );
+  &_inner {
+    padding-top: 6.9rem;
+    background: rgba(253, 253, 255, 0.52);
+    border-radius: 2rem;
+    padding: 4.1rem 5.9rem 5.9rem 9.9rem;
+  }
+  &_title_1 {
+    font-size: 4.8rem;
+    line-height: 5.8rem;
+    text-align: center;
+    color: $orange;
+    font-weight: $fwr;
+    margin: 0;
+    color: $black_blue;
+  }
+  &_title_2 {
+    font-size: 2.4rem;
+    line-height: 2.8rem;
+    font-weight: $fwr;
+    margin: 0;
+    margin-top: 3.5rem;
+    color: $black_blue;
+  }
+  &_text_1 {
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    font-weight: $fwm;
+    margin: 0;
+    margin-top: 4rem;
+    color: $black_blue;
+  }
+  &_text_2 {
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    color: $black_blue;
+    margin: 0;
+    margin-top: 1rem;
+    font-weight: $fwr;
+    max-width: 86.3rem;
+    width: 100%;
+    span {
+      position: relative;
+      &::after {
+        content: '';
+        position: absolute;
+        right: 0.8rem;
+        bottom: -0.3rem;
+        background: $orange;
+        height: 0.1rem;
+        width: 17.8rem;
+      }
+    }
+  }
+  &_title_3 {
+    font-size: 3.6rem;
+    line-height: 4.8rem;
+    font-weight: $fwr;
+    color: $black_blue;
+    text-align: center;
+    margin: 0;
+    margin-top: 6rem;
+  }
+  &_items {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 4rem;
+  }
+  &_item_inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 16.8rem;
+    height: 16.8rem;
+    border: 1px solid $orange;
+    border-radius: 0.5rem;
+    background: $default_text;
+  }
+  &_item_img {
+    &_1 {
+      background: url('../assets/image/pay.png') no-repeat center;
+      width: 100%;
+      height: 10.8rem;
+      position: relative;
+      &::after {
+        content: '';
+        position: absolute;
+        background: url('../assets/svg/arrow-pay-right.svg') no-repeat
+          center/cover;
+        width: 7rem;
+        height: 3.5rem;
+        left: 21rem;
+        bottom: 4rem;
+      }
+    }
+    &_2 {
+      background: url('../assets/image/pay-1.png') no-repeat center;
+      width: 100%;
+      height: 10.8rem;
+      position: relative;
+      &::after {
+        content: '';
+        position: absolute;
+        background: url('../assets/svg/arrow-pay-right.svg') no-repeat
+          center/cover;
+        width: 7rem;
+        height: 3.5rem;
+        right: -11rem;
+        bottom: 4rem;
+      }
+    }
+    &_3 {
+      background: url('../assets/image/pay-2.png') no-repeat center;
+      width: 100%;
+      height: 10.8rem;
+    }
+  }
+  &_item_text {
+    font-size: 1.6rem;
+    line-height: 2.24rem;
+    color: $black_blue;
+    margin: 0;
+    margin-top: 3rem;
+    font-weight: $fwr;
+    width: 16.8rem;
+  }
+  &_btn {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 6rem;
+    @extend .btn-default;
+    @extend .btn-text;
+  }
+}

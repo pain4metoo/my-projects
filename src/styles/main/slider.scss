@@ -1,6 +1,7 @@
 .main_slider {
   margin-top: 18rem;
   position: relative;
+  padding-bottom: 10rem;
   &_flower_1 {
     background: url('../assets/image/flower-green.png') no-repeat center /
       contain;
@@ -11,7 +12,8 @@
     left: 0;
   }
   &_flower_2 {
-    background: url('../assets/image/flower-orange.png') no-repeat center/contain;
+    background: url('../assets/image/flower-orange.png') no-repeat
+      center/contain;
     width: 28rem;
     height: 21rem;
     position: absolute;
@@ -136,5 +138,13 @@
     margin-top: 0.8rem;
     margin-bottom: 1.4rem;
     margin-left: 1.6rem;
+  }
+  &_btn {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 8rem;
+    @extend .btn-default;
+    @extend .btn-text;
   }
 }

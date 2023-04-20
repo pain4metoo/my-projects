@@ -1,0 +1,31 @@
+.main_frame {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  margin-top: 1rem;
+  &_block {
+    display: flex;
+    align-items: center;
+  }
+  &_text {
+    margin: 0;
+  }
+  &_size {
+    margin: 0;
+    margin-left: 1rem;
+  }
+  &_other {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  &_other_text {
+    margin: 0;
+  }
+  &_other_size {
+    margin: 0;
+    margin-left: 1rem;
+    cursor: pointer;
+  }
+}

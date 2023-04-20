@@ -12,6 +12,7 @@ html {
   box-sizing: border-box;
   scroll-behavior: smooth;
   font-size: 10px;
+  height: 100%;
 }
 
 body {
@@ -19,4 +20,15 @@ body {
   font-size: 1.8rem;
   line-height: 2.7rem;
   font-weight: $fwr;
+  height: 100%;
+}
+
+.wrapper {
+  max-width: 120rem;
+  padding: 0 1.5rem;
+  margin: 0 auto;
+
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }

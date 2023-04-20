@@ -2,6 +2,7 @@ import Control from '../../common/control';
 import { Counters } from './counters/counters';
 import { FrameSize } from './frame-size/frame-size';
 import { Game } from './game/game';
+import './main.scss';
 
 export class Main extends Control {
   constructor(parentNode: HTMLElement) {

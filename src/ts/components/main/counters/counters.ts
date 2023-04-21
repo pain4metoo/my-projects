@@ -1,7 +1,7 @@
 import Control from '../../../common/control';
 import './counter.scss';
 
-export class Counters extends Control {
+export class Counter extends Control {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'section', 'main_counters');
     const movesBlock = new Control(this.node, 'div', 'main_counters_moves', '');

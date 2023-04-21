@@ -1,7 +1,8 @@
 import Control from '../../../common/control';
 import { state } from '../../../common/state';
-import { StateOptions } from '../../../common/state-types';
+import { GenerateGameField } from './generateField';
 import './game.scss';
+import { StateOptions } from '../../../common/state-types';
 
 interface AvailableMovesFromEmptySquare {
   emptySquare: Array<number>;
@@ -12,8 +13,7 @@ interface AvailableMovesFromEmptySquare {
 }
 
 export class Game extends Control {
-  private size = 4;
-  private HtmlGameElem: Array<HTMLElement> = [];
+  private gameSquareHTML: Array<HTMLElement> = [];
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'section', 'main_game');
     const gameContainer = new Control(this.node, 'div', 'main_game_container');
@@ -23,41 +23,44 @@ export class Game extends Control {
     state.onUpdate.add((type: StateOptions) => {
       switch (type) {
         case StateOptions.setMove:
-          this.newFieldAfterMove();
-          return;
+          this.newFieldAfterMove(state.getGameField().flat());
+          break;
       }
     });
   }
 
-  private async generateGameField(gameContainer: HTMLElement): Promise<void> {
-    const currentPuzzle: Array<Array<number>> = await this.generateRandomGameNumber();
-    const singleLevelArray = currentPuzzle.flat();
-
-    for (let i = 0; i < this.size * this.size; i++) {
-      const square = new Control(gameContainer, 'div', 'main_game_square', `${singleLevelArray[i]}`);
-      if (singleLevelArray[i] === 0) {
-        square.node.textContent = '';
-        square.node.classList.add('main_game_square_empty');
+  private newFieldAfterMove(newGameField: Array<number>): void {
+    this.gameSquareHTML.forEach((el, i): void => {
+      if (newGameField[i] === 0) {
+        el.textContent = ``;
+        el.classList.add('main_game_square_empty');
       } else {
-        square.node.onclick = (): void => this.makeMove(singleLevelArray[i]);
+        el.textContent = `${newGameField[i]}`;
+        el.classList.remove('main_game_square_empty');
       }
-      this.HtmlGameElem.push(square.node);
+    });
+  }
+
+  private generateGameField(gameContainer: HTMLElement): void {
+    const currentPuzzle: Array<Array<number>> = GenerateGameField.generateRandomGameNumber();
+    const singleLevelArray = currentPuzzle.flat();
+    const currentGameSize = state.getFrameSize();
+
+    gameContainer.classList.add(`main_game_container_${currentGameSize}x${currentGameSize}`);
+
+    for (let i = 0; i < currentGameSize * currentGameSize; i++) {
+      const square = new Control(gameContainer, 'div', 'main_game_square', `${singleLevelArray[i]}`);
+
+      this.gameSquareHTML.push(square.node);
+      if (singleLevelArray[i] === 0) {
+        square.node.textContent = ``;
+        square.node.classList.add('main_game_square_empty');
+      }
+
+      square.node.onclick = (): void => this.makeMove(Number(square.node.textContent));
     }
 
     state.setGameField(currentPuzzle);
-  }
-
-  private newFieldAfterMove(): void {
-    const newGameField: Array<number> = state.getGameField().flat();
-    this.HtmlGameElem.forEach((el, i) => {
-      el.textContent = `${newGameField[i]}`;
-
-      el.classList.remove('main_game_square_empty');
-      if (el.textContent === '0') {
-        el.classList.add('main_game_square_empty');
-        el.textContent = '0';
-      }
-    });
   }
 
   private makeMove(numberTarget: number): void {
@@ -88,7 +91,6 @@ export class Game extends Control {
           if (currentGameField[i + 1] && currentGameField[i + 1][g]) {
             availableMoves.axisYBottom = [i + 1, g, currentGameField[i + 1][g]];
           }
-
           break;
         }
         continue;
@@ -134,72 +136,9 @@ export class Game extends Control {
         break;
 
       default:
-        return;
+        break;
     }
 
     state.setMove(currentGameField);
-  }
-
-  private async generateRandomGameNumber(): Promise<Array<Array<number>>> {
-    const result: Array<Array<number>> = [];
-    const puzzleGameArr: Array<number> = [];
-    const maxNumbers = Math.pow(this.size, 2);
-
-    for (let i = 0; i < maxNumbers; i++) {
-      puzzleGameArr.push(i);
-    }
-
-    puzzleGameArr.sort(() => Math.random() - 0.5);
-
-    while (puzzleGameArr.length) {
-      result.push(puzzleGameArr.splice(0, this.size));
-    }
-
-    return this.isSolvablePuzzle(result) ? result : await this.generateRandomGameNumber();
-  }
-
-  private isSolvablePuzzle(array: Array<Array<number>>): boolean {
-    const fieldCounts = this.size % 2 === 0;
-    const positionEmptySquareFromBottom = this.calcPositionEmptySquareFromBottom(array) % 2 === 0;
-    const inversionCounter = this.calcInversionInCurrentPuzzle(array) % 2 === 0;
-
-    if (!fieldCounts && inversionCounter) {
-      return true;
-    } else if (fieldCounts && positionEmptySquareFromBottom && !inversionCounter) {
-      return true;
-    } else if (fieldCounts && !positionEmptySquareFromBottom && inversionCounter) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  private calcPositionEmptySquareFromBottom(array: Array<Array<number>>): number {
-    let currentPosition = 0;
-
-    for (let i = 0; i < array.length; i++) {
-      if (array[i].includes(0)) {
-        currentPosition = i;
-        break;
-      }
-      continue;
-    }
-
-    return this.size - currentPosition;
-  }
-
-  private calcInversionInCurrentPuzzle(array: Array<Array<number>>): number {
-    const singleLevelArray = array.flat();
-
-    const inversionCounter = singleLevelArray.reduce((acc, el, i, arr): number => {
-      for (let g = 0; g < arr.indexOf(el); g++) {
-        if (arr[g] > el && el !== 0) {
-          acc++;
-        }
-      }
-      return acc;
-    }, 0);
-
-    return inversionCounter;
   }
 }

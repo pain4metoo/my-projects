@@ -8,5 +8,6 @@ interface GameSettings {
 }
 
 export enum StateOptions {
-  setMove = 'set-move'
+  setMove = 'set-move',
+  changeSize = 'change-size'
 }

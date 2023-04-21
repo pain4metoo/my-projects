@@ -20,6 +20,15 @@ class State {
     this._data.gameSettings.currentField = arr;
     state.onUpdate.emit(StateOptions.setMove);
   }
+
+  public setFrameSize(size: number): void {
+    this._data.gameSettings.frameSize = size;
+    state.onUpdate.emit(StateOptions.changeSize);
+  }
+
+  public getFrameSize(): number {
+    return this._data.gameSettings.frameSize;
+  }
 }
 
 const initialState: StateData = {

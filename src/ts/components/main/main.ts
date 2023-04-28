@@ -18,10 +18,9 @@ export class Main extends Control {
 
     state.onUpdate.add((type: StateOptions) => {
       switch (type) {
-        case StateOptions.changeSize:
+        case StateOptions.newGame:
           this.destroyGameCycle();
           this.createGameCycle();
-          break;
       }
     });
   }

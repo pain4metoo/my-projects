@@ -47,6 +47,9 @@
   &_square_empty {
     border: none;
     cursor: auto;
+    outline: none;
+    user-select: none;
+    z-index: -1;
     &:hover {
       border: none;
     }

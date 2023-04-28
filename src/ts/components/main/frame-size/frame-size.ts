@@ -28,5 +28,6 @@ export class FrameSize extends Control {
 
   private setNewFrameSize(size: number): void {
     state.setFrameSize(size);
+    state.setNewGame();
   }
 }

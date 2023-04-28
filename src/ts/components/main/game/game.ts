@@ -140,5 +140,7 @@ export class Game extends Control {
     }
 
     state.setMove(currentGameField);
+    state.setMoveCounter();
+    state.setStartGame();
   }
 }

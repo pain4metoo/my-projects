@@ -13,6 +13,7 @@ interface AvailableMovesFromEmptySquare {
 }
 
 export class Game extends Control {
+  private finishResult: Array<number> = [];
   private gameSquareHTML: Array<HTMLElement> = [];
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'main_game');
@@ -60,6 +61,12 @@ export class Game extends Control {
       square.node.onclick = (): void => this.makeMove(Number(square.node.textContent));
     }
 
+    const makeFinishResult: Array<number> = currentPuzzle
+      .flat()
+      .sort((a, b) => a - b)
+      .filter((el) => el !== 0); // find number 0 and delete him from array;
+    makeFinishResult.push(0); // add number 0 in the last index;
+    this.finishResult = makeFinishResult;
     state.setGameField(currentPuzzle);
   }
 
@@ -142,5 +149,24 @@ export class Game extends Control {
     state.setMove(currentGameField);
     state.setMoveCounter();
     state.setStartGame();
+
+    if (this.isWin()) {
+      this.showResult();
+    }
+  }
+
+  private isWin(): boolean {
+    const currentGameField: Array<number> = state.getGameField().flat();
+    for (let i = 0; i < currentGameField.length; i++) {
+      if (this.finishResult[i] !== currentGameField[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private showResult(): void {
+    state.setStopGame();
+    console.log('You win!');
   }
 }

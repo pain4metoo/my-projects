@@ -31,6 +31,7 @@ class State {
 
   public setFrameSize(size: number): void {
     this._data.gameSettings.frameSize = size;
+    state.onUpdate.emit(StateOptions.changeSize);
   }
 
   public getFrameSize(): number {

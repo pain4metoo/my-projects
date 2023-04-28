@@ -15,7 +15,7 @@ interface AvailableMovesFromEmptySquare {
 export class Game extends Control {
   private gameSquareHTML: Array<HTMLElement> = [];
   constructor(parentNode: HTMLElement) {
-    super(parentNode, 'section', 'main_game');
+    super(parentNode, 'div', 'main_game');
     const gameContainer = new Control(this.node, 'div', 'main_game_container');
 
     this.generateGameField(gameContainer.node);

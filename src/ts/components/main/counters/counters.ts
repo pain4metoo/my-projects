@@ -1,4 +1,5 @@
 import Control from '../../../common/control';
+import { state } from '../../../common/state';
 
 import './counter.scss';
 import { Moves } from './moves';

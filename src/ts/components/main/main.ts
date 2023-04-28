@@ -7,36 +7,21 @@ import { Game } from './game/game';
 import './main.scss';
 
 export class Main extends Control {
-  private gameCycle?: Game;
-  private counter?: Counter;
-  private frameSize?: FrameSize;
-
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'main', 'main');
+    const sectionCounter = new Counter(this.node);
 
-    this.createGameCycle();
+    const sectionGameContainer = new Control(this.node, 'section', 'main_game_section');
+    let sectionGame = new Game(sectionGameContainer.node);
+
+    const sectionFrameSize = new FrameSize(this.node);
 
     state.onUpdate.add((type: StateOptions) => {
       switch (type) {
         case StateOptions.newGame:
-          this.destroyGameCycle();
-          this.createGameCycle();
+          sectionGame.destroy();
+          sectionGame = new Game(sectionGameContainer.node);
       }
     });
-  }
-
-  private createGameCycle(): void {
-    const sectionCounter = new Counter(this.node);
-    this.counter = sectionCounter;
-    const sectionGame = new Game(this.node);
-    this.gameCycle = sectionGame;
-    const sectionFrameSize = new FrameSize(this.node);
-    this.frameSize = sectionFrameSize;
-  }
-
-  private destroyGameCycle(): void {
-    this.gameCycle?.destroy();
-    this.counter?.destroy();
-    this.frameSize?.destroy();
   }
 }

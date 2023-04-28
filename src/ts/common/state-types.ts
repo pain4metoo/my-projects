@@ -15,5 +15,6 @@ export enum StateOptions {
   setMove = 'set-move',
   moveCounter = 'move-counter',
   stopGame = 'stop-game',
-  startGame = 'start-game'
+  startGame = 'start-game',
+  changeSize = 'change-size'
 }

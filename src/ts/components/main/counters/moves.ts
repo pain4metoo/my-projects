@@ -15,6 +15,8 @@ export class Moves extends Control {
         case StateOptions.moveCounter:
           this.makeMove(movesBlockNumber.node);
           break;
+        case StateOptions.newGame:
+          movesBlockNumber.node.textContent = '0';
       }
     });
   }

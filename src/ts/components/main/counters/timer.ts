@@ -3,7 +3,7 @@ import { state } from '../../../common/state';
 import { StateOptions } from '../../../common/state-types';
 
 export class Timer extends Control {
-  private currentTimer!: number;
+  public currentTimer!: number;
   private timeNodeHtml: HTMLElement;
   private sec = 0;
   private min = 0;
@@ -25,8 +25,19 @@ export class Timer extends Control {
         case StateOptions.stopGame:
           this.stopTimer(state.getStopStartGame(), state.getToggleTimer());
           break;
+        case StateOptions.newGame:
+          timeBlockNumber.node.textContent = '00:00:00';
+          this.newGame();
+          break;
       }
     });
+  }
+
+  private newGame(): void {
+    this.sec = 0;
+    this.min = 0;
+    this.hour = 0;
+    clearInterval(this.currentTimer);
   }
 
   private setTimer(stopStartGame?: boolean, toggleTimer?: boolean): void {
@@ -47,7 +58,6 @@ export class Timer extends Control {
   }
 
   private newTimer(): void {
-    console.log(this.timeNodeHtml.textContent);
     this.sec++;
     if (this.sec >= 60) {
       this.min++;

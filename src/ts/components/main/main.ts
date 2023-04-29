@@ -9,6 +9,7 @@ import './main.scss';
 export class Main extends Control {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'main', 'main');
+
     const sectionCounter = new Counter(this.node);
 
     const sectionGameContainer = new Control(this.node, 'section', 'main_game_section');

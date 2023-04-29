@@ -13,6 +13,7 @@ class State {
     this._data.gameSettings.moveCounter = 0;
     this._data.gameSettings.isTimeRunning = false;
     this._data.gameSettings.isStartGame = false;
+    this._data.gameSettings.isWin = false;
     state.onUpdate.emit(StateOptions.newGame);
   }
 
@@ -72,6 +73,29 @@ class State {
   public getStopStartGame(): boolean {
     return this._data.gameSettings.isStartGame;
   }
+
+  public setShowPopup(): void {
+    this._data.gameSettings.isPopupShow = true;
+    state.onUpdate.emit(StateOptions.showPopup);
+  }
+
+  public setDeletePopup(): void {
+    this._data.gameSettings.isPopupShow = false;
+    state.onUpdate.emit(StateOptions.deletePopup);
+  }
+
+  public getPopupState(): boolean {
+    return this._data.gameSettings.isPopupShow;
+  }
+
+  public setWinGame(flag: boolean): void {
+    this._data.gameSettings.isWin = flag;
+    state.onUpdate.emit(StateOptions.winGame);
+  }
+
+  public getIsWinGame(): boolean {
+    return this._data.gameSettings.isWin;
+  }
 }
 
 const initialState: StateData = {
@@ -80,7 +104,9 @@ const initialState: StateData = {
     currentField: [],
     moveCounter: 0,
     isStartGame: false,
-    isTimeRunning: false
+    isTimeRunning: false,
+    isPopupShow: false,
+    isWin: false
   }
 };
 

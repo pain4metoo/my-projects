@@ -8,6 +8,8 @@ interface GameSettings {
   moveCounter: number;
   isStartGame: boolean;
   isTimeRunning: boolean;
+  isPopupShow: boolean;
+  isWin: boolean;
 }
 
 export enum StateOptions {
@@ -16,5 +18,8 @@ export enum StateOptions {
   moveCounter = 'move-counter',
   stopGame = 'stop-game',
   startGame = 'start-game',
-  changeSize = 'change-size'
+  changeSize = 'change-size',
+  showPopup = 'show-popup',
+  deletePopup = 'delete-popup',
+  winGame = 'win-game'
 }

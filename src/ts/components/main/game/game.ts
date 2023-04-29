@@ -26,6 +26,13 @@ export class Game extends Control {
         case StateOptions.setMove:
           this.newFieldAfterMove(state.getGameField().flat());
           break;
+        case StateOptions.winGame:
+          if (state.getIsWinGame()) {
+            this.node.classList.add('main_game_over');
+          } else {
+            this.node.classList.remove('main_game_over');
+          }
+          break;
       }
     });
   }
@@ -71,6 +78,10 @@ export class Game extends Control {
   }
 
   private makeMove(numberTarget: number): void {
+    if (state.getPopupState()) {
+      // <---- it mean that game is over
+      return;
+    }
     const currentGameField: Array<Array<number>> = state.getGameField();
 
     // index 0 it's X axes; index 1 it's Y axes; index 2 it's value on this coordinate
@@ -113,6 +124,7 @@ export class Game extends Control {
           currentGameField[availableMoves.emptySquare[0]][availableMoves.emptySquare[1]],
           currentGameField[availableMoves.axisXLeft[0]][availableMoves.axisXLeft[1]]
         ];
+        this.setMoveInState(currentGameField);
         break;
       case availableMoves.axisXRight[2]:
         [
@@ -122,6 +134,7 @@ export class Game extends Control {
           currentGameField[availableMoves.emptySquare[0]][availableMoves.emptySquare[1]],
           currentGameField[availableMoves.axisXRight[0]][availableMoves.axisXRight[1]]
         ];
+        this.setMoveInState(currentGameField);
         break;
       case availableMoves.axisYBottom[2]:
         [
@@ -131,6 +144,7 @@ export class Game extends Control {
           currentGameField[availableMoves.emptySquare[0]][availableMoves.emptySquare[1]],
           currentGameField[availableMoves.axisYBottom[0]][availableMoves.axisYBottom[1]]
         ];
+        this.setMoveInState(currentGameField);
         break;
       case availableMoves.axisYTop[2]:
         [
@@ -140,17 +154,20 @@ export class Game extends Control {
           currentGameField[availableMoves.emptySquare[0]][availableMoves.emptySquare[1]],
           currentGameField[availableMoves.axisYTop[0]][availableMoves.axisYTop[1]]
         ];
+        this.setMoveInState(currentGameField);
         break;
 
       default:
         break;
     }
+  }
 
+  private setMoveInState(currentGameField: Array<Array<number>>): void {
     state.setMove(currentGameField);
     state.setMoveCounter();
     state.setStartGame();
 
-    if (this.isWin()) {
+    if (!this.isWin()) {
       this.showResult();
     }
   }
@@ -167,6 +184,7 @@ export class Game extends Control {
 
   private showResult(): void {
     state.setStopGame();
-    console.log('You win!');
+    state.setShowPopup();
+    state.setWinGame(true);
   }
 }

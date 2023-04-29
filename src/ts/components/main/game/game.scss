@@ -2,6 +2,13 @@
   width: 100%;
   max-width: 60rem;
   margin: 0 auto;
+  &_over {
+    position: relative;
+    background: rgba(0, 0, 0, 0.4);
+    user-select: none;
+    border-radius: 1rem;
+    pointer-events: none;
+  }
   &_container {
     display: grid;
     width: 100%;

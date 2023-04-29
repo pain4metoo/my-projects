@@ -22,5 +22,7 @@ export enum StateOptions {
   changeSize = 'change-size',
   showPopup = 'show-popup',
   deletePopup = 'delete-popup',
-  winGame = 'win-game'
+  winGame = 'win-game',
+  resultsPopup = 'result-popup',
+  resultsPopupDestroy = 'result-popup-destroy'
 }

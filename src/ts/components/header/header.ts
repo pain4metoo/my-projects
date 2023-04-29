@@ -7,12 +7,11 @@ enum NavItem {
   Restart = 'Restart',
   Stop = 'Stop',
   Start = 'Start',
-  Save = 'Save',
   Results = 'Results'
 }
 
 export class Header extends Control {
-  private navItems: Array<string> = ['Restart', 'Stop', 'Save', 'Results'];
+  private navItems: Array<string> = ['Restart', 'Stop', 'Results'];
   private navItemsHtmlElements: Array<HTMLLinkElement> = [];
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'header', 'header');
@@ -31,7 +30,9 @@ export class Header extends Control {
           break;
         case NavItem.Stop:
           navItem.node.onclick = (): void => state.setStopGame();
-
+          break;
+        case NavItem.Results:
+          navItem.node.onclick = (): void => state.setResultPopup();
           break;
       }
     });

@@ -110,6 +110,11 @@ class State {
   public getResult(): { moves: number; time: string } {
     return this._data.gameSettings.result;
   }
+
+  public setResultPopup(): void {
+    state.onUpdate.emit(StateOptions.showPopup);
+    state.onUpdate.emit(StateOptions.resultsPopup);
+  }
 }
 
 const initialState: StateData = {

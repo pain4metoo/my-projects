@@ -25,6 +25,10 @@ export class Popup extends Control {
           popupResultMoves.node.textContent = `Total moves: ${state.getResult().moves}`;
           popupResultTime.node.textContent = `Time: ${state.getResult().time}`;
           break;
+
+        case StateOptions.resultsPopup:
+          popupTitle.node.textContent = 'Results';
+          break;
       }
     });
   }

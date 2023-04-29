@@ -167,7 +167,7 @@ export class Game extends Control {
     state.setMoveCounter();
     state.setStartGame();
 
-    if (!this.isWin()) {
+    if (this.isWin()) {
       this.showResult();
     }
   }

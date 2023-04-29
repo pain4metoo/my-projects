@@ -14,6 +14,8 @@ class State {
     this._data.gameSettings.isTimeRunning = false;
     this._data.gameSettings.isStartGame = false;
     this._data.gameSettings.isWin = false;
+    this._data.gameSettings.result.moves = 0;
+    this._data.gameSettings.result.time = '00:00:00';
     state.onUpdate.emit(StateOptions.newGame);
   }
 
@@ -96,6 +98,18 @@ class State {
   public getIsWinGame(): boolean {
     return this._data.gameSettings.isWin;
   }
+
+  public setResultMoves(moves: number): void {
+    this._data.gameSettings.result.moves = moves;
+  }
+
+  public setResultTime(time: string): void {
+    this._data.gameSettings.result.time = time;
+  }
+
+  public getResult(): { moves: number; time: string } {
+    return this._data.gameSettings.result;
+  }
 }
 
 const initialState: StateData = {
@@ -106,7 +120,11 @@ const initialState: StateData = {
     isStartGame: false,
     isTimeRunning: false,
     isPopupShow: false,
-    isWin: false
+    isWin: false,
+    result: {
+      moves: 0,
+      time: '00:00:00'
+    }
   }
 };
 

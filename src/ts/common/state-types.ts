@@ -10,6 +10,7 @@ interface GameSettings {
   isTimeRunning: boolean;
   isPopupShow: boolean;
   isWin: boolean;
+  result: { moves: number; time: string };
 }
 
 export enum StateOptions {

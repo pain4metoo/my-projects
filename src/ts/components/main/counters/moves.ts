@@ -6,7 +6,7 @@ export class Moves extends Control {
   constructor(parentNode: HTMLElement) {
     super(parentNode);
 
-    const movesBlock = new Control(this.node, 'div', 'main_counters_moves', '');
+    const movesBlock = new Control(this.node, 'div', 'main_counters_moves');
     const movesBlockText = new Control(movesBlock.node, 'p', 'main_counters_text', 'Moves: ');
     const movesBlockNumber = new Control(movesBlock.node, 'p', 'main_counters_number', '0');
 
@@ -17,6 +17,10 @@ export class Moves extends Control {
           break;
         case StateOptions.newGame:
           movesBlockNumber.node.textContent = '0';
+          break;
+        case StateOptions.winGame:
+          state.setResultMoves(Number(movesBlockNumber.node.textContent));
+          break;
       }
     });
   }

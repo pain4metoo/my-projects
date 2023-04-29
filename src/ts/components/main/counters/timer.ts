@@ -29,6 +29,11 @@ export class Timer extends Control {
           timeBlockNumber.node.textContent = '00:00:00';
           this.newGame();
           break;
+        case StateOptions.winGame:
+          if (timeBlockNumber.node.textContent) {
+            state.setResultTime(timeBlockNumber.node.textContent);
+          }
+          break;
       }
     });
   }

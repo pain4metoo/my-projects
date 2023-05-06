@@ -28,6 +28,7 @@ export class Popup extends Control {
 
         case StateOptions.resultsPopup:
           popupTitle.node.textContent = 'Results';
+          popupBtnNewGame.node.hidden = true;
           break;
       }
     });

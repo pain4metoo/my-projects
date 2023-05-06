@@ -10,6 +10,8 @@ export class FrameSize extends Control {
     super(parentNode, 'section', 'main_frame');
     const currentSize = state.getFrameSize();
 
+    const btnCollectPuzzle = new Control(this.node, 'button', 'main_frame_btn', 'Collect puzzle');
+    btnCollectPuzzle.node.onclick = (): void => state.setCollectPuzzle();
     const currentSizeBlock = new Control(this.node, 'div', 'main_frame_block');
     const sizeText = new Control(currentSizeBlock.node, 'p', 'main_frame_text', 'Frame size: ');
     const sizeValue = new Control(currentSizeBlock.node, 'p', 'main_frame_size', `${currentSize}x${currentSize}`);

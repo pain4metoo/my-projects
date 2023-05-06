@@ -115,6 +115,10 @@ class State {
     state.onUpdate.emit(StateOptions.showPopup);
     state.onUpdate.emit(StateOptions.resultsPopup);
   }
+
+  public setCollectPuzzle(): void {
+    state.onUpdate.emit(StateOptions.collectPuzzle);
+  }
 }
 
 const initialState: StateData = {

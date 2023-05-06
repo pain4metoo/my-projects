@@ -5,26 +5,30 @@ import './game.scss';
 import { StateOptions } from '../../../common/state-types';
 
 interface AvailableMovesFromEmptySquare {
-  emptySquare: Array<number>;
   axisXLeft: Array<number>;
   axisXRight: Array<number>;
   axisYTop: Array<number>;
   axisYBottom: Array<number>;
+  emptySquare: Array<number>;
 }
 
 export class Game extends Control {
   private finishResult: Array<number> = [];
   private gameSquareHTML: Array<HTMLElement> = [];
+  private gameContainer: HTMLElement;
+  private movesMade: Array<Array<number>> = [];
+
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'main_game');
     const gameContainer = new Control(this.node, 'div', 'main_game_container');
+    this.gameContainer = gameContainer.node;
 
-    this.generateGameField(gameContainer.node);
+    this.createGame();
 
     state.onUpdate.add((type: StateOptions) => {
       switch (type) {
         case StateOptions.setMove:
-          this.newFieldAfterMove(state.getGameField().flat());
+          // this.newFieldAfterMove(state.getGameField().flat());
           break;
         case StateOptions.winGame:
           if (state.getIsWinGame()) {
@@ -33,81 +37,133 @@ export class Game extends Control {
             this.node.classList.remove('main_game_over');
           }
           break;
+        case StateOptions.collectPuzzle:
+          this.collectPazzle();
+          break;
       }
     });
   }
 
-  private newFieldAfterMove(newGameField: Array<number>): void {
-    this.gameSquareHTML.forEach((el, i): void => {
-      if (newGameField[i] === 0) {
-        el.textContent = ``;
-        el.classList.add('main_game_square_empty');
-      } else {
-        el.textContent = `${newGameField[i]}`;
-        el.classList.remove('main_game_square_empty');
+  private collectPazzle(): void {
+    const handle = setInterval((): void => {
+      const positionOfZero: Array<number> = this.availableMoves(state.getGameField()).emptySquare;
+      this.makeMove(state.getGameField(), this.movesMade[this.movesMade.length - 1], positionOfZero, true);
+
+      this.movesMade.length--;
+
+      if (this.movesMade.length === 0) {
+        clearInterval(handle); // stops intervals
       }
-    });
+    }, 10);
   }
 
-  private generateGameField(gameContainer: HTMLElement): void {
-    const currentPuzzle: Array<Array<number>> = GenerateGameField.generateRandomGameNumber();
-    const singleLevelArray = currentPuzzle.flat();
+  private createGame(): void {
+    this.generateMatrix(state.getFrameSize());
+    this.createElementsHTML();
+    this.shuffleCycle();
+  }
+
+  private shuffleCycle(): void {
+    let counter = 0;
+    const maxShuffle = 300;
+    const handle = setInterval((): void => {
+      this.singleStrokeCycle();
+      counter++;
+
+      if (counter === maxShuffle) {
+        clearInterval(handle); // stops intervals
+      }
+    }, 1);
+  }
+
+  private singleStrokeCycle(): void {
+    const availableMovesObj: AvailableMovesFromEmptySquare = this.availableMoves(state.getGameField());
+    const randomMove = this.getRandomMove(availableMovesObj);
+    this.makeMove(state.getGameField(), randomMove, availableMovesObj.emptySquare, false);
+  }
+
+  private generateMatrix(size: number): Array<Array<number>> {
+    const numbersArray: Array<number> = [];
+    const maxNumber = Math.pow(size, 2);
+
+    for (let i = 0; i < maxNumber; i++) {
+      numbersArray.push(i);
+    }
+
+    const deleteZeroFromStart = numbersArray.splice(0, 1);
+    numbersArray[numbersArray.length] = deleteZeroFromStart[0]; // add zero to end of arr;
+
+    const matrix: Array<Array<number>> = [];
+
+    while (numbersArray.length) {
+      matrix.push(numbersArray.splice(0, size));
+    }
+
+    state.setGameField(matrix);
+
+    return matrix;
+  }
+
+  private createElementsHTML(): void {
     const currentGameSize = state.getFrameSize();
+    const currentGamePuzzle: Array<number> = state.getGameField().flat();
 
-    gameContainer.classList.add(`main_game_container_${currentGameSize}x${currentGameSize}`);
+    this.gameContainer.classList.add(`main_game_container_${currentGameSize}x${currentGameSize}`);
 
     for (let i = 0; i < currentGameSize * currentGameSize; i++) {
-      const square = new Control(gameContainer, 'div', 'main_game_square', `${singleLevelArray[i]}`);
+      const square = new Control(this.gameContainer, 'div', 'main_game_square', `${currentGamePuzzle[i]}`);
 
       this.gameSquareHTML.push(square.node);
-      if (singleLevelArray[i] === 0) {
+
+      if (currentGamePuzzle[i] === 0) {
         square.node.textContent = ``;
         square.node.classList.add('main_game_square_empty');
+      } else {
+        square.node.textContent = currentGamePuzzle[i].toString();
       }
-
-      square.node.onclick = (): void => this.makeMove(Number(square.node.textContent));
     }
-
-    const makeFinishResult: Array<number> = currentPuzzle
-      .flat()
-      .sort((a, b) => a - b)
-      .filter((el) => el !== 0); // find number 0 and delete him from array;
-    makeFinishResult.push(0); // add number 0 in the last index;
-    this.finishResult = makeFinishResult;
-    state.setGameField(currentPuzzle);
   }
 
-  private makeMove(numberTarget: number): void {
-    if (state.getPopupState()) {
-      // <---- it mean that game is over
-      return;
-    }
-    const currentGameField: Array<Array<number>> = state.getGameField();
+  private getRandomMove(availableMoves: AvailableMovesFromEmptySquare): Array<number> {
+    const objValuesFromAvalableMoves = Object.values(availableMoves);
+    const availableMovesArr = objValuesFromAvalableMoves.reduce((acc, el, i, arr): number => {
+      if (i !== arr.length - 1 && el.length > 0) {
+        // check the first 4 subarrays that they are not empty. We don't need the 5th subarray.
+        acc.push(el);
+      }
+      return acc;
+    }, []);
 
+    const randomNumberforMove = Math.ceil(Math.random() * availableMovesArr.length) - 1; // minus one to adjust the index
+
+    return availableMovesArr[randomNumberforMove];
+  }
+
+  private availableMoves(matrix: Array<Array<number>>): AvailableMovesFromEmptySquare {
     // index 0 it's X axes; index 1 it's Y axes; index 2 it's value on this coordinate
     const availableMoves: AvailableMovesFromEmptySquare = {
-      emptySquare: [],
       axisXLeft: [],
       axisXRight: [],
       axisYTop: [],
-      axisYBottom: []
+      axisYBottom: [],
+      emptySquare: []
     };
 
-    for (let i = 0; i < currentGameField.length; i++) {
-      for (let g = 0; g < currentGameField[i].length; g++) {
-        if (currentGameField[i][g] === 0) {
+    for (let i = 0; i < matrix.length; i++) {
+      for (let g = 0; g < matrix[i].length; g++) {
+        if (matrix[i][g] === 0) {
           availableMoves.emptySquare = [i, g];
-          if (currentGameField[i][g - 1]) {
-            availableMoves.axisXLeft = [i, g - 1, currentGameField[i][g - 1]];
+          if (matrix[i][g - 1]) {
+            availableMoves.axisXLeft = [i, g - 1, matrix[i][g - 1]];
           }
-          if (currentGameField[i][g + 1]) {
-            availableMoves.axisXRight = [i, g + 1, currentGameField[i][g + 1]];
+          if (matrix[i][g + 1]) {
+            availableMoves.axisXRight = [i, g + 1, matrix[i][g + 1]];
           }
-          if (currentGameField[i - 1] && currentGameField[i - 1][g]) {
-            availableMoves.axisYTop = [i - 1, g, currentGameField[i - 1][g]];
+          if (matrix[i - 1] && matrix[i - 1][g]) {
+            availableMoves.axisYTop = [i - 1, g, matrix[i - 1][g]];
           }
-          if (currentGameField[i + 1] && currentGameField[i + 1][g]) {
-            availableMoves.axisYBottom = [i + 1, g, currentGameField[i + 1][g]];
+          if (matrix[i + 1] && matrix[i + 1][g]) {
+            availableMoves.axisYBottom = [i + 1, g, matrix[i + 1][g]];
           }
           break;
         }
@@ -115,51 +171,46 @@ export class Game extends Control {
       }
     }
 
-    switch (numberTarget) {
-      case availableMoves.axisXLeft[2]:
-        [
-          currentGameField[availableMoves.axisXLeft[0]][availableMoves.axisXLeft[1]],
-          currentGameField[availableMoves.emptySquare[0]][availableMoves.emptySquare[1]]
-        ] = [
-          currentGameField[availableMoves.emptySquare[0]][availableMoves.emptySquare[1]],
-          currentGameField[availableMoves.axisXLeft[0]][availableMoves.axisXLeft[1]]
-        ];
-        this.setMoveInState(currentGameField);
-        break;
-      case availableMoves.axisXRight[2]:
-        [
-          currentGameField[availableMoves.axisXRight[0]][availableMoves.axisXRight[1]],
-          currentGameField[availableMoves.emptySquare[0]][availableMoves.emptySquare[1]]
-        ] = [
-          currentGameField[availableMoves.emptySquare[0]][availableMoves.emptySquare[1]],
-          currentGameField[availableMoves.axisXRight[0]][availableMoves.axisXRight[1]]
-        ];
-        this.setMoveInState(currentGameField);
-        break;
-      case availableMoves.axisYBottom[2]:
-        [
-          currentGameField[availableMoves.axisYBottom[0]][availableMoves.axisYBottom[1]],
-          currentGameField[availableMoves.emptySquare[0]][availableMoves.emptySquare[1]]
-        ] = [
-          currentGameField[availableMoves.emptySquare[0]][availableMoves.emptySquare[1]],
-          currentGameField[availableMoves.axisYBottom[0]][availableMoves.axisYBottom[1]]
-        ];
-        this.setMoveInState(currentGameField);
-        break;
-      case availableMoves.axisYTop[2]:
-        [
-          currentGameField[availableMoves.axisYTop[0]][availableMoves.axisYTop[1]],
-          currentGameField[availableMoves.emptySquare[0]][availableMoves.emptySquare[1]]
-        ] = [
-          currentGameField[availableMoves.emptySquare[0]][availableMoves.emptySquare[1]],
-          currentGameField[availableMoves.axisYTop[0]][availableMoves.axisYTop[1]]
-        ];
-        this.setMoveInState(currentGameField);
-        break;
+    return availableMoves;
+  }
 
-      default:
-        break;
+  private makeMove(
+    matrix: Array<Array<number>>,
+    move: Array<number>,
+    zeroPosition: Array<number>,
+    isCollectPuzzle?: boolean
+  ): Array<Array<number>> {
+    const matrixValuePos = matrix[move[0]][move[1]];
+    const matrixZeroPos = matrix[zeroPosition[0]][zeroPosition[1]];
+
+    matrix[move[0]][move[1]] = matrixZeroPos;
+    matrix[zeroPosition[0]][zeroPosition[1]] = matrixValuePos;
+
+    if (!isCollectPuzzle) {
+      console.log(move);
+      this.movesMade.push(move);
     }
+    console.log(this.movesMade);
+
+    state.setGameField(matrix);
+
+    this.shuffleElementsHTML();
+
+    return matrix;
+  }
+
+  private shuffleElementsHTML(): void {
+    const singleLevelMatrix = state.getGameField().flat();
+
+    this.gameSquareHTML.forEach((el, i) => {
+      if (singleLevelMatrix[i] === 0) {
+        el.textContent = ``;
+        el.classList.add('main_game_square_empty');
+      } else {
+        el.textContent = singleLevelMatrix[i].toString();
+        el.classList.remove('main_game_square_empty');
+      }
+    });
   }
 
   private setMoveInState(currentGameField: Array<Array<number>>): void {

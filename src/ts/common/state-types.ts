@@ -24,5 +24,6 @@ export enum StateOptions {
   deletePopup = 'delete-popup',
   winGame = 'win-game',
   resultsPopup = 'result-popup',
-  resultsPopupDestroy = 'result-popup-destroy'
+  resultsPopupDestroy = 'result-popup-destroy',
+  collectPuzzle = 'collect-puzzle'
 }

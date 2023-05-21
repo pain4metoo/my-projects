@@ -12,7 +12,7 @@ enum NavItem {
 
 export class Header extends Control {
   private navItems: Array<string> = ['Restart', 'Stop', 'Results'];
-  private navItemsHtmlElements: Array<HTMLLinkElement> = [];
+  private navItemsHtmlElements: Array<HTMLButtonElement> = [];
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'header', 'header');
     const nav = new Control(this.node, 'nav', 'header_nav');
@@ -20,9 +20,8 @@ export class Header extends Control {
 
     this.navItems.forEach((navLink: string) => {
       const navItem = new Control(navList.node, 'li', 'header_list_item');
-      const navItemLink: Control<HTMLLinkElement> = new Control(navItem.node, 'a', 'header_item_link', navLink);
+      const navItemLink: Control<HTMLButtonElement> = new Control(navItem.node, 'button', 'header_item_btn', navLink);
       this.navItemsHtmlElements.push(navItemLink.node);
-      navItemLink.node.href = '#';
 
       switch (navLink) {
         case NavItem.Restart:
@@ -35,6 +34,25 @@ export class Header extends Control {
           navItem.node.onclick = (): void => state.setResultPopup();
           break;
       }
+    });
+
+    state.onUpdate.add((type: StateOptions) => {
+      switch (type) {
+        case StateOptions.shuffleStart:
+          this.stateButtons(true);
+          break;
+        case StateOptions.shuffleStop:
+          this.stateButtons(false);
+          break;
+        default:
+          return;
+      }
+    });
+  }
+
+  private stateButtons(flag: boolean): void {
+    this.navItemsHtmlElements.forEach((el: HTMLButtonElement) => {
+      flag ? (el.disabled = true) : (el.disabled = false);
     });
   }
 }

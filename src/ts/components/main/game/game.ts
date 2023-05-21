@@ -1,6 +1,5 @@
 import Control from '../../../common/control';
 import { state } from '../../../common/state';
-import { GenerateGameField } from './generateField';
 import './game.scss';
 import { StateOptions } from '../../../common/state-types';
 
@@ -27,9 +26,13 @@ export class Game extends Control {
 
     state.onUpdate.add((type: StateOptions) => {
       switch (type) {
-        case StateOptions.setMove:
-          // this.newFieldAfterMove(state.getGameField().flat());
-          break;
+        // case StateOptions.setMove:
+        //   // this.newFieldAfterMove(state.getGameField().flat());
+        //   break;
+
+        // case StateOptions.newGame:
+        //   this.movesMade = [[3, 3, 0]]; // fix this
+        //   break;
         case StateOptions.winGame:
           if (state.getIsWinGame()) {
             this.node.classList.add('main_game_over');
@@ -44,45 +47,50 @@ export class Game extends Control {
     });
   }
 
-  private collectPazzle(): void {
-    const handle = setInterval((): void => {
-      const positionOfZero: Array<number> = this.availableMoves(state.getGameField()).emptySquare;
-      this.makeMove(state.getGameField(), this.movesMade[this.movesMade.length - 1], positionOfZero, true);
-
-      this.movesMade.length--;
-
-      if (this.movesMade.length === 0) {
-        clearInterval(handle); // stops intervals
-      }
-    }, 10);
-  }
-
   private createGame(): void {
     this.generateMatrix(state.getFrameSize());
     this.createElementsHTML();
+    state.shuffleStart();
     this.shuffleCycle();
+  }
+
+  private collectPazzle(): void {
+    state.shuffleStart();
+    const handle = setInterval((): void => {
+      const positionOfZero: Array<number> = this.availableMoves(state.getGameField()).emptySquare;
+
+      this.makeMove(state.getGameField(), this.movesMade.splice(-1)[0], positionOfZero, true);
+
+      if (this.movesMade.length === 0) {
+        state.shuffleStop();
+        state.collectBtnDisable();
+        clearInterval(handle); // stops intervals
+      }
+    }, 1);
   }
 
   private shuffleCycle(): void {
     let counter = 0;
     const maxShuffle = 300;
     const handle = setInterval((): void => {
+      if (counter === maxShuffle) {
+        state.shuffleStop();
+        clearInterval(handle); // stops intervals
+        return;
+      }
       this.singleStrokeCycle();
       counter++;
-
-      if (counter === maxShuffle) {
-        clearInterval(handle); // stops intervals
-      }
     }, 1);
   }
 
   private singleStrokeCycle(): void {
     const availableMovesObj: AvailableMovesFromEmptySquare = this.availableMoves(state.getGameField());
     const randomMove = this.getRandomMove(availableMovesObj);
-    this.makeMove(state.getGameField(), randomMove, availableMovesObj.emptySquare, false);
+    this.makeMove(state.getGameField(), randomMove, availableMovesObj.emptySquare, false); // false mean isCollectPuzzle
   }
 
-  private generateMatrix(size: number): Array<Array<number>> {
+  private generateMatrix(size: number): void {
+    this.movesMade = [];
     const numbersArray: Array<number> = [];
     const maxNumber = Math.pow(size, 2);
 
@@ -100,8 +108,20 @@ export class Game extends Control {
     }
 
     state.setGameField(matrix);
+    this.determineDefaultZeroPosition();
+  }
 
-    return matrix;
+  private determineDefaultZeroPosition(): void {
+    const currentMatrix = state.getGameField();
+
+    for (let i = 0; i < currentMatrix.length; i++) {
+      for (let g = 0; g < currentMatrix[i].length; g++) {
+        if (currentMatrix[i][g] === 0) {
+          this.movesMade.push([i, g, 0]);
+          return;
+        }
+      }
+    }
   }
 
   private createElementsHTML(): void {
@@ -178,19 +198,16 @@ export class Game extends Control {
     matrix: Array<Array<number>>,
     move: Array<number>,
     zeroPosition: Array<number>,
-    isCollectPuzzle?: boolean
+    isCollectPuzzle: boolean
   ): Array<Array<number>> {
     const matrixValuePos = matrix[move[0]][move[1]];
     const matrixZeroPos = matrix[zeroPosition[0]][zeroPosition[1]];
-
     matrix[move[0]][move[1]] = matrixZeroPos;
     matrix[zeroPosition[0]][zeroPosition[1]] = matrixValuePos;
 
     if (!isCollectPuzzle) {
-      console.log(move);
       this.movesMade.push(move);
     }
-    console.log(this.movesMade);
 
     state.setGameField(matrix);
 

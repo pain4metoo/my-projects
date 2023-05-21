@@ -119,6 +119,22 @@ class State {
   public setCollectPuzzle(): void {
     state.onUpdate.emit(StateOptions.collectPuzzle);
   }
+
+  public shuffleStart(): void {
+    state.onUpdate.emit(StateOptions.shuffleStart);
+  }
+
+  public shuffleStop(): void {
+    state.onUpdate.emit(StateOptions.shuffleStop);
+  }
+
+  public collectBtnEnable(): void {
+    state.onUpdate.emit(StateOptions.collectBtnOff);
+  }
+
+  public collectBtnDisable(): void {
+    state.onUpdate.emit(StateOptions.collectBtnOn);
+  }
 }
 
 const initialState: StateData = {

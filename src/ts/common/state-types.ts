@@ -25,5 +25,9 @@ export enum StateOptions {
   winGame = 'win-game',
   resultsPopup = 'result-popup',
   resultsPopupDestroy = 'result-popup-destroy',
-  collectPuzzle = 'collect-puzzle'
+  collectPuzzle = 'collect-puzzle',
+  shuffleStart = 'shuffle-start',
+  shuffleStop = 'shuffle-stop',
+  collectBtnOn = 'collect-btn-on',
+  collectBtnOff = 'collect-btn-off'
 }

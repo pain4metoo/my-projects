@@ -4,6 +4,7 @@ import { StateOptions } from '../../../common/state-types';
 import './popup.scss';
 
 export class Popup extends Control {
+  private popupListener: (type: StateOptions) => void;
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'main_popup');
     const popupInner = new Control(this.node, 'div', 'main_popup_inner');
@@ -19,7 +20,7 @@ export class Popup extends Control {
     const popupBtnNewGame = new Control(popupInner.node, 'button', 'main_popup_btn', 'new game');
     popupBtnNewGame.node.onclick = (): void => this.newGame();
 
-    state.onUpdate.add((type: StateOptions) => {
+    this.popupListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.winGame:
           popupResultMoves.node.textContent = `Total moves: ${state.getResult().moves}`;
@@ -30,8 +31,13 @@ export class Popup extends Control {
           popupTitle.node.textContent = 'Results';
           popupBtnNewGame.node.hidden = true;
           break;
+
+        default:
+          state.onUpdate.remove(this.popupListener);
       }
-    });
+    };
+
+    state.onUpdate.add(this.popupListener);
   }
 
   private popupClose(): void {

@@ -11,12 +11,26 @@ enum NavItem {
 }
 
 export class Header extends Control {
+  private headerListener: (type: StateOptions) => void;
   private navItems: Array<string> = ['Restart', 'Stop', 'Results'];
   private navItemsHtmlElements: Array<HTMLButtonElement> = [];
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'header', 'header');
     const nav = new Control(this.node, 'nav', 'header_nav');
     const navList = new Control(nav.node, 'ul', 'header_list');
+
+    this.headerListener = (type: StateOptions): void => {
+      switch (type) {
+        case StateOptions.shuffleStart:
+          this.stateButtons(true);
+          break;
+        case StateOptions.shuffleStop:
+          this.stateButtons(false);
+          break;
+        default:
+          return;
+      }
+    };
 
     this.navItems.forEach((navLink: string) => {
       const navItem = new Control(navList.node, 'li', 'header_list_item');
@@ -36,18 +50,7 @@ export class Header extends Control {
       }
     });
 
-    state.onUpdate.add((type: StateOptions) => {
-      switch (type) {
-        case StateOptions.shuffleStart:
-          this.stateButtons(true);
-          break;
-        case StateOptions.shuffleStop:
-          this.stateButtons(false);
-          break;
-        default:
-          return;
-      }
-    });
+    state.onUpdate.add(this.headerListener);
   }
 
   private stateButtons(flag: boolean): void {

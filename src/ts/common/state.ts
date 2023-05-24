@@ -10,6 +10,7 @@ class State {
 
   public setNewGame(): void {
     this._data.gameSettings.currentField = [];
+    this._data.gameSettings.movesMade = [];
     this._data.gameSettings.moveCounter = 0;
     this._data.gameSettings.isTimeRunning = false;
     this._data.gameSettings.isStartGame = false;
@@ -39,6 +40,14 @@ class State {
 
   public getFrameSize(): number {
     return this._data.gameSettings.frameSize;
+  }
+
+  public setNewMove(move: Array<number>): void {
+    this._data.gameSettings.movesMade.push(move);
+  }
+
+  public getAllMoves(): Array<Array<number>> {
+    return this._data.gameSettings.movesMade;
   }
 
   public setMoveCounter(): void {
@@ -141,6 +150,7 @@ const initialState: StateData = {
   gameSettings: {
     frameSize: 4,
     currentField: [],
+    movesMade: [],
     moveCounter: 0,
     isStartGame: false,
     isTimeRunning: false,

@@ -7,6 +7,7 @@ import { Main } from './main/main';
 import { Popup } from './main/popup/popup';
 
 export class App extends Control {
+  private appListener: (type: StateOptions) => void;
   private popupEL!: Popup;
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'wrapper');
@@ -14,7 +15,7 @@ export class App extends Control {
     const main = new Main(this.node);
     const footer = new Footer(this.node);
 
-    state.onUpdate.add((type: StateOptions) => {
+    this.appListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.showPopup:
           this.popupEL = new Popup(parentNode);
@@ -23,6 +24,8 @@ export class App extends Control {
           this.popupEL.destroy();
           break;
       }
-    });
+    };
+
+    state.onUpdate.add(this.appListener);
   }
 }

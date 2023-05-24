@@ -5,6 +5,7 @@ export interface StateData {
 interface GameSettings {
   frameSize: number;
   currentField: Array<Array<number>>;
+  movesMade: Array<Array<number>>;
   moveCounter: number;
   isStartGame: boolean;
   isTimeRunning: boolean;

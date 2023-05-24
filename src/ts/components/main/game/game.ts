@@ -12,10 +12,10 @@ interface AvailableMovesFromEmptySquare {
 }
 
 export class Game extends Control {
+  private gameListener: (type: StateOptions) => void;
   private finishResult: Array<number> = [];
   private gameSquareHTML: Array<HTMLElement> = [];
   private gameContainer: HTMLElement;
-  private movesMade: Array<Array<number>> = [];
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'main_game');
@@ -24,15 +24,14 @@ export class Game extends Control {
 
     this.createGame();
 
-    state.onUpdate.add((type: StateOptions) => {
+    this.gameListener = (type: StateOptions): void => {
       switch (type) {
         // case StateOptions.setMove:
         //   // this.newFieldAfterMove(state.getGameField().flat());
         //   break;
-
-        // case StateOptions.newGame:
-        //   this.movesMade = [[3, 3, 0]]; // fix this
-        //   break;
+        case StateOptions.newGame:
+          state.onUpdate.remove(this.gameListener);
+          break;
         case StateOptions.winGame:
           if (state.getIsWinGame()) {
             this.node.classList.add('main_game_over');
@@ -44,13 +43,14 @@ export class Game extends Control {
           this.collectPazzle();
           break;
       }
-    });
+    };
+
+    state.onUpdate.add(this.gameListener);
   }
 
   private createGame(): void {
     this.generateMatrix(state.getFrameSize());
     this.createElementsHTML();
-    state.shuffleStart();
     this.shuffleCycle();
   }
 
@@ -58,10 +58,11 @@ export class Game extends Control {
     state.shuffleStart();
     const handle = setInterval((): void => {
       const positionOfZero: Array<number> = this.availableMoves(state.getGameField()).emptySquare;
+      const spliceLastMove = state.getAllMoves().splice(-1)[0];
 
-      this.makeMove(state.getGameField(), this.movesMade.splice(-1)[0], positionOfZero, true);
+      this.makeMove(state.getGameField(), spliceLastMove, positionOfZero, true);
 
-      if (this.movesMade.length === 0) {
+      if (state.getAllMoves().length === 0) {
         state.shuffleStop();
         state.collectBtnDisable();
         clearInterval(handle); // stops intervals
@@ -70,16 +71,18 @@ export class Game extends Control {
   }
 
   private shuffleCycle(): void {
+    state.shuffleStart();
     let counter = 0;
-    const maxShuffle = 300;
+    const maxShuffle = 20;
     const handle = setInterval((): void => {
       if (counter === maxShuffle) {
-        state.shuffleStop();
         clearInterval(handle); // stops intervals
-        return;
+        state.shuffleStop();
+        console.log(state.getAllMoves());
+      } else {
+        counter++;
+        this.singleStrokeCycle();
       }
-      this.singleStrokeCycle();
-      counter++;
     }, 1);
   }
 
@@ -90,7 +93,6 @@ export class Game extends Control {
   }
 
   private generateMatrix(size: number): void {
-    this.movesMade = [];
     const numbersArray: Array<number> = [];
     const maxNumber = Math.pow(size, 2);
 
@@ -117,7 +119,7 @@ export class Game extends Control {
     for (let i = 0; i < currentMatrix.length; i++) {
       for (let g = 0; g < currentMatrix[i].length; g++) {
         if (currentMatrix[i][g] === 0) {
-          this.movesMade.push([i, g, 0]);
+          state.setNewMove([i, g, 0]);
           return;
         }
       }
@@ -139,7 +141,7 @@ export class Game extends Control {
         square.node.textContent = ``;
         square.node.classList.add('main_game_square_empty');
       } else {
-        square.node.textContent = currentGamePuzzle[i].toString();
+        square.node.textContent = String(currentGamePuzzle[i]);
       }
     }
   }
@@ -202,11 +204,12 @@ export class Game extends Control {
   ): Array<Array<number>> {
     const matrixValuePos = matrix[move[0]][move[1]];
     const matrixZeroPos = matrix[zeroPosition[0]][zeroPosition[1]];
+
     matrix[move[0]][move[1]] = matrixZeroPos;
     matrix[zeroPosition[0]][zeroPosition[1]] = matrixValuePos;
 
     if (!isCollectPuzzle) {
-      this.movesMade.push(move);
+      state.getAllMoves().push(move);
     }
 
     state.setGameField(matrix);
@@ -224,7 +227,7 @@ export class Game extends Control {
         el.textContent = ``;
         el.classList.add('main_game_square_empty');
       } else {
-        el.textContent = singleLevelMatrix[i].toString();
+        el.textContent = String(singleLevelMatrix[i]);
         el.classList.remove('main_game_square_empty');
       }
     });

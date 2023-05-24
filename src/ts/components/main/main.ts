@@ -7,6 +7,7 @@ import { Game } from './game/game';
 import './main.scss';
 
 export class Main extends Control {
+  private mainListener: (type: StateOptions) => void;
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'main', 'main');
 
@@ -17,12 +18,15 @@ export class Main extends Control {
 
     const sectionFrameSize = new FrameSize(this.node);
 
-    state.onUpdate.add((type: StateOptions) => {
+    this.mainListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.newGame:
           sectionGame.destroy();
           sectionGame = new Game(sectionGameContainer.node);
+          break;
       }
-    });
+    };
+
+    state.onUpdate.add(this.mainListener);
   }
 }

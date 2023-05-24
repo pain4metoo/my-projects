@@ -73,16 +73,15 @@ export class Game extends Control {
   private shuffleCycle(): void {
     state.shuffleStart();
     let counter = 0;
-    const maxShuffle = 20;
+    const maxShuffle = 300;
     const handle = setInterval((): void => {
+      this.singleStrokeCycle();
+
       if (counter === maxShuffle) {
         clearInterval(handle); // stops intervals
         state.shuffleStop();
-        console.log(state.getAllMoves());
-      } else {
-        counter++;
-        this.singleStrokeCycle();
       }
+      counter++;
     }, 1);
   }
 
@@ -157,6 +156,13 @@ export class Game extends Control {
     }, []);
 
     const randomNumberforMove = Math.ceil(Math.random() * availableMovesArr.length) - 1; // minus one to adjust the index
+    const lastMoveMade = state.getAllMoves()[state.getAllMoves().length - 1][2]; // look at the value at 2 array index
+
+    if (lastMoveMade === availableMovesArr[randomNumberforMove][2]) {
+      const filterAvailableMoves = availableMovesArr.filter((el: Array<number>) => el[2] !== lastMoveMade); // We remove the last similar move
+
+      return filterAvailableMoves[Math.ceil(Math.random() * filterAvailableMoves.length - 1)]; // choose a random one from the remaining
+    }
 
     return availableMovesArr[randomNumberforMove];
   }
@@ -187,7 +193,6 @@ export class Game extends Control {
           if (matrix[i + 1] && matrix[i + 1][g]) {
             availableMoves.axisYBottom = [i + 1, g, matrix[i + 1][g]];
           }
-          break;
         }
         continue;
       }

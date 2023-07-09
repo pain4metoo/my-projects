@@ -33,5 +33,7 @@ export enum StateOptions {
   closePopup = 'close-popup',
   collectStartTimer = 'collect-start-timer',
   collectStopTimer = 'collect-stop-timer',
-  setCollectMoves = 'collect-moves'
+  setCollectMoves = 'collect-moves',
+  stopBtnEnable = 'stop-btn-enable',
+  stopBtnDisable = 'stop btn-disable'
 }

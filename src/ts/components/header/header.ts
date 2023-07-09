@@ -27,6 +27,12 @@ export class Header extends Control {
         case StateOptions.shuffleStop:
           this.stateButtons(false);
           break;
+        case StateOptions.stopBtnDisable:
+          this.stateStopBtn(true);
+          break;
+        case StateOptions.stopBtnEnable:
+          this.stateStopBtn(false);
+          break;
         default:
           return;
       }
@@ -62,5 +68,10 @@ export class Header extends Control {
     this.navItemsHtmlElements.forEach((el: HTMLButtonElement) => {
       flag ? (el.disabled = true) : (el.disabled = false);
     });
+    this.navItemsHtmlElements[1].disabled = true; // default value for stop btn;
+  }
+
+  private stateStopBtn(flag: boolean): void {
+    flag ? (this.navItemsHtmlElements[1].disabled = true) : (this.navItemsHtmlElements[1].disabled = false); // change stopBtn
   }
 }

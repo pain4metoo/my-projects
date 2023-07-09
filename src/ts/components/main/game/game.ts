@@ -56,6 +56,7 @@ export class Game extends Control {
 
   private collectPazzle(): void {
     state.shuffleStart();
+    state.setStartGame();
     const handle = setInterval((): void => {
       const positionOfZero: Array<number> = this.availableMoves(state.getGameField()).emptySquare;
       const spliceLastMove = state.getAllMoves().splice(-1)[0];
@@ -77,7 +78,6 @@ export class Game extends Control {
     state.startCollectTimer();
     let counter = 0;
     const maxShuffle = this.getRandomShuffleCount();
-    console.log(maxShuffle);
     const handle = setInterval((): void => {
       this.singleStrokeCycle();
 

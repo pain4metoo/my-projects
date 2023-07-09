@@ -18,6 +18,9 @@ export class Popups extends Control {
     const popupsInner = new Control(this.node, 'div', 'popups_inner');
     const closeBtn = new Control(popupsInner.node, 'button', 'popups_close_btn');
 
+    const newGameBtn = new Control(popupsInner.node, 'button', 'popups_new_btn', 'Restart');
+    newGameBtn.node.onclick = (): void => this.onNewGameBtn();
+
     closeBtn.node.onclick = (): void => this.onDeletePopup();
 
     this.popupsListener = (type: StateOptions): void => {
@@ -35,6 +38,11 @@ export class Popups extends Control {
     };
 
     state.onUpdate.add(this.popupsListener);
+  }
+
+  private onNewGameBtn(): void {
+    state.setNewGame();
+    this.onDeletePopup();
   }
 
   private onDeletePopup(): void {

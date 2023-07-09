@@ -6,13 +6,16 @@
   top: 0;
   background: rgba(0, 0, 0, 0.9);
   &_inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: absolute;
     left: 50%;
     top: 44%;
     transform: translate(-50%, -50%);
     border: 1px solid red;
     width: 70%;
-    height: 50%;
+    height: 35%;
     border-radius: 2rem;
     padding: 1rem;
   }
@@ -31,5 +34,14 @@
       border: 1px solid sandybrown;
       border-radius: 1rem;
     }
+  }
+  &_new_btn {
+    height: 4rem;
+    position: absolute;
+    bottom: 0rem;
+    width: 100%;
+    cursor: pointer;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
   }
 }

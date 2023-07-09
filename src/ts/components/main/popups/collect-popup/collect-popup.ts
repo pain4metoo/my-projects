@@ -8,17 +8,24 @@ export class CollectPopup extends Control {
 
     const collectTitle = new Control(this.node, 'h2', 'popups_collect_title', 'Puzzle assembled automatically');
 
+    const collectInfo = new Control(this.node, 'div', 'popups_collect_info');
+
     const collectTime = new Control(
-      this.node,
+      collectInfo.node,
       'h4',
       'popups_collect_time',
       `Auto build time: ${state.getCollectTimer()}s`
     );
 
-    const totalTime = new Control(this.node, 'h2', 'popups_collect_total_time', `Game time: ${state.getResult().time}`);
+    const totalTime = new Control(
+      collectInfo.node,
+      'h2',
+      'popups_collect_total_time',
+      `Game time: ${state.getResult().time}`
+    );
 
     const totalMoves = new Control(
-      this.node,
+      collectInfo.node,
       'h2',
       'popups_collect_moves',
       `Total moves: ${state.getResult().moves + state.getCollectMoves()}`

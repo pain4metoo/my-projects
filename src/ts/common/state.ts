@@ -173,6 +173,14 @@ class State {
   public clearCollectMoves(): void {
     this._data.gameSettings.result.collectMoves = 0;
   }
+
+  public stopBtnEnable(): void {
+    state.onUpdate.emit(StateOptions.stopBtnEnable);
+  }
+
+  public stopBtnDisable(): void {
+    state.onUpdate.emit(StateOptions.stopBtnDisable);
+  }
 }
 
 const initialState: StateData = {

@@ -1,10 +1,30 @@
 .popups_finish {
   width: 100%;
   height: 100%;
+  margin-top: 1.5rem;
+  &_info {
+    margin-top: 4rem;
+  }
   &_title {
     text-align: center;
     color: gainsboro;
     margin: 0;
     margin-top: 1rem;
+  }
+  &_time {
+    font-size: 2rem;
+    line-height: 3rem;
+    text-align: center;
+    color: gainsboro;
+    margin: 0;
+    margin-bottom: 1rem;
+  }
+  &_moves {
+    font-size: 2rem;
+    line-height: 3rem;
+    text-align: center;
+    color: gainsboro;
+    margin: 0;
+    margin-bottom: 1rem;
   }
 }

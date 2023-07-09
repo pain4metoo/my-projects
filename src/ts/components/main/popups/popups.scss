@@ -1,0 +1,34 @@
+.popups {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.9);
+  &_inner {
+    position: absolute;
+    left: 50%;
+    top: 44%;
+    transform: translate(-50%, -50%);
+    border: 1px solid red;
+    width: 70%;
+    height: 50%;
+    border-radius: 2rem;
+    padding: 1rem;
+  }
+  &_close_btn {
+    background: url('../../../../assets/svg/close-btn.svg') no-repeat center/contain;
+    width: 5rem;
+    height: 5rem;
+    position: absolute;
+    right: 2rem;
+    border: none;
+    cursor: pointer;
+    filter: invert(47%) sepia(100%) saturate(324%) hue-rotate(130deg) brightness(85%) contrast(84%);
+    transition: ease 0.5s;
+    &:hover {
+      border: 1px solid sandybrown;
+      border-radius: 1rem;
+    }
+  }
+}

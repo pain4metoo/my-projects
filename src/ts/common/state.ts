@@ -85,20 +85,6 @@ class State {
     return this._data.gameSettings.isStartGame;
   }
 
-  public setShowPopup(): void {
-    this._data.gameSettings.isPopupShow = true;
-    state.onUpdate.emit(StateOptions.showPopup);
-  }
-
-  public setDeletePopup(): void {
-    this._data.gameSettings.isPopupShow = false;
-    state.onUpdate.emit(StateOptions.deletePopup);
-  }
-
-  public getPopupState(): boolean {
-    return this._data.gameSettings.isPopupShow;
-  }
-
   public setWinGame(flag: boolean): void {
     this._data.gameSettings.isWin = flag;
     state.onUpdate.emit(StateOptions.winGame);
@@ -120,11 +106,6 @@ class State {
     return this._data.gameSettings.result;
   }
 
-  public setResultPopup(): void {
-    state.onUpdate.emit(StateOptions.showPopup);
-    state.onUpdate.emit(StateOptions.resultsPopup);
-  }
-
   public setCollectPuzzle(): void {
     state.onUpdate.emit(StateOptions.collectPuzzle);
   }
@@ -144,6 +125,26 @@ class State {
   public collectBtnDisable(): void {
     state.onUpdate.emit(StateOptions.collectBtnOn);
   }
+
+  public createPopup(): void {
+    state.onUpdate.emit(StateOptions.createPopup);
+  }
+
+  public showCollectPopup(): void {
+    state.onUpdate.emit(StateOptions.showCollectPopup);
+  }
+
+  public showFinishPopup(): void {
+    state.onUpdate.emit(StateOptions.showFinishPopup);
+  }
+
+  public showResultPopup(): void {
+    state.onUpdate.emit(StateOptions.showResultPopup);
+  }
+
+  public closePopup(): void {
+    state.onUpdate.emit(StateOptions.closePopup);
+  }
 }
 
 const initialState: StateData = {
@@ -154,7 +155,6 @@ const initialState: StateData = {
     moveCounter: 0,
     isStartGame: false,
     isTimeRunning: false,
-    isPopupShow: false,
     isWin: false,
     result: {
       moves: 0,

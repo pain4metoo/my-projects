@@ -63,9 +63,12 @@ export class Game extends Control {
       this.makeMove(state.getGameField(), spliceLastMove, positionOfZero, true);
 
       if (state.getAllMoves().length === 0) {
+        clearInterval(handle); // stops intervals
         state.shuffleStop();
         state.collectBtnDisable();
-        clearInterval(handle); // stops intervals
+
+        state.setWinGame(true);
+        this.showCollectResult();
       }
     }, 1);
   }
@@ -73,7 +76,7 @@ export class Game extends Control {
   private shuffleCycle(): void {
     state.shuffleStart();
     let counter = 0;
-    const maxShuffle = 300;
+    const maxShuffle = 50;
     const handle = setInterval((): void => {
       this.singleStrokeCycle();
 
@@ -108,6 +111,7 @@ export class Game extends Control {
       matrix.push(numbersArray.splice(0, size));
     }
 
+    this.finishResult = matrix.slice().flat();
     state.setGameField(matrix);
     this.determineDefaultZeroPosition();
   }
@@ -133,7 +137,6 @@ export class Game extends Control {
 
     for (let i = 0; i < currentGameSize * currentGameSize; i++) {
       const square = new Control(this.gameContainer, 'div', 'main_game_square', `${currentGamePuzzle[i]}`);
-
       this.gameSquareHTML.push(square.node);
 
       if (currentGamePuzzle[i] === 0) {
@@ -142,7 +145,20 @@ export class Game extends Control {
       } else {
         square.node.textContent = String(currentGamePuzzle[i]);
       }
+
+      square.node.onclick = (): void => this.moveByClick(Number(square.node.textContent));
     }
+  }
+
+  private moveByClick(squareValue: number): void {
+    const availableMoveArr: Array<Array<number>> = Object.values(this.availableMoves(state.getGameField()));
+
+    availableMoveArr.forEach((el: Array<number>): void => {
+      if (el[2] === squareValue) {
+        this.makeMove(state.getGameField(), el, this.availableMoves(state.getGameField()).emptySquare, false);
+        this.setMoveInState(state.getGameField());
+      }
+    });
   }
 
   private getRandomMove(availableMoves: AvailableMovesFromEmptySquare): Array<number> {
@@ -244,7 +260,8 @@ export class Game extends Control {
     state.setStartGame();
 
     if (this.isWin()) {
-      this.showResult();
+      state.setWinGame(true);
+      this.showFinishResult();
     }
   }
 
@@ -258,9 +275,15 @@ export class Game extends Control {
     return true;
   }
 
-  private showResult(): void {
+  private showFinishResult(): void {
+    state.createPopup();
     state.setStopGame();
-    state.setShowPopup();
-    state.setWinGame(true);
+    state.showFinishPopup();
+  }
+
+  private showCollectResult(): void {
+    state.createPopup();
+    state.setStopGame();
+    state.showCollectPopup();
   }
 }

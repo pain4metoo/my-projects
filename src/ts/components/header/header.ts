@@ -45,7 +45,7 @@ export class Header extends Control {
           navItem.node.onclick = (): void => state.setStopGame();
           break;
         case NavItem.Results:
-          navItem.node.onclick = (): void => state.setResultPopup();
+          navItem.node.onclick = (): void => state.createPopup();
           break;
       }
     });

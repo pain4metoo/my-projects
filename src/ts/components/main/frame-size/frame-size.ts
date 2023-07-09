@@ -69,6 +69,10 @@ export class FrameSize extends Control {
           break;
         case StateOptions.collectBtnOff:
           btnCollectPuzzle.node.disabled = false;
+          break;
+        case StateOptions.winGame:
+          btnCollectPuzzle.node.disabled = true;
+          break;
       }
     });
   }

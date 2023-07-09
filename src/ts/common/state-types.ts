@@ -9,7 +9,6 @@ interface GameSettings {
   moveCounter: number;
   isStartGame: boolean;
   isTimeRunning: boolean;
-  isPopupShow: boolean;
   isWin: boolean;
   result: { moves: number; time: string };
 }
@@ -21,14 +20,15 @@ export enum StateOptions {
   stopGame = 'stop-game',
   startGame = 'start-game',
   changeSize = 'change-size',
-  showPopup = 'show-popup',
-  deletePopup = 'delete-popup',
   winGame = 'win-game',
-  resultsPopup = 'result-popup',
-  resultsPopupDestroy = 'result-popup-destroy',
   collectPuzzle = 'collect-puzzle',
   shuffleStart = 'shuffle-start',
   shuffleStop = 'shuffle-stop',
   collectBtnOn = 'collect-btn-on',
-  collectBtnOff = 'collect-btn-off'
+  collectBtnOff = 'collect-btn-off',
+  createPopup = 'create-popup',
+  showCollectPopup = 'show-collect-popup',
+  showFinishPopup = 'show-finish-popup',
+  showResultPopup = 'show-result-popup',
+  closePopup = 'close-popup'
 }

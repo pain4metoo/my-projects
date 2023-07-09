@@ -5,9 +5,11 @@ import { Counter } from './counters/counters';
 import { FrameSize } from './frame-size/frame-size';
 import { Game } from './game/game';
 import './main.scss';
+import { Popups } from './popups/popups';
 
 export class Main extends Control {
   private mainListener: (type: StateOptions) => void;
+  private mainPopups!: Popups;
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'main', 'main');
 
@@ -23,6 +25,14 @@ export class Main extends Control {
         case StateOptions.newGame:
           sectionGame.destroy();
           sectionGame = new Game(sectionGameContainer.node);
+          break;
+
+        case StateOptions.createPopup:
+          this.mainPopups = new Popups(this.node);
+
+          break;
+        case StateOptions.closePopup:
+          this.mainPopups.destroy();
           break;
       }
     };

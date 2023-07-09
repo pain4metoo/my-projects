@@ -59,14 +59,13 @@ export class Game extends Control {
     const handle = setInterval((): void => {
       const positionOfZero: Array<number> = this.availableMoves(state.getGameField()).emptySquare;
       const spliceLastMove = state.getAllMoves().splice(-1)[0];
-
       this.makeMove(state.getGameField(), spliceLastMove, positionOfZero, true);
-
+      state.setCollectMoves();
       if (state.getAllMoves().length === 0) {
+        state.clearCollectMoves();
         clearInterval(handle); // stops intervals
         state.shuffleStop();
         state.collectBtnDisable();
-
         state.setWinGame(true);
         this.showCollectResult();
       }
@@ -75,17 +74,26 @@ export class Game extends Control {
 
   private shuffleCycle(): void {
     state.shuffleStart();
+    state.startCollectTimer();
     let counter = 0;
-    const maxShuffle = 50;
+    const maxShuffle = this.getRandomShuffleCount();
+    console.log(maxShuffle);
     const handle = setInterval((): void => {
       this.singleStrokeCycle();
 
       if (counter === maxShuffle) {
+        state.stopCollectTimer();
         clearInterval(handle); // stops intervals
         state.shuffleStop();
       }
       counter++;
-    }, 1);
+    }, 0);
+  }
+
+  private getRandomShuffleCount(): number {
+    const options: Array<number> = [300, 500, 700, 900, 1100, 1300];
+    const correctIndex = 3; // correct index for change return value;
+    return options[state.getFrameSize() - correctIndex] + Math.ceil(Math.random() * 100);
   }
 
   private singleStrokeCycle(): void {
@@ -258,7 +266,6 @@ export class Game extends Control {
     state.setMove(currentGameField);
     state.setMoveCounter();
     state.setStartGame();
-
     if (this.isWin()) {
       state.setWinGame(true);
       this.showFinishResult();

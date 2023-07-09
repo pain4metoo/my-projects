@@ -21,6 +21,9 @@ export class Moves extends Control {
         case StateOptions.winGame:
           state.setResultMoves(Number(movesBlockNumber.node.textContent));
           break;
+        case StateOptions.setCollectMoves:
+          movesBlockNumber.node.textContent = `${state.getMoveCounter() + state.getCollectMoves()}`;
+          break;
       }
     });
   }

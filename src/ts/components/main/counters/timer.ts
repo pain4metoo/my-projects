@@ -8,6 +8,8 @@ export class Timer extends Control {
   private sec = 0;
   private min = 0;
   private hour = 0;
+  private collectTimer!: number;
+  private collectSec = 1;
   constructor(parentNode: HTMLElement) {
     super(parentNode);
 
@@ -34,8 +36,28 @@ export class Timer extends Control {
             state.setResultTime(timeBlockNumber.node.textContent);
           }
           break;
+        case StateOptions.collectStartTimer:
+          this.setTimer(state.getStopStartGame(), state.getToggleTimer());
+
+          this.setCollectGameTimer();
+          break;
+        case StateOptions.collectStopTimer:
+          this.stopTimer(state.getStopStartGame(), state.getToggleTimer());
+
+          this.stopCollectGameTimer();
       }
     });
+  }
+
+  private setCollectGameTimer(): void {
+    const timer = window.setInterval(() => this.collectSec++, 1000);
+    this.collectTimer = timer;
+  }
+
+  private stopCollectGameTimer(): void {
+    state.setCollectTimer(String(this.collectSec));
+    clearInterval(this.collectTimer);
+    this.collectSec = 1;
   }
 
   private newGame(): void {

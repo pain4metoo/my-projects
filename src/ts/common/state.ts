@@ -145,6 +145,34 @@ class State {
   public closePopup(): void {
     state.onUpdate.emit(StateOptions.closePopup);
   }
+
+  public startCollectTimer(): void {
+    state.onUpdate.emit(StateOptions.collectStartTimer);
+  }
+
+  public stopCollectTimer(): void {
+    state.onUpdate.emit(StateOptions.collectStopTimer);
+  }
+
+  public setCollectTimer(time: string): void {
+    this._data.gameSettings.result.collectTime = time;
+  }
+  public getCollectTimer(): string {
+    return this._data.gameSettings.result.collectTime;
+  }
+
+  public setCollectMoves(): void {
+    this._data.gameSettings.result.collectMoves++;
+    state.onUpdate.emit(StateOptions.setCollectMoves);
+  }
+
+  public getCollectMoves(): number {
+    return this._data.gameSettings.result.collectMoves;
+  }
+
+  public clearCollectMoves(): void {
+    this._data.gameSettings.result.collectMoves = 0;
+  }
 }
 
 const initialState: StateData = {
@@ -158,7 +186,9 @@ const initialState: StateData = {
     isWin: false,
     result: {
       moves: 0,
-      time: '00:00:00'
+      time: '00:00:00',
+      collectTime: '00:00:00',
+      collectMoves: 0
     }
   }
 };

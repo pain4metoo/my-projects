@@ -10,7 +10,7 @@ interface GameSettings {
   isStartGame: boolean;
   isTimeRunning: boolean;
   isWin: boolean;
-  result: { moves: number; time: string };
+  result: { moves: number; time: string; collectTime: string; collectMoves: number };
 }
 
 export enum StateOptions {
@@ -30,5 +30,8 @@ export enum StateOptions {
   showCollectPopup = 'show-collect-popup',
   showFinishPopup = 'show-finish-popup',
   showResultPopup = 'show-result-popup',
-  closePopup = 'close-popup'
+  closePopup = 'close-popup',
+  collectStartTimer = 'collect-start-timer',
+  collectStopTimer = 'collect-stop-timer',
+  setCollectMoves = 'collect-moves'
 }

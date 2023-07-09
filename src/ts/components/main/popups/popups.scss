@@ -18,10 +18,11 @@
   }
   &_close_btn {
     background: url('../../../../assets/svg/close-btn.svg') no-repeat center/contain;
-    width: 5rem;
-    height: 5rem;
     position: absolute;
     right: 2rem;
+    top: 1.5rem;
+    width: 4rem;
+    height: 4rem;
     border: none;
     cursor: pointer;
     filter: invert(47%) sepia(100%) saturate(324%) hue-rotate(130deg) brightness(85%) contrast(84%);

@@ -1,3 +1,5 @@
+import { state } from './state';
+
 export interface Result {
   frameSize: number;
   moves: number;
@@ -5,7 +7,7 @@ export interface Result {
 }
 
 class LocalStorageControl {
-  public results: Array<Result> = [];
+  public results: Array<Result> = this.get() || [];
 
   public put(result: Result): void {
     const maxItemsInLocal = 10;
@@ -26,7 +28,7 @@ class LocalStorageControl {
     const resultsItems = localStorage.getItem('results');
 
     if (resultsItems !== null) {
-      return JSON.parse('results');
+      return JSON.parse(resultsItems);
     }
 
     return [];

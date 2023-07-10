@@ -2,6 +2,7 @@ import Control from '../../../common/control';
 import { state } from '../../../common/state';
 import './game.scss';
 import { StateOptions } from '../../../common/state-types';
+import { Result, localStorageControl } from '../../../common/local-storage';
 
 interface AvailableMovesFromEmptySquare {
   axisXLeft: Array<number>;
@@ -273,7 +274,17 @@ export class Game extends Control {
     if (this.isWin()) {
       state.setWinGame(true);
       this.showFinishResult();
+      this.setInLocalStorage();
     }
+  }
+
+  private setInLocalStorage(): void {
+    const result: Result = {
+      frameSize: state.getFrameSize(),
+      moves: state.getResult().moves,
+      time: state.getResult().time
+    };
+    localStorageControl.put(Object.assign({}, result));
   }
 
   private isWin(): boolean {

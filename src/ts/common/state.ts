@@ -1,3 +1,4 @@
+import { Result, localStorageControl } from './local-storage';
 import Signal from './signal';
 import { StateData, StateOptions } from './state-types';
 
@@ -191,6 +192,10 @@ class State {
   public getCollectState(): boolean {
     return this._data.gameSettings.isCollectStart;
   }
+
+  public getResults(): Array<Result> {
+    return this._data.gameSettings.results;
+  }
 }
 
 const initialState: StateData = {
@@ -208,7 +213,8 @@ const initialState: StateData = {
       time: '00:00:00',
       collectTime: '00:00:00',
       collectMoves: 0
-    }
+    },
+    results: []
   }
 };
 

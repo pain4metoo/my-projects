@@ -1,3 +1,5 @@
+import { Result } from './local-storage';
+
 export interface StateData {
   gameSettings: GameSettings;
 }
@@ -12,6 +14,7 @@ interface GameSettings {
   isWin: boolean;
   isCollectStart: boolean;
   result: { moves: number; time: string; collectTime: string; collectMoves: number };
+  results: Array<Result>;
 }
 
 export enum StateOptions {

@@ -27,12 +27,15 @@ export class Popups extends Control {
       switch (type) {
         case StateOptions.showCollectPopup:
           this.popupCollect = new CollectPopup(popupsInner.node);
+          newGameBtn.node.style.display = 'block';
           break;
         case StateOptions.showResultPopup:
           this.popupCollect = new ResultPopup(popupsInner.node);
+          newGameBtn.node.style.display = 'none';
           break;
         case StateOptions.showFinishPopup:
           this.popupFinish = new FinishPopup(popupsInner.node);
+          newGameBtn.node.style.display = 'block';
           break;
       }
     };

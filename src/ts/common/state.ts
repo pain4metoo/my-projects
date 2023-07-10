@@ -17,6 +17,7 @@ class State {
     this._data.gameSettings.isWin = false;
     this._data.gameSettings.result.moves = 0;
     this._data.gameSettings.result.time = '00:00:00';
+    this._data.gameSettings.isCollectStart = false;
     state.onUpdate.emit(StateOptions.newGame);
   }
 

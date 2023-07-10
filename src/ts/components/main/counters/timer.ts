@@ -69,7 +69,6 @@ export class Timer extends Control {
 
   private setTimer(stopStartGame?: boolean, toggleTimer?: boolean): void {
     if (stopStartGame && !toggleTimer) {
-      state.stopBtnEnable();
       const timer = window.setInterval(() => this.newTimer(), 1000);
       this.currentTimer = timer;
 
@@ -79,7 +78,6 @@ export class Timer extends Control {
 
   private stopTimer(stopStartGame?: boolean, toggleTimer?: boolean): void {
     if (!stopStartGame && toggleTimer) {
-      state.stopBtnDisable();
       clearInterval(this.currentTimer);
 
       state.setToggleTimer(false);

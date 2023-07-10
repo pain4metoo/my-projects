@@ -10,6 +10,7 @@ interface GameSettings {
   isStartGame: boolean;
   isTimeRunning: boolean;
   isWin: boolean;
+  isCollectStart: boolean;
   result: { moves: number; time: string; collectTime: string; collectMoves: number };
 }
 

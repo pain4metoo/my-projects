@@ -57,12 +57,15 @@ export class Game extends Control {
   private collectPazzle(): void {
     state.shuffleStart();
     state.setStartGame();
+    state.setCollectState(true);
+    state.stopBtnDisable();
     const handle = setInterval((): void => {
       const positionOfZero: Array<number> = this.availableMoves(state.getGameField()).emptySquare;
       const spliceLastMove = state.getAllMoves().splice(-1)[0];
       this.makeMove(state.getGameField(), spliceLastMove, positionOfZero, true);
       state.setCollectMoves();
       if (state.getAllMoves().length === 0) {
+        state.setCollectState(false);
         state.clearCollectMoves();
         clearInterval(handle); // stops intervals
         state.shuffleStop();
@@ -266,6 +269,7 @@ export class Game extends Control {
     state.setMove(currentGameField);
     state.setMoveCounter();
     state.setStartGame();
+    state.stopBtnEnable();
     if (this.isWin()) {
       state.setWinGame(true);
       this.showFinishResult();

@@ -71,6 +71,7 @@ class State {
   public setStopGame(): void {
     this._data.gameSettings.isStartGame = false;
     state.onUpdate.emit(StateOptions.stopGame);
+    state.onUpdate.emit(StateOptions.stopBtnDisable);
   }
 
   public setToggleTimer(flag: boolean): void {
@@ -181,6 +182,14 @@ class State {
   public stopBtnDisable(): void {
     state.onUpdate.emit(StateOptions.stopBtnDisable);
   }
+
+  public setCollectState(flag: boolean): void {
+    this._data.gameSettings.isCollectStart = flag;
+  }
+
+  public getCollectState(): boolean {
+    return this._data.gameSettings.isCollectStart;
+  }
 }
 
 const initialState: StateData = {
@@ -192,6 +201,7 @@ const initialState: StateData = {
     isStartGame: false,
     isTimeRunning: false,
     isWin: false,
+    isCollectStart: false,
     result: {
       moves: 0,
       time: '00:00:00',

@@ -56,6 +56,8 @@ export class Header extends Control {
       }
     });
 
+    this.navItemsHtmlElements[1].disabled = true;
+
     state.onUpdate.add(this.headerListener);
   }
 
@@ -65,10 +67,11 @@ export class Header extends Control {
   }
 
   private stateButtons(flag: boolean): void {
-    this.navItemsHtmlElements.forEach((el: HTMLButtonElement) => {
-      flag ? (el.disabled = true) : (el.disabled = false);
+    this.navItemsHtmlElements.forEach((el: HTMLButtonElement, i) => {
+      if (i !== 1) {
+        flag ? (el.disabled = true) : (el.disabled = false);
+      }
     });
-    this.navItemsHtmlElements[1].disabled = true; // default value for stop btn;
   }
 
   private stateStopBtn(flag: boolean): void {

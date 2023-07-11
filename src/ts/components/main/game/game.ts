@@ -78,6 +78,7 @@ export class Game extends Control {
   }
 
   private shuffleCycle(): void {
+    state.stopBtnDisable();
     state.shuffleStart();
     state.startCollectTimer();
     let counter = 0;

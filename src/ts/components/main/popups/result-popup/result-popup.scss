@@ -12,8 +12,11 @@
     padding: 0;
     list-style: none;
     color: wheat;
+    margin-bottom: 3rem;
   }
   &_wrapper {
+    display: flex;
+    align-items: flex-end;
     list-style: none;
     display: flex;
     padding: 0;
@@ -22,6 +25,20 @@
     color: white;
     margin-left: 2rem;
     margin-right: 2rem;
+    height: 4.5rem;
+  }
+  &_count {
+    height: 4.5rem;
+    width: 1rem;
+  }
+  &_delete {
+    background: url('http://localhost:3000/assets/close-btn.svg') no-repeat center/contain;
+    width: 4rem;
+    height: 4.5rem;
+    border: none;
+    cursor: pointer;
+    filter: invert(47%) sepia(100%) saturate(324%) hue-rotate(130deg) brightness(85%) contrast(84%);
+    transition: ease 0.5s;
     margin-bottom: 1rem;
   }
 }

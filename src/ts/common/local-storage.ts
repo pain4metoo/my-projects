@@ -34,6 +34,15 @@ class LocalStorageControl {
     return [];
   }
 
+  public deleteFromLocalStorage(targetIndex?: number): void {
+    if (targetIndex === 0 || targetIndex) {
+      this.results.splice(targetIndex, 1);
+    } else {
+      this.results.splice(0);
+    }
+    localStorage.setItem('results', JSON.stringify(this.results));
+  }
+
   private sortValue(results: Array<Result>): Array<Result> {
     return results.sort((a, b) => {
       // If the frame size are equal

@@ -30,17 +30,30 @@ export class Popups extends Control {
           newGameBtn.node.style.display = 'block';
           break;
         case StateOptions.showResultPopup:
-          this.popupCollect = new ResultPopup(popupsInner.node);
-          newGameBtn.node.style.display = 'none';
+          this.popupResult = new ResultPopup(popupsInner.node);
+          newGameBtn.node.textContent = 'Delete all results';
+          newGameBtn.node.onclick = (): void => this.onClearState();
           break;
         case StateOptions.showFinishPopup:
           this.popupFinish = new FinishPopup(popupsInner.node);
           newGameBtn.node.style.display = 'block';
           break;
+
+        case StateOptions.clearLocalStorage:
+          this.popupResult.destroy();
+          this.popupResult = new ResultPopup(popupsInner.node);
       }
     };
 
     state.onUpdate.add(this.popupsListener);
+  }
+
+  private onClearState(targetIndex?: number): void {
+    if (!targetIndex && targetIndex !== 0) {
+      state.clearAllStorage();
+    } else {
+      state.deleteTargetFromStorage(targetIndex);
+    }
   }
 
   private onNewGameBtn(): void {

@@ -15,6 +15,7 @@ interface GameSettings {
   isCollectStart: boolean;
   result: { moves: number; time: string; collectTime: string; collectMoves: number };
   results: Array<Result>;
+  deleteTarget: number;
 }
 
 export enum StateOptions {
@@ -39,5 +40,6 @@ export enum StateOptions {
   collectStopTimer = 'collect-stop-timer',
   setCollectMoves = 'collect-moves',
   stopBtnEnable = 'stop-btn-enable',
-  stopBtnDisable = 'stop btn-disable'
+  stopBtnDisable = 'stop btn-disable',
+  clearLocalStorage = 'clear-all-local-storage'
 }

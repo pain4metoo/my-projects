@@ -196,6 +196,21 @@ class State {
   public getResults(): Array<Result> {
     return this._data.gameSettings.results;
   }
+
+  public clearAllStorage(): void {
+    localStorageControl.deleteFromLocalStorage();
+    state.onUpdate.emit(StateOptions.clearLocalStorage);
+  }
+
+  public deleteTargetFromStorage(targetIndex: number): void {
+    localStorageControl.deleteFromLocalStorage(targetIndex);
+    this._data.gameSettings.deleteTarget = targetIndex;
+    state.onUpdate.emit(StateOptions.clearLocalStorage);
+  }
+
+  public getDeleteTargetFromStorage(): number {
+    return this._data.gameSettings.deleteTarget;
+  }
 }
 
 const initialState: StateData = {
@@ -208,6 +223,7 @@ const initialState: StateData = {
     isTimeRunning: false,
     isWin: false,
     isCollectStart: false,
+    deleteTarget: -1,
     result: {
       moves: 0,
       time: '00:00:00',

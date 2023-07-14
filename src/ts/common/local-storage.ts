@@ -45,33 +45,28 @@ class LocalStorageControl {
 
   private sortValue(results: Array<Result>): Array<Result> {
     return results.sort((a, b) => {
-      // If the frame size are equal
-      if (a.frameSize === b.frameSize && a.moves < b.moves) {
-        return -1;
+      if (a.frameSize !== b.frameSize) {
+        return b.frameSize - a.frameSize;
       } else {
-        if (a.frameSize === b.frameSize && a.moves === b.moves) {
+        // If frameSize are equal, then look at moves
+        if (a.moves !== b.moves) {
+          return a.moves - b.moves;
+        } else {
+          // If moves are equal then look at time and repeat for hours minutes and seconds
           const splitTimeFirst = a.time.split(':').map((item: string) => +item);
           const splitTimeSecond = b.time.split(':').map((item: string) => +item);
-          // If the hours are equal
-          if (splitTimeFirst[0] === splitTimeSecond[0] && splitTimeFirst[1] < splitTimeSecond[1]) {
-            return -1;
-          } else {
-            // If the hours and minutes are equal
-            if (
-              splitTimeFirst[0] === splitTimeSecond[0] &&
-              splitTimeFirst[1] === splitTimeSecond[1] &&
-              splitTimeFirst[2] < splitTimeSecond[2]
-            ) {
-              return -1;
-            }
-          }
 
-          // default sort for time;
-          return splitTimeFirst[0] - splitTimeSecond[0];
+          if (splitTimeFirst[0] !== splitTimeSecond[0]) {
+            return splitTimeFirst[0] - splitTimeSecond[0];
+          } else {
+            if (splitTimeFirst[1] !== splitTimeSecond[1]) {
+              return splitTimeFirst[1] - splitTimeSecond[1];
+            }
+
+            return splitTimeFirst[2] - splitTimeSecond[2];
+          }
         }
       }
-      // default sort for frame size;
-      return b.frameSize - a.frameSize;
     });
   }
 }

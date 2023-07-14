@@ -82,7 +82,7 @@ export class Game extends Control {
     state.shuffleStart();
     state.startCollectTimer();
     let counter = 0;
-    const maxShuffle = this.getRandomShuffleCount();
+    const maxShuffle = 0;
     const handle = setInterval((): void => {
       this.singleStrokeCycle();
 

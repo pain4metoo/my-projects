@@ -72,28 +72,26 @@ class LocalStorageControl {
   }
   sortValue(results) {
     return results.sort((a, b) => {
-      // If the frame size are equal
-      if (a.frameSize === b.frameSize && a.moves < b.moves) {
-        return -1;
+      if (a.frameSize !== b.frameSize) {
+        return b.frameSize - a.frameSize;
       } else {
-        if (a.frameSize === b.frameSize && a.moves === b.moves) {
+        // If frameSize are equal, then look at moves
+        if (a.moves !== b.moves) {
+          return a.moves - b.moves;
+        } else {
+          // If moves are equal then look at time and repeat for hours minutes and seconds
           const splitTimeFirst = a.time.split(':').map(item => +item);
           const splitTimeSecond = b.time.split(':').map(item => +item);
-          // If the hours are equal
-          if (splitTimeFirst[0] === splitTimeSecond[0] && splitTimeFirst[1] < splitTimeSecond[1]) {
-            return -1;
+          if (splitTimeFirst[0] !== splitTimeSecond[0]) {
+            return splitTimeFirst[0] - splitTimeSecond[0];
           } else {
-            // If the hours and minutes are equal
-            if (splitTimeFirst[0] === splitTimeSecond[0] && splitTimeFirst[1] === splitTimeSecond[1] && splitTimeFirst[2] < splitTimeSecond[2]) {
-              return -1;
+            if (splitTimeFirst[1] !== splitTimeSecond[1]) {
+              return splitTimeFirst[1] - splitTimeSecond[1];
             }
+            return splitTimeFirst[2] - splitTimeSecond[2];
           }
-          // default sort for time;
-          return splitTimeFirst[0] - splitTimeSecond[0];
         }
       }
-      // default sort for frame size;
-      return b.frameSize - a.frameSize;
     });
   }
 }
@@ -879,6 +877,7 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     }, 1);
   }
   shuffleCycle() {
+    _common_state__WEBPACK_IMPORTED_MODULE_1__.state.stopBtnDisable();
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.shuffleStart();
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.startCollectTimer();
     let counter = 0;
@@ -2950,4 +2949,4 @@ new _ts_components_app__WEBPACK_IMPORTED_MODULE_1__.App(document.body);
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle-0ea6f513382009d69604.js.map
+//# sourceMappingURL=bundle-f9234891a9f60aba55f4.js.map

@@ -48,6 +48,7 @@
     align-items: center;
     justify-content: center;
     transition: ease 0.5s;
+    user-select: none;
     &:hover {
       border: 2px solid wheat;
     }
@@ -57,7 +58,7 @@
     cursor: auto;
     outline: none;
     user-select: none;
-    z-index: -1;
+    z-index: 0;
     transition: ease 0.5s;
     &:hover {
       border: none;

@@ -82,7 +82,7 @@ export class Game extends Control {
     state.shuffleStart();
     state.startCollectTimer();
     let counter = 0;
-    const maxShuffle = this.getRandomShuffleCount();
+    const maxShuffle = 5;
     const handle = setInterval((): void => {
       this.singleStrokeCycle();
 
@@ -151,13 +151,6 @@ export class Game extends Control {
     for (let i = 0; i < currentGameSize * currentGameSize; i++) {
       const square = new Control(this.gameContainer, 'div', 'main_game_square', `${currentGamePuzzle[i]}`);
       this.gameSquareHTML.push(square.node);
-
-      if (currentGamePuzzle[i] === 0) {
-        square.node.textContent = ``;
-        square.node.classList.add('main_game_square_empty');
-      } else {
-        square.node.textContent = String(currentGamePuzzle[i]);
-      }
 
       square.node.onclick = (): void => this.moveByClick(Number(square.node.textContent));
     }
@@ -260,9 +253,23 @@ export class Game extends Control {
       if (singleLevelMatrix[i] === 0) {
         el.textContent = ``;
         el.classList.add('main_game_square_empty');
+        el.draggable = false;
+        el.ondragover = (e): void => {
+          e.preventDefault();
+        };
       } else {
         el.textContent = String(singleLevelMatrix[i]);
         el.classList.remove('main_game_square_empty');
+        el.draggable = true;
+
+        el.ondragstart = (event): void => {
+          event.dataTransfer?.setData('id', String(singleLevelMatrix[i]));
+        };
+
+        el.ondrop = (event): void => {
+          const move = event.dataTransfer?.getData('id');
+          this.moveByClick(Number(move));
+        };
       }
     });
   }

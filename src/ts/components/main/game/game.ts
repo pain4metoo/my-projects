@@ -212,6 +212,9 @@ export class Game extends Control {
         };
       }
       if (currentAvailableMoves.includes(el)) {
+        this.gameSquareHTML[i].ondragover = (e): void => {
+          e.stopPropagation();
+        };
         this.gameSquareHTML[i].draggable = true;
         this.gameSquareHTML[i].ondragstart = (event): void => {
           event.dataTransfer?.setData('id', String(currentMatrix[i]));

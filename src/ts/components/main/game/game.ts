@@ -27,9 +27,6 @@ export class Game extends Control {
 
     this.gameListener = (type: StateOptions): void => {
       switch (type) {
-        // case StateOptions.setMove:
-        //   // this.newFieldAfterMove(state.getGameField().flat());
-        //   break;
         case StateOptions.newGame:
           state.onUpdate.remove(this.gameListener);
           break;
@@ -82,7 +79,7 @@ export class Game extends Control {
     state.shuffleStart();
     state.startCollectTimer();
     let counter = 0;
-    const maxShuffle = 5;
+    const maxShuffle = this.getRandomShuffleCount();
     const handle = setInterval((): void => {
       this.singleStrokeCycle();
 

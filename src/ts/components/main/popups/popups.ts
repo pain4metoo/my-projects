@@ -38,10 +38,13 @@ export class Popups extends Control {
           this.popupFinish = new FinishPopup(popupsInner.node);
           newGameBtn.node.style.display = 'block';
           break;
-
         case StateOptions.clearLocalStorage:
           this.popupResult.destroy();
           this.popupResult = new ResultPopup(popupsInner.node);
+          break;
+        case StateOptions.closePopup:
+          state.onUpdate.remove(this.popupsListener);
+          break;
       }
     };
 

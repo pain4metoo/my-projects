@@ -3,6 +3,7 @@ import { state } from '../../../common/state';
 import './game.scss';
 import { StateOptions } from '../../../common/state-types';
 import { Result, localStorageControl } from '../../../common/local-storage';
+import { GenerateMatrix } from './generateMatrix';
 
 interface AvailableMovesFromEmptySquare {
   axisXLeft: Array<number>;
@@ -14,7 +15,7 @@ interface AvailableMovesFromEmptySquare {
 
 export class Game extends Control {
   private gameListener: (type: StateOptions) => void;
-  private finishResult: Array<number> = [];
+
   private gameSquareHTML: Array<HTMLElement> = [];
   private gameContainer: HTMLElement;
 
@@ -47,7 +48,7 @@ export class Game extends Control {
   }
 
   private createGame(): void {
-    this.generateMatrix(state.getFrameSize());
+    GenerateMatrix.generateMatrix(state.getFrameSize());
     this.createElementsHTML();
     this.shuffleCycle();
   }
@@ -102,41 +103,6 @@ export class Game extends Control {
     const availableMovesObj: AvailableMovesFromEmptySquare = this.availableMoves(state.getGameField());
     const randomMove = this.getRandomMove(availableMovesObj);
     this.makeMove(state.getGameField(), randomMove, availableMovesObj.emptySquare, false); // false mean isCollectPuzzle
-  }
-
-  private generateMatrix(size: number): void {
-    const numbersArray: Array<number> = [];
-    const maxNumber = Math.pow(size, 2);
-
-    for (let i = 0; i < maxNumber; i++) {
-      numbersArray.push(i);
-    }
-
-    const deleteZeroFromStart = numbersArray.splice(0, 1);
-    numbersArray[numbersArray.length] = deleteZeroFromStart[0]; // add zero to end of arr;
-
-    const matrix: Array<Array<number>> = [];
-
-    while (numbersArray.length) {
-      matrix.push(numbersArray.splice(0, size));
-    }
-
-    this.finishResult = matrix.slice().flat();
-    state.setGameField(matrix);
-    this.determineDefaultZeroPosition();
-  }
-
-  private determineDefaultZeroPosition(): void {
-    const currentMatrix = state.getGameField();
-
-    for (let i = 0; i < currentMatrix.length; i++) {
-      for (let g = 0; g < currentMatrix[i].length; g++) {
-        if (currentMatrix[i][g] === 0) {
-          state.setNewMove([i, g, 0]);
-          return;
-        }
-      }
-    }
   }
 
   private createElementsHTML(): void {
@@ -295,7 +261,7 @@ export class Game extends Control {
   private isWin(): boolean {
     const currentGameField: Array<number> = state.getGameField().flat();
     for (let i = 0; i < currentGameField.length; i++) {
-      if (this.finishResult[i] !== currentGameField[i]) {
+      if (GenerateMatrix.finishResult[i] !== currentGameField[i]) {
         return false;
       }
     }

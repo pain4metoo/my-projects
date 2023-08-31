@@ -7,6 +7,7 @@
   &_block {
     display: flex;
     align-items: center;
+    user-select: none;
   }
   &_text {
     margin: 0;
@@ -19,6 +20,7 @@
     display: flex;
     align-items: center;
     margin-top: 1rem;
+    user-select: none;
   }
   &_other_text {
     margin: 0;
@@ -27,8 +29,18 @@
     margin: 0;
     margin-left: 1rem;
     cursor: pointer;
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
   &_other_size_active {
     color: orange;
+  }
+  &_btn {
+    user-select: none;
+    cursor: pointer;
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 }

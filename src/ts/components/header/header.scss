@@ -7,6 +7,15 @@
     list-style: none;
     padding: 0;
   }
+  &_list_item {
+    user-select: none;
+  }
+  &_item_btn {
+    cursor: pointer;
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
   &_list_item:not(:last-child) {
     margin-right: 2rem;
   }

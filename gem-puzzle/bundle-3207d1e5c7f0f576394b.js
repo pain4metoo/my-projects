@@ -830,9 +830,6 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     this.createGame();
     this.gameListener = type => {
       switch (type) {
-        // case StateOptions.setMove:
-        //   // this.newFieldAfterMove(state.getGameField().flat());
-        //   break;
         case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.newGame:
           _common_state__WEBPACK_IMPORTED_MODULE_1__.state.onUpdate.remove(this.gameListener);
           break;
@@ -881,7 +878,7 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.shuffleStart();
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.startCollectTimer();
     let counter = 0;
-    const maxShuffle = 5;
+    const maxShuffle = this.getRandomShuffleCount();
     const handle = setInterval(() => {
       this.singleStrokeCycle();
       if (counter === maxShuffle) {
@@ -2962,4 +2959,4 @@ new _ts_components_app__WEBPACK_IMPORTED_MODULE_1__.App(document.body);
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle-59b17788eed4a50bb8b5.js.map
+//# sourceMappingURL=bundle-3207d1e5c7f0f576394b.js.map

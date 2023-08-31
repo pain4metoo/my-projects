@@ -881,7 +881,7 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.shuffleStart();
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.startCollectTimer();
     let counter = 0;
-    const maxShuffle = this.getRandomShuffleCount();
+    const maxShuffle = 5;
     const handle = setInterval(() => {
       this.singleStrokeCycle();
       if (counter === maxShuffle) {
@@ -937,12 +937,6 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     for (let i = 0; i < currentGameSize * currentGameSize; i++) {
       const square = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.gameContainer, 'div', 'main_game_square', `${currentGamePuzzle[i]}`);
       this.gameSquareHTML.push(square.node);
-      if (currentGamePuzzle[i] === 0) {
-        square.node.textContent = ``;
-        square.node.classList.add('main_game_square_empty');
-      } else {
-        square.node.textContent = String(currentGamePuzzle[i]);
-      }
       square.node.onclick = () => this.moveByClick(Number(square.node.textContent));
     }
   }
@@ -1022,9 +1016,23 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
       if (singleLevelMatrix[i] === 0) {
         el.textContent = ``;
         el.classList.add('main_game_square_empty');
+        el.draggable = false;
+        el.ondragover = e => {
+          e.preventDefault();
+        };
       } else {
         el.textContent = String(singleLevelMatrix[i]);
         el.classList.remove('main_game_square_empty');
+        el.draggable = true;
+        el.ondragstart = event => {
+          var _a;
+          (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData('id', String(singleLevelMatrix[i]));
+        };
+        el.ondrop = event => {
+          var _a;
+          const move = (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.getData('id');
+          this.moveByClick(Number(move));
+        };
       }
     });
   }
@@ -1512,7 +1520,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".main_game {\n  width: 100%;\n  max-width: 60rem;\n  margin: 0 auto;\n}\n.main_game_over {\n  position: relative;\n  background: rgba(0, 0, 0, 0.4);\n  user-select: none;\n  border-radius: 1rem;\n  pointer-events: none;\n}\n.main_game_container {\n  display: grid;\n  width: 100%;\n  height: 100%;\n  border: 1px solid salmon;\n  padding: 0.5rem;\n  border-radius: 1rem;\n  grid-gap: 0.5rem;\n}\n.main_game_container_3x3 {\n  grid-template-columns: repeat(3, 1fr);\n}\n.main_game_container_4x4 {\n  grid-template-columns: repeat(4, 1fr);\n}\n.main_game_container_5x5 {\n  grid-template-columns: repeat(5, 1fr);\n}\n.main_game_container_6x6 {\n  grid-template-columns: repeat(6, 1fr);\n}\n.main_game_container_7x7 {\n  grid-template-columns: repeat(7, 1fr);\n}\n.main_game_container_8x8 {\n  grid-template-columns: repeat(8, 1fr);\n}\n.main_game_square {\n  font-size: 3rem;\n  border: 1px solid black;\n  border-radius: 1rem;\n  aspect-ratio: 1/1;\n  cursor: pointer;\n  transition: ease 0.3s;\n  text-align: center;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: ease 0.5s;\n}\n.main_game_square:hover {\n  border: 2px solid wheat;\n}\n.main_game_square_empty {\n  border: none;\n  cursor: auto;\n  outline: none;\n  user-select: none;\n  z-index: -1;\n  transition: ease 0.5s;\n}\n.main_game_square_empty:hover {\n  border: none;\n}", "",{"version":3,"sources":["webpack://./src/ts/components/main/game/game.scss"],"names":[],"mappings":"AAAA;EACE,WAAA;EACA,gBAAA;EACA,cAAA;AACF;AAAE;EACE,kBAAA;EACA,8BAAA;EACA,iBAAA;EACA,mBAAA;EACA,oBAAA;AAEJ;AAAE;EACE,aAAA;EACA,WAAA;EACA,YAAA;EACA,wBAAA;EACA,eAAA;EACA,mBAAA;EACA,gBAAA;AAEJ;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AAAE;EACE,eAAA;EACA,uBAAA;EACA,mBAAA;EACA,iBAAA;EACA,eAAA;EACA,qBAAA;EACA,kBAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,qBAAA;AAEJ;AADI;EACE,uBAAA;AAGN;AAAE;EACE,YAAA;EACA,YAAA;EACA,aAAA;EACA,iBAAA;EACA,WAAA;EACA,qBAAA;AAEJ;AADI;EACE,YAAA;AAGN","sourcesContent":[".main_game {\n  width: 100%;\n  max-width: 60rem;\n  margin: 0 auto;\n  &_over {\n    position: relative;\n    background: rgba(0, 0, 0, 0.4);\n    user-select: none;\n    border-radius: 1rem;\n    pointer-events: none;\n  }\n  &_container {\n    display: grid;\n    width: 100%;\n    height: 100%;\n    border: 1px solid salmon;\n    padding: 0.5rem;\n    border-radius: 1rem;\n    grid-gap: 0.5rem;\n    &_3x3 {\n      grid-template-columns: repeat(3, 1fr);\n    }\n    &_4x4 {\n      grid-template-columns: repeat(4, 1fr);\n    }\n    &_5x5 {\n      grid-template-columns: repeat(5, 1fr);\n    }\n    &_6x6 {\n      grid-template-columns: repeat(6, 1fr);\n    }\n    &_7x7 {\n      grid-template-columns: repeat(7, 1fr);\n    }\n    &_8x8 {\n      grid-template-columns: repeat(8, 1fr);\n    }\n  }\n  &_square {\n    font-size: 3rem;\n    border: 1px solid black;\n    border-radius: 1rem;\n    aspect-ratio: 1/1;\n    cursor: pointer;\n    transition: ease 0.3s;\n    text-align: center;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: ease 0.5s;\n    &:hover {\n      border: 2px solid wheat;\n    }\n  }\n  &_square_empty {\n    border: none;\n    cursor: auto;\n    outline: none;\n    user-select: none;\n    z-index: -1;\n    transition: ease 0.5s;\n    &:hover {\n      border: none;\n    }\n  }\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".main_game {\n  width: 100%;\n  max-width: 60rem;\n  margin: 0 auto;\n}\n.main_game_over {\n  position: relative;\n  background: rgba(0, 0, 0, 0.4);\n  user-select: none;\n  border-radius: 1rem;\n  pointer-events: none;\n}\n.main_game_container {\n  display: grid;\n  width: 100%;\n  height: 100%;\n  border: 1px solid salmon;\n  padding: 0.5rem;\n  border-radius: 1rem;\n  grid-gap: 0.5rem;\n}\n.main_game_container_3x3 {\n  grid-template-columns: repeat(3, 1fr);\n}\n.main_game_container_4x4 {\n  grid-template-columns: repeat(4, 1fr);\n}\n.main_game_container_5x5 {\n  grid-template-columns: repeat(5, 1fr);\n}\n.main_game_container_6x6 {\n  grid-template-columns: repeat(6, 1fr);\n}\n.main_game_container_7x7 {\n  grid-template-columns: repeat(7, 1fr);\n}\n.main_game_container_8x8 {\n  grid-template-columns: repeat(8, 1fr);\n}\n.main_game_square {\n  font-size: 3rem;\n  border: 1px solid black;\n  border-radius: 1rem;\n  aspect-ratio: 1/1;\n  cursor: pointer;\n  transition: ease 0.3s;\n  text-align: center;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: ease 0.5s;\n  user-select: none;\n}\n.main_game_square:hover {\n  border: 2px solid wheat;\n}\n.main_game_square_empty {\n  border: none;\n  cursor: auto;\n  outline: none;\n  user-select: none;\n  z-index: 0;\n  transition: ease 0.5s;\n}\n.main_game_square_empty:hover {\n  border: none;\n}", "",{"version":3,"sources":["webpack://./src/ts/components/main/game/game.scss"],"names":[],"mappings":"AAAA;EACE,WAAA;EACA,gBAAA;EACA,cAAA;AACF;AAAE;EACE,kBAAA;EACA,8BAAA;EACA,iBAAA;EACA,mBAAA;EACA,oBAAA;AAEJ;AAAE;EACE,aAAA;EACA,WAAA;EACA,YAAA;EACA,wBAAA;EACA,eAAA;EACA,mBAAA;EACA,gBAAA;AAEJ;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AAAE;EACE,eAAA;EACA,uBAAA;EACA,mBAAA;EACA,iBAAA;EACA,eAAA;EACA,qBAAA;EACA,kBAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,qBAAA;EACA,iBAAA;AAEJ;AADI;EACE,uBAAA;AAGN;AAAE;EACE,YAAA;EACA,YAAA;EACA,aAAA;EACA,iBAAA;EACA,UAAA;EACA,qBAAA;AAEJ;AADI;EACE,YAAA;AAGN","sourcesContent":[".main_game {\n  width: 100%;\n  max-width: 60rem;\n  margin: 0 auto;\n  &_over {\n    position: relative;\n    background: rgba(0, 0, 0, 0.4);\n    user-select: none;\n    border-radius: 1rem;\n    pointer-events: none;\n  }\n  &_container {\n    display: grid;\n    width: 100%;\n    height: 100%;\n    border: 1px solid salmon;\n    padding: 0.5rem;\n    border-radius: 1rem;\n    grid-gap: 0.5rem;\n    &_3x3 {\n      grid-template-columns: repeat(3, 1fr);\n    }\n    &_4x4 {\n      grid-template-columns: repeat(4, 1fr);\n    }\n    &_5x5 {\n      grid-template-columns: repeat(5, 1fr);\n    }\n    &_6x6 {\n      grid-template-columns: repeat(6, 1fr);\n    }\n    &_7x7 {\n      grid-template-columns: repeat(7, 1fr);\n    }\n    &_8x8 {\n      grid-template-columns: repeat(8, 1fr);\n    }\n  }\n  &_square {\n    font-size: 3rem;\n    border: 1px solid black;\n    border-radius: 1rem;\n    aspect-ratio: 1/1;\n    cursor: pointer;\n    transition: ease 0.3s;\n    text-align: center;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: ease 0.5s;\n    user-select: none;\n    &:hover {\n      border: 2px solid wheat;\n    }\n  }\n  &_square_empty {\n    border: none;\n    cursor: auto;\n    outline: none;\n    user-select: none;\n    z-index: 0;\n    transition: ease 0.5s;\n    &:hover {\n      border: none;\n    }\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2954,4 +2962,4 @@ new _ts_components_app__WEBPACK_IMPORTED_MODULE_1__.App(document.body);
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle-f010e30cfacfaa39a6ca.js.map
+//# sourceMappingURL=bundle-59b17788eed4a50bb8b5.js.map

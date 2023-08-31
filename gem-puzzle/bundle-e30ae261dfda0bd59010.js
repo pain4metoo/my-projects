@@ -815,6 +815,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _game_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./game.scss */ "./src/ts/components/main/game/game.scss");
 /* harmony import */ var _common_state_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../common/state-types */ "./src/ts/common/state-types.ts");
 /* harmony import */ var _common_local_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../common/local-storage */ "./src/ts/common/local-storage.ts");
+/* harmony import */ var _generateMatrix__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./generateMatrix */ "./src/ts/components/main/game/generateMatrix.ts");
+
 
 
 
@@ -823,7 +825,6 @@ __webpack_require__.r(__webpack_exports__);
 class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor(parentNode) {
     super(parentNode, 'div', 'main_game');
-    this.finishResult = [];
     this.gameSquareHTML = [];
     const gameContainer = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'div', 'main_game_container');
     this.gameContainer = gameContainer.node;
@@ -848,37 +849,26 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.onUpdate.add(this.gameListener);
   }
   createGame() {
-    this.generateMatrix(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getFrameSize());
+    _generateMatrix__WEBPACK_IMPORTED_MODULE_5__.GenerateMatrix.generateMatrix(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getFrameSize());
     this.createElementsHTML();
     this.shuffleCycle();
   }
-  collectPazzle() {
-    _common_state__WEBPACK_IMPORTED_MODULE_1__.state.shuffleStart();
-    _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setStartGame();
-    _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setCollectState(true);
-    _common_state__WEBPACK_IMPORTED_MODULE_1__.state.stopBtnDisable();
-    const handle = setInterval(() => {
-      const positionOfZero = this.availableMoves(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField()).emptySquare;
-      const spliceLastMove = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getAllMoves().splice(-1)[0];
-      this.makeMove(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField(), spliceLastMove, positionOfZero, true);
-      _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setCollectMoves();
-      if (_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getAllMoves().length === 0) {
-        _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setCollectState(false);
-        _common_state__WEBPACK_IMPORTED_MODULE_1__.state.clearCollectMoves();
-        clearInterval(handle); // stops intervals
-        _common_state__WEBPACK_IMPORTED_MODULE_1__.state.shuffleStop();
-        _common_state__WEBPACK_IMPORTED_MODULE_1__.state.collectBtnDisable();
-        _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setWinGame(true);
-        this.showCollectResult();
-      }
-    }, 1);
+  createElementsHTML() {
+    const currentGameSize = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getFrameSize();
+    const currentGamePuzzle = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField().flat();
+    this.gameContainer.classList.add(`main_game_container_${currentGameSize}x${currentGameSize}`);
+    for (let i = 0; i < currentGameSize * currentGameSize; i++) {
+      const square = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.gameContainer, 'div', 'main_game_square', `${currentGamePuzzle[i]}`);
+      this.gameSquareHTML.push(square.node);
+      square.node.onclick = () => this.moveByClick(Number(square.node.textContent));
+    }
   }
   shuffleCycle() {
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.stopBtnDisable();
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.shuffleStart();
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.startCollectTimer();
     let counter = 0;
-    const maxShuffle = this.getRandomShuffleCount();
+    const maxShuffle = 3;
     const handle = setInterval(() => {
       this.singleStrokeCycle();
       if (counter === maxShuffle) {
@@ -900,70 +890,6 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     this.makeMove(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField(), randomMove, availableMovesObj.emptySquare, false); // false mean isCollectPuzzle
   }
 
-  generateMatrix(size) {
-    const numbersArray = [];
-    const maxNumber = Math.pow(size, 2);
-    for (let i = 0; i < maxNumber; i++) {
-      numbersArray.push(i);
-    }
-    const deleteZeroFromStart = numbersArray.splice(0, 1);
-    numbersArray[numbersArray.length] = deleteZeroFromStart[0]; // add zero to end of arr;
-    const matrix = [];
-    while (numbersArray.length) {
-      matrix.push(numbersArray.splice(0, size));
-    }
-    this.finishResult = matrix.slice().flat();
-    _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setGameField(matrix);
-    this.determineDefaultZeroPosition();
-  }
-  determineDefaultZeroPosition() {
-    const currentMatrix = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField();
-    for (let i = 0; i < currentMatrix.length; i++) {
-      for (let g = 0; g < currentMatrix[i].length; g++) {
-        if (currentMatrix[i][g] === 0) {
-          _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setNewMove([i, g, 0]);
-          return;
-        }
-      }
-    }
-  }
-  createElementsHTML() {
-    const currentGameSize = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getFrameSize();
-    const currentGamePuzzle = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField().flat();
-    this.gameContainer.classList.add(`main_game_container_${currentGameSize}x${currentGameSize}`);
-    for (let i = 0; i < currentGameSize * currentGameSize; i++) {
-      const square = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.gameContainer, 'div', 'main_game_square', `${currentGamePuzzle[i]}`);
-      this.gameSquareHTML.push(square.node);
-      square.node.onclick = () => this.moveByClick(Number(square.node.textContent));
-    }
-  }
-  moveByClick(squareValue) {
-    const availableMoveArr = Object.values(this.availableMoves(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField()));
-    availableMoveArr.forEach(el => {
-      if (el[2] === squareValue) {
-        this.makeMove(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField(), el, this.availableMoves(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField()).emptySquare, false);
-        this.setMoveInState(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField());
-      }
-    });
-  }
-  getRandomMove(availableMoves) {
-    const objValuesFromAvalableMoves = Object.values(availableMoves);
-    const availableMovesArr = objValuesFromAvalableMoves.reduce((acc, el, i, arr) => {
-      if (i !== arr.length - 1 && el.length > 0) {
-        // check the first 4 subarrays that they are not empty. We don't need the 5th subarray.
-        acc.push(el);
-      }
-      return acc;
-    }, []);
-    const randomNumberforMove = Math.ceil(Math.random() * availableMovesArr.length) - 1; // minus one to adjust the index
-    const lastMoveMade = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getAllMoves()[_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getAllMoves().length - 1][2]; // look at the value at 2 array index
-    if (lastMoveMade === availableMovesArr[randomNumberforMove][2]) {
-      const filterAvailableMoves = availableMovesArr.filter(el => el[2] !== lastMoveMade); // We remove the last similar move
-      return filterAvailableMoves[Math.ceil(Math.random() * filterAvailableMoves.length - 1)]; // choose a random one from the remaining
-    }
-
-    return availableMovesArr[randomNumberforMove];
-  }
   availableMoves(matrix) {
     // index 0 it's X axes; index 1 it's Y axes; index 2 it's value on this coordinate
     const availableMoves = {
@@ -995,6 +921,24 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     }
     return availableMoves;
   }
+  getRandomMove(availableMoves) {
+    const objValuesFromAvalableMoves = Object.values(availableMoves);
+    const availableMovesArr = objValuesFromAvalableMoves.reduce((acc, el, i, arr) => {
+      if (i !== arr.length - 1 && el.length > 0) {
+        // check the first 4 subarrays that they are not empty. We don't need the 5th subarray.
+        acc.push(el);
+      }
+      return acc;
+    }, []);
+    const randomNumberforMove = Math.ceil(Math.random() * availableMovesArr.length) - 1; // minus one to adjust the index
+    const lastMoveMade = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getAllMoves()[_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getAllMoves().length - 1][2]; // look at the value at 2 array index
+    if (lastMoveMade === availableMovesArr[randomNumberforMove][2]) {
+      const filterAvailableMoves = availableMovesArr.filter(el => el[2] !== lastMoveMade); // We remove the last similar move
+      return filterAvailableMoves[Math.ceil(Math.random() * filterAvailableMoves.length - 1)]; // choose a random one from the remaining
+    }
+
+    return availableMovesArr[randomNumberforMove];
+  }
   makeMove(matrix, move, zeroPosition, isCollectPuzzle) {
     const matrixValuePos = matrix[move[0]][move[1]];
     const matrixZeroPos = matrix[zeroPosition[0]][zeroPosition[1]];
@@ -1013,23 +957,72 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
       if (singleLevelMatrix[i] === 0) {
         el.textContent = ``;
         el.classList.add('main_game_square_empty');
-        el.draggable = false;
-        el.ondragover = e => {
-          e.preventDefault();
-        };
       } else {
         el.textContent = String(singleLevelMatrix[i]);
         el.classList.remove('main_game_square_empty');
-        el.draggable = true;
-        el.ondragstart = event => {
-          var _a;
-          (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData('id', String(singleLevelMatrix[i]));
+      }
+    });
+    this.handlerDragAndDrop(singleLevelMatrix);
+  }
+  handlerDragAndDrop(currentMatrix) {
+    // We iterate only from 0 to 3 indices inclusive and take the value of the game square
+    const currentAvailableMoves = Object.values(this.availableMoves(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField())).map((el, i) => {
+      if (i <= 3) {
+        if (el[2]) {
+          return el[2];
+        }
+      }
+      return false;
+    }).filter(el => el);
+    currentMatrix.forEach((el, i) => {
+      if (el === 0) {
+        this.gameSquareHTML[i].ondragover = e => {
+          e.preventDefault();
         };
-        el.ondrop = event => {
+      }
+      if (currentAvailableMoves.includes(el)) {
+        this.gameSquareHTML[i].draggable = true;
+        this.gameSquareHTML[i].ondragstart = event => {
+          var _a;
+          (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData('id', String(currentMatrix[i]));
+        };
+        this.gameSquareHTML[i].ondrop = event => {
           var _a;
           const move = (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.getData('id');
           this.moveByClick(Number(move));
         };
+      } else {
+        this.gameSquareHTML[i].draggable = false;
+      }
+    });
+  }
+  collectPazzle() {
+    _common_state__WEBPACK_IMPORTED_MODULE_1__.state.shuffleStart();
+    _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setStartGame();
+    _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setCollectState(true);
+    _common_state__WEBPACK_IMPORTED_MODULE_1__.state.stopBtnDisable();
+    const handle = setInterval(() => {
+      const positionOfZero = this.availableMoves(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField()).emptySquare;
+      const spliceLastMove = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getAllMoves().splice(-1)[0];
+      this.makeMove(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField(), spliceLastMove, positionOfZero, true);
+      _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setCollectMoves();
+      if (_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getAllMoves().length === 0) {
+        _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setCollectState(false);
+        _common_state__WEBPACK_IMPORTED_MODULE_1__.state.clearCollectMoves();
+        clearInterval(handle); // stops intervals
+        _common_state__WEBPACK_IMPORTED_MODULE_1__.state.shuffleStop();
+        _common_state__WEBPACK_IMPORTED_MODULE_1__.state.collectBtnDisable();
+        _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setWinGame(true);
+        this.showCollectResult();
+      }
+    }, 1);
+  }
+  moveByClick(squareValue) {
+    const availableMoveArr = Object.values(this.availableMoves(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField()));
+    availableMoveArr.forEach(el => {
+      if (el[2] === squareValue) {
+        this.makeMove(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField(), el, this.availableMoves(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField()).emptySquare, false);
+        this.setMoveInState(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField());
       }
     });
   }
@@ -1055,7 +1048,7 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
   isWin() {
     const currentGameField = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField().flat();
     for (let i = 0; i < currentGameField.length; i++) {
-      if (this.finishResult[i] !== currentGameField[i]) {
+      if (_generateMatrix__WEBPACK_IMPORTED_MODULE_5__.GenerateMatrix.finishResult[i] !== currentGameField[i]) {
         return false;
       }
     }
@@ -1072,6 +1065,52 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.showCollectPopup();
   }
 }
+
+/***/ }),
+
+/***/ "./src/ts/components/main/game/generateMatrix.ts":
+/*!*******************************************************!*\
+  !*** ./src/ts/components/main/game/generateMatrix.ts ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "GenerateMatrix": () => (/* binding */ GenerateMatrix)
+/* harmony export */ });
+/* harmony import */ var _common_state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../common/state */ "./src/ts/common/state.ts");
+
+class GenerateMatrix {
+  static generateMatrix(size) {
+    const numbersArray = [];
+    const maxNumber = Math.pow(size, 2);
+    for (let i = 0; i < maxNumber; i++) {
+      numbersArray.push(i);
+    }
+    const deleteZeroFromStart = numbersArray.splice(0, 1);
+    numbersArray[numbersArray.length] = deleteZeroFromStart[0]; // add zero to end of arr;
+    const matrix = [];
+    while (numbersArray.length) {
+      matrix.push(numbersArray.splice(0, size));
+    }
+    this.finishResult = matrix.slice().flat();
+    _common_state__WEBPACK_IMPORTED_MODULE_0__.state.setGameField(matrix);
+    this.determineDefaultZeroPosition();
+  }
+  static determineDefaultZeroPosition() {
+    const currentMatrix = _common_state__WEBPACK_IMPORTED_MODULE_0__.state.getGameField();
+    for (let i = 0; i < currentMatrix.length; i++) {
+      for (let g = 0; g < currentMatrix[i].length; g++) {
+        if (currentMatrix[i][g] === 0) {
+          _common_state__WEBPACK_IMPORTED_MODULE_0__.state.setNewMove([i, g, 0]);
+          return;
+        }
+      }
+    }
+  }
+}
+GenerateMatrix.finishResult = [];
+
 
 /***/ }),
 
@@ -1235,6 +1274,10 @@ class Popups extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
         case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.clearLocalStorage:
           this.popupResult.destroy();
           this.popupResult = new _result_popup_result_popup__WEBPACK_IMPORTED_MODULE_5__.ResultPopup(popupsInner.node);
+          break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.closePopup:
+          _common_state__WEBPACK_IMPORTED_MODULE_1__.state.onUpdate.remove(this.popupsListener);
+          break;
       }
     };
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.onUpdate.add(this.popupsListener);
@@ -2959,4 +3002,4 @@ new _ts_components_app__WEBPACK_IMPORTED_MODULE_1__.App(document.body);
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle-3207d1e5c7f0f576394b.js.map
+//# sourceMappingURL=bundle-e30ae261dfda0bd59010.js.map

@@ -53,26 +53,18 @@ export class Game extends Control {
     this.shuffleCycle();
   }
 
-  private collectPazzle(): void {
-    state.shuffleStart();
-    state.setStartGame();
-    state.setCollectState(true);
-    state.stopBtnDisable();
-    const handle = setInterval((): void => {
-      const positionOfZero: Array<number> = this.availableMoves(state.getGameField()).emptySquare;
-      const spliceLastMove = state.getAllMoves().splice(-1)[0];
-      this.makeMove(state.getGameField(), spliceLastMove, positionOfZero, true);
-      state.setCollectMoves();
-      if (state.getAllMoves().length === 0) {
-        state.setCollectState(false);
-        state.clearCollectMoves();
-        clearInterval(handle); // stops intervals
-        state.shuffleStop();
-        state.collectBtnDisable();
-        state.setWinGame(true);
-        this.showCollectResult();
-      }
-    }, 1);
+  private createElementsHTML(): void {
+    const currentGameSize = state.getFrameSize();
+    const currentGamePuzzle: Array<number> = state.getGameField().flat();
+
+    this.gameContainer.classList.add(`main_game_container_${currentGameSize}x${currentGameSize}`);
+
+    for (let i = 0; i < currentGameSize * currentGameSize; i++) {
+      const square = new Control(this.gameContainer, 'div', 'main_game_square', `${currentGamePuzzle[i]}`);
+      this.gameSquareHTML.push(square.node);
+
+      square.node.onclick = (): void => this.moveByClick(Number(square.node.textContent));
+    }
   }
 
   private shuffleCycle(): void {
@@ -80,7 +72,7 @@ export class Game extends Control {
     state.shuffleStart();
     state.startCollectTimer();
     let counter = 0;
-    const maxShuffle = this.getRandomShuffleCount();
+    const maxShuffle = 3;
     const handle = setInterval((): void => {
       this.singleStrokeCycle();
 
@@ -103,53 +95,6 @@ export class Game extends Control {
     const availableMovesObj: AvailableMovesFromEmptySquare = this.availableMoves(state.getGameField());
     const randomMove = this.getRandomMove(availableMovesObj);
     this.makeMove(state.getGameField(), randomMove, availableMovesObj.emptySquare, false); // false mean isCollectPuzzle
-  }
-
-  private createElementsHTML(): void {
-    const currentGameSize = state.getFrameSize();
-    const currentGamePuzzle: Array<number> = state.getGameField().flat();
-
-    this.gameContainer.classList.add(`main_game_container_${currentGameSize}x${currentGameSize}`);
-
-    for (let i = 0; i < currentGameSize * currentGameSize; i++) {
-      const square = new Control(this.gameContainer, 'div', 'main_game_square', `${currentGamePuzzle[i]}`);
-      this.gameSquareHTML.push(square.node);
-
-      square.node.onclick = (): void => this.moveByClick(Number(square.node.textContent));
-    }
-  }
-
-  private moveByClick(squareValue: number): void {
-    const availableMoveArr: Array<Array<number>> = Object.values(this.availableMoves(state.getGameField()));
-
-    availableMoveArr.forEach((el: Array<number>): void => {
-      if (el[2] === squareValue) {
-        this.makeMove(state.getGameField(), el, this.availableMoves(state.getGameField()).emptySquare, false);
-        this.setMoveInState(state.getGameField());
-      }
-    });
-  }
-
-  private getRandomMove(availableMoves: AvailableMovesFromEmptySquare): Array<number> {
-    const objValuesFromAvalableMoves = Object.values(availableMoves);
-    const availableMovesArr = objValuesFromAvalableMoves.reduce((acc, el, i, arr): number => {
-      if (i !== arr.length - 1 && el.length > 0) {
-        // check the first 4 subarrays that they are not empty. We don't need the 5th subarray.
-        acc.push(el);
-      }
-      return acc;
-    }, []);
-
-    const randomNumberforMove = Math.ceil(Math.random() * availableMovesArr.length) - 1; // minus one to adjust the index
-    const lastMoveMade = state.getAllMoves()[state.getAllMoves().length - 1][2]; // look at the value at 2 array index
-
-    if (lastMoveMade === availableMovesArr[randomNumberforMove][2]) {
-      const filterAvailableMoves = availableMovesArr.filter((el: Array<number>) => el[2] !== lastMoveMade); // We remove the last similar move
-
-      return filterAvailableMoves[Math.ceil(Math.random() * filterAvailableMoves.length - 1)]; // choose a random one from the remaining
-    }
-
-    return availableMovesArr[randomNumberforMove];
   }
 
   private availableMoves(matrix: Array<Array<number>>): AvailableMovesFromEmptySquare {
@@ -186,6 +131,28 @@ export class Game extends Control {
     return availableMoves;
   }
 
+  private getRandomMove(availableMoves: AvailableMovesFromEmptySquare): Array<number> {
+    const objValuesFromAvalableMoves = Object.values(availableMoves);
+    const availableMovesArr = objValuesFromAvalableMoves.reduce((acc, el, i, arr): number => {
+      if (i !== arr.length - 1 && el.length > 0) {
+        // check the first 4 subarrays that they are not empty. We don't need the 5th subarray.
+        acc.push(el);
+      }
+      return acc;
+    }, []);
+
+    const randomNumberforMove = Math.ceil(Math.random() * availableMovesArr.length) - 1; // minus one to adjust the index
+    const lastMoveMade = state.getAllMoves()[state.getAllMoves().length - 1][2]; // look at the value at 2 array index
+
+    if (lastMoveMade === availableMovesArr[randomNumberforMove][2]) {
+      const filterAvailableMoves = availableMovesArr.filter((el: Array<number>) => el[2] !== lastMoveMade); // We remove the last similar move
+
+      return filterAvailableMoves[Math.ceil(Math.random() * filterAvailableMoves.length - 1)]; // choose a random one from the remaining
+    }
+
+    return availableMovesArr[randomNumberforMove];
+  }
+
   private makeMove(
     matrix: Array<Array<number>>,
     move: Array<number>,
@@ -216,23 +183,79 @@ export class Game extends Control {
       if (singleLevelMatrix[i] === 0) {
         el.textContent = ``;
         el.classList.add('main_game_square_empty');
-        el.draggable = false;
-        el.ondragover = (e): void => {
-          e.preventDefault();
-        };
       } else {
         el.textContent = String(singleLevelMatrix[i]);
         el.classList.remove('main_game_square_empty');
-        el.draggable = true;
+      }
+    });
 
-        el.ondragstart = (event): void => {
-          event.dataTransfer?.setData('id', String(singleLevelMatrix[i]));
+    this.handlerDragAndDrop(singleLevelMatrix);
+  }
+
+  private handlerDragAndDrop(currentMatrix: Array<number>): void {
+    // We iterate only from 0 to 3 indices inclusive and take the value of the game square
+    const currentAvailableMoves = Object.values(this.availableMoves(state.getGameField()))
+      .map((el, i) => {
+        if (i <= 3) {
+          if (el[2]) {
+            return el[2];
+          }
+        }
+        return false;
+      })
+      .filter((el) => el);
+
+    currentMatrix.forEach((el, i) => {
+      if (el === 0) {
+        this.gameSquareHTML[i].ondragover = (e): void => {
+          e.preventDefault();
+        };
+      }
+      if (currentAvailableMoves.includes(el)) {
+        this.gameSquareHTML[i].draggable = true;
+        this.gameSquareHTML[i].ondragstart = (event): void => {
+          event.dataTransfer?.setData('id', String(currentMatrix[i]));
         };
 
-        el.ondrop = (event): void => {
+        this.gameSquareHTML[i].ondrop = (event): void => {
           const move = event.dataTransfer?.getData('id');
           this.moveByClick(Number(move));
         };
+      } else {
+        this.gameSquareHTML[i].draggable = false;
+      }
+    });
+  }
+
+  private collectPazzle(): void {
+    state.shuffleStart();
+    state.setStartGame();
+    state.setCollectState(true);
+    state.stopBtnDisable();
+    const handle = setInterval((): void => {
+      const positionOfZero: Array<number> = this.availableMoves(state.getGameField()).emptySquare;
+      const spliceLastMove = state.getAllMoves().splice(-1)[0];
+      this.makeMove(state.getGameField(), spliceLastMove, positionOfZero, true);
+      state.setCollectMoves();
+      if (state.getAllMoves().length === 0) {
+        state.setCollectState(false);
+        state.clearCollectMoves();
+        clearInterval(handle); // stops intervals
+        state.shuffleStop();
+        state.collectBtnDisable();
+        state.setWinGame(true);
+        this.showCollectResult();
+      }
+    }, 1);
+  }
+
+  private moveByClick(squareValue: number): void {
+    const availableMoveArr: Array<Array<number>> = Object.values(this.availableMoves(state.getGameField()));
+
+    availableMoveArr.forEach((el: Array<number>): void => {
+      if (el[2] === squareValue) {
+        this.makeMove(state.getGameField(), el, this.availableMoves(state.getGameField()).emptySquare, false);
+        this.setMoveInState(state.getGameField());
       }
     });
   }

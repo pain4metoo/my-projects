@@ -29,7 +29,6 @@ export class Main extends Control {
 
         case StateOptions.createPopup:
           this.mainPopups = new Popups(this.node);
-
           break;
         case StateOptions.closePopup:
           this.mainPopups.destroy();

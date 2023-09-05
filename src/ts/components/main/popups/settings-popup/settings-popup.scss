@@ -1,0 +1,20 @@
+.settings {
+  width: 80%;
+  margin-top: 2rem;
+  &_title {
+    text-align: center;
+    color: gainsboro;
+    margin: 0;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  &_inner {
+    display: flex;
+    justify-content: space-between;
+  }
+  &_right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

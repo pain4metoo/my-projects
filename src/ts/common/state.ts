@@ -211,6 +211,75 @@ class State {
   public getDeleteTargetFromStorage(): number {
     return this._data.gameSettings.deleteTarget;
   }
+
+  public openSettings(): void {
+    state.onUpdate.emit(StateOptions.showSettings);
+  }
+
+  public setTheme(flag: boolean): void {
+    this._data.appSettings.theme = flag;
+    state.onUpdate.emit(StateOptions.changeTheme);
+  }
+
+  public getTheme(): boolean {
+    return this._data.appSettings.theme;
+  }
+
+  public setAnimation(flag: boolean): void {
+    this._data.appSettings.animation = flag;
+    state.onUpdate.emit(StateOptions.changeAnimation);
+  }
+
+  public getAnimation(): boolean {
+    return this._data.appSettings.animation;
+  }
+
+  public setSound(flag: boolean): void {
+    this._data.appSettings.stateSound = flag;
+    state.onUpdate.emit(StateOptions.changeSound);
+  }
+
+  public getSound(): boolean {
+    return this._data.appSettings.stateSound;
+  }
+
+  public setLanguage(flag: boolean): void {
+    this._data.appSettings.language = flag;
+    state.onUpdate.emit(StateOptions.changeLanguage);
+  }
+
+  public getLanguage(): boolean {
+    return this._data.appSettings.language;
+  }
+
+  public setVolume(value: string): void {
+    this._data.appSettings.volume = value;
+    state.onUpdate.emit(StateOptions.changeVolume);
+  }
+
+  public getVolume(): string {
+    return this._data.appSettings.volume;
+  }
+
+  public setLastVolume(value: string): void {
+    this._data.appSettings.lastVolume = value;
+  }
+
+  public getLastVolume(): string {
+    return this._data.appSettings.lastVolume;
+  }
+
+  public resetSettings(flag: boolean): void {
+    if (flag) {
+      this._data.appSettings.animation = true;
+      this._data.appSettings.volume = '30';
+      this._data.appSettings.stateSound = true;
+      this._data.appSettings.theme = false;
+      this._data.appSettings.language = true;
+
+      state.onUpdate.emit(StateOptions.closePopup);
+    }
+  }
 }
 
 const initialState: StateData = {
@@ -231,6 +300,14 @@ const initialState: StateData = {
       collectMoves: 0
     },
     results: []
+  },
+  appSettings: {
+    volume: '30',
+    lastVolume: '30',
+    stateSound: true,
+    theme: false,
+    language: true,
+    animation: true
   }
 };
 

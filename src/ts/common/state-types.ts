@@ -2,6 +2,7 @@ import { Result } from './local-storage';
 
 export interface StateData {
   gameSettings: GameSettings;
+  appSettings: AppSettings;
 }
 
 interface GameSettings {
@@ -16,6 +17,15 @@ interface GameSettings {
   result: { moves: number; time: string; collectTime: string; collectMoves: number };
   results: Array<Result>;
   deleteTarget: number;
+}
+
+interface AppSettings {
+  volume: string;
+  lastVolume: string;
+  stateSound: boolean;
+  theme: boolean;
+  language: boolean;
+  animation: boolean;
 }
 
 export enum StateOptions {
@@ -41,5 +51,13 @@ export enum StateOptions {
   setCollectMoves = 'collect-moves',
   stopBtnEnable = 'stop-btn-enable',
   stopBtnDisable = 'stop btn-disable',
-  clearLocalStorage = 'clear-all-local-storage'
+  clearLocalStorage = 'clear-all-local-storage',
+  showSettings = 'show-settings',
+  closeSettings = 'close-settings',
+  changeTheme = 'change-theme',
+  changeLanguage = 'change-language',
+  changeSound = 'change-sound',
+  changeAnimation = 'change-animation',
+  changeVolume = 'change-volume',
+  resetSettings = 'reset-settings'
 }

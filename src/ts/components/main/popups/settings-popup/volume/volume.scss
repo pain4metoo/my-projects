@@ -1,0 +1,28 @@
+.volume {
+  display: flex;
+  align-items: center;
+  &_icon {
+    width: 4rem;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  &_input[type='range'] {
+    -webkit-appearance: none;
+    background: linear-gradient(to right, #ff2253 30%, #ff2253 0%, #fff 30%, white 100%);
+    cursor: pointer;
+    height: 0.3rem;
+    max-width: 30rem;
+    outline: none;
+    transition: 0.5s ease-in-out;
+    transition: all 0.5s;
+    width: 100%;
+  }
+  &_input::-webkit-slider-thumb {
+    width: 3rem;
+    height: 3rem;
+  }
+  &_input::-moz-range-thumb {
+    width: 3rem;
+    height: 3rem;
+  }
+}

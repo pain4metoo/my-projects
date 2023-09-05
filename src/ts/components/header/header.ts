@@ -4,15 +4,15 @@ import { StateOptions } from '../../common/state-types';
 import './header.scss';
 
 enum NavItem {
-  Restart = 'Restart',
-  Stop = 'Stop',
-  Start = 'Start',
-  Results = 'Results'
+  Restart = 'restart',
+  Stop = 'stop',
+  Results = 'results',
+  Settings = 'settings'
 }
 
 export class Header extends Control {
   private headerListener: (type: StateOptions) => void;
-  private navItems: Array<string> = ['Restart', 'Stop', 'Results'];
+  private navItems: Array<string> = ['restart', 'stop', 'results', 'settings'];
   private navItemsHtmlElements: Array<HTMLButtonElement> = [];
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'header', 'header');
@@ -53,12 +53,20 @@ export class Header extends Control {
         case NavItem.Results:
           navItem.node.onclick = (): void => this.showResultPopup();
           break;
+        case NavItem.Settings:
+          navItem.node.onclick = (): void => this.showSettings();
+          break;
       }
     });
 
     this.navItemsHtmlElements[1].disabled = true;
 
     state.onUpdate.add(this.headerListener);
+  }
+
+  private showSettings(): void {
+    state.createPopup();
+    state.openSettings();
   }
 
   private showResultPopup(): void {

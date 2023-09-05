@@ -15,9 +15,9 @@ export class WarningPopup extends Control {
     popupClose.node.onclick = (): void => this.onClosePopup();
 
     const popupBtnContainer = new Control(popupInner.node, 'div', 'warning_btns');
-    const btnTrue = new Control(popupBtnContainer.node, 'button', 'warning_btn', 'true');
+    const btnTrue = new Control(popupBtnContainer.node, 'button', 'warning_btn', 'Yes');
     btnTrue.node.onclick = (): void => this.onTrue();
-    const btnFalse = new Control(popupBtnContainer.node, 'button', 'warning_btn', 'false');
+    const btnFalse = new Control(popupBtnContainer.node, 'button', 'warning_btn', 'No');
     btnFalse.node.onclick = (): void => this.onClosePopup();
   }
 

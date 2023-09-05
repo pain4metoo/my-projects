@@ -6,6 +6,7 @@ import { FinishPopup } from './finish-popup/finish-popup';
 import { ResultPopup } from './result-popup/result-popup';
 import './popups.scss';
 import { SettingsPopup } from './settings-popup/settings-popup';
+import { lStorage } from '../../../common/local-storage';
 
 export class Popups extends Control {
   private popupsListener: (type: StateOptions) => void;
@@ -64,6 +65,7 @@ export class Popups extends Control {
 
   private onResetSettings(flag: boolean): void {
     state.resetSettings(flag);
+    lStorage.remove('settings');
   }
 
   private deleteResults(): void {

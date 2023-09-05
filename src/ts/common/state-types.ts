@@ -19,7 +19,7 @@ interface GameSettings {
   deleteTarget: number;
 }
 
-interface AppSettings {
+export interface AppSettings {
   volume: string;
   lastVolume: string;
   stateSound: boolean;

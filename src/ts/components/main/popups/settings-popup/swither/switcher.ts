@@ -1,6 +1,7 @@
 import Control from '../../../../../common/control';
+import { lStorage } from '../../../../../common/local-storage';
 import { state } from '../../../../../common/state';
-import { StateOptions } from '../../../../../common/state-types';
+import { AppSettings, StateOptions } from '../../../../../common/state-types';
 import './switcher.scss';
 
 interface ISwitcher {
@@ -80,6 +81,8 @@ export class Switcher extends Control {
         case StateOptions.closePopup:
           state.onUpdate.remove(this.switcherListener);
           break;
+        default:
+          lStorage.put('settings', state.getSettings());
       }
     };
 
@@ -152,6 +155,8 @@ export class Switcher extends Control {
       case SwitcherTitles.Language:
         state.setLanguage(flag);
         break;
+      default:
+        lStorage.put('settings', state.getSettings());
     }
   }
 }

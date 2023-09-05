@@ -1,4 +1,4 @@
-import { state } from './state';
+import { AppSettings } from './state-types';
 
 export interface Result {
   frameSize: number;
@@ -7,18 +7,18 @@ export interface Result {
 }
 
 class LocalStorage {
-  public put(key: string, value: Array<Result>): void {
+  public put(key: string, value: Array<Result> | AppSettings): void {
     localStorage.setItem(`${key}`, JSON.stringify(value));
   }
 
-  public get(key: string): Array<Result> {
+  public get(key: string): Array<Result> | AppSettings | null {
     const findKey = localStorage.getItem(`${key}`);
 
     if (findKey !== null) {
       return JSON.parse(findKey);
     }
 
-    return [];
+    return null;
   }
 
   public remove(key: string): void {

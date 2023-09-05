@@ -4,6 +4,7 @@ import volumeOn from '../../../../../../assets/image/volume-on.png';
 import volumeOff from '../../../../../../assets/image/volume-off.png';
 import { state } from '../../../../../common/state';
 import { StateOptions } from '../../../../../common/state-types';
+import { lStorage } from '../../../../../common/local-storage';
 
 export class Volume extends Control {
   private volumeListener: (type: StateOptions) => void;
@@ -30,6 +31,8 @@ export class Volume extends Control {
         case StateOptions.closePopup:
           state.onUpdate.remove(this.volumeListener);
           break;
+        default:
+          lStorage.put('settings', state.getSettings());
       }
     };
 

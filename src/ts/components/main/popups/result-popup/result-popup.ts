@@ -11,7 +11,7 @@ export class ResultPopup extends Control {
     const resultTitle = new Control(this.node, 'h2', 'popups_result_title', 'Your Highest Scores');
     const resultsList = new Control(this.node, 'ul', 'popups_result_list');
 
-    const localStorageResult = lStorage.get('results');
+    const localStorageResult = lStorage.get('results') as Array<Result>;
 
     localStorageResult.forEach((el: Result, i) => {
       const resultWrapper = new Control(resultsList.node, 'ul', 'popups_result_wrapper');

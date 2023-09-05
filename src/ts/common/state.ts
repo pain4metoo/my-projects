@@ -1,6 +1,6 @@
 import { Result, lStorage } from './local-storage';
 import Signal from './signal';
-import { StateData, StateOptions } from './state-types';
+import { AppSettings, StateData, StateOptions } from './state-types';
 
 class State {
   private _data: StateData;
@@ -215,6 +215,10 @@ class State {
     state.onUpdate.emit(StateOptions.showSettings);
   }
 
+  public getSettings(): AppSettings {
+    return this._data.appSettings;
+  }
+
   public setTheme(flag: boolean): void {
     this._data.appSettings.theme = flag;
     state.onUpdate.emit(StateOptions.changeTheme);
@@ -278,6 +282,17 @@ class State {
 
       state.onUpdate.emit(StateOptions.closePopup);
     }
+  }
+
+  public initLocalStorage(): void {
+    const appSettings = lStorage.get('settings') as AppSettings;
+
+    this._data.appSettings.animation = appSettings.animation;
+    this._data.appSettings.language = appSettings.language;
+    this._data.appSettings.lastVolume = appSettings.lastVolume;
+    this._data.appSettings.stateSound = appSettings.stateSound;
+    this._data.appSettings.theme = appSettings.theme;
+    this._data.appSettings.volume = appSettings.volume;
   }
 }
 

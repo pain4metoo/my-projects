@@ -1,7 +1,7 @@
 import Control from '../../../common/control';
 import { state } from '../../../common/state';
 import './game.scss';
-import { StateOptions } from '../../../common/state-types';
+import { AppSettings, StateOptions } from '../../../common/state-types';
 import { Result, lStorage } from '../../../common/local-storage';
 import { GenerateMatrix } from './generateMatrix';
 
@@ -18,7 +18,7 @@ export class Game extends Control {
 
   private gameSquareHTML: Array<HTMLElement> = [];
   private gameContainer: HTMLElement;
-  public results: Array<Result> = lStorage.get('results') || [];
+  public results = (lStorage.get('results') as Array<Result>) || [];
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'main_game');

@@ -35,7 +35,7 @@ export class Popups extends Control {
           break;
         case StateOptions.showResultPopup:
           this.popupResult = new ResultPopup(popupsInner.node);
-          newGameBtn.node.textContent = 'Delete all results';
+          newGameBtn.node.textContent = 'delete all results';
           newGameBtn.node.onclick = (): void => this.showWarning(StateOptions.showResultPopup);
           break;
         case StateOptions.showFinishPopup:
@@ -44,7 +44,7 @@ export class Popups extends Control {
           break;
         case StateOptions.showSettings:
           this.popupSettings = new SettingsPopup(popupsInner.node);
-          newGameBtn.node.textContent = 'default settings';
+          newGameBtn.node.textContent = 'reset settings';
           newGameBtn.node.onclick = (): void => this.showWarning(StateOptions.showSettings);
           break;
         case StateOptions.clearLocalStorage:

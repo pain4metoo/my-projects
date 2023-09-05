@@ -14,16 +14,12 @@ export class FrameSize extends Control {
       this.node,
       'button',
       'main_frame_btn',
-      'Collect puzzle'
+      'collect puzzle'
     );
     btnCollectPuzzle.node.onclick = (): void => state.setCollectPuzzle();
     btnCollectPuzzle.node.disabled = true;
-    const currentSizeBlock = new Control(this.node, 'div', 'main_frame_block');
-    const sizeText = new Control(currentSizeBlock.node, 'p', 'main_frame_text', 'Frame size: ');
-    const sizeValue = new Control(currentSizeBlock.node, 'p', 'main_frame_size', `${currentSize}x${currentSize}`);
 
     const otherSizeBlock = new Control(this.node, 'div', 'main_frame_other');
-    const otherSizeText = new Control(otherSizeBlock.node, 'p', 'main_frame_other_text', 'Other sizes: ');
 
     this.otherSize.forEach((size: string, i) => {
       const sizeEL: Control<HTMLButtonElement> = new Control(
@@ -53,7 +49,6 @@ export class FrameSize extends Control {
             }
           });
 
-          sizeValue.node.textContent = `${state.getFrameSize()}x${state.getFrameSize()}`;
           break;
 
         case StateOptions.shuffleStart:

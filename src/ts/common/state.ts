@@ -283,14 +283,18 @@ class State {
   }
 
   public initLocalStorage(): void {
-    const appSettings = lStorage.get('settings') as AppSettings;
+    try {
+      const appSettings = lStorage.get('settings') as AppSettings;
 
-    this._data.appSettings.animation = appSettings.animation;
-    this._data.appSettings.language = appSettings.language;
-    this._data.appSettings.lastVolume = appSettings.lastVolume;
-    this._data.appSettings.stateSound = appSettings.stateSound;
-    this._data.appSettings.theme = appSettings.theme;
-    this._data.appSettings.volume = appSettings.volume;
+      this._data.appSettings.animation = appSettings.animation;
+      this._data.appSettings.language = appSettings.language;
+      this._data.appSettings.lastVolume = appSettings.lastVolume;
+      this._data.appSettings.stateSound = appSettings.stateSound;
+      this._data.appSettings.theme = appSettings.theme;
+      this._data.appSettings.volume = appSettings.volume;
+    } catch {
+      return;
+    }
   }
 
   public showWarningPopup(type: string): void {

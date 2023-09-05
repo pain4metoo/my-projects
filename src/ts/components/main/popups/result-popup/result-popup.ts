@@ -2,7 +2,6 @@ import Control from '../../../../common/control';
 import './result-popup.scss';
 import { Result, lStorage } from '../../../../common/local-storage';
 import { state } from '../../../../common/state';
-import { StateOptions } from '../../../../common/state-types';
 
 export class ResultPopup extends Control {
   constructor(parentNode: HTMLElement) {
@@ -11,7 +10,7 @@ export class ResultPopup extends Control {
     const resultTitle = new Control(this.node, 'h2', 'popups_result_title', 'Your Highest Scores');
     const resultsList = new Control(this.node, 'ul', 'popups_result_list');
 
-    const localStorageResult = lStorage.get('results') as Array<Result>;
+    const localStorageResult = (lStorage.get('results') as Array<Result>) || [];
 
     localStorageResult.forEach((el: Result, i) => {
       const resultWrapper = new Control(resultsList.node, 'ul', 'popups_result_wrapper');

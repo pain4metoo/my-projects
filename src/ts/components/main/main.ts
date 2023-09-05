@@ -6,10 +6,12 @@ import { FrameSize } from './frame-size/frame-size';
 import { Game } from './game/game';
 import './main.scss';
 import { Popups } from './popups/popups';
+import { WarningPopup } from './popups/warning-popup/warning-popup';
 
 export class Main extends Control {
   private mainListener: (type: StateOptions) => void;
   private mainPopups!: Popups;
+  private warningPopup!: WarningPopup;
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'main', 'main');
 
@@ -32,6 +34,12 @@ export class Main extends Control {
           break;
         case StateOptions.closePopup:
           this.mainPopups.destroy();
+          break;
+        case StateOptions.showWarningPopup:
+          this.warningPopup = new WarningPopup(this.node);
+          break;
+        case StateOptions.closeWarningPopup:
+          this.warningPopup.destroy();
           break;
       }
     };

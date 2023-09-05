@@ -3,6 +3,7 @@ import { Result } from './local-storage';
 export interface StateData {
   gameSettings: GameSettings;
   appSettings: AppSettings;
+  warningType: string | null;
 }
 
 interface GameSettings {
@@ -61,5 +62,9 @@ export enum StateOptions {
   changeSound = 'change-sound',
   changeAnimation = 'change-animation',
   changeVolume = 'change-volume',
-  resetSettings = 'reset-settings'
+  resetSettings = 'reset-settings',
+  showWarningPopup = 'show-warning-popup',
+  closeWarningPopup = 'close-warning-popup',
+  warningResults = 'warning-results',
+  warningSettings = 'warning-settings'
 }

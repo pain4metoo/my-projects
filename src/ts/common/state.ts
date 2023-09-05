@@ -272,16 +272,14 @@ class State {
     return this._data.appSettings.lastVolume;
   }
 
-  public resetSettings(flag: boolean): void {
-    if (flag) {
-      this._data.appSettings.animation = true;
-      this._data.appSettings.volume = '30';
-      this._data.appSettings.stateSound = true;
-      this._data.appSettings.theme = false;
-      this._data.appSettings.language = true;
+  public resetSettings(): void {
+    this._data.appSettings.animation = true;
+    this._data.appSettings.volume = '30';
+    this._data.appSettings.stateSound = true;
+    this._data.appSettings.theme = false;
+    this._data.appSettings.language = true;
 
-      state.onUpdate.emit(StateOptions.closePopup);
-    }
+    state.onUpdate.emit(StateOptions.closePopup);
   }
 
   public initLocalStorage(): void {
@@ -293,6 +291,34 @@ class State {
     this._data.appSettings.stateSound = appSettings.stateSound;
     this._data.appSettings.theme = appSettings.theme;
     this._data.appSettings.volume = appSettings.volume;
+  }
+
+  public showWarningPopup(type: string): void {
+    this._data.warningType = type;
+    state.onUpdate.emit(StateOptions.showWarningPopup);
+  }
+
+  public closeWarningPopup(): void {
+    state.onUpdate.emit(StateOptions.closeWarningPopup);
+  }
+
+  public warningDeleteResult(): void {
+    state.onUpdate.emit(StateOptions.warningResults);
+  }
+
+  public warningDeleteSettings(): void {
+    state.onUpdate.emit(StateOptions.warningSettings);
+  }
+
+  public onClickWarning(): void {
+    if (this._data.warningType === StateOptions.showResultPopup) {
+      this.warningDeleteResult();
+    } else {
+      if (this._data.warningType === StateOptions.showSettings) {
+        this.warningDeleteSettings();
+      }
+    }
+    this.closeWarningPopup();
   }
 }
 
@@ -322,7 +348,8 @@ const initialState: StateData = {
     theme: false,
     language: true,
     animation: true
-  }
+  },
+  warningType: null
 };
 
 export const state: State = new State(initialState);

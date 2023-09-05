@@ -7,6 +7,7 @@ import { ResultPopup } from './result-popup/result-popup';
 import './popups.scss';
 import { SettingsPopup } from './settings-popup/settings-popup';
 import { lStorage } from '../../../common/local-storage';
+import { WarningPopup } from './warning-popup/warning-popup';
 
 export class Popups extends Control {
   private popupsListener: (type: StateOptions) => void;
@@ -35,7 +36,7 @@ export class Popups extends Control {
         case StateOptions.showResultPopup:
           this.popupResult = new ResultPopup(popupsInner.node);
           newGameBtn.node.textContent = 'Delete all results';
-          newGameBtn.node.onclick = (): void => this.deleteResults();
+          newGameBtn.node.onclick = (): void => this.showWarning(StateOptions.showResultPopup);
           break;
         case StateOptions.showFinishPopup:
           this.popupFinish = new FinishPopup(popupsInner.node);
@@ -44,7 +45,7 @@ export class Popups extends Control {
         case StateOptions.showSettings:
           this.popupSettings = new SettingsPopup(popupsInner.node);
           newGameBtn.node.textContent = 'default settings';
-          newGameBtn.node.onclick = (): void => this.onResetSettings(true);
+          newGameBtn.node.onclick = (): void => this.showWarning(StateOptions.showSettings);
           break;
         case StateOptions.clearLocalStorage:
           this.popupResult.destroy();
@@ -53,6 +54,13 @@ export class Popups extends Control {
         case StateOptions.showNewResult:
           this.popupResult.destroy();
           this.popupResult = new ResultPopup(popupsInner.node);
+          break;
+
+        case StateOptions.warningResults:
+          this.deleteResults();
+          break;
+        case StateOptions.warningSettings:
+          this.resetSettings();
           break;
         case StateOptions.closePopup:
           state.onUpdate.remove(this.popupsListener);
@@ -63,8 +71,12 @@ export class Popups extends Control {
     state.onUpdate.add(this.popupsListener);
   }
 
-  private onResetSettings(flag: boolean): void {
-    state.resetSettings(flag);
+  private showWarning(type: string): void {
+    state.showWarningPopup(type);
+  }
+
+  private resetSettings(): void {
+    state.resetSettings();
     lStorage.remove('settings');
   }
 

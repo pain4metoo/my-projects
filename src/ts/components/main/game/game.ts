@@ -2,7 +2,7 @@ import Control from '../../../common/control';
 import { state } from '../../../common/state';
 import './game.scss';
 import { StateOptions } from '../../../common/state-types';
-import { Result, localStorageControl } from '../../../common/local-storage';
+import { Result, lStorage } from '../../../common/local-storage';
 import { GenerateMatrix } from './generateMatrix';
 
 interface AvailableMovesFromEmptySquare {
@@ -18,6 +18,7 @@ export class Game extends Control {
 
   private gameSquareHTML: Array<HTMLElement> = [];
   private gameContainer: HTMLElement;
+  public results: Array<Result> = lStorage.get('results') || [];
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'main_game');
@@ -40,6 +41,12 @@ export class Game extends Control {
           break;
         case StateOptions.collectPuzzle:
           this.collectPazzle();
+          break;
+        case StateOptions.clearLocalStorage:
+          this.deleteResult();
+          break;
+        case StateOptions.deleteTargetFromStorage:
+          this.deleteResult(state.getDeleteTargetFromStorage());
           break;
       }
     };
@@ -281,7 +288,55 @@ export class Game extends Control {
       moves: state.getResult().moves,
       time: state.getResult().time
     };
-    localStorageControl.put(Object.assign({}, result));
+    const maxItemsInLocal = 10;
+
+    if (this.results.includes(result)) {
+      return;
+    } else {
+      this.results.push(Object.assign({}, result));
+    }
+
+    const arrayAfterSort: Array<Result> = this.sortValue(this.results);
+    arrayAfterSort.length > maxItemsInLocal ? arrayAfterSort.splice(arrayAfterSort.length - 1, 1) : null;
+
+    lStorage.put('results', this.results);
+  }
+
+  public deleteResult(targetIndex?: number): void {
+    if (targetIndex === 0 || targetIndex) {
+      this.results.splice(targetIndex, 1);
+    } else {
+      this.results.splice(0);
+    }
+
+    lStorage.put('results', this.results);
+  }
+
+  private sortValue(results: Array<Result>): Array<Result> {
+    return results.sort((a, b) => {
+      if (a.frameSize !== b.frameSize) {
+        return b.frameSize - a.frameSize;
+      } else {
+        // If frameSize are equal, then look at moves
+        if (a.moves !== b.moves) {
+          return a.moves - b.moves;
+        } else {
+          // If moves are equal then look at time and repeat for hours minutes and seconds
+          const splitTimeFirst = a.time.split(':').map((item: string) => +item);
+          const splitTimeSecond = b.time.split(':').map((item: string) => +item);
+
+          if (splitTimeFirst[0] !== splitTimeSecond[0]) {
+            return splitTimeFirst[0] - splitTimeSecond[0];
+          } else {
+            if (splitTimeFirst[1] !== splitTimeSecond[1]) {
+              return splitTimeFirst[1] - splitTimeSecond[1];
+            }
+
+            return splitTimeFirst[2] - splitTimeSecond[2];
+          }
+        }
+      }
+    });
   }
 
   private isWin(): boolean {

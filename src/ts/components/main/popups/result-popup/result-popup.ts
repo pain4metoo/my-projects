@@ -1,6 +1,6 @@
 import Control from '../../../../common/control';
 import './result-popup.scss';
-import { Result, localStorageControl } from '../../../../common/local-storage';
+import { Result, lStorage } from '../../../../common/local-storage';
 import { state } from '../../../../common/state';
 import { StateOptions } from '../../../../common/state-types';
 
@@ -11,9 +11,9 @@ export class ResultPopup extends Control {
     const resultTitle = new Control(this.node, 'h2', 'popups_result_title', 'Your Highest Scores');
     const resultsList = new Control(this.node, 'ul', 'popups_result_list');
 
-    const localStorageData = localStorageControl.get();
+    const localStorageResult = lStorage.get('results');
 
-    localStorageData.forEach((el: Result, i) => {
+    localStorageResult.forEach((el: Result, i) => {
       const resultWrapper = new Control(resultsList.node, 'ul', 'popups_result_wrapper');
       const resultCount = new Control(resultWrapper.node, 'li', 'popups_result_count', `${i + 1}.`);
 
@@ -31,15 +31,11 @@ export class ResultPopup extends Control {
         }
       }
       const deleteResult = new Control(resultWrapper.node, 'span', 'popups_result_delete');
-      deleteResult.node.onclick = (): void => this.onClearState(i);
+      deleteResult.node.onclick = (): void => this.deleteResult(i);
     });
   }
 
-  private onClearState(targetIndex?: number): void {
-    if (!targetIndex && targetIndex !== 0) {
-      state.clearAllStorage();
-    } else {
-      state.deleteTargetFromStorage(targetIndex);
-    }
+  private deleteResult(targetIndex: number): void {
+    state.deleteTargetFromStorage(targetIndex);
   }
 }

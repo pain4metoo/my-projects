@@ -66,5 +66,3 @@ export class Volume extends Control {
     }
   }
 }
-
-// `linear-gradient(to right, #ff2253 ${value}%, #ff2253 0%, #fff ${value}%, white 100%)`

@@ -34,7 +34,7 @@ export class Popups extends Control {
         case StateOptions.showResultPopup:
           this.popupResult = new ResultPopup(popupsInner.node);
           newGameBtn.node.textContent = 'Delete all results';
-          newGameBtn.node.onclick = (): void => this.onClearState();
+          newGameBtn.node.onclick = (): void => this.deleteResults();
           break;
         case StateOptions.showFinishPopup:
           this.popupFinish = new FinishPopup(popupsInner.node);
@@ -49,7 +49,9 @@ export class Popups extends Control {
           this.popupResult.destroy();
           this.popupResult = new ResultPopup(popupsInner.node);
           break;
-
+        case StateOptions.showNewResult:
+          this.popupResult.destroy();
+          this.popupResult = new ResultPopup(popupsInner.node);
           break;
         case StateOptions.closePopup:
           state.onUpdate.remove(this.popupsListener);
@@ -64,12 +66,8 @@ export class Popups extends Control {
     state.resetSettings(flag);
   }
 
-  private onClearState(targetIndex?: number): void {
-    if (!targetIndex && targetIndex !== 0) {
-      state.clearAllStorage();
-    } else {
-      state.deleteTargetFromStorage(targetIndex);
-    }
+  private deleteResults(): void {
+    state.clearResults();
   }
 
   private onNewGameBtn(): void {

@@ -1,4 +1,4 @@
-import { Result, localStorageControl } from './local-storage';
+import { Result, lStorage } from './local-storage';
 import Signal from './signal';
 import { StateData, StateOptions } from './state-types';
 
@@ -197,15 +197,14 @@ class State {
     return this._data.gameSettings.results;
   }
 
-  public clearAllStorage(): void {
-    localStorageControl.deleteFromLocalStorage();
+  public clearResults(): void {
     state.onUpdate.emit(StateOptions.clearLocalStorage);
   }
 
   public deleteTargetFromStorage(targetIndex: number): void {
-    localStorageControl.deleteFromLocalStorage(targetIndex);
     this._data.gameSettings.deleteTarget = targetIndex;
-    state.onUpdate.emit(StateOptions.clearLocalStorage);
+    state.onUpdate.emit(StateOptions.deleteTargetFromStorage);
+    state.onUpdate.emit(StateOptions.showNewResult);
   }
 
   public getDeleteTargetFromStorage(): number {

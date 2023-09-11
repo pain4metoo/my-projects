@@ -1,3 +1,4 @@
+import { soundControl } from '../components/main/game/soundControl';
 import { Result, lStorage } from './local-storage';
 import Signal from './signal';
 import { AppSettings, StateData, StateOptions } from './state-types';
@@ -32,6 +33,7 @@ class State {
 
   public setMove(arr: Array<Array<number>>): void {
     this._data.gameSettings.currentField = arr;
+
     state.onUpdate.emit(StateOptions.setMove);
   }
 

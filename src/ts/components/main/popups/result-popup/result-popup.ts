@@ -2,6 +2,7 @@ import Control from '../../../../common/control';
 import './result-popup.scss';
 import { Result, lStorage } from '../../../../common/local-storage';
 import { state } from '../../../../common/state';
+import { SoundTypes, soundControl } from '../../game/soundControl';
 
 export class ResultPopup extends Control {
   constructor(parentNode: HTMLElement) {
@@ -35,6 +36,7 @@ export class ResultPopup extends Control {
   }
 
   private deleteResult(targetIndex: number): void {
+    soundControl.playSound(SoundTypes.btn);
     state.deleteTargetFromStorage(targetIndex);
   }
 }

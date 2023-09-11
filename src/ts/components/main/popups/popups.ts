@@ -8,6 +8,7 @@ import './popups.scss';
 import { SettingsPopup } from './settings-popup/settings-popup';
 import { lStorage } from '../../../common/local-storage';
 import { WarningPopup } from './warning-popup/warning-popup';
+import { SoundTypes, soundControl } from '../game/soundControl';
 
 export class Popups extends Control {
   private popupsListener: (type: StateOptions) => void;
@@ -72,6 +73,7 @@ export class Popups extends Control {
   }
 
   private showWarning(type: string): void {
+    soundControl.playSound(SoundTypes.btn);
     state.showWarningPopup(type);
   }
 
@@ -85,11 +87,13 @@ export class Popups extends Control {
   }
 
   private onNewGameBtn(): void {
+    soundControl.playSound(SoundTypes.btn);
     state.setNewGame();
     this.onDeletePopup();
   }
 
   private onDeletePopup(): void {
+    soundControl.playSound(SoundTypes.btn);
     state.closePopup();
   }
 }

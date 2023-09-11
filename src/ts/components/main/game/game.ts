@@ -4,6 +4,7 @@ import './game.scss';
 import { AppSettings, StateOptions } from '../../../common/state-types';
 import { Result, lStorage } from '../../../common/local-storage';
 import { GenerateMatrix } from './generateMatrix';
+import { soundControl, SoundTypes } from './soundControl';
 
 interface AvailableMovesFromEmptySquare {
   axisXLeft: Array<number>;
@@ -82,7 +83,6 @@ export class Game extends Control {
     const maxShuffle = 0;
     const handle = setInterval((): void => {
       this.singleStrokeCycle();
-
       if (counter === maxShuffle) {
         state.stopCollectTimer();
         clearInterval(handle); // stops intervals
@@ -242,6 +242,7 @@ export class Game extends Control {
     state.setStartGame();
     state.setCollectState(true);
     state.stopBtnDisable();
+    soundControl.playSound(SoundTypes.btn);
     const handle = setInterval((): void => {
       const positionOfZero: Array<number> = this.availableMoves(state.getGameField()).emptySquare;
       const spliceLastMove = state.getAllMoves().splice(-1)[0];
@@ -271,6 +272,7 @@ export class Game extends Control {
   }
 
   private setMoveInState(currentGameField: Array<Array<number>>): void {
+    soundControl.playSound(SoundTypes.move);
     state.setMove(currentGameField);
     state.setMoveCounter();
     state.setStartGame();
@@ -346,6 +348,7 @@ export class Game extends Control {
         return false;
       }
     }
+    soundControl.playSound(SoundTypes.win);
     return true;
   }
 

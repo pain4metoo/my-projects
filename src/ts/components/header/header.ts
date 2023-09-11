@@ -1,6 +1,7 @@
 import Control from '../../common/control';
 import { state } from '../../common/state';
 import { StateOptions } from '../../common/state-types';
+import { SoundTypes, soundControl } from '../main/game/soundControl';
 import './header.scss';
 
 enum NavItem {
@@ -45,16 +46,28 @@ export class Header extends Control {
 
       switch (navLink) {
         case NavItem.Restart:
-          navItem.node.onclick = (): void => state.setNewGame();
+          navItem.node.onclick = (): void => {
+            soundControl.playSound(SoundTypes.btn);
+            state.setNewGame();
+          };
           break;
         case NavItem.Stop:
-          navItem.node.onclick = (): void => state.setStopGame();
+          navItem.node.onclick = (): void => {
+            soundControl.playSound(SoundTypes.btn);
+            state.setStopGame();
+          };
           break;
         case NavItem.Results:
-          navItem.node.onclick = (): void => this.showResultPopup();
+          navItem.node.onclick = (): void => {
+            soundControl.playSound(SoundTypes.btn);
+            this.showResultPopup();
+          };
           break;
         case NavItem.Settings:
-          navItem.node.onclick = (): void => this.showSettings();
+          navItem.node.onclick = (): void => {
+            soundControl.playSound(SoundTypes.btn);
+            this.showSettings();
+          };
           break;
       }
     });

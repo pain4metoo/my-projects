@@ -2,6 +2,7 @@ import Control from '../../../../common/control';
 import { state } from '../../../../common/state';
 import './warning-popup.scss';
 import closeSVG from '../../../../../assets/svg/close-btn.svg';
+import { SoundTypes, soundControl } from '../../game/soundControl';
 
 export class WarningPopup extends Control {
   constructor(parentNode: HTMLElement) {
@@ -22,9 +23,11 @@ export class WarningPopup extends Control {
   }
 
   private onTrue(): void {
+    soundControl.playSound(SoundTypes.btn);
     state.onClickWarning();
   }
   private onClosePopup(): void {
+    soundControl.playSound(SoundTypes.btn);
     state.closeWarningPopup();
   }
 }

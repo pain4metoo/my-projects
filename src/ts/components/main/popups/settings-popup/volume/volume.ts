@@ -5,6 +5,7 @@ import volumeOff from '../../../../../../assets/image/volume-off.png';
 import { state } from '../../../../../common/state';
 import { StateOptions } from '../../../../../common/state-types';
 import { lStorage } from '../../../../../common/local-storage';
+import { SoundTypes, soundControl } from '../../../game/soundControl';
 
 export class Volume extends Control {
   private volumeListener: (type: StateOptions) => void;
@@ -22,6 +23,7 @@ export class Volume extends Control {
     input.node.style.background = `linear-gradient(to right, #ff2253 ${state.getVolume()}%, #ff2253 0%, #fff ${state.getVolume()}%, white 100%)`;
     input.node.value = state.getVolume();
     input.node.oninput = (): void => this.setVolume(input.node.value);
+    input.node.onchange = (): void => this.playSound();
 
     this.volumeListener = (type: StateOptions): void => {
       switch (type) {
@@ -37,6 +39,10 @@ export class Volume extends Control {
     };
 
     state.onUpdate.add(this.volumeListener);
+  }
+
+  private playSound(): void {
+    soundControl.playSound(SoundTypes.volume);
   }
 
   private setVolume(value: string): void {
@@ -60,6 +66,7 @@ export class Volume extends Control {
   }
 
   private onToggleVolume(): void {
+    soundControl.playSound(SoundTypes.btn);
     const volume = state.getVolume();
     if (+volume > 0) {
       state.setLastVolume(volume);

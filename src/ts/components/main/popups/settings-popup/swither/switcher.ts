@@ -2,6 +2,7 @@ import Control from '../../../../../common/control';
 import { lStorage } from '../../../../../common/local-storage';
 import { state } from '../../../../../common/state';
 import { AppSettings, StateOptions } from '../../../../../common/state-types';
+import { SoundTypes, soundControl } from '../../../game/soundControl';
 import './switcher.scss';
 
 interface ISwitcher {
@@ -42,6 +43,7 @@ export class Switcher extends Control {
       switch (type) {
         case StateOptions.changeTheme:
           if (argSwitcher.title === SwitcherTitles.Theme) {
+            soundControl.playSound(SoundTypes.input);
             if (state.getTheme()) {
               switcherValue.node.textContent = argSwitcher.values[1];
             } else {
@@ -51,6 +53,7 @@ export class Switcher extends Control {
           break;
         case StateOptions.changeAnimation:
           if (argSwitcher.title === SwitcherTitles.Animation) {
+            soundControl.playSound(SoundTypes.input);
             if (state.getAnimation()) {
               switcherValue.node.textContent = argSwitcher.values[0];
             } else {
@@ -60,6 +63,7 @@ export class Switcher extends Control {
           break;
         case StateOptions.changeLanguage:
           if (argSwitcher.title === SwitcherTitles.Language) {
+            soundControl.playSound(SoundTypes.input);
             if (state.getLanguage()) {
               switcherValue.node.textContent = argSwitcher.values[0];
             } else {
@@ -77,6 +81,7 @@ export class Switcher extends Control {
               input.node.checked = false;
             }
           }
+
           break;
         case StateOptions.closePopup:
           state.onUpdate.remove(this.switcherListener);

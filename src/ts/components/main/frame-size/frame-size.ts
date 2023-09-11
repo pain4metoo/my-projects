@@ -1,6 +1,7 @@
 import Control from '../../../common/control';
 import { state } from '../../../common/state';
 import { StateOptions } from '../../../common/state-types';
+import { SoundTypes, soundControl } from '../game/soundControl';
 import './frame-size.scss';
 
 export class FrameSize extends Control {
@@ -73,6 +74,7 @@ export class FrameSize extends Control {
   }
 
   private setNewFrameSize(size: number): void {
+    soundControl.playSound(SoundTypes.btn);
     state.setFrameSize(size);
     state.setNewGame();
   }

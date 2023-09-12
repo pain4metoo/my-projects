@@ -2,6 +2,7 @@ import './style/style.scss';
 import { state } from './ts/common/state';
 import { App } from './ts/components/app';
 import { SoundControl } from './ts/components/main/game/soundControl';
+import './ts/common/language';
 
 const init = (): void => {
   state.initLocalStorage();

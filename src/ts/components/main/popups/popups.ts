@@ -7,8 +7,8 @@ import { ResultPopup } from './result-popup/result-popup';
 import './popups.scss';
 import { SettingsPopup } from './settings-popup/settings-popup';
 import { lStorage } from '../../../common/local-storage';
-import { WarningPopup } from './warning-popup/warning-popup';
-import { SoundTypes, soundControl } from '../game/soundControl';
+import { SoundTypes } from '../game/soundControl';
+import { soundControl } from '../../../../index';
 
 export class Popups extends Control {
   private popupsListener: (type: StateOptions) => void;

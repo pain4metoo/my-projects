@@ -1,8 +1,9 @@
 import Control from '../../../common/control';
 import { state } from '../../../common/state';
 import { StateOptions } from '../../../common/state-types';
-import { SoundTypes, soundControl } from '../game/soundControl';
+import { SoundTypes } from '../game/soundControl';
 import './frame-size.scss';
+import { soundControl } from '../../../../index';
 
 export class FrameSize extends Control {
   private otherSize: Array<string> = ['3x3', '4x4', '5x5', '6x6', '7x7', '8x8'];

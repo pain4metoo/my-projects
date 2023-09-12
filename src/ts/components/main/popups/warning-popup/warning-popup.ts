@@ -2,7 +2,8 @@ import Control from '../../../../common/control';
 import { state } from '../../../../common/state';
 import './warning-popup.scss';
 import closeSVG from '../../../../../assets/svg/close-btn.svg';
-import { SoundTypes, soundControl } from '../../game/soundControl';
+import { SoundTypes } from '../../game/soundControl';
+import { soundControl } from '../../../../../index';
 
 export class WarningPopup extends Control {
   constructor(parentNode: HTMLElement) {

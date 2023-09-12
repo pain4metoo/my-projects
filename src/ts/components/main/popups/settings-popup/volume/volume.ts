@@ -5,7 +5,8 @@ import volumeOff from '../../../../../../assets/image/volume-off.png';
 import { state } from '../../../../../common/state';
 import { StateOptions } from '../../../../../common/state-types';
 import { lStorage } from '../../../../../common/local-storage';
-import { SoundTypes, soundControl } from '../../../game/soundControl';
+import { SoundTypes } from '../../../game/soundControl';
+import { soundControl } from '../../../../../../index';
 
 export class Volume extends Control {
   private volumeListener: (type: StateOptions) => void;

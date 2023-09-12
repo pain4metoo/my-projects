@@ -2,7 +2,8 @@ import Control from '../../../../common/control';
 import './result-popup.scss';
 import { Result, lStorage } from '../../../../common/local-storage';
 import { state } from '../../../../common/state';
-import { SoundTypes, soundControl } from '../../game/soundControl';
+import { SoundTypes } from '../../game/soundControl';
+import { soundControl } from '../../../../../index';
 
 export class ResultPopup extends Control {
   constructor(parentNode: HTMLElement) {

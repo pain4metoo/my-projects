@@ -11,7 +11,5 @@ export class App extends Control {
     const header = new Header(this.node);
     const main = new Main(this.node);
     const footer = new Footer(this.node);
-
-    state.initLocalStorage();
   }
 }

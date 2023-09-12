@@ -1,7 +1,8 @@
 import Control from '../../common/control';
 import { state } from '../../common/state';
 import { StateOptions } from '../../common/state-types';
-import { SoundTypes, soundControl } from '../main/game/soundControl';
+import { SoundTypes } from '../main/game/soundControl';
+import { soundControl } from '../../../index';
 import './header.scss';
 
 enum NavItem {

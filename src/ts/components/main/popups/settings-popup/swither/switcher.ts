@@ -1,8 +1,9 @@
 import Control from '../../../../../common/control';
 import { lStorage } from '../../../../../common/local-storage';
 import { state } from '../../../../../common/state';
-import { AppSettings, StateOptions } from '../../../../../common/state-types';
-import { SoundTypes, soundControl } from '../../../game/soundControl';
+import { StateOptions } from '../../../../../common/state-types';
+import { SoundTypes } from '../../../game/soundControl';
+import { soundControl } from '../../../../../../index';
 import './switcher.scss';
 
 interface ISwitcher {

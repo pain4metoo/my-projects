@@ -1,4 +1,3 @@
-import { soundControl } from '../components/main/game/soundControl';
 import { Result, lStorage } from './local-storage';
 import Signal from './signal';
 import { AppSettings, StateData, StateOptions } from './state-types';
@@ -287,7 +286,6 @@ class State {
   public initLocalStorage(): void {
     try {
       const appSettings = lStorage.get('settings') as AppSettings;
-
       this._data.appSettings.animation = appSettings.animation;
       this._data.appSettings.language = appSettings.language;
       this._data.appSettings.lastVolume = appSettings.lastVolume;

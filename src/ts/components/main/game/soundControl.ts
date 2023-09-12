@@ -16,7 +16,7 @@ export enum SoundTypes {
   volume = 'volume'
 }
 
-class SoundControl {
+export class SoundControl {
   private sound: HTMLAudioElement;
   private soundListener: (type: StateOptions) => void;
   constructor() {
@@ -81,5 +81,3 @@ class SoundControl {
     this.sound.pause();
   }
 }
-
-export const soundControl = new SoundControl();

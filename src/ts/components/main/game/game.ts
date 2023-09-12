@@ -1,10 +1,11 @@
 import Control from '../../../common/control';
 import { state } from '../../../common/state';
 import './game.scss';
-import { AppSettings, StateOptions } from '../../../common/state-types';
+import { StateOptions } from '../../../common/state-types';
 import { Result, lStorage } from '../../../common/local-storage';
 import { GenerateMatrix } from './generateMatrix';
-import { soundControl, SoundTypes } from './soundControl';
+import { SoundTypes } from './soundControl';
+import { soundControl } from '../../../..';
 
 interface AvailableMovesFromEmptySquare {
   axisXLeft: Array<number>;

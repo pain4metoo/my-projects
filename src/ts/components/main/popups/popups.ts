@@ -87,9 +87,9 @@ export class Popups extends Control {
   }
 
   private onNewGameBtn(): void {
-    soundControl.playSound(SoundTypes.btn);
     state.setNewGame();
     this.onDeletePopup();
+    soundControl.playSound(SoundTypes.collect);
   }
 
   private onDeletePopup(): void {

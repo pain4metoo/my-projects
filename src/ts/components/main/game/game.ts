@@ -81,10 +81,13 @@ export class Game extends Control {
     state.shuffleStart();
     state.startCollectTimer();
     let counter = 0;
-    const maxShuffle = 0;
+    const maxShuffle = this.getRandomShuffleCount();
+
     const handle = setInterval((): void => {
       this.singleStrokeCycle();
+
       if (counter === maxShuffle) {
+        soundControl.pauseSound();
         state.stopCollectTimer();
         clearInterval(handle); // stops intervals
         state.shuffleStop();
@@ -243,13 +246,14 @@ export class Game extends Control {
     state.setStartGame();
     state.setCollectState(true);
     state.stopBtnDisable();
-    soundControl.playSound(SoundTypes.btn);
+    soundControl.playSound(SoundTypes.collect);
     const handle = setInterval((): void => {
       const positionOfZero: Array<number> = this.availableMoves(state.getGameField()).emptySquare;
       const spliceLastMove = state.getAllMoves().splice(-1)[0];
       this.makeMove(state.getGameField(), spliceLastMove, positionOfZero, true);
       state.setCollectMoves();
       if (state.getAllMoves().length === 0) {
+        soundControl.pauseSound();
         state.setCollectState(false);
         state.clearCollectMoves();
         clearInterval(handle); // stops intervals
@@ -257,6 +261,7 @@ export class Game extends Control {
         state.collectBtnDisable();
         state.setWinGame(true);
         this.showCollectResult();
+        soundControl.playSound(SoundTypes.roboWin);
       }
     }, 1);
   }
@@ -273,7 +278,6 @@ export class Game extends Control {
   }
 
   private setMoveInState(currentGameField: Array<Array<number>>): void {
-    soundControl.playSound(SoundTypes.move);
     state.setMove(currentGameField);
     state.setMoveCounter();
     state.setStartGame();
@@ -282,6 +286,9 @@ export class Game extends Control {
       state.setWinGame(true);
       this.showFinishResult();
       this.setInLocalStorage();
+      soundControl.playSound(SoundTypes.win);
+    } else {
+      soundControl.playSound(SoundTypes.move);
     }
   }
 
@@ -349,7 +356,6 @@ export class Game extends Control {
         return false;
       }
     }
-    soundControl.playSound(SoundTypes.win);
     return true;
   }
 

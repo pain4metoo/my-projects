@@ -48,7 +48,7 @@ export class Header extends Control {
       switch (navLink) {
         case NavItem.Restart:
           navItem.node.onclick = (): void => {
-            soundControl.playSound(SoundTypes.btn);
+            soundControl.playSound(SoundTypes.collect);
             state.setNewGame();
           };
           break;
@@ -60,13 +60,13 @@ export class Header extends Control {
           break;
         case NavItem.Results:
           navItem.node.onclick = (): void => {
-            soundControl.playSound(SoundTypes.btn);
+            soundControl.playSound(SoundTypes.popup);
             this.showResultPopup();
           };
           break;
         case NavItem.Settings:
           navItem.node.onclick = (): void => {
-            soundControl.playSound(SoundTypes.btn);
+            soundControl.playSound(SoundTypes.popup);
             this.showSettings();
           };
           break;

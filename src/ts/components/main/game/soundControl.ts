@@ -6,6 +6,9 @@ import win from '../../../../assets/sound/win.mp3';
 import btn from '../../../../assets/sound/btn.mp3';
 import input from '../../../../assets/sound/input.mp3';
 import volume from '../../../../assets/sound/volume.mp3';
+import deleteS from '../../../../assets/sound/delete.mp3';
+import roboWin from '../../../../assets/sound/robo-win.mp3';
+import popup from '../../../../assets/sound/popup.mp3';
 
 export enum SoundTypes {
   move = 'move',
@@ -13,7 +16,10 @@ export enum SoundTypes {
   win = 'win',
   btn = 'btn',
   input = 'input',
-  volume = 'volume'
+  volume = 'volume',
+  delete = 'delete',
+  roboWin = 'robo-win',
+  popup = 'popup'
 }
 
 export class SoundControl {
@@ -58,6 +64,18 @@ export class SoundControl {
         break;
       case SoundTypes.volume:
         this.sound.src = volume;
+        this.play();
+        break;
+      case SoundTypes.delete:
+        this.sound.src = deleteS;
+        this.play();
+        break;
+      case SoundTypes.roboWin:
+        this.sound.src = roboWin;
+        this.play();
+        break;
+      case SoundTypes.popup:
+        this.sound.src = popup;
         this.play();
         break;
     }

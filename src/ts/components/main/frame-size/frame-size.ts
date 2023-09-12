@@ -75,9 +75,9 @@ export class FrameSize extends Control {
   }
 
   private setNewFrameSize(size: number): void {
-    soundControl.playSound(SoundTypes.btn);
     state.setFrameSize(size);
     state.setNewGame();
+    soundControl.playSound(SoundTypes.collect);
   }
 
   private changeBtnSizeState(flag: boolean): void {

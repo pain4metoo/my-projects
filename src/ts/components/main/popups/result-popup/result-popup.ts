@@ -37,7 +37,7 @@ export class ResultPopup extends Control {
   }
 
   private deleteResult(targetIndex: number): void {
-    soundControl.playSound(SoundTypes.btn);
+    soundControl.playSound(SoundTypes.delete);
     state.deleteTargetFromStorage(targetIndex);
   }
 }

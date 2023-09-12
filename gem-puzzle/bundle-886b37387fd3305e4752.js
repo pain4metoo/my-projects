@@ -586,7 +586,7 @@ class Header extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
       switch (navLink) {
         case NavItem.Restart:
           navItem.node.onclick = () => {
-            _index__WEBPACK_IMPORTED_MODULE_4__.soundControl.playSound(_main_game_soundControl__WEBPACK_IMPORTED_MODULE_3__.SoundTypes.btn);
+            _index__WEBPACK_IMPORTED_MODULE_4__.soundControl.playSound(_main_game_soundControl__WEBPACK_IMPORTED_MODULE_3__.SoundTypes.collect);
             _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setNewGame();
           };
           break;
@@ -598,13 +598,13 @@ class Header extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
           break;
         case NavItem.Results:
           navItem.node.onclick = () => {
-            _index__WEBPACK_IMPORTED_MODULE_4__.soundControl.playSound(_main_game_soundControl__WEBPACK_IMPORTED_MODULE_3__.SoundTypes.btn);
+            _index__WEBPACK_IMPORTED_MODULE_4__.soundControl.playSound(_main_game_soundControl__WEBPACK_IMPORTED_MODULE_3__.SoundTypes.popup);
             this.showResultPopup();
           };
           break;
         case NavItem.Settings:
           navItem.node.onclick = () => {
-            _index__WEBPACK_IMPORTED_MODULE_4__.soundControl.playSound(_main_game_soundControl__WEBPACK_IMPORTED_MODULE_3__.SoundTypes.btn);
+            _index__WEBPACK_IMPORTED_MODULE_4__.soundControl.playSound(_main_game_soundControl__WEBPACK_IMPORTED_MODULE_3__.SoundTypes.popup);
             this.showSettings();
           };
           break;
@@ -910,9 +910,9 @@ class FrameSize extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] 
     });
   }
   setNewFrameSize(size) {
-    _index__WEBPACK_IMPORTED_MODULE_5__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_3__.SoundTypes.btn);
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setFrameSize(size);
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setNewGame();
+    _index__WEBPACK_IMPORTED_MODULE_5__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_3__.SoundTypes.collect);
   }
   changeBtnSizeState(flag) {
     this.otherSizeHtml.forEach(el => {
@@ -1002,10 +1002,11 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.shuffleStart();
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.startCollectTimer();
     let counter = 0;
-    const maxShuffle = 0;
+    const maxShuffle = this.getRandomShuffleCount();
     const handle = setInterval(() => {
       this.singleStrokeCycle();
       if (counter === maxShuffle) {
+        ___WEBPACK_IMPORTED_MODULE_7__.soundControl.pauseSound();
         _common_state__WEBPACK_IMPORTED_MODULE_1__.state.stopCollectTimer();
         clearInterval(handle); // stops intervals
         _common_state__WEBPACK_IMPORTED_MODULE_1__.state.shuffleStop();
@@ -1138,13 +1139,14 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setStartGame();
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setCollectState(true);
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.stopBtnDisable();
-    ___WEBPACK_IMPORTED_MODULE_7__.soundControl.playSound(_soundControl__WEBPACK_IMPORTED_MODULE_6__.SoundTypes.btn);
+    ___WEBPACK_IMPORTED_MODULE_7__.soundControl.playSound(_soundControl__WEBPACK_IMPORTED_MODULE_6__.SoundTypes.collect);
     const handle = setInterval(() => {
       const positionOfZero = this.availableMoves(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField()).emptySquare;
       const spliceLastMove = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getAllMoves().splice(-1)[0];
       this.makeMove(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField(), spliceLastMove, positionOfZero, true);
       _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setCollectMoves();
       if (_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getAllMoves().length === 0) {
+        ___WEBPACK_IMPORTED_MODULE_7__.soundControl.pauseSound();
         _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setCollectState(false);
         _common_state__WEBPACK_IMPORTED_MODULE_1__.state.clearCollectMoves();
         clearInterval(handle); // stops intervals
@@ -1152,6 +1154,7 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
         _common_state__WEBPACK_IMPORTED_MODULE_1__.state.collectBtnDisable();
         _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setWinGame(true);
         this.showCollectResult();
+        ___WEBPACK_IMPORTED_MODULE_7__.soundControl.playSound(_soundControl__WEBPACK_IMPORTED_MODULE_6__.SoundTypes.roboWin);
       }
     }, 1);
   }
@@ -1165,7 +1168,6 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     });
   }
   setMoveInState(currentGameField) {
-    ___WEBPACK_IMPORTED_MODULE_7__.soundControl.playSound(_soundControl__WEBPACK_IMPORTED_MODULE_6__.SoundTypes.move);
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setMove(currentGameField);
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setMoveCounter();
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setStartGame();
@@ -1174,6 +1176,9 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
       _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setWinGame(true);
       this.showFinishResult();
       this.setInLocalStorage();
+      ___WEBPACK_IMPORTED_MODULE_7__.soundControl.playSound(_soundControl__WEBPACK_IMPORTED_MODULE_6__.SoundTypes.win);
+    } else {
+      ___WEBPACK_IMPORTED_MODULE_7__.soundControl.playSound(_soundControl__WEBPACK_IMPORTED_MODULE_6__.SoundTypes.move);
     }
   }
   setInLocalStorage() {
@@ -1231,7 +1236,6 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
         return false;
       }
     }
-    ___WEBPACK_IMPORTED_MODULE_7__.soundControl.playSound(_soundControl__WEBPACK_IMPORTED_MODULE_6__.SoundTypes.win);
     return true;
   }
   showFinishResult() {
@@ -1313,6 +1317,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_sound_btn_mp3__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../assets/sound/btn.mp3 */ "./src/assets/sound/btn.mp3");
 /* harmony import */ var _assets_sound_input_mp3__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../assets/sound/input.mp3 */ "./src/assets/sound/input.mp3");
 /* harmony import */ var _assets_sound_volume_mp3__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../assets/sound/volume.mp3 */ "./src/assets/sound/volume.mp3");
+/* harmony import */ var _assets_sound_delete_mp3__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../assets/sound/delete.mp3 */ "./src/assets/sound/delete.mp3");
+/* harmony import */ var _assets_sound_robo_win_mp3__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../assets/sound/robo-win.mp3 */ "./src/assets/sound/robo-win.mp3");
+/* harmony import */ var _assets_sound_popup_mp3__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../assets/sound/popup.mp3 */ "./src/assets/sound/popup.mp3");
+
+
+
 
 
 
@@ -1329,6 +1339,9 @@ var SoundTypes;
   SoundTypes["btn"] = "btn";
   SoundTypes["input"] = "input";
   SoundTypes["volume"] = "volume";
+  SoundTypes["delete"] = "delete";
+  SoundTypes["roboWin"] = "robo-win";
+  SoundTypes["popup"] = "popup";
 })(SoundTypes || (SoundTypes = {}));
 class SoundControl {
   constructor() {
@@ -1367,6 +1380,18 @@ class SoundControl {
         break;
       case SoundTypes.volume:
         this.sound.src = _assets_sound_volume_mp3__WEBPACK_IMPORTED_MODULE_7__;
+        this.play();
+        break;
+      case SoundTypes.delete:
+        this.sound.src = _assets_sound_delete_mp3__WEBPACK_IMPORTED_MODULE_8__;
+        this.play();
+        break;
+      case SoundTypes.roboWin:
+        this.sound.src = _assets_sound_robo_win_mp3__WEBPACK_IMPORTED_MODULE_9__;
+        this.play();
+        break;
+      case SoundTypes.popup:
+        this.sound.src = _assets_sound_popup_mp3__WEBPACK_IMPORTED_MODULE_10__;
         this.play();
         break;
     }
@@ -1598,9 +1623,9 @@ class Popups extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.clearResults();
   }
   onNewGameBtn() {
-    _index__WEBPACK_IMPORTED_MODULE_10__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_9__.SoundTypes.btn);
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setNewGame();
     this.onDeletePopup();
+    _index__WEBPACK_IMPORTED_MODULE_10__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_9__.SoundTypes.collect);
   }
   onDeletePopup() {
     _index__WEBPACK_IMPORTED_MODULE_10__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_9__.SoundTypes.btn);
@@ -1659,7 +1684,7 @@ class ResultPopup extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"
     });
   }
   deleteResult(targetIndex) {
-    _index__WEBPACK_IMPORTED_MODULE_5__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_4__.SoundTypes.btn);
+    _index__WEBPACK_IMPORTED_MODULE_5__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_4__.SoundTypes["delete"]);
     _common_state__WEBPACK_IMPORTED_MODULE_3__.state.deleteTargetFromStorage(targetIndex);
   }
 }
@@ -3860,6 +3885,16 @@ module.exports = __webpack_require__.p + "assets/collect.mp3";
 
 /***/ }),
 
+/***/ "./src/assets/sound/delete.mp3":
+/*!*************************************!*\
+  !*** ./src/assets/sound/delete.mp3 ***!
+  \*************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "assets/delete.mp3";
+
+/***/ }),
+
 /***/ "./src/assets/sound/input.mp3":
 /*!************************************!*\
   !*** ./src/assets/sound/input.mp3 ***!
@@ -3877,6 +3912,26 @@ module.exports = __webpack_require__.p + "assets/input.mp3";
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports = __webpack_require__.p + "assets/move.mp3";
+
+/***/ }),
+
+/***/ "./src/assets/sound/popup.mp3":
+/*!************************************!*\
+  !*** ./src/assets/sound/popup.mp3 ***!
+  \************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "assets/popup.mp3";
+
+/***/ }),
+
+/***/ "./src/assets/sound/robo-win.mp3":
+/*!***************************************!*\
+  !*** ./src/assets/sound/robo-win.mp3 ***!
+  \***************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "assets/robo-win.mp3";
 
 /***/ }),
 
@@ -4052,4 +4107,4 @@ module.exports = __webpack_require__.p + "assets/close-btn.svg";
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=bundle-ac194d02a60a0f34c29d.js.map
+//# sourceMappingURL=bundle-886b37387fd3305e4752.js.map

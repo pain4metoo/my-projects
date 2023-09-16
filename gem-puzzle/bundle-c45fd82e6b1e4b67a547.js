@@ -16,6 +16,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ts_common_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ts/common/state */ "./src/ts/common/state.ts");
 /* harmony import */ var _ts_components_app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ts/components/app */ "./src/ts/components/app.ts");
 /* harmony import */ var _ts_components_main_game_soundControl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ts/components/main/game/soundControl */ "./src/ts/components/main/game/soundControl.ts");
+/* harmony import */ var _ts_common_language__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ts/common/language */ "./src/ts/common/language.ts");
+
 
 
 
@@ -54,6 +56,115 @@ class Control {
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Control);
+
+/***/ }),
+
+/***/ "./src/ts/common/language.ts":
+/*!***********************************!*\
+  !*** ./src/ts/common/language.ts ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "TList": () => (/* binding */ TList),
+/* harmony export */   "TRANSLATE": () => (/* binding */ TRANSLATE),
+/* harmony export */   "correctTranslater": () => (/* binding */ correctTranslater)
+/* harmony export */ });
+var TList;
+(function (TList) {
+  TList["header"] = "header";
+  TList["moves"] = "moves";
+  TList["time"] = "time";
+  TList["collect"] = "collect";
+  TList["results"] = "results";
+  TList["settings"] = "settings";
+})(TList || (TList = {}));
+const TRANSLATE = {
+  header: {
+    restart: 'рестарт',
+    stop: 'стоп',
+    results: 'результаты',
+    settings: 'настройки'
+  },
+  moves: {
+    Moves: 'Шаги'
+  },
+  time: {
+    Time: 'Время'
+  },
+  collect: {
+    collect_puzzle: 'собрать пятнашки'
+  },
+  results: {
+    Your_Highest_Scores: 'Лучшие результаты'
+  },
+  settings: {
+    themeRU: {
+      title: 'Тема',
+      values: ['Светлая', 'Тёмная']
+    },
+    themeEN: {
+      title: 'Theme',
+      values: ['Light', 'Dark']
+    },
+    animRU: {
+      title: 'Анимация',
+      values: ['Вкл', 'Выкл']
+    },
+    animEN: {
+      title: 'Animation',
+      values: ['On', 'Off']
+    },
+    langRU: {
+      title: 'Язык',
+      values: ['EN', 'Русский']
+    },
+    langEN: {
+      title: 'Language',
+      values: ['EN', 'Русский']
+    },
+    soundRU: {
+      title: 'Звук',
+      values: ['Вкл', 'Выкл']
+    },
+    soundEN: {
+      title: 'Sound',
+      values: ['On', 'Off']
+    }
+  }
+};
+// const theme = new Switcher(leftInner.node, { title: SwitcherTitles.Theme, values: ['Light', 'Dark'] });
+// const animation = new Switcher(leftInner.node, { title: SwitcherTitles.Animation, values: ['On', 'Off'] });
+// const language = new Switcher(leftInner.node, { title: SwitcherTitles.Language, values: ['EN', 'RU'] });
+// const sound = new Switcher(rightInner.node, { title: SwitcherTitles.Sound, values: ['On', 'Off'] });
+function correctTranslater(lang, key) {
+  const result = [];
+  if (lang) {
+    result.push(...Object.keys(TRANSLATE[key]));
+    return removeUnderscore(result);
+  } else {
+    result.push(...Object.values(TRANSLATE[key]));
+  }
+  // We have to remove the underscore and put one space in front of it
+  function removeUnderscore(arr) {
+    if (!arr.join('').includes('_')) {
+      return arr;
+    } else {
+      return arr.map(el => {
+        return el.split('').map((el, i, arrMap) => {
+          if (arrMap[i + 1] === '_') {
+            return el = el + ' ';
+          }
+          return el;
+        }).filter(el => {
+          return el !== '_';
+        }).join('');
+      });
+    }
+  }
+  return result;
+}
 
 /***/ }),
 
@@ -163,6 +274,8 @@ var StateOptions;
   StateOptions["closeWarningPopup"] = "close-warning-popup";
   StateOptions["warningResults"] = "warning-results";
   StateOptions["warningSettings"] = "warning-settings";
+  StateOptions["blockField"] = "block-field";
+  StateOptions["unBlockField"] = "unblock-field";
 })(StateOptions || (StateOptions = {}));
 
 /***/ }),
@@ -268,6 +381,7 @@ class State {
     return this._data.gameSettings.result;
   }
   setCollectPuzzle() {
+    state.onUpdate.emit(_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.blockField);
     state.onUpdate.emit(_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.collectPuzzle);
   }
   shuffleStart() {
@@ -398,6 +512,7 @@ class State {
     this._data.appSettings.stateSound = true;
     this._data.appSettings.theme = false;
     this._data.appSettings.language = true;
+    state.onUpdate.emit(_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.resetSettings);
     state.onUpdate.emit(_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.closePopup);
   }
   initLocalStorage() {
@@ -435,6 +550,12 @@ class State {
       }
     }
     this.closeWarningPopup();
+  }
+  setBlockField() {
+    state.onUpdate.emit(_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.blockField);
+  }
+  setUnblockField() {
+    state.onUpdate.emit(_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.unBlockField);
   }
 }
 const initialState = {
@@ -541,6 +662,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _main_game_soundControl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../main/game/soundControl */ "./src/ts/components/main/game/soundControl.ts");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../index */ "./src/index.ts");
 /* harmony import */ var _header_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./header.scss */ "./src/ts/components/header/header.scss");
+/* harmony import */ var _common_language__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../common/language */ "./src/ts/common/language.ts");
+
 
 
 
@@ -574,6 +697,12 @@ class Header extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
           break;
         case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.stopBtnEnable:
           this.stateStopBtn(false);
+          break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.changeLanguage:
+          this.switchLang(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage());
+          break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.resetSettings:
+          this.switchLang(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage());
           break;
         default:
           return;
@@ -611,7 +740,13 @@ class Header extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
       }
     });
     this.navItemsHtmlElements[1].disabled = true;
+    this.switchLang(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage());
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.onUpdate.add(this.headerListener);
+  }
+  switchLang(currentLang) {
+    this.navItemsHtmlElements.forEach((el, i) => {
+      el.textContent = (0,_common_language__WEBPACK_IMPORTED_MODULE_6__.correctTranslater)(currentLang, _common_language__WEBPACK_IMPORTED_MODULE_6__.TList.header)[i];
+    });
   }
   showSettings() {
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.createPopup();
@@ -674,8 +809,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Moves": () => (/* binding */ Moves)
 /* harmony export */ });
 /* harmony import */ var _common_control__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../common/control */ "./src/ts/common/control.ts");
-/* harmony import */ var _common_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../common/state */ "./src/ts/common/state.ts");
-/* harmony import */ var _common_state_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../common/state-types */ "./src/ts/common/state-types.ts");
+/* harmony import */ var _common_language__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../common/language */ "./src/ts/common/language.ts");
+/* harmony import */ var _common_state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../common/state */ "./src/ts/common/state.ts");
+/* harmony import */ var _common_state_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../common/state-types */ "./src/ts/common/state-types.ts");
+
 
 
 
@@ -685,25 +822,35 @@ class Moves extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     const movesBlock = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'div', 'main_counters_moves');
     const movesBlockText = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](movesBlock.node, 'p', 'main_counters_text', 'Moves: ');
     const movesBlockNumber = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](movesBlock.node, 'p', 'main_counters_number', '0');
-    _common_state__WEBPACK_IMPORTED_MODULE_1__.state.onUpdate.add(type => {
+    _common_state__WEBPACK_IMPORTED_MODULE_2__.state.onUpdate.add(type => {
       switch (type) {
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.moveCounter:
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.moveCounter:
           this.makeMove(movesBlockNumber.node);
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.newGame:
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.newGame:
           movesBlockNumber.node.textContent = '0';
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.winGame:
-          _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setResultMoves(Number(movesBlockNumber.node.textContent));
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.winGame:
+          _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setResultMoves(Number(movesBlockNumber.node.textContent));
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.setCollectMoves:
-          movesBlockNumber.node.textContent = `${_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getMoveCounter() + _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getCollectMoves()}`;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.setCollectMoves:
+          movesBlockNumber.node.textContent = `${_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getMoveCounter() + _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getCollectMoves()}`;
+          break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeLanguage:
+          this.switchLang(_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage(), movesBlockText.node);
+          break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.resetSettings:
+          this.switchLang(_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage(), movesBlockText.node);
           break;
       }
     });
+    this.switchLang(_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage(), movesBlockText.node);
+  }
+  switchLang(currentLang, el) {
+    el.textContent = `${(0,_common_language__WEBPACK_IMPORTED_MODULE_1__.correctTranslater)(currentLang, _common_language__WEBPACK_IMPORTED_MODULE_1__.TList.moves)[0]}: `;
   }
   makeMove(moveNode) {
-    moveNode.textContent = `${_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getMoveCounter()}`;
+    moveNode.textContent = `${_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getMoveCounter()}`;
   }
 }
 
@@ -720,8 +867,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Timer": () => (/* binding */ Timer)
 /* harmony export */ });
 /* harmony import */ var _common_control__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../common/control */ "./src/ts/common/control.ts");
-/* harmony import */ var _common_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../common/state */ "./src/ts/common/state.ts");
-/* harmony import */ var _common_state_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../common/state-types */ "./src/ts/common/state-types.ts");
+/* harmony import */ var _common_language__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../common/language */ "./src/ts/common/language.ts");
+/* harmony import */ var _common_state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../common/state */ "./src/ts/common/state.ts");
+/* harmony import */ var _common_state_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../common/state-types */ "./src/ts/common/state-types.ts");
+
 
 
 
@@ -736,39 +885,50 @@ class Timer extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     const timeBlockText = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](timeBlock.node, 'p', 'main_counters_time_text', 'Time: ');
     const timeBlockNumber = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](timeBlock.node, 'p', 'main_counters_time_number', '00:00:00');
     this.timeNodeHtml = timeBlockNumber.node;
-    _common_state__WEBPACK_IMPORTED_MODULE_1__.state.onUpdate.add(type => {
+    _common_state__WEBPACK_IMPORTED_MODULE_2__.state.onUpdate.add(type => {
       switch (type) {
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.startGame:
-          this.setTimer(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getStopStartGame(), _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getToggleTimer());
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.startGame:
+          this.setTimer(_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getStopStartGame(), _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getToggleTimer());
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.stopGame:
-          this.stopTimer(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getStopStartGame(), _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getToggleTimer());
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.stopGame:
+          this.stopTimer(_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getStopStartGame(), _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getToggleTimer());
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.newGame:
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.newGame:
           timeBlockNumber.node.textContent = '00:00:00';
           this.newGame();
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.winGame:
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.winGame:
           if (timeBlockNumber.node.textContent) {
-            _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setResultTime(timeBlockNumber.node.textContent);
+            _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setResultTime(timeBlockNumber.node.textContent);
           }
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.collectStartTimer:
-          this.setTimer(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getStopStartGame(), _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getToggleTimer());
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.collectStartTimer:
+          this.setTimer(_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getStopStartGame(), _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getToggleTimer());
           this.setCollectGameTimer();
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.collectStopTimer:
-          this.stopTimer(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getStopStartGame(), _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getToggleTimer());
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.collectStopTimer:
+          this.stopTimer(_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getStopStartGame(), _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getToggleTimer());
           this.stopCollectGameTimer();
+          break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeLanguage:
+          this.switchLang(_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage(), timeBlockText.node);
+          break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.resetSettings:
+          this.switchLang(_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage(), timeBlockText.node);
+          break;
       }
     });
+    this.switchLang(_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage(), timeBlockText.node);
+  }
+  switchLang(currentLang, el) {
+    el.textContent = `${(0,_common_language__WEBPACK_IMPORTED_MODULE_1__.correctTranslater)(currentLang, _common_language__WEBPACK_IMPORTED_MODULE_1__.TList.time)[0]}: `;
   }
   setCollectGameTimer() {
     const timer = window.setInterval(() => this.collectSec++, 1000);
     this.collectTimer = timer;
   }
   stopCollectGameTimer() {
-    _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setCollectTimer(String(this.collectSec));
+    _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setCollectTimer(String(this.collectSec));
     clearInterval(this.collectTimer);
     this.collectSec = 0;
   }
@@ -782,13 +942,13 @@ class Timer extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     if (stopStartGame && !toggleTimer) {
       const timer = window.setInterval(() => this.newTimer(), 1000);
       this.currentTimer = timer;
-      _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setToggleTimer(true);
+      _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setToggleTimer(true);
     }
   }
   stopTimer(stopStartGame, toggleTimer) {
     if (!stopStartGame && toggleTimer) {
       clearInterval(this.currentTimer);
-      _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setToggleTimer(false);
+      _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setToggleTimer(false);
     }
   }
   newTimer() {
@@ -851,6 +1011,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _game_soundControl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../game/soundControl */ "./src/ts/components/main/game/soundControl.ts");
 /* harmony import */ var _frame_size_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./frame-size.scss */ "./src/ts/components/main/frame-size/frame-size.scss");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../index */ "./src/index.ts");
+/* harmony import */ var _common_language__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../common/language */ "./src/ts/common/language.ts");
+
 
 
 
@@ -862,7 +1024,6 @@ class FrameSize extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] 
     super(parentNode, 'section', 'main_frame');
     this.otherSize = ['3x3', '4x4', '5x5', '6x6', '7x7', '8x8'];
     this.otherSizeHtml = [];
-    const currentSize = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getFrameSize();
     const btnCollectPuzzle = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'button', 'main_frame_btn', 'collect puzzle');
     btnCollectPuzzle.node.onclick = () => _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setCollectPuzzle();
     btnCollectPuzzle.node.disabled = true;
@@ -906,8 +1067,18 @@ class FrameSize extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] 
         case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.winGame:
           btnCollectPuzzle.node.disabled = true;
           break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.changeLanguage:
+          this.switchLang(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage(), btnCollectPuzzle.node);
+          break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.resetSettings:
+          this.switchLang(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage(), btnCollectPuzzle.node);
+          break;
       }
     });
+    this.switchLang(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage(), btnCollectPuzzle.node);
+  }
+  switchLang(currentLang, el) {
+    el.textContent = `${(0,_common_language__WEBPACK_IMPORTED_MODULE_6__.correctTranslater)(currentLang, _common_language__WEBPACK_IMPORTED_MODULE_6__.TList.collect)[0]}`;
   }
   setNewFrameSize(size) {
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setFrameSize(size);
@@ -978,6 +1149,16 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
         case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.deleteTargetFromStorage:
           this.deleteResult(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getDeleteTargetFromStorage());
           break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.blockField:
+          if (!this.node.classList.contains('main_game_over')) {
+            this.node.classList.add('main_game_over');
+          }
+          break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.unBlockField:
+          if (this.node.classList.contains('main_game_over')) {
+            this.node.classList.remove('main_game_over');
+          }
+          break;
       }
     };
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.onUpdate.add(this.gameListener);
@@ -1005,7 +1186,10 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     const maxShuffle = this.getRandomShuffleCount();
     const handle = setInterval(() => {
       this.singleStrokeCycle();
+      _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setBlockField();
       if (counter === maxShuffle) {
+        _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setUnblockField();
+        _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setUnblockField();
         ___WEBPACK_IMPORTED_MODULE_7__.soundControl.pauseSound();
         _common_state__WEBPACK_IMPORTED_MODULE_1__.state.stopCollectTimer();
         clearInterval(handle); // stops intervals
@@ -1492,11 +1676,11 @@ __webpack_require__.r(__webpack_exports__);
 class CollectPopup extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor(parentNode) {
     super(parentNode, 'div', 'popups_collect');
-    const collectTitle = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'h2', 'popups_collect_title', 'Puzzle assembled automatically');
+    const collectTitle = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'h2', 'popups_collect_title', `${_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage() ? 'Puzzle assembled automatically' : 'Пятнашки собраны автоматически'}`);
     const collectInfo = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'div', 'popups_collect_info');
-    const collectTime = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](collectInfo.node, 'h4', 'popups_collect_time', `Auto build time: ${_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getCollectTimer()}s`);
-    const totalTime = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](collectInfo.node, 'h2', 'popups_collect_total_time', `Game time: ${_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getResult().time}`);
-    const totalMoves = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](collectInfo.node, 'h2', 'popups_collect_moves', `Total moves: ${_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getResult().moves + _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getCollectMoves()}`);
+    const collectTime = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](collectInfo.node, 'h4', 'popups_collect_time', `${_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage() ? `Auto build time: ${_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getCollectTimer()}s` : `Время сборки: ${_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getCollectTimer()}c`}`);
+    const totalTime = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](collectInfo.node, 'h2', 'popups_collect_total_time', `${_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage() ? `Game time: ${_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getResult().time}` : `Игровое время: ${_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getResult().time}`}`);
+    const totalMoves = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](collectInfo.node, 'h2', 'popups_collect_moves', `${_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage() ? `Total moves: ${_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getResult().moves + _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getCollectMoves()}` : `Всего ходов: ${_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getResult().moves + _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getCollectMoves()}`}`);
   }
 }
 
@@ -1521,10 +1705,10 @@ __webpack_require__.r(__webpack_exports__);
 class FinishPopup extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor(parentNode) {
     super(parentNode, 'div', 'popups_finish');
-    const finishTitle = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'h2', 'popups_finish_title', 'Hooray! You have completed the puzzle!');
+    const finishTitle = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'h2', 'popups_finish_title', `${_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? 'Hooray! You have completed the puzzle!' : 'Ура! Вы собрали пятнашки!'}`);
     const collectInfo = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'div', 'popups_collect_info');
-    const finishTime = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](collectInfo.node, 'h4', 'popups_finish_time', `Game time: ${_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getResult().time}`);
-    const finishMoves = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](collectInfo.node, 'h4', 'popups_finish_moves', `Total moves: ${_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getResult().moves + _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getCollectMoves()}`);
+    const finishTime = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](collectInfo.node, 'h4', 'popups_finish_time', `${_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? `Game time: ${_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getResult().time}` : `Время игры: ${_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getResult().time}`}`);
+    const finishMoves = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](collectInfo.node, 'h4', 'popups_finish_moves', `${_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? `Total moves: ${_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getResult().moves + _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getCollectMoves()}` : `Всего ходов: ${_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getResult().moves + _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getCollectMoves()}`}`);
   }
 }
 
@@ -1567,7 +1751,7 @@ class Popups extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     super(parentNode, 'div', 'popups');
     const popupsInner = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'div', 'popups_inner');
     const closeBtn = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](popupsInner.node, 'button', 'popups_close_btn');
-    const newGameBtn = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](popupsInner.node, 'button', 'popups_new_btn', 'Restart');
+    const newGameBtn = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](popupsInner.node, 'button', 'popups_new_btn', _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage() ? 'restart' : 'новая игра');
     newGameBtn.node.onclick = () => this.onNewGameBtn();
     closeBtn.node.onclick = () => this.onDeletePopup();
     this.popupsListener = type => {
@@ -1578,7 +1762,7 @@ class Popups extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
           break;
         case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.showResultPopup:
           this.popupResult = new _result_popup_result_popup__WEBPACK_IMPORTED_MODULE_5__.ResultPopup(popupsInner.node);
-          newGameBtn.node.textContent = 'delete all results';
+          newGameBtn.node.textContent = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage() ? 'delete all results' : 'очистить результаты';
           newGameBtn.node.onclick = () => this.showWarning(_common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.showResultPopup);
           break;
         case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.showFinishPopup:
@@ -1587,7 +1771,7 @@ class Popups extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
           break;
         case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.showSettings:
           this.popupSettings = new _settings_popup_settings_popup__WEBPACK_IMPORTED_MODULE_7__.SettingsPopup(popupsInner.node);
-          newGameBtn.node.textContent = 'reset settings';
+          newGameBtn.node.textContent = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage() ? 'reset settings' : 'сбросить настройки';
           newGameBtn.node.onclick = () => this.showWarning(_common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.showSettings);
           break;
         case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.clearLocalStorage:
@@ -1606,6 +1790,11 @@ class Popups extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
           break;
         case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.closePopup:
           _common_state__WEBPACK_IMPORTED_MODULE_1__.state.onUpdate.remove(this.popupsListener);
+          break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.changeLanguage:
+          newGameBtn.node.textContent = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage() ? 'reset settings' : 'сбросить настройки';
+          this.popupSettings.destroy();
+          this.popupSettings = new _settings_popup_settings_popup__WEBPACK_IMPORTED_MODULE_7__.SettingsPopup(popupsInner.node);
           break;
       }
     };
@@ -1651,6 +1840,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_state__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../common/state */ "./src/ts/common/state.ts");
 /* harmony import */ var _game_soundControl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../game/soundControl */ "./src/ts/components/main/game/soundControl.ts");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../index */ "./src/index.ts");
+/* harmony import */ var _common_state_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../common/state-types */ "./src/ts/common/state-types.ts");
+/* harmony import */ var _common_language__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../common/language */ "./src/ts/common/language.ts");
+/* eslint-disable no-case-declarations */
+
+
 
 
 
@@ -1660,27 +1854,50 @@ __webpack_require__.r(__webpack_exports__);
 class ResultPopup extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor(parentNode) {
     super(parentNode, 'div', 'popups_result');
-    const resultTitle = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'h2', 'popups_result_title', 'Your Highest Scores');
+    this.ResultHtmlElements = [];
+    const resultTitle = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'h2', 'popups_result_title');
     const resultsList = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'ul', 'popups_result_list');
+    this.ResultHtmlElements.push(resultTitle.node);
     const localStorageResult = _common_local_storage__WEBPACK_IMPORTED_MODULE_2__.lStorage.get('results') || [];
-    localStorageResult.forEach((el, i) => {
-      const resultWrapper = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](resultsList.node, 'ul', 'popups_result_wrapper');
+    this.getResults(localStorageResult, resultsList);
+    this.resultPopupListener = type => {
+      switch (type) {
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_6__.StateOptions.changeLanguage:
+          this.switchLang(_common_state__WEBPACK_IMPORTED_MODULE_3__.state.getLanguage());
+          break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_6__.StateOptions.closePopup:
+          _common_state__WEBPACK_IMPORTED_MODULE_3__.state.onUpdate.remove(this.resultPopupListener);
+          break;
+      }
+    };
+    this.switchLang(_common_state__WEBPACK_IMPORTED_MODULE_3__.state.getLanguage());
+    _common_state__WEBPACK_IMPORTED_MODULE_3__.state.onUpdate.add(this.resultPopupListener);
+  }
+  getResults(localStorage, list) {
+    localStorage.forEach((el, i) => {
+      const resultWrapper = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](list.node, 'ul', 'popups_result_wrapper');
       const resultCount = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](resultWrapper.node, 'li', 'popups_result_count', `${i + 1}.`);
       for (const key in el) {
+        const lang = _common_state__WEBPACK_IMPORTED_MODULE_3__.state.getLanguage();
         switch (key) {
           case 'frameSize':
-            new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](resultWrapper.node, 'li', 'popups_result_item', `Frame size: ${el[key]}`);
+            new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](resultWrapper.node, 'li', 'popups_result_item', `${lang ? `Frame-size: ${el[key]}` : `Размер поля: ${el[key]}`}`);
             break;
           case 'moves':
-            new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](resultWrapper.node, 'li', 'popups_result_item', `Moves: ${el[key]}`);
+            new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](resultWrapper.node, 'li', 'popups_result_item', `${lang ? `Moves: ${el[key]}` : `Ходы: ${el[key]}`}`);
             break;
           case 'time':
-            new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](resultWrapper.node, 'li', 'popups_result_item', `Time: ${el[key]}`);
+            new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](resultWrapper.node, 'li', 'popups_result_item', `${lang ? `Time: ${el[key]}` : `Время: ${el[key]}`}`);
             break;
         }
       }
       const deleteResult = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](resultWrapper.node, 'span', 'popups_result_delete');
       deleteResult.node.onclick = () => this.deleteResult(i);
+    });
+  }
+  switchLang(currentLang) {
+    this.ResultHtmlElements.forEach((el, i) => {
+      el.textContent = `${(0,_common_language__WEBPACK_IMPORTED_MODULE_7__.correctTranslater)(currentLang, _common_language__WEBPACK_IMPORTED_MODULE_7__.TList.results)[i]}`;
     });
   }
   deleteResult(targetIndex) {
@@ -1702,9 +1919,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "SettingsPopup": () => (/* binding */ SettingsPopup)
 /* harmony export */ });
 /* harmony import */ var _common_control__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../common/control */ "./src/ts/common/control.ts");
-/* harmony import */ var _settings_popup_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./settings-popup.scss */ "./src/ts/components/main/popups/settings-popup/settings-popup.scss");
-/* harmony import */ var _swither_switcher__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./swither/switcher */ "./src/ts/components/main/popups/settings-popup/swither/switcher.ts");
-/* harmony import */ var _volume_volume__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./volume/volume */ "./src/ts/components/main/popups/settings-popup/volume/volume.ts");
+/* harmony import */ var _common_language__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../common/language */ "./src/ts/common/language.ts");
+/* harmony import */ var _common_state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../common/state */ "./src/ts/common/state.ts");
+/* harmony import */ var _common_state_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../common/state-types */ "./src/ts/common/state-types.ts");
+/* harmony import */ var _settings_popup_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./settings-popup.scss */ "./src/ts/components/main/popups/settings-popup/settings-popup.scss");
+/* harmony import */ var _swither_switcher__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./swither/switcher */ "./src/ts/components/main/popups/settings-popup/swither/switcher.ts");
+/* harmony import */ var _volume_volume__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./volume/volume */ "./src/ts/components/main/popups/settings-popup/volume/volume.ts");
+
+
+
 
 
 
@@ -1712,27 +1935,23 @@ __webpack_require__.r(__webpack_exports__);
 class SettingsPopup extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor(parentNode) {
     super(parentNode, 'div', 'settings');
-    const settingsTitle = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'h2', 'settings_title', 'Settings');
+    const settingsTitle = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'h2', 'settings_title', _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? 'Settings' : 'Настройки');
     const settingsInner = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'div', 'settings_inner');
     const leftInner = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](settingsInner.node, 'div', 'settings_left');
     const rightInner = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](settingsInner.node, 'div', 'settings_right');
-    const theme = new _swither_switcher__WEBPACK_IMPORTED_MODULE_2__.Switcher(leftInner.node, {
-      title: _swither_switcher__WEBPACK_IMPORTED_MODULE_2__.SwitcherTitles.Theme,
-      values: ['Light', 'Dark']
-    });
-    const animation = new _swither_switcher__WEBPACK_IMPORTED_MODULE_2__.Switcher(leftInner.node, {
-      title: _swither_switcher__WEBPACK_IMPORTED_MODULE_2__.SwitcherTitles.Animation,
-      values: ['On', 'Off']
-    });
-    const language = new _swither_switcher__WEBPACK_IMPORTED_MODULE_2__.Switcher(leftInner.node, {
-      title: _swither_switcher__WEBPACK_IMPORTED_MODULE_2__.SwitcherTitles.Language,
-      values: ['EN', 'RU']
-    });
-    const sound = new _swither_switcher__WEBPACK_IMPORTED_MODULE_2__.Switcher(rightInner.node, {
-      title: _swither_switcher__WEBPACK_IMPORTED_MODULE_2__.SwitcherTitles.Sound,
-      values: ['On', 'Off']
-    });
-    const volume = new _volume_volume__WEBPACK_IMPORTED_MODULE_3__.Volume(rightInner.node);
+    const theme = new _swither_switcher__WEBPACK_IMPORTED_MODULE_5__.Switcher(leftInner.node, _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.themeEN : _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.themeRU);
+    const animation = new _swither_switcher__WEBPACK_IMPORTED_MODULE_5__.Switcher(leftInner.node, _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.animEN : _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.animRU);
+    const language = new _swither_switcher__WEBPACK_IMPORTED_MODULE_5__.Switcher(leftInner.node, _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.langEN : _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.langRU);
+    const sound = new _swither_switcher__WEBPACK_IMPORTED_MODULE_5__.Switcher(rightInner.node, _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.soundEN : _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.soundRU);
+    const volume = new _volume_volume__WEBPACK_IMPORTED_MODULE_6__.Volume(rightInner.node);
+    this.settingsPopupListener = type => {
+      switch (type) {
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeLanguage:
+          settingsTitle.node.textContent = _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? 'Settings' : 'Настройки';
+          break;
+      }
+    };
+    _common_state__WEBPACK_IMPORTED_MODULE_2__.state.onUpdate.add(this.settingsPopupListener);
   }
 }
 
@@ -1770,6 +1989,13 @@ var SwitcherTitles;
   SwitcherTitles["Language"] = "Language";
   SwitcherTitles["Sound"] = "Sound";
 })(SwitcherTitles || (SwitcherTitles = {}));
+var SwitcherTitlesRU;
+(function (SwitcherTitlesRU) {
+  SwitcherTitlesRU["Theme"] = "\u0422\u0435\u043C\u0430";
+  SwitcherTitlesRU["Animation"] = "\u0410\u043D\u0438\u043C\u0430\u0446\u0438\u044F";
+  SwitcherTitlesRU["Language"] = "\u042F\u0437\u044B\u043A";
+  SwitcherTitlesRU["Sound"] = "\u0417\u0432\u0443\u043A";
+})(SwitcherTitlesRU || (SwitcherTitlesRU = {}));
 class Switcher extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor(parentNode, argSwitcher) {
     super(parentNode, 'div', 'switcher');
@@ -1785,7 +2011,7 @@ class Switcher extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     this.switcherListener = type => {
       switch (type) {
         case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeTheme:
-          if (argSwitcher.title === SwitcherTitles.Theme) {
+          if (argSwitcher.title === SwitcherTitles.Theme || argSwitcher.title === SwitcherTitlesRU.Theme) {
             _index__WEBPACK_IMPORTED_MODULE_5__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_4__.SoundTypes.input);
             if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getTheme()) {
               switcherValue.node.textContent = argSwitcher.values[1];
@@ -1795,7 +2021,7 @@ class Switcher extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
           }
           break;
         case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeAnimation:
-          if (argSwitcher.title === SwitcherTitles.Animation) {
+          if (argSwitcher.title === SwitcherTitles.Animation || argSwitcher.title === SwitcherTitlesRU.Animation) {
             _index__WEBPACK_IMPORTED_MODULE_5__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_4__.SoundTypes.input);
             if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getAnimation()) {
               switcherValue.node.textContent = argSwitcher.values[0];
@@ -1805,7 +2031,7 @@ class Switcher extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
           }
           break;
         case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeLanguage:
-          if (argSwitcher.title === SwitcherTitles.Language) {
+          if (argSwitcher.title === SwitcherTitles.Language || argSwitcher.title === SwitcherTitlesRU.Language) {
             _index__WEBPACK_IMPORTED_MODULE_5__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_4__.SoundTypes.input);
             if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage()) {
               switcherValue.node.textContent = argSwitcher.values[0];
@@ -1815,7 +2041,7 @@ class Switcher extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
           }
           break;
         case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeSound:
-          if (argSwitcher.title === SwitcherTitles.Sound) {
+          if (argSwitcher.title === SwitcherTitles.Sound || argSwitcher.title === SwitcherTitlesRU.Sound) {
             if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getSound()) {
               switcherValue.node.textContent = argSwitcher.values[0];
               input.node.checked = true;
@@ -1835,67 +2061,62 @@ class Switcher extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     _common_state__WEBPACK_IMPORTED_MODULE_2__.state.onUpdate.add(this.switcherListener);
   }
   initIdentifyStates(input, valuesArr, valueTitle, type) {
-    switch (type) {
-      case SwitcherTitles.Animation:
-        if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getAnimation()) {
-          input.checked = true;
-          valueTitle.textContent = valuesArr[0];
-        } else {
-          input.checked = false;
-          valueTitle.textContent = valuesArr[1];
-        }
-        break;
-      case SwitcherTitles.Sound:
-        if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getSound()) {
-          input.checked = true;
-          valueTitle.textContent = valuesArr[0];
-        } else {
-          input.checked = false;
-          valueTitle.textContent = valuesArr[1];
-        }
-        break;
-      case SwitcherTitles.Language:
-        if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage()) {
-          input.checked = true;
-          valueTitle.textContent = valuesArr[0];
-        } else {
-          input.checked = false;
-          valueTitle.textContent = valuesArr[1];
-        }
-        break;
-      case SwitcherTitles.Theme:
-        if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getTheme()) {
-          input.checked = true;
-          valueTitle.textContent = valuesArr[1];
-        } else {
-          input.checked = false;
-          valueTitle.textContent = valuesArr[0];
-        }
-        break;
+    if (type === SwitcherTitles.Animation || type === SwitcherTitlesRU.Animation) {
+      if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getAnimation()) {
+        input.checked = true;
+        valueTitle.textContent = valuesArr[0];
+      } else {
+        input.checked = false;
+        valueTitle.textContent = valuesArr[1];
+      }
+    }
+    if (type === SwitcherTitles.Sound || type === SwitcherTitlesRU.Sound) {
+      if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getSound()) {
+        input.checked = true;
+        valueTitle.textContent = valuesArr[0];
+      } else {
+        input.checked = false;
+        valueTitle.textContent = valuesArr[1];
+      }
+    }
+    if (type === SwitcherTitles.Language || type === SwitcherTitlesRU.Language) {
+      if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage()) {
+        input.checked = true;
+        valueTitle.textContent = valuesArr[0];
+      } else {
+        input.checked = false;
+        valueTitle.textContent = valuesArr[1];
+      }
+    }
+    if (type === SwitcherTitles.Theme || type === SwitcherTitlesRU.Theme) {
+      if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getTheme()) {
+        input.checked = true;
+        valueTitle.textContent = valuesArr[1];
+      } else {
+        input.checked = false;
+        valueTitle.textContent = valuesArr[0];
+      }
     }
   }
   onChange(flag, type) {
-    switch (type) {
-      case SwitcherTitles.Theme:
-        _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setTheme(flag);
-        break;
-      case SwitcherTitles.Animation:
-        _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setAnimation(flag);
-        break;
-      case SwitcherTitles.Sound:
-        _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setSound(flag);
-        if (+_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getVolume() > 0) {
-          _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setVolume('0');
-        } else {
-          _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setVolume(_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLastVolume());
-        }
-        break;
-      case SwitcherTitles.Language:
-        _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setLanguage(flag);
-        break;
-      default:
-        _common_local_storage__WEBPACK_IMPORTED_MODULE_1__.lStorage.put('settings', _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getSettings());
+    if (type === SwitcherTitles.Theme || type === SwitcherTitlesRU.Theme) {
+      _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setTheme(flag);
     }
+    if (type === SwitcherTitles.Animation || type === SwitcherTitlesRU.Animation) {
+      _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setAnimation(flag);
+    }
+    if (type === SwitcherTitles.Sound || type === SwitcherTitlesRU.Sound) {
+      _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setSound(flag);
+      if (+_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getVolume() > 0) {
+        _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setVolume('0');
+      } else {
+        _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setVolume(_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLastVolume());
+      }
+    }
+    if (type === SwitcherTitles.Language || type === SwitcherTitlesRU.Language) {
+      _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setLanguage(flag);
+    }
+    _common_local_storage__WEBPACK_IMPORTED_MODULE_1__.lStorage.put('settings', _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getSettings());
   }
 }
 
@@ -2015,15 +2236,15 @@ class WarningPopup extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default
   constructor(parentNode) {
     super(parentNode, 'div', 'warning');
     const popupInner = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'div', 'warning_inner');
-    const popupText = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](popupInner.node, 'p', 'warning_text', 'Are you sure?');
+    const popupText = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](popupInner.node, 'p', 'warning_text', _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage() ? 'Are you sure?' : 'Вы уверены?');
     const popupClose = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](popupInner.node, 'img', 'warning_close');
     popupClose.node.alt = 'close popup';
     popupClose.node.src = _assets_svg_close_btn_svg__WEBPACK_IMPORTED_MODULE_3__;
     popupClose.node.onclick = () => this.onClosePopup();
     const popupBtnContainer = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](popupInner.node, 'div', 'warning_btns');
-    const btnTrue = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](popupBtnContainer.node, 'button', 'warning_btn', 'Yes');
+    const btnTrue = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](popupBtnContainer.node, 'button', 'warning_btn', _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage() ? 'Yes' : 'Да');
     btnTrue.node.onclick = () => this.onTrue();
-    const btnFalse = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](popupBtnContainer.node, 'button', 'warning_btn', 'No');
+    const btnFalse = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](popupBtnContainer.node, 'button', 'warning_btn', _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage() ? 'No' : 'Нет');
     btnFalse.node.onclick = () => this.onClosePopup();
   }
   onTrue() {
@@ -2243,7 +2464,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".main_game {\n  width: 100%;\n  max-width: 60rem;\n  margin: 0 auto;\n}\n.main_game_over {\n  position: relative;\n  background: rgba(0, 0, 0, 0.4);\n  user-select: none;\n  border-radius: 1rem;\n  pointer-events: none;\n}\n.main_game_container {\n  display: grid;\n  width: 100%;\n  height: 100%;\n  border: 1px solid salmon;\n  padding: 0.5rem;\n  border-radius: 1rem;\n  grid-gap: 0.5rem;\n}\n.main_game_container_3x3 {\n  grid-template-columns: repeat(3, 1fr);\n}\n.main_game_container_4x4 {\n  grid-template-columns: repeat(4, 1fr);\n}\n.main_game_container_5x5 {\n  grid-template-columns: repeat(5, 1fr);\n}\n.main_game_container_6x6 {\n  grid-template-columns: repeat(6, 1fr);\n}\n.main_game_container_7x7 {\n  grid-template-columns: repeat(7, 1fr);\n}\n.main_game_container_8x8 {\n  grid-template-columns: repeat(8, 1fr);\n}\n.main_game_square {\n  font-size: 3rem;\n  border: 1px solid black;\n  border-radius: 1rem;\n  aspect-ratio: 1/1;\n  cursor: pointer;\n  transition: ease 0.3s;\n  text-align: center;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: ease 0.5s;\n  user-select: none;\n}\n.main_game_square:hover {\n  border: 2px solid wheat;\n}\n.main_game_square_empty {\n  border: none;\n  cursor: auto;\n  outline: none;\n  user-select: none;\n  z-index: 0;\n  transition: ease 0.5s;\n}\n.main_game_square_empty:hover {\n  border: none;\n}", "",{"version":3,"sources":["webpack://./src/ts/components/main/game/game.scss"],"names":[],"mappings":"AAAA;EACE,WAAA;EACA,gBAAA;EACA,cAAA;AACF;AAAE;EACE,kBAAA;EACA,8BAAA;EACA,iBAAA;EACA,mBAAA;EACA,oBAAA;AAEJ;AAAE;EACE,aAAA;EACA,WAAA;EACA,YAAA;EACA,wBAAA;EACA,eAAA;EACA,mBAAA;EACA,gBAAA;AAEJ;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AAAE;EACE,eAAA;EACA,uBAAA;EACA,mBAAA;EACA,iBAAA;EACA,eAAA;EACA,qBAAA;EACA,kBAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,qBAAA;EACA,iBAAA;AAEJ;AADI;EACE,uBAAA;AAGN;AAAE;EACE,YAAA;EACA,YAAA;EACA,aAAA;EACA,iBAAA;EACA,UAAA;EACA,qBAAA;AAEJ;AADI;EACE,YAAA;AAGN","sourcesContent":[".main_game {\n  width: 100%;\n  max-width: 60rem;\n  margin: 0 auto;\n  &_over {\n    position: relative;\n    background: rgba(0, 0, 0, 0.4);\n    user-select: none;\n    border-radius: 1rem;\n    pointer-events: none;\n  }\n  &_container {\n    display: grid;\n    width: 100%;\n    height: 100%;\n    border: 1px solid salmon;\n    padding: 0.5rem;\n    border-radius: 1rem;\n    grid-gap: 0.5rem;\n    &_3x3 {\n      grid-template-columns: repeat(3, 1fr);\n    }\n    &_4x4 {\n      grid-template-columns: repeat(4, 1fr);\n    }\n    &_5x5 {\n      grid-template-columns: repeat(5, 1fr);\n    }\n    &_6x6 {\n      grid-template-columns: repeat(6, 1fr);\n    }\n    &_7x7 {\n      grid-template-columns: repeat(7, 1fr);\n    }\n    &_8x8 {\n      grid-template-columns: repeat(8, 1fr);\n    }\n  }\n  &_square {\n    font-size: 3rem;\n    border: 1px solid black;\n    border-radius: 1rem;\n    aspect-ratio: 1/1;\n    cursor: pointer;\n    transition: ease 0.3s;\n    text-align: center;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: ease 0.5s;\n    user-select: none;\n    &:hover {\n      border: 2px solid wheat;\n    }\n  }\n  &_square_empty {\n    border: none;\n    cursor: auto;\n    outline: none;\n    user-select: none;\n    z-index: 0;\n    transition: ease 0.5s;\n    &:hover {\n      border: none;\n    }\n  }\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".main_game {\n  width: 100%;\n  max-width: 60rem;\n  margin: 0 auto;\n}\n.main_game_over {\n  position: relative;\n  background: rgba(0, 0, 0, 0.4);\n  user-select: none;\n  border-radius: 1rem;\n  pointer-events: none;\n  cursor: not-allowed;\n}\n.main_game_container {\n  display: grid;\n  width: 100%;\n  height: 100%;\n  border: 1px solid salmon;\n  padding: 0.5rem;\n  border-radius: 1rem;\n  grid-gap: 0.5rem;\n}\n.main_game_container_3x3 {\n  grid-template-columns: repeat(3, 1fr);\n}\n.main_game_container_4x4 {\n  grid-template-columns: repeat(4, 1fr);\n}\n.main_game_container_5x5 {\n  grid-template-columns: repeat(5, 1fr);\n}\n.main_game_container_6x6 {\n  grid-template-columns: repeat(6, 1fr);\n}\n.main_game_container_7x7 {\n  grid-template-columns: repeat(7, 1fr);\n}\n.main_game_container_8x8 {\n  grid-template-columns: repeat(8, 1fr);\n}\n.main_game_square {\n  font-size: 3rem;\n  border: 1px solid black;\n  border-radius: 1rem;\n  aspect-ratio: 1/1;\n  cursor: pointer;\n  transition: ease 0.3s;\n  text-align: center;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: ease 0.5s;\n  user-select: none;\n}\n.main_game_square:hover {\n  border: 2px solid wheat;\n}\n.main_game_square_empty {\n  border: none;\n  cursor: auto;\n  outline: none;\n  user-select: none;\n  z-index: 0;\n  transition: ease 0.5s;\n}\n.main_game_square_empty:hover {\n  border: none;\n}", "",{"version":3,"sources":["webpack://./src/ts/components/main/game/game.scss"],"names":[],"mappings":"AAAA;EACE,WAAA;EACA,gBAAA;EACA,cAAA;AACF;AAAE;EACE,kBAAA;EACA,8BAAA;EACA,iBAAA;EACA,mBAAA;EACA,oBAAA;EACA,mBAAA;AAEJ;AAAE;EACE,aAAA;EACA,WAAA;EACA,YAAA;EACA,wBAAA;EACA,eAAA;EACA,mBAAA;EACA,gBAAA;AAEJ;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AADI;EACE,qCAAA;AAGN;AAAE;EACE,eAAA;EACA,uBAAA;EACA,mBAAA;EACA,iBAAA;EACA,eAAA;EACA,qBAAA;EACA,kBAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,qBAAA;EACA,iBAAA;AAEJ;AADI;EACE,uBAAA;AAGN;AAAE;EACE,YAAA;EACA,YAAA;EACA,aAAA;EACA,iBAAA;EACA,UAAA;EACA,qBAAA;AAEJ;AADI;EACE,YAAA;AAGN","sourcesContent":[".main_game {\n  width: 100%;\n  max-width: 60rem;\n  margin: 0 auto;\n  &_over {\n    position: relative;\n    background: rgba(0, 0, 0, 0.4);\n    user-select: none;\n    border-radius: 1rem;\n    pointer-events: none;\n    cursor: not-allowed;\n  }\n  &_container {\n    display: grid;\n    width: 100%;\n    height: 100%;\n    border: 1px solid salmon;\n    padding: 0.5rem;\n    border-radius: 1rem;\n    grid-gap: 0.5rem;\n    &_3x3 {\n      grid-template-columns: repeat(3, 1fr);\n    }\n    &_4x4 {\n      grid-template-columns: repeat(4, 1fr);\n    }\n    &_5x5 {\n      grid-template-columns: repeat(5, 1fr);\n    }\n    &_6x6 {\n      grid-template-columns: repeat(6, 1fr);\n    }\n    &_7x7 {\n      grid-template-columns: repeat(7, 1fr);\n    }\n    &_8x8 {\n      grid-template-columns: repeat(8, 1fr);\n    }\n  }\n  &_square {\n    font-size: 3rem;\n    border: 1px solid black;\n    border-radius: 1rem;\n    aspect-ratio: 1/1;\n    cursor: pointer;\n    transition: ease 0.3s;\n    text-align: center;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: ease 0.5s;\n    user-select: none;\n    &:hover {\n      border: 2px solid wheat;\n    }\n  }\n  &_square_empty {\n    border: none;\n    cursor: auto;\n    outline: none;\n    user-select: none;\n    z-index: 0;\n    transition: ease 0.5s;\n    &:hover {\n      border: none;\n    }\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2383,7 +2604,7 @@ var ___CSS_LOADER_URL_IMPORT_0___ = new URL(/* asset import */ __webpack_require
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_0___);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".popups_result {\n  width: 100%;\n  height: 100%;\n  padding: 1rem;\n}\n.popups_result_title {\n  text-align: center;\n  color: gainsboro;\n  margin: 0;\n  margin-top: 1rem;\n}\n.popups_result_list {\n  padding: 0;\n  list-style: none;\n  color: wheat;\n  margin-bottom: 3rem;\n}\n.popups_result_wrapper {\n  display: flex;\n  align-items: flex-end;\n  list-style: none;\n  display: flex;\n  padding: 0;\n}\n.popups_result_item {\n  color: white;\n  margin-left: 2rem;\n  margin-right: 2rem;\n  height: 4.5rem;\n}\n.popups_result_count {\n  height: 4.5rem;\n  width: 1rem;\n}\n.popups_result_delete {\n  background: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") no-repeat center/contain;\n  width: 4rem;\n  height: 4.5rem;\n  border: none;\n  cursor: pointer;\n  filter: invert(47%) sepia(100%) saturate(324%) hue-rotate(130deg) brightness(85%) contrast(84%);\n  transition: ease 0.5s;\n  margin-bottom: 1rem;\n}", "",{"version":3,"sources":["webpack://./src/ts/components/main/popups/result-popup/result-popup.scss"],"names":[],"mappings":"AAAA;EACE,WAAA;EACA,YAAA;EACA,aAAA;AACF;AAAE;EACE,kBAAA;EACA,gBAAA;EACA,SAAA;EACA,gBAAA;AAEJ;AAAE;EACE,UAAA;EACA,gBAAA;EACA,YAAA;EACA,mBAAA;AAEJ;AAAE;EACE,aAAA;EACA,qBAAA;EACA,gBAAA;EACA,aAAA;EACA,UAAA;AAEJ;AAAE;EACE,YAAA;EACA,iBAAA;EACA,kBAAA;EACA,cAAA;AAEJ;AAAE;EACE,cAAA;EACA,WAAA;AAEJ;AAAE;EACE,4EAAA;EACA,WAAA;EACA,cAAA;EACA,YAAA;EACA,eAAA;EACA,+FAAA;EACA,qBAAA;EACA,mBAAA;AAEJ","sourcesContent":[".popups_result {\n  width: 100%;\n  height: 100%;\n  padding: 1rem;\n  &_title {\n    text-align: center;\n    color: gainsboro;\n    margin: 0;\n    margin-top: 1rem;\n  }\n  &_list {\n    padding: 0;\n    list-style: none;\n    color: wheat;\n    margin-bottom: 3rem;\n  }\n  &_wrapper {\n    display: flex;\n    align-items: flex-end;\n    list-style: none;\n    display: flex;\n    padding: 0;\n  }\n  &_item {\n    color: white;\n    margin-left: 2rem;\n    margin-right: 2rem;\n    height: 4.5rem;\n  }\n  &_count {\n    height: 4.5rem;\n    width: 1rem;\n  }\n  &_delete {\n    background: url('../../../../../assets/svg/close-btn.svg') no-repeat center/contain;\n    width: 4rem;\n    height: 4.5rem;\n    border: none;\n    cursor: pointer;\n    filter: invert(47%) sepia(100%) saturate(324%) hue-rotate(130deg) brightness(85%) contrast(84%);\n    transition: ease 0.5s;\n    margin-bottom: 1rem;\n  }\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".popups_result {\n  width: 100%;\n  height: 100%;\n  padding: 1rem;\n}\n.popups_result_title {\n  text-align: center;\n  color: gainsboro;\n  margin: 0;\n  margin-top: 1rem;\n}\n.popups_result_list {\n  padding: 0;\n  list-style: none;\n  color: wheat;\n  margin-bottom: 3rem;\n}\n.popups_result_wrapper {\n  display: flex;\n  align-items: flex-end;\n  list-style: none;\n  display: flex;\n  padding: 0;\n}\n.popups_result_item {\n  color: white;\n  margin-left: 2rem;\n  margin-right: 2rem;\n  height: 4.5rem;\n}\n.popups_result_count {\n  height: 4.5rem;\n  width: 1rem;\n}\n.popups_result_item {\n  width: 5rem;\n}\n.popups_result_delete {\n  background: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") no-repeat center/contain;\n  width: 4rem;\n  height: 4.5rem;\n  border: none;\n  cursor: pointer;\n  filter: invert(47%) sepia(100%) saturate(324%) hue-rotate(130deg) brightness(85%) contrast(84%);\n  transition: ease 0.5s;\n  margin-bottom: 1rem;\n}", "",{"version":3,"sources":["webpack://./src/ts/components/main/popups/result-popup/result-popup.scss"],"names":[],"mappings":"AAAA;EACE,WAAA;EACA,YAAA;EACA,aAAA;AACF;AAAE;EACE,kBAAA;EACA,gBAAA;EACA,SAAA;EACA,gBAAA;AAEJ;AAAE;EACE,UAAA;EACA,gBAAA;EACA,YAAA;EACA,mBAAA;AAEJ;AAAE;EACE,aAAA;EACA,qBAAA;EACA,gBAAA;EACA,aAAA;EACA,UAAA;AAEJ;AAAE;EACE,YAAA;EACA,iBAAA;EACA,kBAAA;EACA,cAAA;AAEJ;AAAE;EACE,cAAA;EACA,WAAA;AAEJ;AAAE;EACE,WAAA;AAEJ;AAAE;EACE,4EAAA;EACA,WAAA;EACA,cAAA;EACA,YAAA;EACA,eAAA;EACA,+FAAA;EACA,qBAAA;EACA,mBAAA;AAEJ","sourcesContent":[".popups_result {\n  width: 100%;\n  height: 100%;\n  padding: 1rem;\n  &_title {\n    text-align: center;\n    color: gainsboro;\n    margin: 0;\n    margin-top: 1rem;\n  }\n  &_list {\n    padding: 0;\n    list-style: none;\n    color: wheat;\n    margin-bottom: 3rem;\n  }\n  &_wrapper {\n    display: flex;\n    align-items: flex-end;\n    list-style: none;\n    display: flex;\n    padding: 0;\n  }\n  &_item {\n    color: white;\n    margin-left: 2rem;\n    margin-right: 2rem;\n    height: 4.5rem;\n  }\n  &_count {\n    height: 4.5rem;\n    width: 1rem;\n  }\n  &_item{\n    width: 5rem;\n  }\n  &_delete {\n    background: url('../../../../../assets/svg/close-btn.svg') no-repeat center/contain;\n    width: 4rem;\n    height: 4.5rem;\n    border: none;\n    cursor: pointer;\n    filter: invert(47%) sepia(100%) saturate(324%) hue-rotate(130deg) brightness(85%) contrast(84%);\n    transition: ease 0.5s;\n    margin-bottom: 1rem;\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2409,7 +2630,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".settings {\n  width: 80%;\n  margin-top: 2rem;\n}\n.settings_title {\n  text-align: center;\n  color: gainsboro;\n  margin: 0;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n.settings_inner {\n  display: flex;\n  justify-content: space-between;\n}\n.settings_right {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}", "",{"version":3,"sources":["webpack://./src/ts/components/main/popups/settings-popup/settings-popup.scss"],"names":[],"mappings":"AAAA;EACE,UAAA;EACA,gBAAA;AACF;AAAE;EACE,kBAAA;EACA,gBAAA;EACA,SAAA;EACA,gBAAA;EACA,mBAAA;AAEJ;AAAE;EACE,aAAA;EACA,8BAAA;AAEJ;AAAE;EACE,aAAA;EACA,sBAAA;EACA,uBAAA;AAEJ","sourcesContent":[".settings {\n  width: 80%;\n  margin-top: 2rem;\n  &_title {\n    text-align: center;\n    color: gainsboro;\n    margin: 0;\n    margin-top: 1rem;\n    margin-bottom: 2rem;\n  }\n  &_inner {\n    display: flex;\n    justify-content: space-between;\n  }\n  &_right {\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start;\n  }\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".settings {\n  width: 80%;\n  margin-top: 2rem;\n}\n.settings_title {\n  text-align: center;\n  color: gainsboro;\n  margin: 0;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n.settings_inner {\n  display: flex;\n  justify-content: space-between;\n}\n.settings_right {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.settings_left {\n  min-width: 20rem;\n}", "",{"version":3,"sources":["webpack://./src/ts/components/main/popups/settings-popup/settings-popup.scss"],"names":[],"mappings":"AAAA;EACE,UAAA;EACA,gBAAA;AACF;AAAE;EACE,kBAAA;EACA,gBAAA;EACA,SAAA;EACA,gBAAA;EACA,mBAAA;AAEJ;AAAE;EACE,aAAA;EACA,8BAAA;AAEJ;AAAE;EACE,aAAA;EACA,sBAAA;EACA,uBAAA;AAEJ;AAAE;EACE,gBAAA;AAEJ","sourcesContent":[".settings {\n  width: 80%;\n  margin-top: 2rem;\n  &_title {\n    text-align: center;\n    color: gainsboro;\n    margin: 0;\n    margin-top: 1rem;\n    margin-bottom: 2rem;\n  }\n  &_inner {\n    display: flex;\n    justify-content: space-between;\n  }\n  &_right {\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start;\n  }\n  &_left {\n    min-width: 20rem;\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2435,7 +2656,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".switcher {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-bottom: 1rem;\n  width: 11rem;\n}\n.switcher_title {\n  margin: 0;\n  font-size: 2rem;\n  line-height: 2.7rem;\n  text-align: center;\n  color: white;\n}\n.switcher_inner {\n  display: flex;\n  align-items: center;\n  width: 100%;\n}\n.switcher_switch {\n  position: relative;\n  display: inline-block;\n  width: 60px;\n  height: 34px;\n  margin-right: 1rem;\n}\n.switcher_checkbox {\n  display: none;\n}\n.switcher_slider {\n  position: absolute;\n  cursor: pointer;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  transition: 0.4s;\n  border-radius: 0.34rem;\n}\n.switcher_slider::before {\n  position: absolute;\n  content: \"\";\n  height: 26px;\n  width: 26px;\n  left: 4px;\n  bottom: 4px;\n  background-color: white;\n  transition: 0.4s;\n}\n.switcher_value {\n  color: white;\n}\n\n.switcher_checkbox:checked + .switcher_slider {\n  background-color: #2196f3;\n}\n\n.switcher_checkbox:focus + .switcher_slider {\n  box-shadow: 0 0 1px #2196f3;\n}\n\n.switcher_checkbox:checked + .switcher_slider::before {\n  transform: translateX(26px);\n}", "",{"version":3,"sources":["webpack://./src/ts/components/main/popups/settings-popup/swither/switcher.scss"],"names":[],"mappings":"AAAA;EACE,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,mBAAA;EACA,YAAA;AACF;AAAE;EACE,SAAA;EACA,eAAA;EACA,mBAAA;EACA,kBAAA;EACA,YAAA;AAEJ;AAAE;EACE,aAAA;EACA,mBAAA;EACA,WAAA;AAEJ;AAAE;EACE,kBAAA;EACA,qBAAA;EACA,WAAA;EACA,YAAA;EACA,kBAAA;AAEJ;AAAE;EACE,aAAA;AAEJ;AAAE;EACE,kBAAA;EACA,eAAA;EACA,MAAA;EACA,OAAA;EACA,QAAA;EACA,SAAA;EACA,sBAAA;EACA,gBAAA;EACA,sBAAA;AAEJ;AADI;EACE,kBAAA;EACA,WAAA;EACA,YAAA;EACA,WAAA;EACA,SAAA;EACA,WAAA;EACA,uBAAA;EACA,gBAAA;AAGN;AAAE;EACE,YAAA;AAEJ;;AAEA;EACE,yBAAA;AACF;;AACA;EACE,2BAAA;AAEF;;AAAA;EACE,2BAAA;AAGF","sourcesContent":[".switcher {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-bottom: 1rem;\n  width: 11rem;\n  &_title {\n    margin: 0;\n    font-size: 2rem;\n    line-height: 2.7rem;\n    text-align: center;\n    color: white;\n  }\n  &_inner {\n    display: flex;\n    align-items: center;\n    width: 100%;\n  }\n  &_switch {\n    position: relative;\n    display: inline-block;\n    width: 60px;\n    height: 34px;\n    margin-right: 1rem;\n  }\n  &_checkbox {\n    display: none;\n  }\n  &_slider {\n    position: absolute;\n    cursor: pointer;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background-color: #ccc;\n    transition: 0.4s;\n    border-radius: 0.34rem;\n    &::before {\n      position: absolute;\n      content: '';\n      height: 26px;\n      width: 26px;\n      left: 4px;\n      bottom: 4px;\n      background-color: white;\n      transition: 0.4s;\n    }\n  }\n  &_value {\n    color: white;\n  }\n}\n\n.switcher_checkbox:checked + .switcher_slider {\n  background-color: #2196f3;\n}\n.switcher_checkbox:focus + .switcher_slider {\n  box-shadow: 0 0 1px #2196f3;\n}\n.switcher_checkbox:checked + .switcher_slider::before {\n  transform: translateX(26px);\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".switcher {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-bottom: 1rem;\n}\n.switcher_title {\n  margin: 0;\n  font-size: 2rem;\n  line-height: 2.7rem;\n  text-align: center;\n  color: white;\n}\n.switcher_inner {\n  display: flex;\n  align-items: center;\n  width: 100%;\n}\n.switcher_switch {\n  position: relative;\n  display: inline-block;\n  width: 60px;\n  height: 34px;\n  margin-right: 1rem;\n}\n.switcher_checkbox {\n  display: none;\n}\n.switcher_slider {\n  position: absolute;\n  cursor: pointer;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  transition: 0.4s;\n  border-radius: 0.34rem;\n}\n.switcher_slider::before {\n  position: absolute;\n  content: \"\";\n  height: 26px;\n  width: 26px;\n  left: 4px;\n  bottom: 4px;\n  background-color: white;\n  transition: 0.4s;\n}\n.switcher_value {\n  color: white;\n}\n\n.switcher_checkbox:checked + .switcher_slider {\n  background-color: #2196f3;\n}\n\n.switcher_checkbox:focus + .switcher_slider {\n  box-shadow: 0 0 1px #2196f3;\n}\n\n.switcher_checkbox:checked + .switcher_slider::before {\n  transform: translateX(26px);\n}", "",{"version":3,"sources":["webpack://./src/ts/components/main/popups/settings-popup/swither/switcher.scss"],"names":[],"mappings":"AAAA;EACE,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,mBAAA;AACF;AAAE;EACE,SAAA;EACA,eAAA;EACA,mBAAA;EACA,kBAAA;EACA,YAAA;AAEJ;AAAE;EACE,aAAA;EACA,mBAAA;EACA,WAAA;AAEJ;AAAE;EACE,kBAAA;EACA,qBAAA;EACA,WAAA;EACA,YAAA;EACA,kBAAA;AAEJ;AAAE;EACE,aAAA;AAEJ;AAAE;EACE,kBAAA;EACA,eAAA;EACA,MAAA;EACA,OAAA;EACA,QAAA;EACA,SAAA;EACA,sBAAA;EACA,gBAAA;EACA,sBAAA;AAEJ;AADI;EACE,kBAAA;EACA,WAAA;EACA,YAAA;EACA,WAAA;EACA,SAAA;EACA,WAAA;EACA,uBAAA;EACA,gBAAA;AAGN;AAAE;EACE,YAAA;AAEJ;;AAEA;EACE,yBAAA;AACF;;AACA;EACE,2BAAA;AAEF;;AAAA;EACE,2BAAA;AAGF","sourcesContent":[".switcher {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-bottom: 1rem;\n  &_title {\n    margin: 0;\n    font-size: 2rem;\n    line-height: 2.7rem;\n    text-align: center;\n    color: white;\n  }\n  &_inner {\n    display: flex;\n    align-items: center;\n    width: 100%;\n  }\n  &_switch {\n    position: relative;\n    display: inline-block;\n    width: 60px;\n    height: 34px;\n    margin-right: 1rem;\n  }\n  &_checkbox {\n    display: none;\n  }\n  &_slider {\n    position: absolute;\n    cursor: pointer;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background-color: #ccc;\n    transition: 0.4s;\n    border-radius: 0.34rem;\n    &::before {\n      position: absolute;\n      content: '';\n      height: 26px;\n      width: 26px;\n      left: 4px;\n      bottom: 4px;\n      background-color: white;\n      transition: 0.4s;\n    }\n  }\n  &_value {\n    color: white;\n  }\n}\n\n.switcher_checkbox:checked + .switcher_slider {\n  background-color: #2196f3;\n}\n.switcher_checkbox:focus + .switcher_slider {\n  box-shadow: 0 0 1px #2196f3;\n}\n.switcher_checkbox:checked + .switcher_slider::before {\n  transform: translateX(26px);\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4107,4 +4328,4 @@ module.exports = __webpack_require__.p + "assets/close-btn.svg";
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=bundle-886b37387fd3305e4752.js.map
+//# sourceMappingURL=bundle-c45fd82e6b1e4b67a547.js.map

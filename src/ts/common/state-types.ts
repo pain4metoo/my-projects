@@ -66,5 +66,7 @@ export enum StateOptions {
   showWarningPopup = 'show-warning-popup',
   closeWarningPopup = 'close-warning-popup',
   warningResults = 'warning-results',
-  warningSettings = 'warning-settings'
+  warningSettings = 'warning-settings',
+  blockField = 'block-field',
+  unBlockField = 'unblock-field'
 }

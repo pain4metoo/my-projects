@@ -50,6 +50,16 @@ export class Game extends Control {
         case StateOptions.deleteTargetFromStorage:
           this.deleteResult(state.getDeleteTargetFromStorage());
           break;
+        case StateOptions.blockField:
+          if (!this.node.classList.contains('main_game_over')) {
+            this.node.classList.add('main_game_over');
+          }
+          break;
+        case StateOptions.unBlockField:
+          if (this.node.classList.contains('main_game_over')) {
+            this.node.classList.remove('main_game_over');
+          }
+          break;
       }
     };
 
@@ -85,8 +95,10 @@ export class Game extends Control {
 
     const handle = setInterval((): void => {
       this.singleStrokeCycle();
-
+      state.setBlockField();
       if (counter === maxShuffle) {
+        state.setUnblockField();
+        state.setUnblockField();
         soundControl.pauseSound();
         state.stopCollectTimer();
         clearInterval(handle); // stops intervals

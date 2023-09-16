@@ -8,6 +8,7 @@
     user-select: none;
     border-radius: 1rem;
     pointer-events: none;
+    cursor: not-allowed;
   }
   &_container {
     display: grid;

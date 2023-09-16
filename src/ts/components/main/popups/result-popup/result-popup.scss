@@ -31,6 +31,9 @@
     height: 4.5rem;
     width: 1rem;
   }
+  &_item{
+    width: 5rem;
+  }
   &_delete {
     background: url('../../../../../assets/svg/close-btn.svg') no-repeat center/contain;
     width: 4rem;

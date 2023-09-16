@@ -111,6 +111,7 @@ class State {
   }
 
   public setCollectPuzzle(): void {
+    state.onUpdate.emit(StateOptions.blockField);
     state.onUpdate.emit(StateOptions.collectPuzzle);
   }
 
@@ -324,6 +325,14 @@ class State {
       }
     }
     this.closeWarningPopup();
+  }
+
+  public setBlockField(): void {
+    state.onUpdate.emit(StateOptions.blockField);
+  }
+
+  public setUnblockField(): void {
+    state.onUpdate.emit(StateOptions.unBlockField);
   }
 }
 

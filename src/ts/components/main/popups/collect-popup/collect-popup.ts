@@ -6,7 +6,12 @@ export class CollectPopup extends Control {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'popups_collect');
 
-    const collectTitle = new Control(this.node, 'h2', 'popups_collect_title', 'Puzzle assembled automatically');
+    const collectTitle = new Control(
+      this.node,
+      'h2',
+      'popups_collect_title',
+      `${state.getLanguage() ? 'Puzzle assembled automatically' : 'Пятнашки собраны автоматически'}`
+    );
 
     const collectInfo = new Control(this.node, 'div', 'popups_collect_info');
 
@@ -14,21 +19,29 @@ export class CollectPopup extends Control {
       collectInfo.node,
       'h4',
       'popups_collect_time',
-      `Auto build time: ${state.getCollectTimer()}s`
+      `${
+        state.getLanguage()
+          ? `Auto build time: ${state.getCollectTimer()}s`
+          : `Время сборки: ${state.getCollectTimer()}c`
+      }`
     );
 
     const totalTime = new Control(
       collectInfo.node,
       'h2',
       'popups_collect_total_time',
-      `Game time: ${state.getResult().time}`
+      `${state.getLanguage() ? `Game time: ${state.getResult().time}` : `Игровое время: ${state.getResult().time}`}`
     );
 
     const totalMoves = new Control(
       collectInfo.node,
       'h2',
       'popups_collect_moves',
-      `Total moves: ${state.getResult().moves + state.getCollectMoves()}`
+      `${
+        state.getLanguage()
+          ? `Total moves: ${state.getResult().moves + state.getCollectMoves()}`
+          : `Всего ходов: ${state.getResult().moves + state.getCollectMoves()}`
+      }`
     );
   }
 }

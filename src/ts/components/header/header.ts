@@ -4,7 +4,7 @@ import { StateOptions } from '../../common/state-types';
 import { SoundTypes } from '../main/game/soundControl';
 import { soundControl } from '../../../index';
 import './header.scss';
-import { correctTranslater } from '../../common/language';
+import { TList, correctTranslater } from '../../common/language';
 
 enum NavItem {
   Restart = 'restart',
@@ -37,6 +37,9 @@ export class Header extends Control {
           this.stateStopBtn(false);
           break;
         case StateOptions.changeLanguage:
+          this.switchLang(state.getLanguage());
+          break;
+        case StateOptions.resetSettings:
           this.switchLang(state.getLanguage());
           break;
         default:
@@ -78,13 +81,13 @@ export class Header extends Control {
     });
 
     this.navItemsHtmlElements[1].disabled = true;
-    state.onUpdate.add(this.headerListener);
     this.switchLang(state.getLanguage());
+    state.onUpdate.add(this.headerListener);
   }
 
   private switchLang(currentLang: boolean): void {
-    this.navItemsHtmlElements.forEach((el) => {
-      el.textContent = correctTranslater(el.textContent, currentLang);
+    this.navItemsHtmlElements.forEach((el, i) => {
+      el.textContent = correctTranslater(currentLang, TList.header)[i];
     });
   }
 

@@ -1,4 +1,5 @@
 import Control from '../../../common/control';
+import { TList, correctTranslater } from '../../../common/language';
 import { state } from '../../../common/state';
 import { StateOptions } from '../../../common/state-types';
 
@@ -24,8 +25,20 @@ export class Moves extends Control {
         case StateOptions.setCollectMoves:
           movesBlockNumber.node.textContent = `${state.getMoveCounter() + state.getCollectMoves()}`;
           break;
+        case StateOptions.changeLanguage:
+          this.switchLang(state.getLanguage(), movesBlockText.node);
+          break;
+        case StateOptions.resetSettings:
+          this.switchLang(state.getLanguage(), movesBlockText.node);
+          break;
       }
     });
+
+    this.switchLang(state.getLanguage(), movesBlockText.node);
+  }
+
+  private switchLang(currentLang: boolean, el: HTMLElement): void {
+    el.textContent = `${correctTranslater(currentLang, TList.moves)[0]}: `;
   }
 
   private makeMove(moveNode: HTMLElement): void {

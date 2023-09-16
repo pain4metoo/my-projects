@@ -4,13 +4,13 @@ import { StateOptions } from '../../../common/state-types';
 import { SoundTypes } from '../game/soundControl';
 import './frame-size.scss';
 import { soundControl } from '../../../../index';
+import { TList, correctTranslater } from '../../../common/language';
 
 export class FrameSize extends Control {
   private otherSize: Array<string> = ['3x3', '4x4', '5x5', '6x6', '7x7', '8x8'];
   private otherSizeHtml: Array<HTMLButtonElement> = [];
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'section', 'main_frame');
-    const currentSize = state.getFrameSize();
 
     const btnCollectPuzzle: Control<HTMLButtonElement> = new Control(
       this.node,
@@ -70,8 +70,19 @@ export class FrameSize extends Control {
         case StateOptions.winGame:
           btnCollectPuzzle.node.disabled = true;
           break;
+        case StateOptions.changeLanguage:
+          this.switchLang(state.getLanguage(), btnCollectPuzzle.node);
+          break;
+        case StateOptions.resetSettings:
+          this.switchLang(state.getLanguage(), btnCollectPuzzle.node);
+          break;
       }
     });
+    this.switchLang(state.getLanguage(), btnCollectPuzzle.node);
+  }
+
+  private switchLang(currentLang: boolean, el: HTMLElement): void {
+    el.textContent = `${correctTranslater(currentLang, TList.collect)[0]}`;
   }
 
   private setNewFrameSize(size: number): void {

@@ -6,7 +6,7 @@ import { SoundTypes } from '../../../game/soundControl';
 import { soundControl } from '../../../../../../index';
 import './switcher.scss';
 
-interface ISwitcher {
+export interface ISwitcher {
   title: string;
   values: Array<string>;
 }
@@ -16,6 +16,13 @@ export enum SwitcherTitles {
   Animation = 'Animation',
   Language = 'Language',
   Sound = 'Sound'
+}
+
+enum SwitcherTitlesRU {
+  Theme = 'Тема',
+  Animation = 'Анимация',
+  Language = 'Язык',
+  Sound = 'Звук'
 }
 
 export class Switcher extends Control {
@@ -39,11 +46,10 @@ export class Switcher extends Control {
     const switcherValue = new Control(switcherInner.node, 'p', 'switcher_value');
 
     this.initIdentifyStates(input.node, argSwitcher.values, switcherValue.node, argSwitcher.title);
-
     this.switcherListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.changeTheme:
-          if (argSwitcher.title === SwitcherTitles.Theme) {
+          if (argSwitcher.title === SwitcherTitles.Theme || argSwitcher.title === SwitcherTitlesRU.Theme) {
             soundControl.playSound(SoundTypes.input);
             if (state.getTheme()) {
               switcherValue.node.textContent = argSwitcher.values[1];
@@ -53,7 +59,7 @@ export class Switcher extends Control {
           }
           break;
         case StateOptions.changeAnimation:
-          if (argSwitcher.title === SwitcherTitles.Animation) {
+          if (argSwitcher.title === SwitcherTitles.Animation || argSwitcher.title === SwitcherTitlesRU.Animation) {
             soundControl.playSound(SoundTypes.input);
             if (state.getAnimation()) {
               switcherValue.node.textContent = argSwitcher.values[0];
@@ -63,7 +69,7 @@ export class Switcher extends Control {
           }
           break;
         case StateOptions.changeLanguage:
-          if (argSwitcher.title === SwitcherTitles.Language) {
+          if (argSwitcher.title === SwitcherTitles.Language || argSwitcher.title === SwitcherTitlesRU.Language) {
             soundControl.playSound(SoundTypes.input);
             if (state.getLanguage()) {
               switcherValue.node.textContent = argSwitcher.values[0];
@@ -73,7 +79,7 @@ export class Switcher extends Control {
           }
           break;
         case StateOptions.changeSound:
-          if (argSwitcher.title === SwitcherTitles.Sound) {
+          if (argSwitcher.title === SwitcherTitles.Sound || argSwitcher.title === SwitcherTitlesRU.Sound) {
             if (state.getSound()) {
               switcherValue.node.textContent = argSwitcher.values[0];
               input.node.checked = true;
@@ -101,68 +107,64 @@ export class Switcher extends Control {
     valueTitle: HTMLElement,
     type: string
   ): void {
-    switch (type) {
-      case SwitcherTitles.Animation:
-        if (state.getAnimation()) {
-          input.checked = true;
-          valueTitle.textContent = valuesArr[0];
-        } else {
-          input.checked = false;
-          valueTitle.textContent = valuesArr[1];
-        }
-        break;
-      case SwitcherTitles.Sound:
-        if (state.getSound()) {
-          input.checked = true;
-          valueTitle.textContent = valuesArr[0];
-        } else {
-          input.checked = false;
-          valueTitle.textContent = valuesArr[1];
-        }
-        break;
-      case SwitcherTitles.Language:
-        if (state.getLanguage()) {
-          input.checked = true;
-          valueTitle.textContent = valuesArr[0];
-        } else {
-          input.checked = false;
-          valueTitle.textContent = valuesArr[1];
-        }
-        break;
-      case SwitcherTitles.Theme:
-        if (state.getTheme()) {
-          input.checked = true;
-          valueTitle.textContent = valuesArr[1];
-        } else {
-          input.checked = false;
-          valueTitle.textContent = valuesArr[0];
-        }
-        break;
+    if (type === SwitcherTitles.Animation || type === SwitcherTitlesRU.Animation) {
+      if (state.getAnimation()) {
+        input.checked = true;
+        valueTitle.textContent = valuesArr[0];
+      } else {
+        input.checked = false;
+        valueTitle.textContent = valuesArr[1];
+      }
+    }
+    if (type === SwitcherTitles.Sound || type === SwitcherTitlesRU.Sound) {
+      if (state.getSound()) {
+        input.checked = true;
+        valueTitle.textContent = valuesArr[0];
+      } else {
+        input.checked = false;
+        valueTitle.textContent = valuesArr[1];
+      }
+    }
+    if (type === SwitcherTitles.Language || type === SwitcherTitlesRU.Language) {
+      if (state.getLanguage()) {
+        input.checked = true;
+        valueTitle.textContent = valuesArr[0];
+      } else {
+        input.checked = false;
+        valueTitle.textContent = valuesArr[1];
+      }
+    }
+    if (type === SwitcherTitles.Theme || type === SwitcherTitlesRU.Theme) {
+      if (state.getTheme()) {
+        input.checked = true;
+        valueTitle.textContent = valuesArr[1];
+      } else {
+        input.checked = false;
+        valueTitle.textContent = valuesArr[0];
+      }
     }
   }
 
   private onChange(flag: boolean, type: string): void {
-    switch (type) {
-      case SwitcherTitles.Theme:
-        state.setTheme(flag);
-        break;
-      case SwitcherTitles.Animation:
-        state.setAnimation(flag);
-        break;
-      case SwitcherTitles.Sound:
-        state.setSound(flag);
-
-        if (+state.getVolume() > 0) {
-          state.setVolume('0');
-        } else {
-          state.setVolume(state.getLastVolume());
-        }
-        break;
-      case SwitcherTitles.Language:
-        state.setLanguage(flag);
-        break;
-      default:
-        lStorage.put('settings', state.getSettings());
+    if (type === SwitcherTitles.Theme || type === SwitcherTitlesRU.Theme) {
+      state.setTheme(flag);
     }
+    if (type === SwitcherTitles.Animation || type === SwitcherTitlesRU.Animation) {
+      state.setAnimation(flag);
+    }
+    if (type === SwitcherTitles.Sound || type === SwitcherTitlesRU.Sound) {
+      state.setSound(flag);
+
+      if (+state.getVolume() > 0) {
+        state.setVolume('0');
+      } else {
+        state.setVolume(state.getLastVolume());
+      }
+    }
+    if (type === SwitcherTitles.Language || type === SwitcherTitlesRU.Language) {
+      state.setLanguage(flag);
+    }
+
+    lStorage.put('settings', state.getSettings());
   }
 }

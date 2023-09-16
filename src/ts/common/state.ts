@@ -280,6 +280,7 @@ class State {
     this._data.appSettings.theme = false;
     this._data.appSettings.language = true;
 
+    state.onUpdate.emit(StateOptions.resetSettings);
     state.onUpdate.emit(StateOptions.closePopup);
   }
 

@@ -23,7 +23,12 @@ export class Popups extends Control {
     const popupsInner = new Control(this.node, 'div', 'popups_inner');
     const closeBtn = new Control(popupsInner.node, 'button', 'popups_close_btn');
 
-    const newGameBtn = new Control(popupsInner.node, 'button', 'popups_new_btn', 'Restart');
+    const newGameBtn = new Control(
+      popupsInner.node,
+      'button',
+      'popups_new_btn',
+      state.getLanguage() ? 'restart' : 'новая игра'
+    );
     newGameBtn.node.onclick = (): void => this.onNewGameBtn();
 
     closeBtn.node.onclick = (): void => this.onDeletePopup();
@@ -36,7 +41,7 @@ export class Popups extends Control {
           break;
         case StateOptions.showResultPopup:
           this.popupResult = new ResultPopup(popupsInner.node);
-          newGameBtn.node.textContent = 'delete all results';
+          newGameBtn.node.textContent = state.getLanguage() ? 'delete all results' : 'очистить результаты';
           newGameBtn.node.onclick = (): void => this.showWarning(StateOptions.showResultPopup);
           break;
         case StateOptions.showFinishPopup:
@@ -45,7 +50,7 @@ export class Popups extends Control {
           break;
         case StateOptions.showSettings:
           this.popupSettings = new SettingsPopup(popupsInner.node);
-          newGameBtn.node.textContent = 'reset settings';
+          newGameBtn.node.textContent = state.getLanguage() ? 'reset settings' : 'сбросить настройки';
           newGameBtn.node.onclick = (): void => this.showWarning(StateOptions.showSettings);
           break;
         case StateOptions.clearLocalStorage:
@@ -65,6 +70,11 @@ export class Popups extends Control {
           break;
         case StateOptions.closePopup:
           state.onUpdate.remove(this.popupsListener);
+          break;
+        case StateOptions.changeLanguage:
+          newGameBtn.node.textContent = state.getLanguage() ? 'reset settings' : 'сбросить настройки';
+          this.popupSettings.destroy();
+          this.popupSettings = new SettingsPopup(popupsInner.node);
           break;
       }
     };

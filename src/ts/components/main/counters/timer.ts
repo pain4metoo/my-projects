@@ -1,4 +1,5 @@
 import Control from '../../../common/control';
+import { TList, correctTranslater } from '../../../common/language';
 import { state } from '../../../common/state';
 import { StateOptions } from '../../../common/state-types';
 
@@ -45,8 +46,20 @@ export class Timer extends Control {
           this.stopTimer(state.getStopStartGame(), state.getToggleTimer());
 
           this.stopCollectGameTimer();
+          break;
+        case StateOptions.changeLanguage:
+          this.switchLang(state.getLanguage(), timeBlockText.node);
+          break;
+        case StateOptions.resetSettings:
+          this.switchLang(state.getLanguage(), timeBlockText.node);
+          break;
       }
     });
+    this.switchLang(state.getLanguage(), timeBlockText.node);
+  }
+
+  private switchLang(currentLang: boolean, el: HTMLElement): void {
+    el.textContent = `${correctTranslater(currentLang, TList.time)[0]}: `;
   }
 
   private setCollectGameTimer(): void {

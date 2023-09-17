@@ -12,7 +12,7 @@ export class Timer extends Control {
   private collectTimer!: number;
   private collectSec = 1;
   constructor(parentNode: HTMLElement) {
-    super(parentNode);
+    super(parentNode, 'div', 'main_counters_block_right');
 
     const timeBlock = new Control(this.node, 'div', 'main_counters_time', '');
     const timeBlockText = new Control(timeBlock.node, 'p', 'main_counters_time_text', 'Time: ');

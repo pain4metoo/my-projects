@@ -5,7 +5,7 @@ import { StateOptions } from '../../../common/state-types';
 
 export class Moves extends Control {
   constructor(parentNode: HTMLElement) {
-    super(parentNode);
+    super(parentNode, 'div', 'main_counters_block_left');
 
     const movesBlock = new Control(this.node, 'div', 'main_counters_moves');
     const movesBlockText = new Control(movesBlock.node, 'p', 'main_counters_text', 'Moves: ');

@@ -2,30 +2,55 @@
 
 .main_counters {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 3.7rem;
+  margin-bottom: 0.5rem;
   &_moves {
-    margin-right: 2rem;
+    width: 20rem;
+    margin-left: 10rem;
     display: flex;
     align-items: center;
     user-select: none;
   }
+  &_block_left {
+    margin-left: 4rem;
+  }
   &_text {
+    font-size: 4.6rem;
+    color: $color-text-black;
     margin: 0;
     margin-right: 0.5rem;
+    position: relative;
+    z-index: 1;
   }
   &_number {
+    font-size: 4.6rem;
+    color: $color-text-black;
     margin: 0;
+    position: relative;
+    z-index: 1;
   }
   &_time {
     display: flex;
     align-items: center;
     user-select: none;
+    margin-right: 15rem;
+    position: relative;
+    z-index: 1;
+    width: 30rem;
   }
   &_time_text {
+    font-size: 4.6rem;
+    color: $color-text-black;
     margin: 0;
     margin-right: 0.5rem;
+    position: relative;
+    z-index: 1;
   }
   &_time_number {
+    font-size: 4.6rem;
+    color: $color-text-black;
     margin: 0;
   }
 }

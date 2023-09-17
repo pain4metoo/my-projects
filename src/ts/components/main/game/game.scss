@@ -1,12 +1,13 @@
+@import '../../../../assets/../style/variables.scss';
+
 .main_game {
   width: 100%;
-  max-width: 60rem;
+  max-width: 65.5rem;
   margin: 0 auto;
   &_over {
     position: relative;
     background: rgba(0, 0, 0, 0.4);
     user-select: none;
-    border-radius: 1rem;
     pointer-events: none;
     cursor: not-allowed;
   }
@@ -14,10 +15,11 @@
     display: grid;
     width: 100%;
     height: 100%;
-    border: 1px solid salmon;
     padding: 0.5rem;
-    border-radius: 1rem;
     grid-gap: 0.5rem;
+    box-shadow: 0rem 0rem 15rem 5rem #fff;
+    background: rgba(20, 19, 17, 0.64);
+    backdrop-filter: blur(5px);
     &_3x3 {
       grid-template-columns: repeat(3, 1fr);
     }
@@ -38,21 +40,21 @@
     }
   }
   &_square {
-    font-size: 3rem;
-    border: 1px solid black;
-    border-radius: 1rem;
+    font-size: 4.8rem;
+    color: $color-text;
+    text-shadow: 0px 0px 8.764814376831055px #fff, 0px 0px 17.52962875366211px #fff, 0px 0px 61.353702545166016px #fff,
+      0px 0px 122.70740509033203px #fff, 0px 0px 210.35556030273438px #fff, 0px 0px 368.1222229003906px #fff;
     aspect-ratio: 1/1;
     cursor: pointer;
-    transition: ease 0.3s;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: ease 0.5s;
     user-select: none;
-    &:hover {
-      border: 2px solid wheat;
-    }
+    border: 0.6rem solid #aeb1ab;
+    background: rgba(61, 61, 61, 0.8);
+    backdrop-filter: blur(2px);
   }
   &_square_empty {
     border: none;
@@ -60,9 +62,7 @@
     outline: none;
     user-select: none;
     z-index: 0;
-    transition: ease 0.5s;
-    &:hover {
-      border: none;
-    }
+    background: rgba(20, 19, 17, 0.1);
+    backdrop-filter: blur(5px);
   }
 }

@@ -43,9 +43,9 @@ export class Header extends Control {
           this.switchLang(state.getLanguage());
           break;
         case StateOptions.closePopup:
-          // ignoring the stop button at index 1
+          // ignoring the stop button and restart button at index 0 and 1
           this.navItemsHtmlElements.forEach((el: HTMLElement, i): void => {
-            if (el.classList.contains('header_item_btn_active') && i !== 1) {
+            if (el.classList.contains('header_item_btn_active') && i !== 1 && i !== 0) {
               el.classList.remove('header_item_btn_active');
             }
           });
@@ -64,6 +64,9 @@ export class Header extends Control {
             }
           });
           break;
+        case StateOptions.newGame:
+          this.navItemsHtmlElements[0].classList.add('header_item_btn_active');
+          break;
         default:
           return;
       }
@@ -78,7 +81,6 @@ export class Header extends Control {
         case NavItem.Restart:
           navItem.node.onclick = (): void => {
             soundControl.playSound(SoundTypes.collect);
-            navItemLink.node.classList.add('header_item_btn_active');
             state.setNewGame();
           };
           break;

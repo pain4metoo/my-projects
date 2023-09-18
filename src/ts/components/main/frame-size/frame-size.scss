@@ -65,7 +65,7 @@
     backdrop-filter: blur(10px);
     transition: 0.2s linear;
     &:hover {
-      background: linear-gradient(180deg, rgba(115, 136, 103, 0.49) 0%, #c2c3b7 100%);
+      background: orange;
     }
     &:disabled {
       opacity: 0.3;
@@ -74,5 +74,8 @@
     &:active {
       background: linear-gradient(180deg, rgba(115, 136, 103, 0.49) 0%, #c2c3b7 100%);
     }
+  }
+  &_btn_active {
+    background: orange;
   }
 }

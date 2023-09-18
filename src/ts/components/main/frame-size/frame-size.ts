@@ -18,7 +18,12 @@ export class FrameSize extends Control {
       'main_frame_btn',
       'collect puzzle'
     );
-    btnCollectPuzzle.node.onclick = (): void => state.setCollectPuzzle();
+
+    btnCollectPuzzle.node.onclick = (): void => {
+      btnCollectPuzzle.node.classList.add('main_frame_btn_active');
+      state.setCollectPuzzle();
+    };
+
     btnCollectPuzzle.node.disabled = true;
 
     const otherSizeBlock = new Control(this.node, 'div', 'main_frame_other');
@@ -50,9 +55,7 @@ export class FrameSize extends Control {
               el.classList.remove('main_frame_other_size_active');
             }
           });
-
           break;
-
         case StateOptions.shuffleStart:
           btnCollectPuzzle.node.disabled = true;
           this.changeBtnSizeState(true);
@@ -60,6 +63,7 @@ export class FrameSize extends Control {
         case StateOptions.shuffleStop:
           btnCollectPuzzle.node.disabled = false;
           this.changeBtnSizeState(false);
+          btnCollectPuzzle.node.classList.remove('main_frame_btn_active');
           break;
         case StateOptions.collectBtnOn:
           btnCollectPuzzle.node.disabled = true;

@@ -43,8 +43,22 @@ export class Header extends Control {
           this.switchLang(state.getLanguage());
           break;
         case StateOptions.closePopup:
+          // ignoring the stop button at index 1
+          this.navItemsHtmlElements.forEach((el: HTMLElement, i): void => {
+            if (el.classList.contains('header_item_btn_active') && i !== 1) {
+              el.classList.remove('header_item_btn_active');
+            }
+          });
+          break;
+        case StateOptions.unBlockField:
           this.navItemsHtmlElements.forEach((el: HTMLElement): void => {
-            console.log(el);
+            if (el.classList.contains('header_item_btn_active')) {
+              el.classList.remove('header_item_btn_active');
+            }
+          });
+          break;
+        case StateOptions.startGame:
+          this.navItemsHtmlElements.forEach((el: HTMLElement): void => {
             if (el.classList.contains('header_item_btn_active')) {
               el.classList.remove('header_item_btn_active');
             }
@@ -64,12 +78,14 @@ export class Header extends Control {
         case NavItem.Restart:
           navItem.node.onclick = (): void => {
             soundControl.playSound(SoundTypes.collect);
+            navItemLink.node.classList.add('header_item_btn_active');
             state.setNewGame();
           };
           break;
         case NavItem.Stop:
           navItem.node.onclick = (): void => {
             soundControl.playSound(SoundTypes.btn);
+            navItemLink.node.classList.add('header_item_btn_active');
             state.setStopGame();
           };
           break;

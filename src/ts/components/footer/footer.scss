@@ -4,19 +4,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex: 0 0 auto;
+  flex-shrink: 0;
   background: rgba(20, 19, 17, 0.5);
   backdrop-filter: blur(0.6rem);
   &_year {
-    font-size: 2.5rem;
-    line-height: 140%;
+    font-size: 2.1rem;
+    line-height: 2.7rem;
     color: $color-text;
+    margin-left: 4rem;
   }
   &_link {
-    font-size: 2.5rem;
-    line-height: 140%;
+    font-size: 2.1rem;
+    line-height: 2.7rem;
     color: $color-text;
     text-decoration: none;
+    margin-right: 4rem;
     transition: 0.2s linear;
     &:hover {
       color: orange;

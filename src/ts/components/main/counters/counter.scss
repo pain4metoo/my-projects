@@ -2,9 +2,9 @@
 
 .main_counters {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  margin: 2rem 2.5rem 0rem;
+  margin-top: 2rem;
   &_moves {
     display: flex;
     align-items: center;

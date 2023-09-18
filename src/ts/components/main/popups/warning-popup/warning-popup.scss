@@ -1,3 +1,5 @@
+@import '../../../../../style/variables.scss';
+
 .warning {
   position: absolute;
   left: 0;
@@ -6,23 +8,26 @@
   top: 0;
   background: rgba(0, 0, 0, 0.9);
   user-select: none;
+  z-index: 1001;
   &_inner {
-    max-width: 50rem;
+    max-width: 90rem;
     width: 100%;
     padding: 1rem;
+    border: 0.5rem solid #7e7d7b;
+    background: linear-gradient(180deg, #1d1e1a 0%, rgba(55, 56, 52, 0) 100%);
     position: absolute;
     transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
-    border: 1px solid red;
   }
   &_text {
-    font-size: 3rem;
-    line-height: 4rem;
+    font-size: 6.5rem;
+    line-height: 140%;
     text-align: center;
-    color: gainsboro;
+    color: $color-text;
     margin: 0;
-    margin-top: 1rem;
+    text-shadow: 0px 0px 20px #fff, 0px 0px 2px #fff, 0px 0px 275.3099975586px #fff, 0px 0px 0px #fff, 0px 0px 0px #fff,
+      1px 1px 9px #fff;
   }
   &_close {
     position: absolute;
@@ -32,27 +37,35 @@
     height: 4rem;
     border: none;
     cursor: pointer;
-    filter: invert(47%) sepia(100%) saturate(324%) hue-rotate(130deg) brightness(85%) contrast(84%);
-    transition: ease 0.5s;
+    transition: 0.2s linear;
     &:hover {
-      border: 1px solid sandybrown;
-      border-radius: 1rem;
+      transform: translate(0.9);
+      opacity: 0.8;
     }
   }
   &_btns {
     display: flex;
-    justify-content: space-between;
-    margin-top: 5rem;
+    justify-content: center;
+    margin-top: 5.6rem;
+    margin-bottom: 3.4rem;
   }
   &_btn {
-    height: 4rem;
+    @extend %popup-btn-light;
+    font-size: 4.5rem;
+    text-transform: uppercase;
+    height: 8rem;
+    max-width: 30rem;
     width: 100%;
-    cursor: pointer;
-    border-radius: 0.35rem;
-    border: none;
-    outline: none;
+    transition: 0.2s linear;
     &:nth-child(1) {
-      margin-right: 1rem;
+      margin-right: 8rem;
+    }
+    &:hover {
+      opacity: 0.5;
+      background: orange;
+    }
+    &:active {
+      background: linear-gradient(180deg, rgba(124, 121, 112, 0.91) 0%, rgba(255, 255, 255, 0.12) 100%);
     }
   }
 }

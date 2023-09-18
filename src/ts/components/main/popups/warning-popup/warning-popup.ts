@@ -16,10 +16,6 @@ export class WarningPopup extends Control {
       'warning_text',
       state.getLanguage() ? 'Are you sure?' : 'Вы уверены?'
     );
-    const popupClose: Control<HTMLImageElement> = new Control(popupInner.node, 'img', 'warning_close');
-    popupClose.node.alt = 'close popup';
-    popupClose.node.src = closeSVG;
-    popupClose.node.onclick = (): void => this.onClosePopup();
 
     const popupBtnContainer = new Control(popupInner.node, 'div', 'warning_btns');
     const btnTrue = new Control(popupBtnContainer.node, 'button', 'warning_btn', state.getLanguage() ? 'Yes' : 'Да');

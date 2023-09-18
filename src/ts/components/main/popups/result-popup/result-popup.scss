@@ -10,6 +10,7 @@
     text-align: center;
     color: $color-text;
     margin: 0;
+    margin-bottom: 1rem;
     text-shadow: 0px 0px 20px #fff, 0px 0px 2px #fff, 0px 0px 275.3099975586px #fff, 0px 0px 0px #fff, 0px 0px 0px #fff,
       1px 1px 9px #fff;
   }
@@ -20,6 +21,7 @@
     list-style: none;
     color: $color-text;
     width: 100%;
+    margin: 0rem 0rem 4rem;
   }
   &_wrapper {
     align-items: flex-end;

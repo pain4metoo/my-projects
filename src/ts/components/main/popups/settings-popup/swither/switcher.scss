@@ -1,14 +1,16 @@
+@import '../../../../../../assets/../style/variables.scss';
+
 .switcher {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 1rem;
   &_title {
-    margin: 0;
-    font-size: 2rem;
-    line-height: 2.7rem;
+    font-size: 3rem;
+    line-height: 140%;
     text-align: center;
-    color: white;
+    color: $color-text;
+    margin: 0;
   }
   &_inner {
     display: flex;
@@ -18,9 +20,9 @@
   &_switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
-    margin-right: 1rem;
+    width: 12rem;
+    height: 6rem;
+    margin-right: 2.2rem;
   }
   &_checkbox {
     display: none;
@@ -32,31 +34,35 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
-    transition: 0.4s;
-    border-radius: 0.34rem;
+    background: linear-gradient(180deg, rgba(35, 34, 30, 0.59) 0%, rgba(255, 255, 249, 0) 100%);
+    transition: 0.4s linear;
     &::before {
       position: absolute;
       content: '';
-      height: 26px;
-      width: 26px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: 0.4s;
+      height: 5rem;
+      width: 5rem;
+      left: 0.4rem;
+      bottom: 0.4rem;
+      background: linear-gradient(180deg, rgba(226, 226, 226, 0.54) 0%, #bcbcbc 100%);
+      transition: 0.4s linear;
     }
   }
   &_value {
-    color: white;
+    font-size: 3rem;
+    line-height: 140%;
+    color: $color-text;
+    width: 4rem;
   }
 }
 
 .switcher_checkbox:checked + .switcher_slider {
-  background-color: #2196f3;
+  background: #fff;
+  box-shadow: 0px 0px 6.54px 0px #fff, 0px 0px 13.08px 0px #fff, 0px 0px 45.78px 0px #fff, 0px 0px 91.56px 0px #fff,
+    0px 0px 156.96001px 0px #fff, 0px 0px 274.67999px 0px #fff;
 }
 .switcher_checkbox:focus + .switcher_slider {
   box-shadow: 0 0 1px #2196f3;
 }
 .switcher_checkbox:checked + .switcher_slider::before {
-  transform: translateX(26px);
+  transform: translateX(6rem);
 }

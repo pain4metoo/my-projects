@@ -13,9 +13,9 @@
     list-style: none;
     color: wheat;
     margin-bottom: 3rem;
+    width: 100%;
   }
   &_wrapper {
-    display: flex;
     align-items: flex-end;
     list-style: none;
     display: flex;
@@ -31,7 +31,7 @@
     height: 4.5rem;
     width: 1rem;
   }
-  &_item{
+  &_item {
     width: 5rem;
   }
   &_delete {

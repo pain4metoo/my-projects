@@ -75,11 +75,11 @@ export class Game extends Control {
   private createElementsHTML(): void {
     const currentGameSize = state.getFrameSize();
     const currentGamePuzzle: Array<number> = state.getGameField().flat();
-
     this.gameContainer.classList.add(`main_game_container_${currentGameSize}x${currentGameSize}`);
 
     for (let i = 0; i < currentGameSize * currentGameSize; i++) {
       const square = new Control(this.gameContainer, 'div', 'main_game_square', `${currentGamePuzzle[i]}`);
+      square.node.classList.add(`main_game_square_${currentGameSize}x${currentGameSize}`);
       this.gameSquareHTML.push(square.node);
 
       square.node.onclick = (): void => this.moveByClick(Number(square.node.textContent));
@@ -91,7 +91,7 @@ export class Game extends Control {
     state.shuffleStart();
     state.startCollectTimer();
     let counter = 0;
-    const maxShuffle = 0;
+    const maxShuffle = this.getRandomShuffleCount();
 
     const handle = setInterval((): void => {
       this.singleStrokeCycle();

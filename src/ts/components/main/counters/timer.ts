@@ -15,8 +15,8 @@ export class Timer extends Control {
     super(parentNode, 'div', 'main_counters_block_right');
 
     const timeBlock = new Control(this.node, 'div', 'main_counters_time', '');
-    const timeBlockText = new Control(timeBlock.node, 'p', 'main_counters_time_text', 'Time: ');
-    const timeBlockNumber = new Control(timeBlock.node, 'p', 'main_counters_time_number', '00:00:00');
+    const timeBlockText = new Control(timeBlock.node, 'p', 'main_counters_time_text main_counters_txt', 'Time: ');
+    const timeBlockNumber = new Control(timeBlock.node, 'p', 'main_counters_time_number main_counters_txt', '00:00:00');
 
     this.timeNodeHtml = timeBlockNumber.node;
 

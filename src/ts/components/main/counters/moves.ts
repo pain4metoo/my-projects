@@ -8,8 +8,8 @@ export class Moves extends Control {
     super(parentNode, 'div', 'main_counters_block_left');
 
     const movesBlock = new Control(this.node, 'div', 'main_counters_moves');
-    const movesBlockText = new Control(movesBlock.node, 'p', 'main_counters_text', 'Moves: ');
-    const movesBlockNumber = new Control(movesBlock.node, 'p', 'main_counters_number', '0');
+    const movesBlockText = new Control(movesBlock.node, 'p', 'main_counters_text main_counters_txt', 'Moves: ');
+    const movesBlockNumber = new Control(movesBlock.node, 'p', 'main_counters_number main_counters_txt', '0');
 
     state.onUpdate.add((type: StateOptions) => {
       switch (type) {

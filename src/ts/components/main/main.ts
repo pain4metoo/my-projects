@@ -17,7 +17,7 @@ export class Main extends Control {
 
     const sectionCounter = new Counter(this.node);
 
-    const sectionGameContainer = new Control(this.node, 'section', 'main_game_section');
+    const sectionGameContainer = new Control(this.node, 'section', 'main_game');
     let sectionGame = new Game(sectionGameContainer.node);
 
     const sectionFrameSize = new FrameSize(this.node);

@@ -1,6 +1,26 @@
+@import '../../../assets/../style/variables.scss';
+
 .footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex: 0 0 auto;
+  background: rgba(20, 19, 17, 0.5);
+  backdrop-filter: blur(0.6rem);
+  &_year {
+    font-size: 2.5rem;
+    line-height: 140%;
+    color: $color-text;
+  }
+  &_link {
+    font-size: 2.5rem;
+    line-height: 140%;
+    color: $color-text;
+    text-decoration: none;
+    transition: 0.2s linear;
+    &:hover {
+      color: orange;
+      opacity: 0.5;
+    }
+  }
 }

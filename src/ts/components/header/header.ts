@@ -42,6 +42,14 @@ export class Header extends Control {
         case StateOptions.resetSettings:
           this.switchLang(state.getLanguage());
           break;
+        case StateOptions.closePopup:
+          this.navItemsHtmlElements.forEach((el: HTMLElement): void => {
+            console.log(el);
+            if (el.classList.contains('header_item_btn_active')) {
+              el.classList.remove('header_item_btn_active');
+            }
+          });
+          break;
         default:
           return;
       }
@@ -68,12 +76,14 @@ export class Header extends Control {
         case NavItem.Results:
           navItem.node.onclick = (): void => {
             soundControl.playSound(SoundTypes.popup);
+            navItemLink.node.classList.add('header_item_btn_active');
             this.showResultPopup();
           };
           break;
         case NavItem.Settings:
           navItem.node.onclick = (): void => {
             soundControl.playSound(SoundTypes.popup);
+            navItemLink.node.classList.add('header_item_btn_active');
             this.showSettings();
           };
           break;

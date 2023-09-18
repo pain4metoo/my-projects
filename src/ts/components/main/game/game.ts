@@ -19,13 +19,11 @@ export class Game extends Control {
   private gameListener: (type: StateOptions) => void;
 
   private gameSquareHTML: Array<HTMLElement> = [];
-  private gameContainer: HTMLElement;
+
   public results = (lStorage.get('results') as Array<Result>) || [];
 
   constructor(parentNode: HTMLElement) {
-    super(parentNode, 'div', 'main_game');
-    const gameContainer = new Control(this.node, 'div', 'main_game_container');
-    this.gameContainer = gameContainer.node;
+    super(parentNode, 'div', 'main_game_container');
 
     this.createGame();
 
@@ -75,10 +73,10 @@ export class Game extends Control {
   private createElementsHTML(): void {
     const currentGameSize = state.getFrameSize();
     const currentGamePuzzle: Array<number> = state.getGameField().flat();
-    this.gameContainer.classList.add(`main_game_container_${currentGameSize}x${currentGameSize}`);
+    this.node.classList.add(`main_game_container_${currentGameSize}x${currentGameSize}`);
 
     for (let i = 0; i < currentGameSize * currentGameSize; i++) {
-      const square = new Control(this.gameContainer, 'div', 'main_game_square', `${currentGamePuzzle[i]}`);
+      const square = new Control(this.node, 'div', 'main_game_square', `${currentGamePuzzle[i]}`);
       square.node.classList.add(`main_game_square_${currentGameSize}x${currentGameSize}`);
       this.gameSquareHTML.push(square.node);
 
@@ -91,7 +89,7 @@ export class Game extends Control {
     state.shuffleStart();
     state.startCollectTimer();
     let counter = 0;
-    const maxShuffle = this.getRandomShuffleCount();
+    const maxShuffle = 50;
 
     const handle = setInterval((): void => {
       this.singleStrokeCycle();

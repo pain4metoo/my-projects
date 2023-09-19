@@ -43,4 +43,59 @@
     color: $default-color;
     text-decoration: none;
   }
+  &_burger {
+    display: none;
+  }
+}
+
+@media (max-width: 870px) {
+  .header {
+    &_item_btn {
+      width: 12rem;
+    }
+  }
+}
+
+@media (max-width: 670px) {
+  .header {
+    &_item_btn {
+      font-size: 2.1rem;
+      width: 10.5rem;
+    }
+  }
+}
+
+@media (max-width: 570px) {
+  .header {
+    height: 5rem;
+    &_list {
+      display: none;
+    }
+    &_burger {
+      display: block;
+      position: fixed;
+      right: 2rem;
+      top: 0rem;
+      padding-top: 2rem;
+      cursor: pointer;
+      width: 4rem;
+      transition: linear 0.2s;
+    }
+    &_burger_item {
+      display: block;
+      height: 0.4rem;
+      background-color: beige;
+      margin-bottom: 0.5rem;
+      transition: all 0.5s;
+      &_rotate {
+        &:nth-child(1) {
+          margin-bottom: -3px;
+          transform: rotate(45deg);
+        }
+        &:nth-child(2) {
+          transform: rotate(-45deg);
+        }
+      }
+    }
+  }
 }

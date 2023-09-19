@@ -79,3 +79,20 @@
     background: orange;
   }
 }
+
+@media (max-width: 870px) {
+  .main_frame {
+    max-width: 55rem;
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 670px) {
+  .main_frame {
+    max-width: 50rem;
+    margin-top: 4rem;
+    &_other_size {
+      font-size: 2.1rem;
+    }
+  }
+}

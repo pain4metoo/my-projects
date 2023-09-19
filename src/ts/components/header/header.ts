@@ -22,6 +22,11 @@ export class Header extends Control {
     const nav = new Control(this.node, 'nav', 'header_nav');
     const navList = new Control(nav.node, 'ul', 'header_list');
 
+    const burgerMenu = new Control(nav.node, 'div', 'header_burger');
+    const burgerItem = new Control(burgerMenu.node, 'div', 'header_burger_item');
+    const burgerItem1 = new Control(burgerMenu.node, 'div', 'header_burger_item');
+    burgerMenu.node.onclick = (): void => this.openBurgerMenu(burgerMenu.node, burgerItem.node);
+
     this.headerListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.shuffleStart:
@@ -111,6 +116,11 @@ export class Header extends Control {
     this.navItemsHtmlElements[1].disabled = true;
     this.switchLang(state.getLanguage());
     state.onUpdate.add(this.headerListener);
+  }
+
+  private openBurgerMenu(item1: HTMLElement, item2: HTMLElement): void {
+    item1.classList.toggle('header_burger_item_rotate');
+    item2.classList.toggle('header_burger_item_rotate');
   }
 
   private switchLang(currentLang: boolean): void {

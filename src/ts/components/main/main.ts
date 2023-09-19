@@ -28,7 +28,6 @@ export class Main extends Control {
           sectionGame.destroy();
           sectionGame = new Game(sectionGameContainer.node);
           break;
-
         case StateOptions.createPopup:
           this.mainPopups = new Popups(this.node);
           break;
@@ -40,6 +39,13 @@ export class Main extends Control {
           break;
         case StateOptions.closeWarningPopup:
           this.warningPopup.destroy();
+          break;
+        case StateOptions.openBurgerMenu:
+          this.node.style.zIndex = '-1';
+          break;
+        case StateOptions.closeBurgerMenu:
+          this.node.style.zIndex = '0';
+          this.node.style.position = 'inherit';
           break;
       }
     };

@@ -25,7 +25,7 @@ export class Header extends Control {
     const burgerMenu = new Control(nav.node, 'div', 'header_burger');
     const burgerItem = new Control(burgerMenu.node, 'div', 'header_burger_item');
     const burgerItem1 = new Control(burgerMenu.node, 'div', 'header_burger_item');
-    burgerMenu.node.onclick = (): void => this.openBurgerMenu(burgerMenu.node, burgerItem.node);
+    burgerMenu.node.onclick = (): void => this.openBurgerMenu(navList.node, burgerItem.node, burgerItem1.node);
 
     this.headerListener = (type: StateOptions): void => {
       switch (type) {
@@ -101,6 +101,8 @@ export class Header extends Control {
             soundControl.playSound(SoundTypes.popup);
             navItemLink.node.classList.add('header_item_btn_active');
             this.showResultPopup();
+            this.closeBurgerMenu(navList.node, burgerItem.node, burgerItem1.node);
+            state.closeBurgerMenu();
           };
           break;
         case NavItem.Settings:
@@ -108,6 +110,8 @@ export class Header extends Control {
             soundControl.playSound(SoundTypes.popup);
             navItemLink.node.classList.add('header_item_btn_active');
             this.showSettings();
+            this.closeBurgerMenu(navList.node, burgerItem.node, burgerItem1.node);
+            state.closeBurgerMenu();
           };
           break;
       }
@@ -118,9 +122,23 @@ export class Header extends Control {
     state.onUpdate.add(this.headerListener);
   }
 
-  private openBurgerMenu(item1: HTMLElement, item2: HTMLElement): void {
+  private openBurgerMenu(menu: HTMLElement, item1: HTMLElement, item2: HTMLElement): void {
     item1.classList.toggle('header_burger_item_rotate');
     item2.classList.toggle('header_burger_item_rotate');
+
+    if (item1.classList.contains('header_burger_item_rotate')) {
+      menu.classList.add('header_list_show');
+      state.openBurgerMenu();
+    } else {
+      menu.classList.remove('header_list_show');
+      state.closeBurgerMenu();
+    }
+  }
+
+  private closeBurgerMenu(menu: HTMLElement, item1: HTMLElement, item2: HTMLElement): void {
+    item1.classList.remove('header_burger_item_rotate');
+    item2.classList.remove('header_burger_item_rotate');
+    menu.classList.remove('header_list_show');
   }
 
   private switchLang(currentLang: boolean): void {

@@ -68,5 +68,7 @@ export enum StateOptions {
   warningResults = 'warning-results',
   warningSettings = 'warning-settings',
   blockField = 'block-field',
-  unBlockField = 'unblock-field'
+  unBlockField = 'unblock-field',
+  openBurgerMenu = 'open-burger-menu',
+  closeBurgerMenu = 'close-burger-menu'
 }

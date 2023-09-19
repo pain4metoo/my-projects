@@ -67,19 +67,42 @@
 
 @media (max-width: 570px) {
   .header {
-    height: 5rem;
+    height: 7rem;
+    &_nav {
+      padding: 0;
+    }
     &_list {
+      height: 100vh;
+      position: fixed;
       display: none;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(-500rem);
+      transition: linear 0.5s;
+      z-index: -1;
+      background: black;
+      width: 100%;
+      &_item:not(:last-child) {
+        margin-right: 0;
+      }
+    }
+    &_list_show {
+      display: flex;
+      transform: translateY(0rem);
+      opacity: 1;
+      z-index: 1002;
     }
     &_burger {
       display: block;
       position: fixed;
       right: 2rem;
-      top: 0rem;
+      top: 1rem;
       padding-top: 2rem;
       cursor: pointer;
       width: 4rem;
       transition: linear 0.2s;
+      z-index: 1002;
     }
     &_burger_item {
       display: block;
@@ -88,6 +111,7 @@
       margin-bottom: 0.5rem;
       transition: all 0.5s;
       &_rotate {
+        z-index: 1003;
         &:nth-child(1) {
           margin-bottom: -3px;
           transform: rotate(45deg);

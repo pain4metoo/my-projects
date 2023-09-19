@@ -334,6 +334,14 @@ class State {
   public setUnblockField(): void {
     state.onUpdate.emit(StateOptions.unBlockField);
   }
+
+  public openBurgerMenu(): void {
+    state.onUpdate.emit(StateOptions.openBurgerMenu);
+  }
+
+  public closeBurgerMenu(): void {
+    state.onUpdate.emit(StateOptions.closeBurgerMenu);
+  }
 }
 
 const initialState: StateData = {

@@ -50,7 +50,7 @@
   }
   &_btn {
     @extend %btn-light;
-    width: 20rem;
+    padding: 1rem 3rem;
     background: linear-gradient(180deg, rgba(170, 170, 170, 0.91) 0%, #2e2d2c 100%);
     box-shadow: 0px 10px 4px 0px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(10px);

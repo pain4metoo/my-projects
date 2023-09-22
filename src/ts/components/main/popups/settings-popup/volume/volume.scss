@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   &_icon {
+    display: block;
     width: 6rem;
     height: 6rem;
     object-fit: cover;
@@ -40,7 +41,7 @@
 @media (max-width: 450px) {
   .volume {
     margin-bottom: 7rem;
-    &_icon{
+    &_icon {
       width: 4rem;
     }
   }

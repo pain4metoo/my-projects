@@ -17,3 +17,22 @@
   font-weight: bold;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../assets/fonts/Ubuntu-Regular.eot');
+  src: local('☺'), url('../assets/fonts/Ubuntu-Regular.woff') format('woff'),
+    url('../assets/fonts/Ubuntu-Regular.ttf') format('truetype'),
+    url('../assets/fonts/Ubuntu-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('../assets/fonts/Ubuntu-Bold.eot');
+  src: local('☺'), url('../assets/fonts/Ubuntu-Bold.woff') format('woff'),
+    url('../assets/fonts/Ubuntu-Bold.ttf') format('truetype'), url('../assets/fonts/Ubuntu-Bold.woff') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}

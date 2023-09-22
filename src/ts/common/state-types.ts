@@ -70,5 +70,5 @@ export enum StateOptions {
   blockField = 'block-field',
   unBlockField = 'unblock-field',
   openBurgerMenu = 'open-burger-menu',
-  closeBurgerMenu = 'close-burger-menu'
+  closeBurgerMenu = 'close-burger-menu',
 }

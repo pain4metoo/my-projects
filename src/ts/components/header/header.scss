@@ -16,6 +16,23 @@
   &_list_item {
     user-select: none;
   }
+  &_mobile_btn {
+    display: none;
+    @extend %btn-light;
+    background: $color-btn;
+    width: 10rem;
+    box-shadow: 0px 10px 4px 0px rgba(0, 0, 0, 0.25);
+    transition: 0.2s linear;
+    margin-top: 1.5rem;
+    margin-left: 1.5rem;
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+  }
+  &_mobile_btn_active {
+    background: rgb(142, 122, 61);
+  }
   &_item_btn {
     @extend %btn-light;
     background: $color-btn;
@@ -26,15 +43,9 @@
       opacity: 0.3;
       cursor: not-allowed;
     }
-    &:hover {
-      background: orange;
-    }
-    &:active {
-      background: linear-gradient(180deg, rgba(124, 121, 112, 0.91) 0%, rgba(255, 255, 255, 0.12) 100%);
-    }
   }
   &_item_btn_active {
-    background: orange;
+    background: rgb(142, 122, 61);
   }
   &_list_item:not(:last-child) {
     margin-right: 2rem;
@@ -68,6 +79,10 @@
 @media (max-width: 570px) {
   .header {
     height: 7rem;
+    &_mobile_btn {
+      display: block;
+      position: absolute;
+    }
     &_nav {
       padding: 0;
     }
@@ -77,6 +92,8 @@
       display: none;
       flex-direction: column;
       align-items: center;
+      justify-content: flex-start;
+      padding-top: 8rem;
       opacity: 0;
       transform: translateY(-500rem);
       transition: linear 0.5s;
@@ -86,6 +103,19 @@
       &_item:not(:last-child) {
         margin-right: 0;
       }
+      &_item:nth-child(2) {
+        display: none;
+      }
+    }
+    &_list_item {
+      width: 100%;
+      height: 6rem;
+    }
+    &_item_btn {
+      font-size: 2.5rem;
+      line-height: 140%;
+      width: 100%;
+      height: 100%;
     }
     &_list_show {
       display: flex;

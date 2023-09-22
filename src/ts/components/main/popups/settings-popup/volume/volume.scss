@@ -3,6 +3,7 @@
   align-items: center;
   &_icon {
     width: 6rem;
+    height: 6rem;
     object-fit: cover;
     cursor: pointer;
     margin-right: 0.5rem;
@@ -12,7 +13,6 @@
     background: #fff;
     cursor: pointer;
     height: 0.3rem;
-    max-width: 30rem;
     outline: none;
     transition: 0.5s ease-in-out;
     transition: all 0.5s;
@@ -34,5 +34,14 @@
       drop-shadow(0px 0px 8.399999618530273px #fff) drop-shadow(0px 0px 16.799999237060547px #d9d9d9)
       drop-shadow(0px 0px 28.799999237060547px #d9d9d9) drop-shadow(0px 0px 50.400001525878906px #d9d9d9);
     background: #fff;
+  }
+}
+
+@media (max-width: 450px) {
+  .volume {
+    margin-bottom: 7rem;
+    &_icon{
+      width: 4rem;
+    }
   }
 }

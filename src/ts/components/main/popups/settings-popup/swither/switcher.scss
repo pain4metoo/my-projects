@@ -51,7 +51,7 @@
     font-size: 3rem;
     line-height: 140%;
     color: $color-text;
-    width: 4rem;
+    width: 8rem;
   }
 }
 
@@ -65,4 +65,38 @@
 }
 .switcher_checkbox:checked + .switcher_slider::before {
   transform: translateX(6rem);
+}
+
+@media (max-width: 670px) {
+  .switcher {
+    &_switch {
+      width: 6rem;
+      height: 3rem;
+      margin-right: 1.2rem;
+    }
+    &_slider {
+      &::before {
+        height: 2.5rem;
+        width: 2.5rem;
+        left: 0.2rem;
+        bottom: 0.2rem;
+      }
+    }
+    &_value {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+    &_checkbox:checked + .switcher_slider::before {
+      transform: translateX(3rem);
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .switcher{
+    margin-bottom: 2rem;
+    &:nth-child(1) {
+      margin-top: 2rem;
+    }
+  }
 }

@@ -16,14 +16,30 @@ $color-square: rgba(61, 61, 61, 0.8);
   color: $color-text;
   cursor: pointer;
   user-select: none;
+  &:hover {
+    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
+      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+  }
+  &:active {
+    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
+      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+  }
 }
 
 %popup-btn-light {
   font-size: 3.5rem;
   line-height: 140%;
   border: none;
-  background: linear-gradient(180deg, rgba(35, 34, 30, 0.59) 0%, rgba(255, 255, 249, 0.00) 100%);
+  background: linear-gradient(180deg, #23221e 0%, rgba(255, 255, 249, 0) 100%);
   color: $color-text;
   cursor: pointer;
   user-select: none;
+  &:hover {
+    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
+      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+  }
+  &:active {
+    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
+      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+  }
 }

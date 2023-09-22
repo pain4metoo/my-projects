@@ -1,7 +1,7 @@
 import Control from '../../../../../common/control';
 import './volume.scss';
-import volumeOn from '../../../../../../assets/image/volume-on.png';
-import volumeOff from '../../../../../../assets/image/volume-off.png';
+import volumeOn from '../../../../../../assets/svg/volume-on.svg';
+import volumeOff from '../../../../../../assets/svg/volume-off.svg';
 import { state } from '../../../../../common/state';
 import { StateOptions } from '../../../../../common/state-types';
 import { lStorage } from '../../../../../common/local-storage';

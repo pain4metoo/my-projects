@@ -22,6 +22,18 @@ export class Header extends Control {
     const nav = new Control(this.node, 'nav', 'header_nav');
     const navList = new Control(nav.node, 'ul', 'header_list');
 
+    const mobileStopBtn: Control<HTMLButtonElement> = new Control(
+      nav.node,
+      'button',
+      'header_mobile_btn',
+      state.getLanguage() ? 'stop' : 'стоп'
+    );
+    mobileStopBtn.node.onclick = (): void => {
+      soundControl.playSound(SoundTypes.btn);
+      mobileStopBtn.node.classList.add('header_mobile_btn_active');
+      state.setStopGame();
+    };
+
     const burgerMenu = new Control(nav.node, 'div', 'header_burger');
     const burgerItem = new Control(burgerMenu.node, 'div', 'header_burger_item');
     const burgerItem1 = new Control(burgerMenu.node, 'div', 'header_burger_item');
@@ -37,9 +49,11 @@ export class Header extends Control {
           break;
         case StateOptions.stopBtnDisable:
           this.stateStopBtn(true);
+          mobileStopBtn.node.disabled = true;
           break;
         case StateOptions.stopBtnEnable:
           this.stateStopBtn(false);
+          mobileStopBtn.node.disabled = false;
           break;
         case StateOptions.changeLanguage:
           this.switchLang(state.getLanguage());
@@ -60,6 +74,7 @@ export class Header extends Control {
             if (el.classList.contains('header_item_btn_active')) {
               el.classList.remove('header_item_btn_active');
             }
+            mobileStopBtn.node.classList.remove('header_mobile_btn_active');
           });
           break;
         case StateOptions.startGame:
@@ -67,6 +82,7 @@ export class Header extends Control {
             if (el.classList.contains('header_item_btn_active')) {
               el.classList.remove('header_item_btn_active');
             }
+            mobileStopBtn.node.classList.remove('header_mobile_btn_active');
           });
           break;
         case StateOptions.newGame:
@@ -87,6 +103,8 @@ export class Header extends Control {
           navItem.node.onclick = (): void => {
             soundControl.playSound(SoundTypes.collect);
             state.setNewGame();
+            this.closeBurgerMenu(navList.node, burgerItem.node, burgerItem1.node);
+            state.closeBurgerMenu();
           };
           break;
         case NavItem.Stop:

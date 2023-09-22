@@ -111,8 +111,10 @@
   }
 }
 
-@media (max-width: 570px) {
-  .main {
-    position: relative;
+@media (max-width: 450px) {
+  .main_game {
+    &_square{
+      font-size: 2.1rem;
+    }
   }
 }

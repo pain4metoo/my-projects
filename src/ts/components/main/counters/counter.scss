@@ -48,7 +48,6 @@
 @media (max-width: 870px) {
   .main_counters {
     max-width: 55rem;
-    margin-top: 5rem;
     &_txt {
       font-size: 2.9rem;
     }
@@ -62,5 +61,20 @@
 @media (max-width: 670px) {
   .main_counters {
     max-width: 50rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .main_counters {
+    margin: 0;
+    &_moves {
+      width: 100%;
+    }
+    &_time {
+      width: 100%;
+    }
+    &_txt {
+      font-size: 2.1rem;
+    }
   }
 }

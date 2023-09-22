@@ -26,9 +26,11 @@
   &_wrapper {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     list-style: none;
     padding: 0;
+    background: linear-gradient(180deg, rgba(148, 146, 141, 0.11) 0%, rgba(255, 255, 255, 0.12) 100%);
+    margin-bottom: 1rem;
+    padding: 0.5rem;
   }
   &_item {
     font-size: 3.5rem;
@@ -53,16 +55,23 @@
   }
   &_delete {
     background: url('../../../../../assets/svg/close-btn.svg') no-repeat center/contain;
-    width: 4rem;
-    height: 4rem;
+    min-width: 4rem;
+    min-height: 4rem;
     border: none;
     cursor: pointer;
     transition: 0.2s linear;
+    &:hover {
+      box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
+        0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+    }
   }
 }
 
 @media (max-width: 860px) {
   .popups_result {
+    &_wrapper {
+      justify-content: space-between;
+    }
     &_item {
       font-size: 3rem;
       &:nth-child(2) {
@@ -105,6 +114,26 @@
     &_count {
       max-width: 2rem;
       width: 100%;
+    }
+  }
+}
+
+@media (max-width: 540px) {
+  .popups_result {
+    &_item {
+      text-align: center;
+    }
+    &_delete {
+      min-height: 3rem;
+      min-width: 3rem;
+    }
+  }
+}
+
+@media (max-width: 540px) {
+  .popups_result {
+    &_item {
+      font-size: 1.5rem;
     }
   }
 }

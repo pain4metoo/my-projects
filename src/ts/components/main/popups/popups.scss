@@ -19,7 +19,7 @@
     padding: 1rem;
     max-width: 90rem;
     width: 100%;
-    min-height: 64rem;
+    min-height: 60rem;
     border: 0.5rem solid #7e7d7b;
   }
   &_close_btn {
@@ -33,8 +33,8 @@
     border: none;
     transition: 0.2s linear;
     &:hover {
-      transform: translate(0.9);
-      opacity: 0.8;
+      box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
+        0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
     }
   }
   &_new_btn {
@@ -44,11 +44,24 @@
     width: 100%;
     transition: 0.2s linear;
     &:hover {
-      opacity: 0.5;
-      background: orange;
+      box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
+        0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
     }
     &:active {
-      background: linear-gradient(180deg, rgba(124, 121, 112, 0.91) 0%, rgba(255, 255, 255, 0.12) 100%);
+      box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
+        0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+    }
+  }
+}
+
+@media (max-width: 540px) {
+  .popups {
+    &_result_title {
+      font-size: 3rem;
+    }
+    &_close_btn {
+      width: 3rem;
+      height: 3rem;
     }
   }
 }

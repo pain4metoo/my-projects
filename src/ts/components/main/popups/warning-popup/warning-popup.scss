@@ -10,10 +10,11 @@
   user-select: none;
   z-index: 1001;
   &_inner {
-    max-width: 90rem;
+    max-width: 63.5rem;
     width: 100%;
+    min-height: 30rem;
     padding: 1rem;
-    border: 0.5rem solid #7e7d7b;
+    border: 5px solid #7e7d7b;
     background: linear-gradient(180deg, #1d1e1a 0%, rgba(55, 56, 52, 0) 100%);
     position: absolute;
     transform: translate(-50%, -50%);
@@ -21,13 +22,14 @@
     top: 50%;
   }
   &_text {
-    font-size: 6.5rem;
+    font-size: 5rem;
     line-height: 140%;
     text-align: center;
     color: $color-text;
     margin: 0;
-    text-shadow: 0px 0px 20px #fff, 0px 0px 2px #fff, 0px 0px 275.3099975586px #fff, 0px 0px 0px #fff, 0px 0px 0px #fff,
-      1px 1px 9px #fff;
+    margin-top: 5.7rem;
+    text-shadow: 0px 0px 30.959999084472656px #fff, 0px 0px 61.91999816894531px #fff, 0px 0px 216.72000122070312px #fff,
+      0px 0px 433.44000244140625px #fff, 0px 0px 743.0399780273438px #fff, 0px 0px 1300.3199462890625px #fff;
   }
   &_close {
     position: absolute;
@@ -46,26 +48,43 @@
   &_btns {
     display: flex;
     justify-content: center;
-    margin-top: 5.6rem;
-    margin-bottom: 3.4rem;
+    margin-top: 5rem;
+    margin-bottom: 3.7rem;
   }
   &_btn {
     @extend %popup-btn-light;
-    font-size: 4.5rem;
+    font-size: 3.5rem;
+    line-height: 5.5rem;
     text-transform: uppercase;
-    height: 8rem;
-    max-width: 30rem;
+    height: 5.5rem;
+    max-width: 20rem;
     width: 100%;
     transition: 0.2s linear;
+    background: linear-gradient(180deg, #23221e 0%, rgba(255, 255, 249, 0) 100%);
     &:nth-child(1) {
       margin-right: 8rem;
     }
-    &:hover {
-      opacity: 0.5;
-      background: orange;
+  }
+}
+
+@media (max-width: 400px) {
+  .warning {
+    &_inner {
+      min-height: inherit;
     }
-    &:active {
-      background: linear-gradient(180deg, rgba(124, 121, 112, 0.91) 0%, rgba(255, 255, 255, 0.12) 100%);
+    &_text {
+      font-size: 4rem;
+      margin-top: 3rem;
+    }
+    &_btn {
+      font-size: 2.5rem;
+      line-height: 140%;
+      &:nth-child(1) {
+        margin-right: 3rem;
+      }
+    }
+    &_btns {
+      margin-bottom: 0;
     }
   }
 }

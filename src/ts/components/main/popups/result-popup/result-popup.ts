@@ -15,13 +15,9 @@ export class ResultPopup extends Control {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'popups_result');
 
-    const resultTitle = new Control(this.node, 'h2', 'popups_result_title');
-    const resultsList = new Control(this.node, 'ul', 'popups_result_list');
-    this.ResultHtmlElements.push(resultTitle.node);
-
     const localStorageResult = (lStorage.get('results') as Array<Result>) || [];
 
-    this.getResults(localStorageResult, resultsList);
+    this.createTable(localStorageResult);
 
     this.resultPopupListener = (type: StateOptions): void => {
       switch (type) {
@@ -38,45 +34,34 @@ export class ResultPopup extends Control {
     state.onUpdate.add(this.resultPopupListener);
   }
 
-  private getResults(localStorage: Array<Result>, list: Control<HTMLElement>): void {
-    localStorage.forEach((el: Result, i) => {
-      const resultWrapper = new Control(list.node, 'ul', 'popups_result_wrapper');
-      const resultCount = new Control(resultWrapper.node, 'li', 'popups_result_count', `${i + 1}.`);
+  private createTable(localStorage: Array<Result>): void {
+    const table: Control<HTMLTableElement> = new Control(this.node, 'table', 'popups_result_table');
+    const tHead = new Control(table.node, 'thead', 'popups_result_thead');
+    const tBody = new Control(table.node, 'tbody', 'popup_result_tbody');
+    const tableTitleInner = new Control(tHead.node, 'tr', 'popups_result_title');
+    const tabletitle: Control<HTMLTableCellElement> = new Control(tableTitleInner.node, 'th', 'popups_result_title');
+    tabletitle.node.colSpan = 4;
+    this.ResultHtmlElements.push(tabletitle.node);
+    const lang = state.getLanguage();
+    const tableInner = new Control(tBody.node, 'tr', 'popups_result_tr');
+    new Control(tableInner.node, 'td', 'popups_result_td', `${lang ? 'Place' : 'Table'}`);
+    new Control(tableInner.node, 'td', 'popups_result_td', `${lang ? 'Frame-size' : 'Размер поля'}`);
+    new Control(tableInner.node, 'td', 'popups_result_td', `${lang ? 'Moves' : 'Ходы'}`);
+    new Control(tableInner.node, 'td', 'popups_result_td', `${lang ? 'Time' : 'Время'}`);
 
-      for (const key in el) {
-        const lang = state.getLanguage();
-        switch (key) {
-          case 'frameSize':
-            new Control(
-              resultWrapper.node,
-              'li',
-              'popups_result_item',
-              `${lang ? `Frame-size: ${el[key]}` : `Размер поля: ${el[key]}`}`
-            );
-
-            break;
-          case 'moves':
-            new Control(
-              resultWrapper.node,
-              'li',
-              'popups_result_item',
-              `${lang ? `Moves: ${el[key]}` : `Ходы: ${el[key]}`}`
-            );
-            break;
-          case 'time':
-            new Control(
-              resultWrapper.node,
-              'li',
-              'popups_result_item',
-              `${lang ? `Time: ${el[key]}` : `Время: ${el[key]}`}`
-            );
-            break;
-        }
-      }
-      const deleteResult = new Control(resultWrapper.node, 'span', 'popups_result_delete');
-
-      deleteResult.node.onclick = (): void => this.deleteResult(i);
-    });
+    if (localStorage.length > 0) {
+      localStorage.forEach((el: Result, i) => {
+        const tableInner = new Control(tBody.node, 'tr', 'popups_result_tr');
+        new Control(tableInner.node, 'td', 'popups_result_td', `${i + 1}`);
+        new Control(tableInner.node, 'td', 'popups_result_td', `${el.frameSize}`);
+        new Control(tableInner.node, 'td', 'popups_result_td', `${el.moves}`);
+        new Control(tableInner.node, 'td', 'popups_result_td', `${el.time}`);
+        const deleteResult = new Control(tableInner.node, 'td', 'popups_result_delete');
+        deleteResult.node.onclick = (): void => this.deleteResult(i);
+      });
+    } else {
+      new Control(this.node, 'th', 'popups_result_empty', `${lang ? `It's empty here for now` : 'Пока здесь пусто'}`);
+    }
   }
 
   private switchLang(currentLang: boolean): void {

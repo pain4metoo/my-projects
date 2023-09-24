@@ -26,7 +26,9 @@ export class Timer extends Control {
           this.setTimer(state.getStopStartGame(), state.getToggleTimer());
           break;
         case StateOptions.stopGame:
-          this.stopTimer(state.getStopStartGame(), state.getToggleTimer());
+          setTimeout(() => {
+            this.stopTimer(state.getStopStartGame(), state.getToggleTimer());
+          }, 1000);
           break;
         case StateOptions.newGame:
           timeBlockNumber.node.textContent = '00:00:00';
@@ -92,7 +94,6 @@ export class Timer extends Control {
   private stopTimer(stopStartGame?: boolean, toggleTimer?: boolean): void {
     if (!stopStartGame && toggleTimer) {
       clearInterval(this.currentTimer);
-
       state.setToggleTimer(false);
     }
   }

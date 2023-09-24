@@ -6,7 +6,7 @@ import { FinishPopup } from './finish-popup/finish-popup';
 import { ResultPopup } from './result-popup/result-popup';
 import './popups.scss';
 import { SettingsPopup } from './settings-popup/settings-popup';
-import { lStorage } from '../../../common/local-storage';
+import { Result, lStorage } from '../../../common/local-storage';
 import { SoundTypes } from '../game/soundControl';
 import { soundControl } from '../../../../index';
 
@@ -23,7 +23,7 @@ export class Popups extends Control {
     const popupsInner = new Control(this.node, 'div', 'popups_inner');
     const closeBtn = new Control(popupsInner.node, 'button', 'popups_close_btn');
 
-    const newGameBtn = new Control(
+    const newGameBtn: Control<HTMLButtonElement> = new Control(
       popupsInner.node,
       'button',
       'popups_new_btn',
@@ -43,6 +43,14 @@ export class Popups extends Control {
           this.popupResult = new ResultPopup(popupsInner.node);
           newGameBtn.node.textContent = state.getLanguage() ? 'delete all results' : 'очистить результаты';
           newGameBtn.node.onclick = (): void => this.showWarning(StateOptions.showResultPopup);
+          (lStorage.get('results') as Array<Result>).length > 0
+            ? (newGameBtn.node.disabled = false)
+            : (newGameBtn.node.disabled = true);
+          break;
+        case StateOptions.deleteTargetFromStorage:
+          (lStorage.get('results') as Array<Result>).length > 0
+            ? (newGameBtn.node.disabled = false)
+            : (newGameBtn.node.disabled = true);
           break;
         case StateOptions.showFinishPopup:
           this.popupFinish = new FinishPopup(popupsInner.node);

@@ -50,6 +50,11 @@
       box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
         0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
     }
+    &:disabled {
+      background: #3d3d3d;
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
   }
 }
 

@@ -37,7 +37,7 @@
     text-align: center;
     color: $color-text;
     transition: linear 0.3s;
-    &:hover {
+    &:hover:not(:first-child) {
       background: #7f7e7c;
       opacity: 0.5;
     }
@@ -98,7 +98,7 @@
     background: url('../../../../../assets/svg/close-btn.svg') no-repeat center/contain;
     width: 4rem;
     height: 4rem;
-    border: none;
+    border-top: 0.2rem solid #7f7e7c;
     border-bottom: 0.2rem solid #7f7e7c;
     cursor: pointer;
     transition: 0.2s linear;

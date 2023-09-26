@@ -1,15 +1,19 @@
 import Control from '../common/control';
 import { state } from '../common/state';
 import { StateOptions } from '../common/state-types';
-
 import { Footer } from './footer/footer';
 import { Header } from './header/header';
 import { Main } from './main/main';
+import mainBG from '../../assets/image/main-bg-light.jpg';
+import mainPreload from '../../assets/image/main-bg-light-preload.jpg';
 
 export class App extends Control {
   private appListener: (type: StateOptions) => void;
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'wrapper');
+
+    this.createBG(parentNode);
+
     const header = new Header(this.node);
     const main = new Main(this.node);
     const footer = new Footer(this.node);
@@ -23,6 +27,14 @@ export class App extends Control {
     };
 
     state.onUpdate.add(this.appListener);
+  }
+
+  private createBG(body: HTMLElement): void {
+    const img: HTMLImageElement = new Image();
+    img.src = mainBG;
+    img.onload = async (): Promise<void> => {
+      body.style.backgroundImage = `url('../../assets/main-bg-light.jpg')`;
+    };
   }
 
   private changeFontFamily(isEn: boolean, parentNode: HTMLElement) {

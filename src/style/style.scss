@@ -21,13 +21,27 @@ body {
   font-size: 1.8rem;
   line-height: 2.7rem;
   font-weight: $fwr;
-  background-image: url('../assets/image/main-bg-light.jpg');
-  background-position: center;
+  position: relative;
+  background-image: url('../assets/image/main-bg-light-preload.jpg');
   background-size: cover;
+  background-position: center;
 }
 
 .wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  &_bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+    user-select: none;
+    pointer-events: none;
+  }
 }

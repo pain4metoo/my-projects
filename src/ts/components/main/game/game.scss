@@ -116,6 +116,9 @@
     &_square {
       font-size: 2.1rem;
       border: 0.3rem solid #aeb1ab;
+      &_empty {
+        border: none;
+      }
     }
   }
 }

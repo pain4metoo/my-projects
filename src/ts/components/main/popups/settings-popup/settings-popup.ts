@@ -39,7 +39,7 @@ export class SettingsPopup extends Control {
       rightInner.node,
       state.getLanguage() ? (TRANSLATE.settings.soundEN as ISwitcher) : (TRANSLATE.settings.soundRU as ISwitcher)
     );
-    const volume = new Volume(rightInner.node);
+    const volume = new Volume(sound.node);
 
     this.settingsPopupListener = (type: StateOptions): void => {
       switch (type) {

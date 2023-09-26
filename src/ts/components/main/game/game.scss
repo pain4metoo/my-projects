@@ -113,8 +113,9 @@
 
 @media (max-width: 450px) {
   .main_game {
-    &_square{
+    &_square {
       font-size: 2.1rem;
+      border: 0.3rem solid #aeb1ab;
     }
   }
 }

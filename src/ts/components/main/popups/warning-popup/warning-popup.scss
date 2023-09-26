@@ -52,15 +52,7 @@
     margin-bottom: 3.7rem;
   }
   &_btn {
-    @extend %popup-btn-light;
-    font-size: 3.5rem;
-    line-height: 5.5rem;
-    text-transform: uppercase;
-    height: 5.5rem;
-    max-width: 20rem;
-    width: 100%;
-    transition: 0.2s linear;
-    background: linear-gradient(180deg, #23221e 0%, rgba(255, 255, 249, 0) 100%);
+    @extend %warning-btns;
     &:nth-child(1) {
       margin-right: 8rem;
     }

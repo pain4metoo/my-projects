@@ -95,16 +95,10 @@
     width: 100%;
   }
   &_delete {
+    @extend %close-btn;
     background: url('../../../../../assets/svg/close-btn.svg') no-repeat center/contain;
-    width: 4rem;
-    height: 4rem;
     border-top: 0.2rem solid #7f7e7c;
     border-bottom: 0.2rem solid #7f7e7c;
-    cursor: pointer;
-    transition: 0.2s linear;
-    &:hover {
-      opacity: 0.5;
-    }
   }
 }
 

@@ -1,11 +1,12 @@
 .volume {
   display: flex;
   align-items: center;
+  margin-left: -1rem;
   &_icon {
     display: block;
-    width: 6rem;
-    height: 6rem;
-    object-fit: cover;
+    width: 7rem;
+    height: 7rem;
+    object-fit: contain;
     cursor: pointer;
     margin-right: 0.5rem;
   }
@@ -40,9 +41,7 @@
 
 @media (max-width: 450px) {
   .volume {
-    margin-bottom: 7rem;
-    &_icon {
-      width: 4rem;
-    }
+    max-width: 30rem;
+    width: 100%;
   }
 }

@@ -18,43 +18,20 @@
     transform: translate(-50%, -50%);
     max-width: 90rem;
     width: 100%;
-    min-height: 60rem;
+    min-height: 35rem;
     border: 0.5rem solid #7e7d7b;
+    padding-bottom: 7rem;
   }
   &_close_btn {
+    @extend %close-btn;
     background: url('../../../../assets/svg/close-btn.svg') no-repeat center/contain;
     position: absolute;
     right: 2rem;
     top: 3rem;
-    width: 4rem;
-    height: 4rem;
-    cursor: pointer;
     border: none;
-    transition: 0.2s linear;
-    &:hover {
-      box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
-        0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
-    }
   }
   &_new_btn {
-    @extend %popup-btn-light;
-    position: absolute;
-    bottom: 0rem;
-    width: 100%;
-    transition: 0.2s linear;
-    &:hover {
-      box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
-        0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
-    }
-    &:active {
-      box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
-        0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
-    }
-    &:disabled {
-      background: #3d3d3d;
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
+    @extend %popup-btn;
   }
 }
 

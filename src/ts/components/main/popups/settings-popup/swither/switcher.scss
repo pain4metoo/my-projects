@@ -5,8 +5,9 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 1rem;
+  width: 100%;
   &_title {
-    font-size: 3rem;
+    font-size: 2.7rem;
     line-height: 140%;
     text-align: center;
     color: $color-text;
@@ -20,8 +21,8 @@
   &_switch {
     position: relative;
     display: inline-block;
-    width: 12rem;
-    height: 6rem;
+    width: 10rem;
+    height: 5rem;
     margin-right: 2.2rem;
   }
   &_checkbox {
@@ -39,8 +40,8 @@
     &::before {
       position: absolute;
       content: '';
-      height: 5rem;
-      width: 5rem;
+      height: 4rem;
+      width: 4rem;
       left: 0.4rem;
       bottom: 0.4rem;
       background: linear-gradient(180deg, rgba(226, 226, 226, 0.54) 0%, #bcbcbc 100%);
@@ -48,10 +49,9 @@
     }
   }
   &_value {
-    font-size: 3rem;
+    font-size: 2.5rem;
     line-height: 140%;
     color: $color-text;
-    width: 8rem;
   }
 }
 
@@ -64,39 +64,51 @@
   box-shadow: 0 0 1px #2196f3;
 }
 .switcher_checkbox:checked + .switcher_slider::before {
-  transform: translateX(6rem);
+  transform: translateX(5rem);
 }
 
 @media (max-width: 670px) {
   .switcher {
-    &_switch {
-      width: 6rem;
-      height: 3rem;
-      margin-right: 1.2rem;
-    }
-    &_slider {
-      &::before {
-        height: 2.5rem;
-        width: 2.5rem;
-        left: 0.2rem;
-        bottom: 0.2rem;
-      }
-    }
     &_value {
       margin-top: 1rem;
       margin-bottom: 1rem;
-    }
-    &_checkbox:checked + .switcher_slider::before {
-      transform: translateX(3rem);
     }
   }
 }
 
 @media (max-width: 450px) {
-  .switcher{
-    margin-bottom: 2rem;
-    &:nth-child(1) {
-      margin-top: 2rem;
+  .switcher {
+    margin-bottom: 1rem;
+    &_inner {
+    }
+    &_switch {
+      width: 100%;
+      height: 4rem;
+      margin-right: 0;
+      position: relative;
+      z-index: 1;
+    }
+    &_slider {
+      width: 100%;
+      &::before {
+        height: 3rem;
+        width: 4rem;
+        left: 0.2rem;
+        bottom: 0.5rem;
+      }
+    }
+    &_value {
+      position: absolute;
+      transform: translateX(-50%);
+      left: 50%;
+      user-select: none;
+      z-index: 0;
+    }
+    &_checkbox:checked + .switcher_slider::before {
+      transform: translateX(39rem);
+    }
+    &_checkbox:checked + .switcher_value {
+      color: black;
     }
   }
 }

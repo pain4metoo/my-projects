@@ -74,12 +74,13 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding-top: 8rem;
+      padding-top: 7rem;
       opacity: 0;
       transform: translateY(-500rem);
       transition: linear 0.5s;
       z-index: -1;
-      background: black;
+      background: rgba(21, 22, 19, 0.86);
+      backdrop-filter: blur(7.5px);
       width: 100%;
       &_item:not(:last-child) {
         margin-right: 0;

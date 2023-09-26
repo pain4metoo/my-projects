@@ -6,8 +6,9 @@
   right: 0;
   bottom: 0;
   top: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 1000;
+  backdrop-filter: blur(0.75rem);
   &_inner {
     display: flex;
     flex-direction: column;
@@ -21,6 +22,8 @@
     min-height: 35rem;
     border: 0.5rem solid #7e7d7b;
     padding-bottom: 7rem;
+    background: rgba(21, 22, 19, 0.86);
+    backdrop-filter: blur(7.5px);
   }
   &_close_btn {
     @extend %close-btn;

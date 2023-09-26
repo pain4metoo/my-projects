@@ -5,7 +5,6 @@ import { Footer } from './footer/footer';
 import { Header } from './header/header';
 import { Main } from './main/main';
 import mainBG from '../../assets/image/main-bg-light.jpg';
-import mainPreload from '../../assets/image/main-bg-light-preload.jpg';
 
 export class App extends Control {
   private appListener: (type: StateOptions) => void;

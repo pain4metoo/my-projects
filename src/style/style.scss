@@ -27,6 +27,10 @@ body {
   background-position: center;
 }
 
+.body_original {
+  background-image: url('../assets/image/main-bg-light.jpg');
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;

@@ -32,7 +32,7 @@ export class App extends Control {
     const img: HTMLImageElement = new Image();
     img.src = mainBG;
     img.onload = async (): Promise<void> => {
-      body.style.backgroundImage = `url('./assets/image/main-bg-light.jpg')`;
+      body.classList.add('body_original');
     };
   }
 

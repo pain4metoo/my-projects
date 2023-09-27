@@ -47,6 +47,8 @@
     line-height: 140%;
     border: 0.2rem solid #7f7e7c;
     z-index: 2;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
     &:nth-child(1) {
       width: 7rem;
       border-left: none;
@@ -96,9 +98,12 @@
   }
   &_delete {
     @extend %close-btn;
+    width: 3.5rem;
+    height: 3.5rem;
     background: url('../../../../../assets/svg/close-btn.svg') no-repeat center/contain;
-    border-top: 0.2rem solid #7f7e7c;
-    border-bottom: 0.2rem solid #7f7e7c;
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
   }
 }
 

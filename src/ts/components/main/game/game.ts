@@ -89,7 +89,7 @@ export class Game extends Control {
     state.shuffleStart();
     state.startCollectTimer();
     let counter = 0;
-    const maxShuffle = this.getRandomShuffleCount();
+    const maxShuffle = 0;
 
     const handle = setInterval((): void => {
       this.singleStrokeCycle();
@@ -125,7 +125,7 @@ export class Game extends Control {
       axisXRight: [],
       axisYTop: [],
       axisYBottom: [],
-      emptySquare: []
+      emptySquare: [],
     };
 
     for (let i = 0; i < matrix.length; i++) {
@@ -178,7 +178,7 @@ export class Game extends Control {
     matrix: Array<Array<number>>,
     move: Array<number>,
     zeroPosition: Array<number>,
-    isCollectPuzzle: boolean
+    isCollectPuzzle: boolean,
   ): Array<Array<number>> {
     const matrixValuePos = matrix[move[0]][move[1]];
     const matrixZeroPos = matrix[zeroPosition[0]][zeroPosition[1]];
@@ -224,7 +224,7 @@ export class Game extends Control {
         }
         return false;
       })
-      .filter((el) => el);
+      .filter(el => el);
 
     currentMatrix.forEach((el, i) => {
       if (el === 0) {
@@ -306,7 +306,7 @@ export class Game extends Control {
     const result: Result = {
       frameSize: state.getFrameSize(),
       moves: state.getResult().moves,
-      time: state.getResult().time
+      time: state.getResult().time,
     };
     const maxItemsInLocal = 10;
 

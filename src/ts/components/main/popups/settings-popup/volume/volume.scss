@@ -1,10 +1,11 @@
 .volume {
   display: flex;
   align-items: center;
-  margin-left: -1rem;
+  margin-left: -6rem;
+  margin-top: 3rem;
   &_icon {
     display: block;
-    width: 7rem;
+    min-width: 7rem;
     height: 7rem;
     object-fit: contain;
     cursor: pointer;
@@ -39,9 +40,22 @@
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 480px) {
   .volume {
     max-width: 30rem;
     width: 100%;
+    margin-left: 0;
+    max-width: inherit;
+    &_input::-webkit-slider-thumb {
+      filter: none;
+    }
+    &_input::-moz-range-thumb {
+      filter: none;
+    }
+    &_input[type='range'] {
+      max-width: none;
+      width: 100%;
+      margin-right: 2rem;
+    }
   }
 }

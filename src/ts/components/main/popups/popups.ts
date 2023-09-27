@@ -27,7 +27,7 @@ export class Popups extends Control {
       popupsInner.node,
       'button',
       'popups_new_btn',
-      state.getLanguage() ? 'restart' : 'новая игра'
+      state.getLanguage() ? 'restart' : 'новая игра',
     );
     newGameBtn.node.onclick = (): void => this.onNewGameBtn();
 
@@ -43,14 +43,25 @@ export class Popups extends Control {
           this.popupResult = new ResultPopup(popupsInner.node);
           newGameBtn.node.textContent = state.getLanguage() ? 'delete all results' : 'очистить результаты';
           newGameBtn.node.onclick = (): void => this.showWarning(StateOptions.showResultPopup);
-          (lStorage.get('results') as Array<Result>).length > 0
-            ? (newGameBtn.node.disabled = false)
-            : (newGameBtn.node.disabled = true);
+
+          if (lStorage.get('results') !== null) {
+            if ((lStorage.get('results') as Array<Result>).length > 0) {
+              newGameBtn.node.disabled = false;
+            } else {
+              newGameBtn.node.disabled = true;
+            }
+          } else {
+            newGameBtn.node.disabled = true;
+          }
           break;
         case StateOptions.deleteTargetFromStorage:
-          (lStorage.get('results') as Array<Result>).length > 0
-            ? (newGameBtn.node.disabled = false)
-            : (newGameBtn.node.disabled = true);
+          if (lStorage.get('results') !== null) {
+            if ((lStorage.get('results') as Array<Result>).length > 0) {
+              newGameBtn.node.disabled = false;
+            } else {
+              newGameBtn.node.disabled = true;
+            }
+          }
           break;
         case StateOptions.showFinishPopup:
           this.popupFinish = new FinishPopup(popupsInner.node);
@@ -64,6 +75,13 @@ export class Popups extends Control {
         case StateOptions.clearLocalStorage:
           this.popupResult.destroy();
           this.popupResult = new ResultPopup(popupsInner.node);
+          if (lStorage.get('results') !== null) {
+            if ((lStorage.get('results') as Array<Result>).length > 0) {
+              newGameBtn.node.disabled = false;
+            } else {
+              newGameBtn.node.disabled = true;
+            }
+          }
           break;
         case StateOptions.showNewResult:
           this.popupResult.destroy();

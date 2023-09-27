@@ -29,8 +29,8 @@
     @extend %close-btn;
     background: url('../../../../assets/svg/close-btn.svg') no-repeat center/contain;
     position: absolute;
-    right: 2rem;
-    top: 3rem;
+    right: 1rem;
+    top: 1rem;
     border: none;
   }
   &_new_btn {
@@ -40,6 +40,9 @@
 
 @media (max-width: 540px) {
   .popups {
+    &_inner {
+      padding-bottom: 4rem;
+    }
     &_result_title {
       font-size: 3rem;
     }

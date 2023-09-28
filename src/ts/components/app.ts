@@ -39,6 +39,6 @@ export class App extends Control {
   private changeFontFamily(isEn: boolean, parentNode: HTMLElement) {
     isEn
       ? (parentNode.style.fontFamily = `'Thasadith', sans-serif`)
-      : (parentNode.style.fontFamily = `'Ubuntu', sans-serif`);
+      : (parentNode.style.fontFamily = `'Raleway', sans-serif`);
   }
 }

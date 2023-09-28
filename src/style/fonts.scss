@@ -19,20 +19,31 @@
 }
 
 @font-face {
-  font-family: 'Ubuntu';
-  src: url('../assets/fonts/Ubuntu-Regular.eot');
-  src: local('☺'), url('../assets/fonts/Ubuntu-Regular.woff') format('woff'),
-    url('../assets/fonts/Ubuntu-Regular.ttf') format('truetype'),
-    url('../assets/fonts/Ubuntu-Regular.woff2') format('woff2');
-  font-weight: normal;
+  font-family: 'Raleway';
+  src: url('../assets/fonts/Raleway-Light.eot');
+  src: local('☺'), url('../assets/fonts/Raleway-Light.woff') format('woff'),
+    url('../assets/fonts/Raleway-Light.ttf') format('truetype'),
+    url('../assets/fonts/Raleway-Light.woff2') format('woff2');
+  font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Ubuntu';
-  src: url('../assets/fonts/Ubuntu-Bold.eot');
-  src: local('☺'), url('../assets/fonts/Ubuntu-Bold.woff') format('woff'),
-    url('../assets/fonts/Ubuntu-Bold.ttf') format('truetype'), url('../assets/fonts/Ubuntu-Bold.woff') format('woff2');
+  font-family: 'Raleway';
+  src: url('../assets/fonts/Raleway-Regular.eot');
+  src: local('☺'), url('../assets/fonts/Raleway-Regular.woff') format('woff'),
+    url('../assets/fonts/Raleway-Regular.ttf') format('truetype'),
+    url('../assets/fonts/Raleway-Regular.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('../assets/fonts/Raleway-Bold.eot');
+  src: local('☺'), url('../assets/fonts/Raleway-Bold.woff') format('woff'),
+    url('../assets/fonts/Raleway-Bold.ttf') format('truetype'),
+    url('../assets/fonts/Raleway-Bold.woff2') format('woff2');
   font-weight: bold;
   font-style: normal;
 }

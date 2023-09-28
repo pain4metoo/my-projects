@@ -14,7 +14,7 @@ export class SettingsPopup extends Control {
       this.node,
       'h2',
       'settings_title',
-      state.getLanguage() ? 'Settings' : 'Настройки'
+      state.getLanguage() ? 'Settings' : 'Настройки',
     );
 
     const settingsInner = new Control(this.node, 'div', 'settings_inner');
@@ -24,26 +24,27 @@ export class SettingsPopup extends Control {
 
     const theme = new Switcher(
       leftInner.node,
-      state.getLanguage() ? (TRANSLATE.settings.themeEN as ISwitcher) : (TRANSLATE.settings.themeRU as ISwitcher)
+      state.getLanguage() ? (TRANSLATE.settings.themeEN as ISwitcher) : (TRANSLATE.settings.themeRU as ISwitcher),
     );
     const animation = new Switcher(
       leftInner.node,
-      state.getLanguage() ? (TRANSLATE.settings.animEN as ISwitcher) : (TRANSLATE.settings.animRU as ISwitcher)
+      state.getLanguage() ? (TRANSLATE.settings.animEN as ISwitcher) : (TRANSLATE.settings.animRU as ISwitcher),
     );
     const language = new Switcher(
       leftInner.node,
-      state.getLanguage() ? (TRANSLATE.settings.langEN as ISwitcher) : (TRANSLATE.settings.langRU as ISwitcher)
+      state.getLanguage() ? (TRANSLATE.settings.langEN as ISwitcher) : (TRANSLATE.settings.langRU as ISwitcher),
     );
 
     const sound = new Switcher(
       rightInner.node,
-      state.getLanguage() ? (TRANSLATE.settings.soundEN as ISwitcher) : (TRANSLATE.settings.soundRU as ISwitcher)
+      state.getLanguage() ? (TRANSLATE.settings.soundEN as ISwitcher) : (TRANSLATE.settings.soundRU as ISwitcher),
     );
     const volume = new Volume(sound.node);
 
     this.settingsPopupListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.changeLanguage:
+          state.onUpdate.remove(this.settingsPopupListener);
           settingsTitle.node.textContent = state.getLanguage() ? 'Settings' : 'Настройки';
           break;
       }

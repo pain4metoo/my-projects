@@ -96,7 +96,6 @@ export class Game extends Control {
       state.setBlockField();
       if (counter === maxShuffle) {
         state.setUnblockField();
-        state.setUnblockField();
         soundControl.pauseSound();
         state.stopCollectTimer();
         clearInterval(handle); // stops intervals

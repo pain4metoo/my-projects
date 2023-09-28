@@ -15,14 +15,14 @@ export enum SwitcherTitles {
   Theme = 'Theme',
   Animation = 'Animation',
   Language = 'Language',
-  Sound = 'Sound'
+  Sound = 'Sound',
 }
 
 enum SwitcherTitlesRU {
   Theme = 'Тема',
   Animation = 'Анимация',
   Language = 'Язык',
-  Sound = 'Звук'
+  Sound = 'Звук',
 }
 
 export class Switcher extends Control {
@@ -77,6 +77,7 @@ export class Switcher extends Control {
               switcherValue.node.textContent = argSwitcher.values[1];
             }
           }
+          state.onUpdate.remove(this.switcherListener);
           break;
         case StateOptions.changeSound:
           if (argSwitcher.title === SwitcherTitles.Sound || argSwitcher.title === SwitcherTitlesRU.Sound) {
@@ -88,13 +89,13 @@ export class Switcher extends Control {
               input.node.checked = false;
             }
           }
-
           break;
         case StateOptions.closePopup:
           state.onUpdate.remove(this.switcherListener);
           break;
         default:
           lStorage.put('settings', state.getSettings());
+          state.onUpdate.remove(this.switcherListener);
       }
     };
 
@@ -105,7 +106,7 @@ export class Switcher extends Control {
     input: HTMLInputElement,
     valuesArr: Array<string>,
     valueTitle: HTMLElement,
-    type: string
+    type: string,
   ): void {
     if (type === SwitcherTitles.Animation || type === SwitcherTitlesRU.Animation) {
       if (state.getAnimation()) {

@@ -34,6 +34,8 @@ export class Volume extends Control {
         case StateOptions.closePopup:
           state.onUpdate.remove(this.volumeListener);
           break;
+        case StateOptions.changeLanguage:
+          state.onUpdate.remove(this.volumeListener);
         default:
           lStorage.put('settings', state.getSettings());
       }

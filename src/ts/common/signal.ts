@@ -7,14 +7,15 @@ class Signal<ListenerType> {
 
   public add(listener: (params: ListenerType) => void): void {
     this.listeners.push(listener);
+    console.log(this.listeners);
   }
 
   public remove(listener: (params: ListenerType) => void): void {
-    this.listeners = this.listeners.filter((elem) => elem !== listener);
+    this.listeners = this.listeners.filter(elem => elem !== listener);
   }
 
   public emit(params: ListenerType): void {
-    this.listeners.forEach((listener) => listener(params));
+    this.listeners.forEach(listener => listener(params));
   }
 }
 export default Signal;

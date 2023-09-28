@@ -101,7 +101,9 @@ export class Popups extends Control {
           newGameBtn.node.textContent = state.getLanguage() ? 'reset settings' : 'сбросить настройки';
           this.popupSettings.destroy();
           this.popupSettings = new SettingsPopup(popupsInner.node);
+
           break;
+        default:
       }
     };
 

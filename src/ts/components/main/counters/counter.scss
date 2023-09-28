@@ -4,14 +4,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0 auto;
   margin-top: 2rem;
+  width: 100%;
   &_moves {
     display: flex;
     align-items: center;
     user-select: none;
     position: relative;
     z-index: 1;
-    width: 18.5rem;
   }
   &_text {
     margin-right: 0.5rem;
@@ -40,25 +41,20 @@
 @media (max-width: 1920px) and (max-height: 1000px) {
   .main_counters {
     max-width: 57rem;
-    margin-left: 3.7rem;
   }
 }
 
 @media (max-width: 870px) {
   .main_counters {
     max-width: 55rem;
-    margin-left: 0;
+
     &_txt {
       font-size: 2.9rem;
-    }
-    &_time {
-      max-width: 20rem;
-      width: 100%;
     }
   }
 }
 
-@media (max-width: 670px) {
+@media (max-width: 570px) {
   .main_counters {
     max-width: 50rem;
   }

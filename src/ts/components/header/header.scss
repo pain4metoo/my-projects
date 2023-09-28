@@ -22,6 +22,10 @@
   &_mobile_btn_active {
     background: rgb(142, 122, 61);
   }
+  &_list_item {
+    max-width: 15rem;
+    width: 100%;
+  }
   &_item_btn {
     @extend %header-btns;
   }
@@ -40,19 +44,10 @@
   }
 }
 
-@media (max-width: 870px) {
-  .header {
-    &_item_btn {
-      width: 12rem;
-    }
-  }
-}
-
 @media (max-width: 670px) {
   .header {
     &_item_btn {
       font-size: 2.1rem;
-      width: 10.5rem;
     }
   }
 }
@@ -90,14 +85,13 @@
       }
     }
     &_list_item {
+      max-width: inherit;
       width: 100%;
       height: 6rem;
     }
     &_item_btn {
       font-size: 2.5rem;
       line-height: 140%;
-      width: 100%;
-      height: 100%;
     }
     &_list_show {
       display: flex;

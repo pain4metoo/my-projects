@@ -36,7 +36,7 @@
     right: 0;
     bottom: 0;
     background: linear-gradient(180deg, rgba(35, 34, 30, 0.59) 0%, rgba(255, 255, 249, 0) 100%);
-    transition: 0.4s linear;
+    transition: 0.2s linear;
     &::before {
       position: absolute;
       content: '';
@@ -45,7 +45,7 @@
       left: 0.4rem;
       bottom: 0.5rem;
       background: linear-gradient(180deg, rgba(226, 226, 226, 0.54) 0%, #bcbcbc 100%);
-      transition: 0.4s linear;
+      transition: 0.2s linear;
     }
   }
   &_value {

@@ -108,8 +108,11 @@
   }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 470px) {
   .popups_result {
+    &_title {
+      font-size: 3rem;
+    }
     &_td {
       font-size: 1.6rem;
     }

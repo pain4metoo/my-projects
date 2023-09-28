@@ -1312,7 +1312,7 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.shuffleStart();
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.startCollectTimer();
     let counter = 0;
-    const maxShuffle = 0;
+    const maxShuffle = this.getRandomShuffleCount();
     const handle = setInterval(() => {
       this.singleStrokeCycle();
       _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setBlockField();
@@ -4599,4 +4599,4 @@ module.exports = __webpack_require__.p + "assets/volume-on.svg";
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=bundle-fe63c304aa887faeaf8c.js.map
+//# sourceMappingURL=bundle-2a38216307be127417d9.js.map

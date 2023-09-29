@@ -95,18 +95,12 @@
 @media (max-width: 870px) {
   .main_game {
     max-width: 55rem;
-    &_container {
-      box-shadow: 0rem 0rem 5rem 4rem #fff;
-    }
   }
 }
 
 @media (max-width: 670px) {
   .main_game {
     max-width: 50rem;
-    &_container {
-      box-shadow: 0rem 0rem 6rem 3rem #fff;
-    }
   }
 }
 

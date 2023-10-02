@@ -8,8 +8,14 @@
   margin-top: 2rem;
   width: 100%;
   &_block_right {
-    max-width: 28rem;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    position: relative;
+    z-index: 1;
+  }
+  &_time_number {
+    width: 16rem;
   }
   &_moves {
     display: flex;
@@ -20,13 +26,6 @@
   }
   &_text {
     margin-right: 0.5rem;
-  }
-  &_time {
-    display: flex;
-    align-items: center;
-    user-select: none;
-    position: relative;
-    z-index: 1;
   }
   &_time_text {
     margin-right: 0.5rem;
@@ -48,9 +47,8 @@
 @media (max-width: 870px) {
   .main_counters {
     max-width: 55rem;
-    &_block_right {
-      max-width: 23rem;
-      width: 100%;
+    &_time_number {
+      width: 13rem;
     }
     &_txt {
       font-size: 2.9rem;
@@ -67,9 +65,8 @@
 @media (max-width: 450px) {
   .main_counters {
     margin: 0;
-    &_block_right {
-      max-width: 16rem;
-      width: 100%;
+    &_time_number {
+      width: 10rem;
     }
     &_moves {
       width: 100%;

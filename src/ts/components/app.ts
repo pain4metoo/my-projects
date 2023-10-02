@@ -17,6 +17,8 @@ export class App extends Control {
     const main = new Main(this.node);
     const footer = new Footer(this.node);
 
+    this.changeFontFamily(state.getLanguage(), parentNode);
+
     this.appListener = (type: StateOptions) => {
       switch (type) {
         case StateOptions.changeLanguage:
@@ -39,6 +41,6 @@ export class App extends Control {
   private changeFontFamily(isEn: boolean, parentNode: HTMLElement) {
     isEn
       ? (parentNode.style.fontFamily = `'Thasadith', sans-serif`)
-      : (parentNode.style.fontFamily = `'Raleway', sans-serif`);
+      : (parentNode.style.fontFamily = `'Inter', sans-serif`);
   }
 }

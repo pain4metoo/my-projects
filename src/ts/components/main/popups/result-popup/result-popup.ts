@@ -44,7 +44,7 @@ export class ResultPopup extends Control {
     this.ResultHtmlElements.push(tabletitle.node);
     const lang = state.getLanguage();
     const tableInner = new Control(tBody.node, 'tr', 'popups_result_tr');
-    new Control(tableInner.node, 'td', 'popups_result_td', `${lang ? 'Place' : 'Table'}`);
+    new Control(tableInner.node, 'td', 'popups_result_td', `${lang ? 'Place' : 'Место'}`);
     new Control(tableInner.node, 'td', 'popups_result_td', `${lang ? 'Frame-size' : 'Размер поля'}`);
     new Control(tableInner.node, 'td', 'popups_result_td', `${lang ? 'Moves' : 'Ходы'}`);
     new Control(tableInner.node, 'td', 'popups_result_td', `${lang ? 'Time' : 'Время'}`);

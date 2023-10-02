@@ -96,13 +96,10 @@
   }
   &_delete {
     @extend %close-btn;
-    width: 3.5rem;
-    height: 3.5rem;
+    position: absolute;
     background: url('../../../../../assets/svg/close-btn.svg') no-repeat center/contain;
-    border-bottom: 0.2rem solid #7f7e7c;
-    border-top: 0.2rem solid #7f7e7c;
     right: 1rem;
-    top: 0.8rem;
+    top: 1.3rem;
   }
 }
 

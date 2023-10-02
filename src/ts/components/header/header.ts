@@ -10,7 +10,7 @@ enum NavItem {
   Restart = 'restart',
   Stop = 'stop',
   Results = 'results',
-  Settings = 'settings'
+  Settings = 'settings',
 }
 
 export class Header extends Control {
@@ -26,7 +26,7 @@ export class Header extends Control {
       nav.node,
       'button',
       'header_mobile_btn',
-      state.getLanguage() ? 'stop' : 'стоп'
+      state.getLanguage() ? 'stop' : 'стоп',
     );
     mobileStopBtn.node.onclick = (): void => {
       soundControl.playSound(SoundTypes.btn);
@@ -57,6 +57,7 @@ export class Header extends Control {
           break;
         case StateOptions.changeLanguage:
           this.switchLang(state.getLanguage());
+          mobileStopBtn.node.textContent = `${state.getLanguage() ? 'stop' : 'стоп'}`;
           break;
         case StateOptions.resetSettings:
           this.switchLang(state.getLanguage());

@@ -59,7 +59,6 @@
   background: rgba(142, 122, 61, 0.3);
 }
 .switcher_checkbox:focus + .switcher_slider {
-  box-shadow: 0 0 1px #2196f3;
 }
 .switcher_checkbox:checked + .switcher_slider::before {
   transform: translateX(5rem);
@@ -94,7 +93,6 @@
     }
     &_slider {
       width: 100%;
-      box-shadow: none;
       &::before {
         height: 3rem;
         width: 4rem;
@@ -117,7 +115,6 @@
     }
     &_checkbox:checked + .switcher_slider {
       background: rgba(142, 122, 61, 0.3);
-      box-shadow: none;
     }
   }
 }

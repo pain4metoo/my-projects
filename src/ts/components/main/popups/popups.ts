@@ -102,7 +102,6 @@ export class Popups extends Control {
           this.popupSettings.destroy();
           this.popupSettings = new SettingsPopup(popupsInner.node);
           break;
-        default:
       }
     };
 

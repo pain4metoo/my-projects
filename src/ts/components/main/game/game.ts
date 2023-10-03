@@ -48,16 +48,6 @@ export class Game extends Control {
         case StateOptions.deleteTargetFromStorage:
           this.deleteResult(state.getDeleteTargetFromStorage());
           break;
-        case StateOptions.blockField:
-          if (!this.node.classList.contains('main_game_over')) {
-            this.node.classList.add('main_game_over');
-          }
-          break;
-        case StateOptions.unBlockField:
-          if (this.node.classList.contains('main_game_over')) {
-            this.node.classList.remove('main_game_over');
-          }
-          break;
       }
     };
 
@@ -85,21 +75,24 @@ export class Game extends Control {
   }
 
   private shuffleCycle(): void {
+    const maxShuffle = this.getRandomShuffleCount();
+    let counter = 0;
+
     state.stopBtnDisable();
     state.shuffleStart();
     state.startCollectTimer();
-    let counter = 0;
-    const maxShuffle = this.getRandomShuffleCount();
+    this.changeStateGameField(true);
 
     const handle = setInterval((): void => {
       this.singleStrokeCycle();
-      state.setBlockField();
+
       if (counter === maxShuffle) {
-        state.setUnblockField();
+        clearInterval(handle); // stops intervals
+        this.changeStateGameField(false);
         soundControl.pauseSound();
         state.stopCollectTimer();
-        clearInterval(handle); // stops intervals
         state.shuffleStop();
+        this.handlerDragAndDrop(state.getGameField().flat());
       }
       counter++;
     }, 0);
@@ -143,8 +136,8 @@ export class Game extends Control {
           if (matrix[i + 1] && matrix[i + 1][g]) {
             availableMoves.axisYBottom = [i + 1, g, matrix[i + 1][g]];
           }
+          return availableMoves;
         }
-        continue;
       }
     }
 
@@ -161,29 +154,22 @@ export class Game extends Control {
       return acc;
     }, []);
 
-    const randomNumberforMove = Math.ceil(Math.random() * availableMovesArr.length) - 1; // minus one to adjust the index
     const lastMoveMade = state.getAllMoves()[state.getAllMoves().length - 1][2]; // look at the value at 2 array index
 
-    if (lastMoveMade === availableMovesArr[randomNumberforMove][2]) {
-      const filterAvailableMoves = availableMovesArr.filter((el: Array<number>) => el[2] !== lastMoveMade); // We remove the last similar move
+    const filterAvailableMoves = availableMovesArr.filter((el: Array<number>) => el[2] !== lastMoveMade); // We remove the last similar move
 
-      return filterAvailableMoves[Math.ceil(Math.random() * filterAvailableMoves.length - 1)]; // choose a random one from the remaining
-    }
+    const randomNumberforMove = Math.ceil(Math.random() * filterAvailableMoves.length) - 1; // selecting a random subarray
 
-    return availableMovesArr[randomNumberforMove];
+    return filterAvailableMoves[randomNumberforMove]; // choose a random one from the remaining
   }
 
   private makeMove(
     matrix: Array<Array<number>>,
     move: Array<number>,
-    zeroPosition: Array<number>,
+    zero: Array<number>,
     isCollectPuzzle: boolean,
   ): Array<Array<number>> {
-    const matrixValuePos = matrix[move[0]][move[1]];
-    const matrixZeroPos = matrix[zeroPosition[0]][zeroPosition[1]];
-
-    matrix[move[0]][move[1]] = matrixZeroPos;
-    matrix[zeroPosition[0]][zeroPosition[1]] = matrixValuePos;
+    [matrix[move[0]][move[1]], matrix[zero[0]][zero[1]]] = [matrix[zero[0]][zero[1]], matrix[move[0]][move[1]]];
 
     if (!isCollectPuzzle) {
       state.getAllMoves().push(move);
@@ -208,8 +194,6 @@ export class Game extends Control {
         el.classList.remove('main_game_square_empty');
       }
     });
-
-    this.handlerDragAndDrop(singleLevelMatrix);
   }
 
   private handlerDragAndDrop(currentMatrix: Array<number>): void {
@@ -230,19 +214,18 @@ export class Game extends Control {
         this.gameSquareHTML[i].ondragover = (e): void => {
           e.preventDefault();
         };
+        this.gameSquareHTML[i].ondrop = (event): void => {
+          const move = event.dataTransfer?.getData('id');
+          this.moveByClick(Number(move));
+        };
       }
       if (currentAvailableMoves.includes(el)) {
         this.gameSquareHTML[i].ondragover = (e): void => {
-          e.stopPropagation();
+          e.stopImmediatePropagation();
         };
         this.gameSquareHTML[i].draggable = true;
         this.gameSquareHTML[i].ondragstart = (event): void => {
           event.dataTransfer?.setData('id', String(currentMatrix[i]));
-        };
-
-        this.gameSquareHTML[i].ondrop = (event): void => {
-          const move = event.dataTransfer?.getData('id');
-          this.moveByClick(Number(move));
         };
       } else {
         this.gameSquareHTML[i].draggable = false;
@@ -256,12 +239,14 @@ export class Game extends Control {
     state.setCollectState(true);
     state.stopBtnDisable();
     soundControl.playSound(SoundTypes.collect);
+    this.changeStateGameField(true);
     const handle = setInterval((): void => {
       const positionOfZero: Array<number> = this.availableMoves(state.getGameField()).emptySquare;
       const spliceLastMove = state.getAllMoves().splice(-1)[0];
       this.makeMove(state.getGameField(), spliceLastMove, positionOfZero, true);
       state.setCollectMoves();
       if (state.getAllMoves().length === 0) {
+        this.changeStateGameField(false);
         soundControl.pauseSound();
         state.setCollectState(false);
         state.clearCollectMoves();
@@ -277,11 +262,11 @@ export class Game extends Control {
 
   private moveByClick(squareValue: number): void {
     const availableMoveArr: Array<Array<number>> = Object.values(this.availableMoves(state.getGameField()));
-
     availableMoveArr.forEach((el: Array<number>): void => {
       if (el[2] === squareValue) {
         this.makeMove(state.getGameField(), el, this.availableMoves(state.getGameField()).emptySquare, false);
         this.setMoveInState(state.getGameField());
+        this.handlerDragAndDrop(state.getGameField().flat());
       }
     });
   }
@@ -378,5 +363,13 @@ export class Game extends Control {
     state.createPopup();
     state.setStopGame();
     state.showCollectPopup();
+  }
+
+  private changeStateGameField(flag: boolean): void {
+    if (flag) {
+      this.node.classList.add('main_game_over');
+    } else {
+      this.node.classList.remove('main_game_over');
+    }
   }
 }

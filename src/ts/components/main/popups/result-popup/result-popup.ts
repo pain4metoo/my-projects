@@ -24,7 +24,7 @@ export class ResultPopup extends Control {
         case StateOptions.changeLanguage:
           this.switchLang(state.getLanguage());
           break;
-        default:
+        case StateOptions.closePopup:
           state.onUpdate.remove(this.resultPopupListener);
           break;
       }

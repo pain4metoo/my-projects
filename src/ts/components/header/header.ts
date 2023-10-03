@@ -89,8 +89,6 @@ export class Header extends Control {
         case StateOptions.newGame:
           this.navItemsHtmlElements[0].classList.add('header_item_btn_active');
           break;
-        default:
-          return;
       }
     };
 

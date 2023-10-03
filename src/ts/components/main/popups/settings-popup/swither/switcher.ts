@@ -93,9 +93,6 @@ export class Switcher extends Control {
         case StateOptions.closePopup:
           state.onUpdate.remove(this.switcherListener);
           break;
-        default:
-          lStorage.put('settings', state.getSettings());
-          state.onUpdate.remove(this.switcherListener);
       }
     };
 

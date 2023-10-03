@@ -36,8 +36,6 @@ export class Volume extends Control {
           break;
         case StateOptions.changeLanguage:
           state.onUpdate.remove(this.volumeListener);
-        default:
-          lStorage.put('settings', state.getSettings());
       }
     };
 
@@ -51,6 +49,7 @@ export class Volume extends Control {
   private setVolume(value: string): void {
     state.setLastVolume(value);
     state.setVolume(value);
+    lStorage.put('settings', state.getSettings());
   }
 
   private showChanges(input: HTMLInputElement, icon: HTMLImageElement): void {
@@ -77,5 +76,6 @@ export class Volume extends Control {
     } else {
       state.setVolume(state.getLastVolume());
     }
+    lStorage.put('settings', state.getSettings());
   }
 }

@@ -47,6 +47,9 @@ export class SettingsPopup extends Control {
           state.onUpdate.remove(this.settingsPopupListener);
           settingsTitle.node.textContent = state.getLanguage() ? 'Settings' : 'Настройки';
           break;
+        case StateOptions.closePopup:
+          state.onUpdate.remove(this.settingsPopupListener);
+          break;
       }
     };
 

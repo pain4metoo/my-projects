@@ -359,9 +359,9 @@ const initialState: StateData = {
       moves: 0,
       time: '00:00:00',
       collectTime: '00:00:00',
-      collectMoves: 0
+      collectMoves: 0,
     },
-    results: []
+    results: [],
   },
   appSettings: {
     volume: '30',
@@ -369,9 +369,9 @@ const initialState: StateData = {
     stateSound: true,
     theme: false,
     language: true,
-    animation: true
+    animation: true,
   },
-  warningType: null
+  warningType: null,
 };
 
 export const state: State = new State(initialState);

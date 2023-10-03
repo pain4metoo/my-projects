@@ -18,6 +18,7 @@
     grid-gap: 0.5rem;
     background: rgba(20, 19, 17, 0.64);
     backdrop-filter: blur(5px);
+    box-shadow: 0rem 0rem 8rem 4rem #fff;
     &_3x3 {
       grid-template-columns: repeat(3, 1fr);
     }
@@ -95,12 +96,18 @@
 @media (max-width: 870px) {
   .main_game {
     max-width: 55rem;
+    &_container {
+      box-shadow: 0rem 0rem 5rem 4rem #fff;
+    }
   }
 }
 
 @media (max-width: 670px) {
   .main_game {
     max-width: 50rem;
+    &_container {
+      box-shadow: 0rem 0rem 6rem 3rem #fff;
+    }
   }
 }
 

@@ -805,8 +805,6 @@ class Header extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
         case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.newGame:
           this.navItemsHtmlElements[0].classList.add('header_item_btn_active');
           break;
-        default:
-          return;
       }
     };
     this.navItems.forEach(navLink => {
@@ -1278,16 +1276,6 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
         case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.deleteTargetFromStorage:
           this.deleteResult(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getDeleteTargetFromStorage());
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.blockField:
-          if (!this.node.classList.contains('main_game_over')) {
-            this.node.classList.add('main_game_over');
-          }
-          break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.unBlockField:
-          if (this.node.classList.contains('main_game_over')) {
-            this.node.classList.remove('main_game_over');
-          }
-          break;
       }
     };
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.onUpdate.add(this.gameListener);
@@ -1309,20 +1297,21 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     }
   }
   shuffleCycle() {
+    const maxShuffle = this.getRandomShuffleCount();
+    let counter = 0;
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.stopBtnDisable();
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.shuffleStart();
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.startCollectTimer();
-    let counter = 0;
-    const maxShuffle = this.getRandomShuffleCount();
+    this.changeStateGameField(true);
     const handle = setInterval(() => {
       this.singleStrokeCycle();
-      _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setBlockField();
       if (counter === maxShuffle) {
-        _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setUnblockField();
+        clearInterval(handle); // stops intervals
+        this.changeStateGameField(false);
         ___WEBPACK_IMPORTED_MODULE_7__.soundControl.pauseSound();
         _common_state__WEBPACK_IMPORTED_MODULE_1__.state.stopCollectTimer();
-        clearInterval(handle); // stops intervals
         _common_state__WEBPACK_IMPORTED_MODULE_1__.state.shuffleStop();
+        this.handlerDragAndDrop(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField().flat());
       }
       counter++;
     }, 0);
@@ -1363,8 +1352,8 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
           if (matrix[i + 1] && matrix[i + 1][g]) {
             availableMoves.axisYBottom = [i + 1, g, matrix[i + 1][g]];
           }
+          return availableMoves;
         }
-        continue;
       }
     }
     return availableMoves;
@@ -1378,20 +1367,14 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
       }
       return acc;
     }, []);
-    const randomNumberforMove = Math.ceil(Math.random() * availableMovesArr.length) - 1; // minus one to adjust the index
     const lastMoveMade = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getAllMoves()[_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getAllMoves().length - 1][2]; // look at the value at 2 array index
-    if (lastMoveMade === availableMovesArr[randomNumberforMove][2]) {
-      const filterAvailableMoves = availableMovesArr.filter(el => el[2] !== lastMoveMade); // We remove the last similar move
-      return filterAvailableMoves[Math.ceil(Math.random() * filterAvailableMoves.length - 1)]; // choose a random one from the remaining
-    }
-
-    return availableMovesArr[randomNumberforMove];
+    const filterAvailableMoves = availableMovesArr.filter(el => el[2] !== lastMoveMade); // We remove the last similar move
+    const randomNumberforMove = Math.ceil(Math.random() * filterAvailableMoves.length) - 1; // selecting a random subarray
+    return filterAvailableMoves[randomNumberforMove]; // choose a random one from the remaining
   }
-  makeMove(matrix, move, zeroPosition, isCollectPuzzle) {
-    const matrixValuePos = matrix[move[0]][move[1]];
-    const matrixZeroPos = matrix[zeroPosition[0]][zeroPosition[1]];
-    matrix[move[0]][move[1]] = matrixZeroPos;
-    matrix[zeroPosition[0]][zeroPosition[1]] = matrixValuePos;
+
+  makeMove(matrix, move, zero, isCollectPuzzle) {
+    [matrix[move[0]][move[1]], matrix[zero[0]][zero[1]]] = [matrix[zero[0]][zero[1]], matrix[move[0]][move[1]]];
     if (!isCollectPuzzle) {
       _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getAllMoves().push(move);
     }
@@ -1410,7 +1393,6 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
         el.classList.remove('main_game_square_empty');
       }
     });
-    this.handlerDragAndDrop(singleLevelMatrix);
   }
   handlerDragAndDrop(currentMatrix) {
     // We iterate only from 0 to 3 indices inclusive and take the value of the game square
@@ -1427,20 +1409,20 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
         this.gameSquareHTML[i].ondragover = e => {
           e.preventDefault();
         };
+        this.gameSquareHTML[i].ondrop = event => {
+          var _a;
+          const move = (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.getData('id');
+          this.moveByClick(Number(move));
+        };
       }
       if (currentAvailableMoves.includes(el)) {
         this.gameSquareHTML[i].ondragover = e => {
-          e.stopPropagation();
+          e.stopImmediatePropagation();
         };
         this.gameSquareHTML[i].draggable = true;
         this.gameSquareHTML[i].ondragstart = event => {
           var _a;
           (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData('id', String(currentMatrix[i]));
-        };
-        this.gameSquareHTML[i].ondrop = event => {
-          var _a;
-          const move = (_a = event.dataTransfer) === null || _a === void 0 ? void 0 : _a.getData('id');
-          this.moveByClick(Number(move));
         };
       } else {
         this.gameSquareHTML[i].draggable = false;
@@ -1453,12 +1435,14 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setCollectState(true);
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.stopBtnDisable();
     ___WEBPACK_IMPORTED_MODULE_7__.soundControl.playSound(_soundControl__WEBPACK_IMPORTED_MODULE_6__.SoundTypes.collect);
+    this.changeStateGameField(true);
     const handle = setInterval(() => {
       const positionOfZero = this.availableMoves(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField()).emptySquare;
       const spliceLastMove = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getAllMoves().splice(-1)[0];
       this.makeMove(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField(), spliceLastMove, positionOfZero, true);
       _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setCollectMoves();
       if (_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getAllMoves().length === 0) {
+        this.changeStateGameField(false);
         ___WEBPACK_IMPORTED_MODULE_7__.soundControl.pauseSound();
         _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setCollectState(false);
         _common_state__WEBPACK_IMPORTED_MODULE_1__.state.clearCollectMoves();
@@ -1477,6 +1461,7 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
       if (el[2] === squareValue) {
         this.makeMove(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField(), el, this.availableMoves(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField()).emptySquare, false);
         this.setMoveInState(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField());
+        this.handlerDragAndDrop(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getGameField().flat());
       }
     });
   }
@@ -1560,6 +1545,13 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.createPopup();
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.setStopGame();
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.showCollectPopup();
+  }
+  changeStateGameField(flag) {
+    if (flag) {
+      this.node.classList.add('main_game_over');
+    } else {
+      this.node.classList.remove('main_game_over');
+    }
   }
 }
 
@@ -1957,7 +1949,6 @@ class Popups extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
           this.popupSettings.destroy();
           this.popupSettings = new _settings_popup_settings_popup__WEBPACK_IMPORTED_MODULE_7__.SettingsPopup(popupsInner.node);
           break;
-        default:
       }
     };
     _common_state__WEBPACK_IMPORTED_MODULE_1__.state.onUpdate.add(this.popupsListener);
@@ -2024,7 +2015,7 @@ class ResultPopup extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"
         case _common_state_types__WEBPACK_IMPORTED_MODULE_6__.StateOptions.changeLanguage:
           this.switchLang(_common_state__WEBPACK_IMPORTED_MODULE_3__.state.getLanguage());
           break;
-        default:
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_6__.StateOptions.closePopup:
           _common_state__WEBPACK_IMPORTED_MODULE_3__.state.onUpdate.remove(this.resultPopupListener);
           break;
       }
@@ -2114,6 +2105,9 @@ class SettingsPopup extends _common_control__WEBPACK_IMPORTED_MODULE_0__["defaul
         case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeLanguage:
           _common_state__WEBPACK_IMPORTED_MODULE_2__.state.onUpdate.remove(this.settingsPopupListener);
           settingsTitle.node.textContent = _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? 'Settings' : 'Настройки';
+          break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.closePopup:
+          _common_state__WEBPACK_IMPORTED_MODULE_2__.state.onUpdate.remove(this.settingsPopupListener);
           break;
       }
     };
@@ -2221,9 +2215,6 @@ class Switcher extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
         case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.closePopup:
           _common_state__WEBPACK_IMPORTED_MODULE_2__.state.onUpdate.remove(this.switcherListener);
           break;
-        default:
-          _common_local_storage__WEBPACK_IMPORTED_MODULE_1__.lStorage.put('settings', _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getSettings());
-          _common_state__WEBPACK_IMPORTED_MODULE_2__.state.onUpdate.remove(this.switcherListener);
       }
     };
     _common_state__WEBPACK_IMPORTED_MODULE_2__.state.onUpdate.add(this.switcherListener);
@@ -2341,8 +2332,6 @@ class Volume extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
           break;
         case _common_state_types__WEBPACK_IMPORTED_MODULE_5__.StateOptions.changeLanguage:
           _common_state__WEBPACK_IMPORTED_MODULE_4__.state.onUpdate.remove(this.volumeListener);
-        default:
-          _common_local_storage__WEBPACK_IMPORTED_MODULE_6__.lStorage.put('settings', _common_state__WEBPACK_IMPORTED_MODULE_4__.state.getSettings());
       }
     };
     _common_state__WEBPACK_IMPORTED_MODULE_4__.state.onUpdate.add(this.volumeListener);
@@ -2353,6 +2342,7 @@ class Volume extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
   setVolume(value) {
     _common_state__WEBPACK_IMPORTED_MODULE_4__.state.setLastVolume(value);
     _common_state__WEBPACK_IMPORTED_MODULE_4__.state.setVolume(value);
+    _common_local_storage__WEBPACK_IMPORTED_MODULE_6__.lStorage.put('settings', _common_state__WEBPACK_IMPORTED_MODULE_4__.state.getSettings());
   }
   showChanges(input, icon) {
     const value = _common_state__WEBPACK_IMPORTED_MODULE_4__.state.getVolume();
@@ -2375,6 +2365,7 @@ class Volume extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     } else {
       _common_state__WEBPACK_IMPORTED_MODULE_4__.state.setVolume(_common_state__WEBPACK_IMPORTED_MODULE_4__.state.getLastVolume());
     }
+    _common_local_storage__WEBPACK_IMPORTED_MODULE_6__.lStorage.put('settings', _common_state__WEBPACK_IMPORTED_MODULE_4__.state.getSettings());
   }
 }
 
@@ -4552,4 +4543,4 @@ module.exports = __webpack_require__.p + "assets/volume-on.svg";
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=bundle-cbb6343759bb65568d86.js.map
+//# sourceMappingURL=bundle-0e62bf24057deebc5a38.js.map

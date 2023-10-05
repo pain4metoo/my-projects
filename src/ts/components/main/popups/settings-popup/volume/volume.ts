@@ -38,6 +38,7 @@ export class Volume extends Control {
     state.setLastVolume(value);
     state.setVolume(value);
     lStorage.put('settings', state.getSettings());
+    this.showChanges();
   }
 
   public showChanges(): void {
@@ -65,5 +66,7 @@ export class Volume extends Control {
       state.setVolume(state.getLastVolume());
     }
     lStorage.put('settings', state.getSettings());
+
+    this.showChanges();
   }
 }

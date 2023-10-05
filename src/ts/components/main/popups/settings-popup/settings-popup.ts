@@ -43,9 +43,6 @@ export class SettingsPopup extends Control {
 
     this.settingsPopupListener = (type: StateOptions): void => {
       switch (type) {
-        case StateOptions.changeVolume:
-          volume.showChanges();
-          break;
         case StateOptions.changeTheme:
           theme.changeTheme();
           break;

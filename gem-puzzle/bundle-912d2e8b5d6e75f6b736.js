@@ -216,6 +216,7 @@ class Signal {
   }
   remove(listener) {
     this.listeners = this.listeners.filter(elem => elem !== listener);
+    console.log(this.listeners);
   }
   emit(params) {
     this.listeners.forEach(listener => listener(params));
@@ -345,9 +346,6 @@ class State {
   getMoveCounter() {
     return this._data.gameSettings.moveCounter;
   }
-  getState() {
-    return this._data;
-  }
   setStartGame() {
     this._data.gameSettings.isStartGame = true;
     state.onUpdate.emit(_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.startGame);
@@ -391,9 +389,6 @@ class State {
   }
   shuffleStop() {
     state.onUpdate.emit(_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.shuffleStop);
-  }
-  collectBtnEnable() {
-    state.onUpdate.emit(_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.collectBtnOff);
   }
   collectBtnDisable() {
     state.onUpdate.emit(_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.collectBtnOn);
@@ -443,12 +438,6 @@ class State {
   }
   setCollectState(flag) {
     this._data.gameSettings.isCollectStart = flag;
-  }
-  getCollectState() {
-    return this._data.gameSettings.isCollectStart;
-  }
-  getResults() {
-    return this._data.gameSettings.results;
   }
   clearResults() {
     state.onUpdate.emit(_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.clearLocalStorage);
@@ -552,12 +541,6 @@ class State {
       }
     }
     this.closeWarningPopup();
-  }
-  setBlockField() {
-    state.onUpdate.emit(_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.blockField);
-  }
-  setUnblockField() {
-    state.onUpdate.emit(_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.unBlockField);
   }
   openBurgerMenu() {
     state.onUpdate.emit(_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.openBurgerMenu);
@@ -2102,6 +2085,21 @@ class SettingsPopup extends _common_control__WEBPACK_IMPORTED_MODULE_0__["defaul
     const volume = new _volume_volume__WEBPACK_IMPORTED_MODULE_6__.Volume(sound.node);
     this.settingsPopupListener = type => {
       switch (type) {
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeVolume:
+          volume.showChanges();
+          break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeTheme:
+          theme.changeTheme();
+          break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeAnimation:
+          animation.changeAnimation();
+          break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeLanguage:
+          language.changeLanguage();
+          break;
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeSound:
+          sound.changeSound();
+          break;
         case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeLanguage:
           _common_state__WEBPACK_IMPORTED_MODULE_2__.state.onUpdate.remove(this.settingsPopupListener);
           settingsTitle.node.textContent = _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? 'Settings' : 'Настройки';
@@ -2131,11 +2129,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_control__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../common/control */ "./src/ts/common/control.ts");
 /* harmony import */ var _common_local_storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../common/local-storage */ "./src/ts/common/local-storage.ts");
 /* harmony import */ var _common_state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../common/state */ "./src/ts/common/state.ts");
-/* harmony import */ var _common_state_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../common/state-types */ "./src/ts/common/state-types.ts");
-/* harmony import */ var _game_soundControl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../game/soundControl */ "./src/ts/components/main/game/soundControl.ts");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../index */ "./src/index.ts");
-/* harmony import */ var _switcher_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./switcher.scss */ "./src/ts/components/main/popups/settings-popup/swither/switcher.scss");
-
+/* harmony import */ var _game_soundControl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../game/soundControl */ "./src/ts/components/main/game/soundControl.ts");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../index */ "./src/index.ts");
+/* harmony import */ var _switcher_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./switcher.scss */ "./src/ts/components/main/popups/settings-popup/swither/switcher.scss");
 
 
 
@@ -2159,65 +2155,59 @@ var SwitcherTitlesRU;
 class Switcher extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor(parentNode, argSwitcher) {
     super(parentNode, 'div', 'switcher');
+    this.argSwitcher = argSwitcher;
     const title = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'h3', 'switcher_title', argSwitcher.title);
     const switcherInner = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'div', 'switcher_inner');
     const label = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](switcherInner.node, 'label', 'switcher_switch');
     const input = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](label.node, 'input', 'switcher_checkbox');
     input.node.type = 'checkbox';
     input.node.onclick = () => this.onChange(input.node.checked, argSwitcher.title);
+    this.input = input;
     const span = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](label.node, 'span', 'switcher_slider');
     const switcherValue = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](switcherInner.node, 'p', 'switcher_value');
+    this.switcherValue = switcherValue;
     this.initIdentifyStates(input.node, argSwitcher.values, switcherValue.node, argSwitcher.title);
-    this.switcherListener = type => {
-      switch (type) {
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeTheme:
-          if (argSwitcher.title === SwitcherTitles.Theme || argSwitcher.title === SwitcherTitlesRU.Theme) {
-            _index__WEBPACK_IMPORTED_MODULE_5__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_4__.SoundTypes.input);
-            if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getTheme()) {
-              switcherValue.node.textContent = argSwitcher.values[1];
-            } else {
-              switcherValue.node.textContent = argSwitcher.values[0];
-            }
-          }
-          break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeAnimation:
-          if (argSwitcher.title === SwitcherTitles.Animation || argSwitcher.title === SwitcherTitlesRU.Animation) {
-            _index__WEBPACK_IMPORTED_MODULE_5__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_4__.SoundTypes.input);
-            if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getAnimation()) {
-              switcherValue.node.textContent = argSwitcher.values[0];
-            } else {
-              switcherValue.node.textContent = argSwitcher.values[1];
-            }
-          }
-          break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeLanguage:
-          if (argSwitcher.title === SwitcherTitles.Language || argSwitcher.title === SwitcherTitlesRU.Language) {
-            _index__WEBPACK_IMPORTED_MODULE_5__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_4__.SoundTypes.input);
-            if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage()) {
-              switcherValue.node.textContent = argSwitcher.values[0];
-            } else {
-              switcherValue.node.textContent = argSwitcher.values[1];
-            }
-          }
-          _common_state__WEBPACK_IMPORTED_MODULE_2__.state.onUpdate.remove(this.switcherListener);
-          break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeSound:
-          if (argSwitcher.title === SwitcherTitles.Sound || argSwitcher.title === SwitcherTitlesRU.Sound) {
-            if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getSound()) {
-              switcherValue.node.textContent = argSwitcher.values[0];
-              input.node.checked = true;
-            } else {
-              switcherValue.node.textContent = argSwitcher.values[1];
-              input.node.checked = false;
-            }
-          }
-          break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.closePopup:
-          _common_state__WEBPACK_IMPORTED_MODULE_2__.state.onUpdate.remove(this.switcherListener);
-          break;
+  }
+  changeTheme() {
+    if (this.argSwitcher.title === SwitcherTitles.Theme || this.argSwitcher.title === SwitcherTitlesRU.Theme) {
+      _index__WEBPACK_IMPORTED_MODULE_4__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_3__.SoundTypes.input);
+      if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getTheme()) {
+        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+      } else {
+        this.switcherValue.node.textContent = this.argSwitcher.values[0];
       }
-    };
-    _common_state__WEBPACK_IMPORTED_MODULE_2__.state.onUpdate.add(this.switcherListener);
+    }
+  }
+  changeAnimation() {
+    if (this.argSwitcher.title === SwitcherTitles.Animation || this.argSwitcher.title === SwitcherTitlesRU.Animation) {
+      _index__WEBPACK_IMPORTED_MODULE_4__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_3__.SoundTypes.input);
+      if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getAnimation()) {
+        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+      } else {
+        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+      }
+    }
+  }
+  changeLanguage() {
+    if (this.argSwitcher.title === SwitcherTitles.Language || this.argSwitcher.title === SwitcherTitlesRU.Language) {
+      _index__WEBPACK_IMPORTED_MODULE_4__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_3__.SoundTypes.input);
+      if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage()) {
+        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+      } else {
+        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+      }
+    }
+  }
+  changeSound() {
+    if (this.argSwitcher.title === SwitcherTitles.Sound || this.argSwitcher.title === SwitcherTitlesRU.Sound) {
+      if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getSound()) {
+        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+        this.input.node.checked = true;
+      } else {
+        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+        this.input.node.checked = false;
+      }
+    }
   }
   initIdentifyStates(input, valuesArr, valueTitle, type) {
     if (type === SwitcherTitles.Animation || type === SwitcherTitlesRU.Animation) {
@@ -2296,11 +2286,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_svg_volume_on_svg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../assets/svg/volume-on.svg */ "./src/assets/svg/volume-on.svg");
 /* harmony import */ var _assets_svg_volume_off_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../assets/svg/volume-off.svg */ "./src/assets/svg/volume-off.svg");
 /* harmony import */ var _common_state__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../common/state */ "./src/ts/common/state.ts");
-/* harmony import */ var _common_state_types__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../common/state-types */ "./src/ts/common/state-types.ts");
-/* harmony import */ var _common_local_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../common/local-storage */ "./src/ts/common/local-storage.ts");
-/* harmony import */ var _game_soundControl__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../game/soundControl */ "./src/ts/components/main/game/soundControl.ts");
-/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../../index */ "./src/index.ts");
-
+/* harmony import */ var _common_local_storage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../common/local-storage */ "./src/ts/common/local-storage.ts");
+/* harmony import */ var _game_soundControl__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../game/soundControl */ "./src/ts/components/main/game/soundControl.ts");
+/* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../../index */ "./src/index.ts");
 
 
 
@@ -2316,48 +2304,37 @@ class Volume extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     volumeIcon.node.alt = 'volume';
     volumeIcon.node.src = _common_state__WEBPACK_IMPORTED_MODULE_4__.state.getVolume() === '0' ? _assets_svg_volume_off_svg__WEBPACK_IMPORTED_MODULE_3__ : _assets_svg_volume_on_svg__WEBPACK_IMPORTED_MODULE_2__;
     volumeIcon.node.onclick = () => this.onToggleVolume();
+    this.icon = volumeIcon.node;
     const input = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'input', 'volume_input');
     input.node.type = 'range';
     input.node.style.background = `linear-gradient(to right, #ffa500 ${_common_state__WEBPACK_IMPORTED_MODULE_4__.state.getVolume()}%, #ffa500 0%, #fff ${_common_state__WEBPACK_IMPORTED_MODULE_4__.state.getVolume()}%, white 100%)`;
     input.node.value = _common_state__WEBPACK_IMPORTED_MODULE_4__.state.getVolume();
     input.node.oninput = () => this.setVolume(input.node.value);
     input.node.onchange = () => this.playSound();
-    this.volumeListener = type => {
-      switch (type) {
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_5__.StateOptions.changeVolume:
-          this.showChanges(input.node, volumeIcon.node);
-          break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_5__.StateOptions.closePopup:
-          _common_state__WEBPACK_IMPORTED_MODULE_4__.state.onUpdate.remove(this.volumeListener);
-          break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_5__.StateOptions.changeLanguage:
-          _common_state__WEBPACK_IMPORTED_MODULE_4__.state.onUpdate.remove(this.volumeListener);
-      }
-    };
-    _common_state__WEBPACK_IMPORTED_MODULE_4__.state.onUpdate.add(this.volumeListener);
+    this.input = input.node;
   }
   playSound() {
-    _index__WEBPACK_IMPORTED_MODULE_8__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_7__.SoundTypes.volume);
+    _index__WEBPACK_IMPORTED_MODULE_7__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_6__.SoundTypes.volume);
   }
   setVolume(value) {
     _common_state__WEBPACK_IMPORTED_MODULE_4__.state.setLastVolume(value);
     _common_state__WEBPACK_IMPORTED_MODULE_4__.state.setVolume(value);
-    _common_local_storage__WEBPACK_IMPORTED_MODULE_6__.lStorage.put('settings', _common_state__WEBPACK_IMPORTED_MODULE_4__.state.getSettings());
+    _common_local_storage__WEBPACK_IMPORTED_MODULE_5__.lStorage.put('settings', _common_state__WEBPACK_IMPORTED_MODULE_4__.state.getSettings());
   }
-  showChanges(input, icon) {
+  showChanges() {
     const value = _common_state__WEBPACK_IMPORTED_MODULE_4__.state.getVolume();
-    input.value = value;
-    input.style.background = `linear-gradient(to right, #ffa500 ${value}%, #ffa500 0%, #fff ${value}%, white 100%)`;
+    this.input.value = value;
+    this.input.style.background = `linear-gradient(to right, #ffa500 ${value}%, #ffa500 0%, #fff ${value}%, white 100%)`;
     if (+value === 0) {
-      icon.src = _assets_svg_volume_off_svg__WEBPACK_IMPORTED_MODULE_3__;
+      this.icon.src = _assets_svg_volume_off_svg__WEBPACK_IMPORTED_MODULE_3__;
       _common_state__WEBPACK_IMPORTED_MODULE_4__.state.setSound(false);
     } else {
-      icon.src = _assets_svg_volume_on_svg__WEBPACK_IMPORTED_MODULE_2__;
+      this.icon.src = _assets_svg_volume_on_svg__WEBPACK_IMPORTED_MODULE_2__;
       _common_state__WEBPACK_IMPORTED_MODULE_4__.state.setSound(true);
     }
   }
   onToggleVolume() {
-    _index__WEBPACK_IMPORTED_MODULE_8__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_7__.SoundTypes.btn);
+    _index__WEBPACK_IMPORTED_MODULE_7__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_6__.SoundTypes.btn);
     const volume = _common_state__WEBPACK_IMPORTED_MODULE_4__.state.getVolume();
     if (+volume > 0) {
       _common_state__WEBPACK_IMPORTED_MODULE_4__.state.setLastVolume(volume);
@@ -2365,7 +2342,7 @@ class Volume extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     } else {
       _common_state__WEBPACK_IMPORTED_MODULE_4__.state.setVolume(_common_state__WEBPACK_IMPORTED_MODULE_4__.state.getLastVolume());
     }
-    _common_local_storage__WEBPACK_IMPORTED_MODULE_6__.lStorage.put('settings', _common_state__WEBPACK_IMPORTED_MODULE_4__.state.getSettings());
+    _common_local_storage__WEBPACK_IMPORTED_MODULE_5__.lStorage.put('settings', _common_state__WEBPACK_IMPORTED_MODULE_4__.state.getSettings());
   }
 }
 
@@ -4543,4 +4520,4 @@ module.exports = __webpack_require__.p + "assets/volume-on.svg";
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=bundle-0fd2d1fa5539ee32a056.js.map
+//# sourceMappingURL=bundle-912d2e8b5d6e75f6b736.js.map

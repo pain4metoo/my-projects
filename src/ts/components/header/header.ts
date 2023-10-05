@@ -4,7 +4,6 @@ import { StateOptions } from '../../common/state-types';
 import { SoundTypes } from '../main/game/soundControl';
 import { soundControl } from '../../../index';
 import './header.scss';
-import { TList, correctTranslater } from '../../common/language';
 
 enum NavItem {
   Restart = 'restart',
@@ -39,81 +38,35 @@ export class Header extends Control {
     const burgerItem1 = new Control(burgerMenu.node, 'div', 'header_burger_item');
     burgerMenu.node.onclick = (): void => this.openBurgerMenu(navList.node, burgerItem.node, burgerItem1.node);
 
-    this.headerListener = (type: StateOptions): void => {
-      switch (type) {
-        case StateOptions.shuffleStart:
-          this.stateButtons(true);
-          break;
-        case StateOptions.shuffleStop:
-          this.stateButtons(false);
-          break;
-        case StateOptions.stopBtnDisable:
-          this.stateStopBtn(true);
-          mobileStopBtn.node.disabled = true;
-          break;
-        case StateOptions.stopBtnEnable:
-          this.stateStopBtn(false);
-          mobileStopBtn.node.disabled = false;
-          break;
-        case StateOptions.changeLanguage:
-          this.switchLang(state.getLanguage());
-          mobileStopBtn.node.textContent = `${state.getLanguage() ? 'stop' : 'стоп'}`;
-          break;
-        case StateOptions.resetSettings:
-          this.switchLang(state.getLanguage());
-          break;
-        case StateOptions.closePopup:
-          // ignoring the stop button and restart button at index 0 and 1
-          this.navItemsHtmlElements.forEach((el: HTMLElement, i): void => {
-            if (el.classList.contains('header_item_btn_active') && i !== 1 && i !== 0) {
-              el.classList.remove('header_item_btn_active');
-            }
-          });
-          break;
-        case StateOptions.unBlockField:
-          this.navItemsHtmlElements.forEach((el: HTMLElement): void => {
-            if (el.classList.contains('header_item_btn_active')) {
-              el.classList.remove('header_item_btn_active');
-            }
-            mobileStopBtn.node.classList.remove('header_mobile_btn_active');
-          });
-          break;
-        case StateOptions.startGame:
-          this.navItemsHtmlElements.forEach((el: HTMLElement): void => {
-            if (el.classList.contains('header_item_btn_active')) {
-              el.classList.remove('header_item_btn_active');
-            }
-            mobileStopBtn.node.classList.remove('header_mobile_btn_active');
-          });
-          break;
-        case StateOptions.newGame:
-          this.navItemsHtmlElements[0].classList.add('header_item_btn_active');
-          break;
-      }
-    };
-
+    // create buttons
     this.navItems.forEach((navLink: string) => {
       const navItem = new Control(navList.node, 'li', 'header_list_item');
-      const navItemLink: Control<HTMLButtonElement> = new Control(navItem.node, 'button', 'header_item_btn', navLink);
+      const navItemLink: Control<HTMLButtonElement> = new Control(navItem.node, 'button', 'header_item_btn');
       this.navItemsHtmlElements.push(navItemLink.node);
 
       switch (navLink) {
         case NavItem.Restart:
+          navItemLink.node.textContent = state.getLanguage() ? 'restart' : 'рестарт';
           navItem.node.onclick = (): void => {
             soundControl.playSound(SoundTypes.collect);
             state.setNewGame();
             this.closeBurgerMenu(navList.node, burgerItem.node, burgerItem1.node);
             state.closeBurgerMenu();
+            navItemLink.node.classList.add('header_item_btn_active');
           };
           break;
         case NavItem.Stop:
+          navItemLink.node.textContent = state.getLanguage() ? 'stop' : 'стоп';
+          navItemLink.node.disabled = true;
           navItem.node.onclick = (): void => {
             soundControl.playSound(SoundTypes.btn);
             navItemLink.node.classList.add('header_item_btn_active');
             state.setStopGame();
+            navItemLink.node.disabled = true;
           };
           break;
         case NavItem.Results:
+          navItemLink.node.textContent = state.getLanguage() ? 'results' : 'результаты';
           navItem.node.onclick = (): void => {
             soundControl.playSound(SoundTypes.popup);
             navItemLink.node.classList.add('header_item_btn_active');
@@ -123,6 +76,7 @@ export class Header extends Control {
           };
           break;
         case NavItem.Settings:
+          navItemLink.node.textContent = state.getLanguage() ? 'settings' : 'настройки';
           navItem.node.onclick = (): void => {
             soundControl.playSound(SoundTypes.popup);
             navItemLink.node.classList.add('header_item_btn_active');
@@ -134,9 +88,67 @@ export class Header extends Control {
       }
     });
 
-    this.navItemsHtmlElements[1].disabled = true;
-    this.switchLang(state.getLanguage());
+    this.headerListener = (type: StateOptions): void => {
+      switch (type) {
+        case StateOptions.startGame:
+          this.changeStateStopBtn(mobileStopBtn.node, false);
+          break;
+
+        case StateOptions.stopBtnEnable:
+          this.changeStateStopBtn(mobileStopBtn.node, false);
+          this.navItemsHtmlElements[1].classList.remove('header_item_btn_active');
+          mobileStopBtn.node.classList.remove('header_mobile_btn_active');
+          break;
+
+        case StateOptions.stopBtnDisable:
+          this.changeStateStopBtn(mobileStopBtn.node, true);
+          break;
+
+        case StateOptions.shuffleStart:
+          this.changeStateButtons(true);
+          this.changeStateStopBtn(mobileStopBtn.node, true);
+          this.navItemsHtmlElements[1].classList.remove('header_item_btn_active');
+          mobileStopBtn.node.classList.remove('header_mobile_btn_active');
+          this.navItemsHtmlElements[0].classList.add('header_item_btn_active');
+          break;
+
+        case StateOptions.shuffleStop:
+          this.changeStateButtons(false);
+          this.navItemsHtmlElements[0].classList.remove('header_item_btn_active');
+          break;
+
+        case StateOptions.closePopup:
+          this.navItemsHtmlElements[2].classList.remove('header_item_btn_active');
+          this.navItemsHtmlElements[3].classList.remove('header_item_btn_active');
+          break;
+
+        case StateOptions.changeLanguage:
+          this.changeLanguage(mobileStopBtn.node);
+          break;
+      }
+    };
+
     state.onUpdate.add(this.headerListener);
+  }
+
+  private changeStateStopBtn(mobileBtn: HTMLButtonElement, flag: boolean) {
+    if (flag) {
+      this.navItemsHtmlElements[1].disabled = true;
+      mobileBtn.disabled = true;
+    } else {
+      this.navItemsHtmlElements[1].disabled = false;
+      mobileBtn.disabled = false;
+    }
+  }
+
+  private showSettings(): void {
+    state.createPopup();
+    state.openSettings();
+  }
+
+  private showResultPopup(): void {
+    state.createPopup();
+    state.showResultPopup();
   }
 
   private openBurgerMenu(menu: HTMLElement, item1: HTMLElement, item2: HTMLElement): void {
@@ -158,31 +170,28 @@ export class Header extends Control {
     menu.classList.remove('header_list_show');
   }
 
-  private switchLang(currentLang: boolean): void {
+  private changeStateButtons(flag: boolean): void {
     this.navItemsHtmlElements.forEach((el, i) => {
-      el.textContent = correctTranslater(currentLang, TList.header)[i];
-    });
-  }
-
-  private showSettings(): void {
-    state.createPopup();
-    state.openSettings();
-  }
-
-  private showResultPopup(): void {
-    state.createPopup();
-    state.showResultPopup();
-  }
-
-  private stateButtons(flag: boolean): void {
-    this.navItemsHtmlElements.forEach((el: HTMLButtonElement, i) => {
+      // skip stop btn
       if (i !== 1) {
         flag ? (el.disabled = true) : (el.disabled = false);
       }
     });
   }
 
-  private stateStopBtn(flag: boolean): void {
-    flag ? (this.navItemsHtmlElements[1].disabled = true) : (this.navItemsHtmlElements[1].disabled = false); // change stopBtn
+  private changeLanguage(mobileBtn: HTMLButtonElement): void {
+    const lang = state.getLanguage();
+
+    if (lang) {
+      this.navItems.forEach((el, i) => {
+        this.navItemsHtmlElements[i].textContent = el;
+      });
+    } else {
+      this.navItemsHtmlElements[0].textContent = 'рестарт';
+      this.navItemsHtmlElements[1].textContent = 'стоп';
+      this.navItemsHtmlElements[2].textContent = 'результаты';
+      this.navItemsHtmlElements[3].textContent = 'настройки';
+      mobileBtn.textContent = 'стоп';
+    }
   }
 }

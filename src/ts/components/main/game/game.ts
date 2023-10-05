@@ -78,7 +78,6 @@ export class Game extends Control {
     const maxShuffle = this.getRandomShuffleCount();
     let counter = 0;
 
-    state.stopBtnDisable();
     state.shuffleStart();
     state.startCollectTimer();
     this.changeStateGameField(true);

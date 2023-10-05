@@ -11,6 +11,7 @@ class Signal<ListenerType> {
 
   public remove(listener: (params: ListenerType) => void): void {
     this.listeners = this.listeners.filter(elem => elem !== listener);
+    console.log(this.listeners);
   }
 
   public emit(params: ListenerType): void {

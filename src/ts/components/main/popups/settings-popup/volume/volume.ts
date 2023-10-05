@@ -9,7 +9,8 @@ import { SoundTypes } from '../../../game/soundControl';
 import { soundControl } from '../../../../../../index';
 
 export class Volume extends Control {
-  private volumeListener: (type: StateOptions) => void;
+  private input: HTMLInputElement;
+  private icon: HTMLImageElement;
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'volume');
@@ -18,6 +19,7 @@ export class Volume extends Control {
     volumeIcon.node.alt = 'volume';
     volumeIcon.node.src = state.getVolume() === '0' ? volumeOff : volumeOn;
     volumeIcon.node.onclick = (): void => this.onToggleVolume();
+    this.icon = volumeIcon.node;
 
     const input: Control<HTMLInputElement> = new Control(this.node, 'input', 'volume_input');
     input.node.type = 'range';
@@ -25,21 +27,7 @@ export class Volume extends Control {
     input.node.value = state.getVolume();
     input.node.oninput = (): void => this.setVolume(input.node.value);
     input.node.onchange = (): void => this.playSound();
-
-    this.volumeListener = (type: StateOptions): void => {
-      switch (type) {
-        case StateOptions.changeVolume:
-          this.showChanges(input.node, volumeIcon.node);
-          break;
-        case StateOptions.closePopup:
-          state.onUpdate.remove(this.volumeListener);
-          break;
-        case StateOptions.changeLanguage:
-          state.onUpdate.remove(this.volumeListener);
-      }
-    };
-
-    state.onUpdate.add(this.volumeListener);
+    this.input = input.node;
   }
 
   private playSound(): void {
@@ -52,17 +40,17 @@ export class Volume extends Control {
     lStorage.put('settings', state.getSettings());
   }
 
-  private showChanges(input: HTMLInputElement, icon: HTMLImageElement): void {
+  public showChanges(): void {
     const value = state.getVolume();
 
-    input.value = value;
-    input.style.background = `linear-gradient(to right, #ffa500 ${value}%, #ffa500 0%, #fff ${value}%, white 100%)`;
+    this.input.value = value;
+    this.input.style.background = `linear-gradient(to right, #ffa500 ${value}%, #ffa500 0%, #fff ${value}%, white 100%)`;
 
     if (+value === 0) {
-      icon.src = volumeOff;
+      this.icon.src = volumeOff;
       state.setSound(false);
     } else {
-      icon.src = volumeOn;
+      this.icon.src = volumeOn;
       state.setSound(true);
     }
   }

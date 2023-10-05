@@ -43,6 +43,21 @@ export class SettingsPopup extends Control {
 
     this.settingsPopupListener = (type: StateOptions): void => {
       switch (type) {
+        case StateOptions.changeVolume:
+          volume.showChanges();
+          break;
+        case StateOptions.changeTheme:
+          theme.changeTheme();
+          break;
+        case StateOptions.changeAnimation:
+          animation.changeAnimation();
+          break;
+        case StateOptions.changeLanguage:
+          language.changeLanguage();
+          break;
+        case StateOptions.changeSound:
+          sound.changeSound();
+          break;
         case StateOptions.changeLanguage:
           state.onUpdate.remove(this.settingsPopupListener);
           settingsTitle.node.textContent = state.getLanguage() ? 'Settings' : 'Настройки';

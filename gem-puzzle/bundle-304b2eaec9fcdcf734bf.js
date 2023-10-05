@@ -2085,9 +2085,6 @@ class SettingsPopup extends _common_control__WEBPACK_IMPORTED_MODULE_0__["defaul
     const volume = new _volume_volume__WEBPACK_IMPORTED_MODULE_6__.Volume(sound.node);
     this.settingsPopupListener = type => {
       switch (type) {
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeVolume:
-          volume.showChanges();
-          break;
         case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeTheme:
           theme.changeTheme();
           break;
@@ -2320,6 +2317,7 @@ class Volume extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
     _common_state__WEBPACK_IMPORTED_MODULE_4__.state.setLastVolume(value);
     _common_state__WEBPACK_IMPORTED_MODULE_4__.state.setVolume(value);
     _common_local_storage__WEBPACK_IMPORTED_MODULE_5__.lStorage.put('settings', _common_state__WEBPACK_IMPORTED_MODULE_4__.state.getSettings());
+    this.showChanges();
   }
   showChanges() {
     const value = _common_state__WEBPACK_IMPORTED_MODULE_4__.state.getVolume();
@@ -2343,6 +2341,7 @@ class Volume extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
       _common_state__WEBPACK_IMPORTED_MODULE_4__.state.setVolume(_common_state__WEBPACK_IMPORTED_MODULE_4__.state.getLastVolume());
     }
     _common_local_storage__WEBPACK_IMPORTED_MODULE_5__.lStorage.put('settings', _common_state__WEBPACK_IMPORTED_MODULE_4__.state.getSettings());
+    this.showChanges();
   }
 }
 
@@ -4520,4 +4519,4 @@ module.exports = __webpack_require__.p + "assets/volume-on.svg";
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=bundle-912d2e8b5d6e75f6b736.js.map
+//# sourceMappingURL=bundle-304b2eaec9fcdcf734bf.js.map

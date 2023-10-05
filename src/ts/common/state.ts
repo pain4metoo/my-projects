@@ -62,10 +62,6 @@ class State {
     return this._data.gameSettings.moveCounter;
   }
 
-  public getState(): StateData {
-    return this._data;
-  }
-
   public setStartGame(): void {
     this._data.gameSettings.isStartGame = true;
     state.onUpdate.emit(StateOptions.startGame);
@@ -121,10 +117,6 @@ class State {
 
   public shuffleStop(): void {
     state.onUpdate.emit(StateOptions.shuffleStop);
-  }
-
-  public collectBtnEnable(): void {
-    state.onUpdate.emit(StateOptions.collectBtnOff);
   }
 
   public collectBtnDisable(): void {
@@ -189,14 +181,6 @@ class State {
 
   public setCollectState(flag: boolean): void {
     this._data.gameSettings.isCollectStart = flag;
-  }
-
-  public getCollectState(): boolean {
-    return this._data.gameSettings.isCollectStart;
-  }
-
-  public getResults(): Array<Result> {
-    return this._data.gameSettings.results;
   }
 
   public clearResults(): void {
@@ -325,14 +309,6 @@ class State {
       }
     }
     this.closeWarningPopup();
-  }
-
-  public setBlockField(): void {
-    state.onUpdate.emit(StateOptions.blockField);
-  }
-
-  public setUnblockField(): void {
-    state.onUpdate.emit(StateOptions.unBlockField);
   }
 
   public openBurgerMenu(): void {

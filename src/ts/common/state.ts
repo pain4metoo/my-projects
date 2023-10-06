@@ -318,6 +318,14 @@ class State {
   public closeBurgerMenu(): void {
     state.onUpdate.emit(StateOptions.closeBurgerMenu);
   }
+
+  public setGameAnimation(): void {
+    state.onUpdate.emit(StateOptions.setGameAnimation);
+  }
+
+  public removGametAnimation(): void {
+    state.onUpdate.emit(StateOptions.removeGameAnimation);
+  }
 }
 
 const initialState: StateData = {

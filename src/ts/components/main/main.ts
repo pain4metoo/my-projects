@@ -15,15 +15,14 @@ export class Main extends Control {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'main', 'main');
 
-    const sectionCounter = new Counter(this.node);
-
-    const sectionGameContainer = new Control(this.node, 'section', 'main_game');
-    let sectionGame = new Game(sectionGameContainer.node);
-
-    const sectionFrameSize = new FrameSize(this.node);
-
     this.mainListener = (type: StateOptions): void => {
       switch (type) {
+        case StateOptions.setGameAnimation:
+          sectionGameContainer.node.classList.add('main_game_animation');
+          break;
+        case StateOptions.removeGameAnimation:
+          sectionGameContainer.node.classList.remove('main_game_animation');
+          break;
         case StateOptions.newGame:
           sectionGame.destroy();
           sectionGame = new Game(sectionGameContainer.node);
@@ -51,5 +50,12 @@ export class Main extends Control {
     };
 
     state.onUpdate.add(this.mainListener);
+
+    const sectionCounter = new Counter(this.node);
+
+    const sectionGameContainer = new Control(this.node, 'section', 'main_game');
+    let sectionGame = new Game(sectionGameContainer.node);
+
+    const sectionFrameSize = new FrameSize(this.node);
   }
 }

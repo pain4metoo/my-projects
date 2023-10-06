@@ -24,9 +24,6 @@ export class Game extends Control {
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'main_game_container');
-
-    this.createGame();
-
     this.gameListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.newGame:
@@ -48,10 +45,18 @@ export class Game extends Control {
         case StateOptions.deleteTargetFromStorage:
           this.deleteResult(state.getDeleteTargetFromStorage());
           break;
+        case StateOptions.setGameAnimation:
+          this.node.classList.add('main_game_container_animation');
+          break;
+        case StateOptions.removeGameAnimation:
+          this.node.classList.remove('main_game_container_animation');
+          break;
       }
     };
 
     state.onUpdate.add(this.gameListener);
+
+    this.createGame();
   }
 
   private createGame(): void {
@@ -77,19 +82,18 @@ export class Game extends Control {
   private shuffleCycle(): void {
     const maxShuffle = this.getRandomShuffleCount();
     let counter = 0;
-
     state.shuffleStart();
     state.startCollectTimer();
     this.changeStateGameField(true);
-
+    state.setGameAnimation();
     const handle = setInterval((): void => {
       this.singleStrokeCycle();
-
       if (counter === maxShuffle) {
         clearInterval(handle); // stops intervals
         this.changeStateGameField(false);
         soundControl.pauseSound();
         state.stopCollectTimer();
+        state.removGametAnimation();
         state.shuffleStop();
         this.handlerDragAndDrop(state.getGameField().flat());
       }

@@ -71,4 +71,6 @@ export enum StateOptions {
   unBlockField = 'unblock-field',
   openBurgerMenu = 'open-burger-menu',
   closeBurgerMenu = 'close-burger-menu',
+  setGameAnimation = 'set-game-animation',
+  removeGameAnimation = 'remove-game-animation',
 }

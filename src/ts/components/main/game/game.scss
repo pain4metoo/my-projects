@@ -1,4 +1,5 @@
 @import '../../../../assets/../style/variables.scss';
+@import './game-animation.scss';
 
 .main_game {
   margin: 0 auto;
@@ -19,6 +20,7 @@
     background: rgba(20, 19, 17, 0.64);
     backdrop-filter: blur(5px);
     box-shadow: 0rem 0rem 8rem 4rem #fff;
+    position: relative;
     &_3x3 {
       grid-template-columns: repeat(3, 1fr);
     }
@@ -37,6 +39,12 @@
     &_8x8 {
       grid-template-columns: repeat(8, 1fr);
     }
+  }
+  &_container_animation {
+    animation-name: white-shadow;
+    animation-timing-function: ease;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
   }
   &_square {
     font-size: 4.8rem;

@@ -22,14 +22,21 @@ export class Game extends Control {
 
   public results = (lStorage.get('results') as Array<Result>) || [];
 
+  private queueEL: Array<HTMLElement> = [];
+  private queueFontSize: Array<string> = [];
+
+  private intervalExtremeMode!: number;
+
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'main_game_container');
     this.gameListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.newGame:
           state.onUpdate.remove(this.gameListener);
+          this.removeExtremeMode();
           break;
         case StateOptions.winGame:
+          this.removeExtremeMode();
           if (state.getIsWinGame()) {
             this.node.classList.add('main_game_over');
           } else {
@@ -37,6 +44,7 @@ export class Game extends Control {
           }
           break;
         case StateOptions.collectPuzzle:
+          this.removeExtremeMode();
           this.collectPazzle();
           break;
         case StateOptions.clearLocalStorage:
@@ -45,9 +53,12 @@ export class Game extends Control {
         case StateOptions.deleteTargetFromStorage:
           this.deleteResult(state.getDeleteTargetFromStorage());
           break;
+        case StateOptions.setMove:
+          this.isExtremeMode();
+          break;
         case StateOptions.changeGameMode:
           if (!state.getGameMode()) {
-            this.extremeMode();
+            this.removeExtremeMode();
           }
           break;
       }
@@ -165,29 +176,59 @@ export class Game extends Control {
     return filterAvailableMoves[randomNumberforMove]; // choose a random one from the remaining
   }
 
-  private extremeMode(): void {
-    const queueEL: Array<HTMLElement> = [];
-    const queueFontSize: Array<string> = [];
-    const handle = setInterval(() => {
+  private isExtremeMode(): void {
+    if (state.getGameMode() && !state.getStartGameMode()) {
+      state.setStartGameMode(true);
+      this.onExtremeMode();
+    } else {
       if (!state.getGameMode()) {
-        queueEL.forEach((el, i) => {
-          el.style.fontSize = `${queueFontSize[i]}`;
-        });
-        clearInterval(handle);
+        state.setStartGameMode(false);
+        this.removeExtremeMode();
       }
-      const randomSquare = Math.ceil(Math.random() * this.gameSquareHTML.length - 1);
-      queueEL.push(this.gameSquareHTML[randomSquare]);
-      queueFontSize.push(window.getComputedStyle(this.gameSquareHTML[randomSquare]).fontSize);
-      this.gameSquareHTML[randomSquare].style.fontSize = '0';
-      if (queueEL.length > 3) {
-        const firstEl = queueEL.shift();
-        const firstElFontSize = queueFontSize.shift();
-        if (firstEl) {
-          firstEl.style.fontSize = '4.4rem';
-          firstEl.style.fontSize = `${firstElFontSize}`;
+    }
+  }
+
+  private removeExtremeMode(): void {
+    state.setStartGameMode(false);
+    clearInterval(this.intervalExtremeMode);
+    this.queueEL.forEach((el, i) => {
+      el.style.fontSize = `${this.queueFontSize[i]}`;
+    });
+  }
+
+  private onExtremeMode(): void {
+    const timer = window.setInterval(() => this.extremeMode(), 500);
+    this.intervalExtremeMode = timer;
+  }
+
+  private extremeMode(): void {
+    const modes = [3, 6, 9, 12, 15, 18];
+    const sizeField = state.getFrameSize();
+    const randomSquare = Math.ceil(Math.random() * this.gameSquareHTML.length) - 1;
+
+    if (this.queueEL.includes(this.gameSquareHTML[randomSquare])) {
+      for (let i = 0; i < this.gameSquareHTML.length; i++) {
+        if (!this.queueEL.includes(this.gameSquareHTML[i])) {
+          this.queueEL.push(this.gameSquareHTML[i]);
+          this.queueFontSize.push(window.getComputedStyle(this.gameSquareHTML[i]).fontSize);
+          this.gameSquareHTML[i].style.fontSize = '0';
+          break;
         }
       }
-    }, 500);
+    } else {
+      this.queueEL.push(this.gameSquareHTML[randomSquare]);
+      this.queueFontSize.push(window.getComputedStyle(this.gameSquareHTML[randomSquare]).fontSize);
+      this.gameSquareHTML[randomSquare].style.fontSize = '0';
+    }
+
+    // Depending on the field, select the difficulty level
+    if (this.queueEL.length > modes[sizeField - 3]) {
+      const firstEl = this.queueEL.shift();
+      const firstElFontSize = this.queueFontSize.shift();
+      if (firstEl) {
+        firstEl.style.fontSize = `${firstElFontSize}`;
+      }
+    }
   }
 
   private makeMove(
@@ -288,9 +329,6 @@ export class Game extends Control {
   }
 
   private moveByClick(squareValue: number): void {
-    if (state.getGameMode()) {
-      this.extremeMode();
-    }
     const availableMoveArr: Array<Array<number>> = Object.values(this.availableMoves(state.getGameField()));
     availableMoveArr.forEach((el: Array<number>): void => {
       if (el[2] === squareValue) {

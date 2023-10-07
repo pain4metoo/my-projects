@@ -18,6 +18,7 @@ interface GameSettings {
   result: { moves: number; time: string; collectTime: string; collectMoves: number };
   results: Array<Result>;
   deleteTarget: number;
+  isStartHardMode: boolean;
 }
 
 export interface AppSettings {
@@ -75,4 +76,5 @@ export enum StateOptions {
   setGameAnimation = 'set-game-animation',
   removeGameAnimation = 'remove-game-animation',
   changeGameMode = 'change-game-mode',
+  setStartGameMode = 'set-start-game-mode',
 }

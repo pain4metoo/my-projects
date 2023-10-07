@@ -19,6 +19,7 @@ class State {
     this._data.gameSettings.result.moves = 0;
     this._data.gameSettings.result.time = '00:00:00';
     this._data.gameSettings.isCollectStart = false;
+    this._data.gameSettings.isStartHardMode = false;
     state.onUpdate.emit(StateOptions.newGame);
   }
 
@@ -267,6 +268,15 @@ class State {
     return this._data.appSettings.hardMode;
   }
 
+  public setStartGameMode(flag: boolean): void {
+    this._data.gameSettings.isStartHardMode = flag;
+    state.onUpdate.emit(StateOptions.setStartGameMode);
+  }
+
+  public getStartGameMode(): boolean {
+    return this._data.gameSettings.isStartHardMode;
+  }
+
   public resetSettings(): void {
     this._data.appSettings.animation = true;
     this._data.appSettings.volume = '30';
@@ -349,6 +359,7 @@ const initialState: StateData = {
     isWin: false,
     isCollectStart: false,
     deleteTarget: -1,
+    isStartHardMode: false,
     result: {
       moves: 0,
       time: '00:00:00',

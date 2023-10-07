@@ -27,6 +27,7 @@ export interface AppSettings {
   theme: boolean;
   language: boolean;
   animation: boolean;
+  hardMode: boolean;
 }
 
 export enum StateOptions {
@@ -73,4 +74,5 @@ export enum StateOptions {
   closeBurgerMenu = 'close-burger-menu',
   setGameAnimation = 'set-game-animation',
   removeGameAnimation = 'remove-game-animation',
+  changeGameMode = 'change-game-mode',
 }

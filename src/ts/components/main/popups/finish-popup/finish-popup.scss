@@ -29,3 +29,11 @@
     margin-bottom: 1rem;
   }
 }
+
+@media (max-width: 580px) {
+  .popups_finish {
+    &_title {
+      font-size: 2.5rem;
+    }
+  }
+}

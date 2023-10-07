@@ -5,9 +5,12 @@ import { Footer } from './footer/footer';
 import { Header } from './header/header';
 import { Main } from './main/main';
 import mainBG from '../../assets/image/main-bg-light.jpg';
+import fireworkIMG from '../../assets/image/firework.gif';
 
 export class App extends Control {
   private appListener: (type: StateOptions) => void;
+  private fireWork!: Control<HTMLImageElement>;
+
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'wrapper');
 
@@ -23,6 +26,17 @@ export class App extends Control {
       switch (type) {
         case StateOptions.changeLanguage:
           this.changeFontFamily(state.getLanguage(), parentNode);
+          break;
+        case StateOptions.winGame:
+          if (state.getAnimation()) {
+            this.fireWork = new Control(main.node, 'img', 'firework');
+            this.fireWork.node.src = fireworkIMG;
+          }
+          break;
+        case StateOptions.closePopup:
+          if (this.fireWork) {
+            this.fireWork.destroy();
+          }
           break;
       }
     };

@@ -16,6 +16,7 @@ export enum SwitcherTitles {
   Animation = 'Animation',
   Language = 'Language',
   Sound = 'Sound',
+  Mode = 'Mode',
 }
 
 enum SwitcherTitlesRU {
@@ -23,6 +24,7 @@ enum SwitcherTitlesRU {
   Animation = 'Анимация',
   Language = 'Язык',
   Sound = 'Звук',
+  Mode = 'Сложность',
 }
 
 export class Switcher extends Control {
@@ -96,6 +98,18 @@ export class Switcher extends Control {
     }
   }
 
+  public changeGameMode(): void {
+    if (this.argSwitcher.title === SwitcherTitles.Mode || this.argSwitcher.title === SwitcherTitlesRU.Mode) {
+      if (state.getGameMode()) {
+        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+        this.input.node.checked = true;
+      } else {
+        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+        this.input.node.checked = false;
+      }
+    }
+  }
+
   private initIdentifyStates(
     input: HTMLInputElement,
     valuesArr: Array<string>,
@@ -138,6 +152,15 @@ export class Switcher extends Control {
         valueTitle.textContent = valuesArr[0];
       }
     }
+    if (type === SwitcherTitles.Mode || type === SwitcherTitlesRU.Mode) {
+      if (state.getGameMode()) {
+        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+        this.input.node.checked = true;
+      } else {
+        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+        this.input.node.checked = false;
+      }
+    }
   }
 
   private onChange(flag: boolean, type: string): void {
@@ -158,6 +181,9 @@ export class Switcher extends Control {
     }
     if (type === SwitcherTitles.Language || type === SwitcherTitlesRU.Language) {
       state.setLanguage(flag);
+    }
+    if (type === SwitcherTitles.Mode || type === SwitcherTitlesRU.Mode) {
+      state.setGameMode(flag);
     }
 
     lStorage.put('settings', state.getSettings());

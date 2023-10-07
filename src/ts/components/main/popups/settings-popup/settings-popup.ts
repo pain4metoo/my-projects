@@ -41,6 +41,11 @@ export class SettingsPopup extends Control {
     );
     const volume = new Volume(sound.node);
 
+    const gameMode = new Switcher(
+      rightInner.node,
+      state.getLanguage() ? (TRANSLATE.settings.modeEN as ISwitcher) : (TRANSLATE.settings.modeRU as ISwitcher),
+    );
+
     this.settingsPopupListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.changeTheme:
@@ -61,6 +66,9 @@ export class SettingsPopup extends Control {
           break;
         case StateOptions.closePopup:
           state.onUpdate.remove(this.settingsPopupListener);
+          break;
+        case StateOptions.changeGameMode:
+          gameMode.changeGameMode();
           break;
       }
     };

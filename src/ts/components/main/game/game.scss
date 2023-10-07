@@ -21,6 +21,7 @@
     backdrop-filter: blur(5px);
     box-shadow: 0rem 0rem 8rem 4rem #fff;
     position: relative;
+    z-index: 50;
     &_3x3 {
       grid-template-columns: repeat(3, 1fr);
     }
@@ -39,12 +40,6 @@
     &_8x8 {
       grid-template-columns: repeat(8, 1fr);
     }
-  }
-  &_container_animation {
-    animation-name: white-shadow;
-    animation-timing-function: ease;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
   }
   &_square {
     font-size: 4.8rem;

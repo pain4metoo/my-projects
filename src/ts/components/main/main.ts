@@ -18,7 +18,11 @@ export class Main extends Control {
     this.mainListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.setGameAnimation:
-          sectionGameContainer.node.classList.add('main_game_animation');
+          if (state.getAnimation()) {
+            sectionGameContainer.node.classList.add('main_game_animation');
+          } else {
+            sectionGameContainer.node.classList.remove('main_game_animation');
+          }
           break;
         case StateOptions.removeGameAnimation:
           sectionGameContainer.node.classList.remove('main_game_animation');

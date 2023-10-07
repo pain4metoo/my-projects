@@ -37,7 +37,7 @@ export class ResultPopup extends Control {
   private createTable(localStorage: Array<Result>): void {
     const table: Control<HTMLTableElement> = new Control(this.node, 'table', 'popups_result_table');
     const tHead = new Control(table.node, 'thead', 'popups_result_thead');
-    const tBody = new Control(table.node, 'tbody', 'popup_result_tbody');
+    const tBody = new Control(table.node, 'tbody', 'popups_result_tbody');
     const tableTitleInner = new Control(tHead.node, 'tr', 'popups_result_title');
     const tabletitle: Control<HTMLTableCellElement> = new Control(tableTitleInner.node, 'th', 'popups_result_title');
     tabletitle.node.colSpan = 4;

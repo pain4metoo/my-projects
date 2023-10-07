@@ -45,11 +45,10 @@ export class Game extends Control {
         case StateOptions.deleteTargetFromStorage:
           this.deleteResult(state.getDeleteTargetFromStorage());
           break;
-        case StateOptions.setGameAnimation:
-          this.node.classList.add('main_game_container_animation');
-          break;
-        case StateOptions.removeGameAnimation:
-          this.node.classList.remove('main_game_container_animation');
+        case StateOptions.changeGameMode:
+          if (!state.getGameMode()) {
+            this.extremeMode();
+          }
           break;
       }
     };
@@ -166,6 +165,31 @@ export class Game extends Control {
     return filterAvailableMoves[randomNumberforMove]; // choose a random one from the remaining
   }
 
+  private extremeMode(): void {
+    const queueEL: Array<HTMLElement> = [];
+    const queueFontSize: Array<string> = [];
+    const handle = setInterval(() => {
+      if (!state.getGameMode()) {
+        queueEL.forEach((el, i) => {
+          el.style.fontSize = `${queueFontSize[i]}`;
+        });
+        clearInterval(handle);
+      }
+      const randomSquare = Math.ceil(Math.random() * this.gameSquareHTML.length - 1);
+      queueEL.push(this.gameSquareHTML[randomSquare]);
+      queueFontSize.push(window.getComputedStyle(this.gameSquareHTML[randomSquare]).fontSize);
+      this.gameSquareHTML[randomSquare].style.fontSize = '0';
+      if (queueEL.length > 3) {
+        const firstEl = queueEL.shift();
+        const firstElFontSize = queueFontSize.shift();
+        if (firstEl) {
+          firstEl.style.fontSize = '4.4rem';
+          firstEl.style.fontSize = `${firstElFontSize}`;
+        }
+      }
+    }, 500);
+  }
+
   private makeMove(
     matrix: Array<Array<number>>,
     move: Array<number>,
@@ -264,6 +288,9 @@ export class Game extends Control {
   }
 
   private moveByClick(squareValue: number): void {
+    if (state.getGameMode()) {
+      this.extremeMode();
+    }
     const availableMoveArr: Array<Array<number>> = Object.values(this.availableMoves(state.getGameField()));
     availableMoveArr.forEach((el: Array<number>): void => {
       if (el[2] === squareValue) {

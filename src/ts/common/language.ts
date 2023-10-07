@@ -14,7 +14,7 @@ export enum TList {
   time = 'time',
   collect = 'collect',
   results = 'results',
-  settings = 'settings'
+  settings = 'settings',
 }
 
 export const TRANSLATE: TKey = {
@@ -22,54 +22,62 @@ export const TRANSLATE: TKey = {
     restart: 'рестарт',
     stop: 'стоп',
     results: 'результаты',
-    settings: 'настройки'
+    settings: 'настройки',
   },
   moves: {
-    Moves: 'Шаги'
+    Moves: 'Шаги',
   },
   time: {
-    Time: 'Время'
+    Time: 'Время',
   },
   collect: {
-    collect_puzzle: 'собрать пятнашки'
+    collect_puzzle: 'собрать пятнашки',
   },
   results: {
-    Your_Highest_Scores: 'Лучшие результаты'
+    Your_Highest_Scores: 'Лучшие результаты',
   },
   settings: {
     themeRU: {
       title: 'Тема',
-      values: ['Светлая', 'Тёмная']
+      values: ['Светлая', 'Тёмная'],
     },
     themeEN: {
       title: 'Theme',
-      values: ['Light', 'Dark']
+      values: ['Light', 'Dark'],
     },
     animRU: {
       title: 'Анимация',
-      values: ['Вкл', 'Выкл']
+      values: ['Вкл', 'Выкл'],
     },
     animEN: {
       title: 'Animation',
-      values: ['On', 'Off']
+      values: ['On', 'Off'],
     },
     langRU: {
       title: 'Язык',
-      values: ['EN', 'Русский']
+      values: ['EN', 'Русский'],
     },
     langEN: {
       title: 'Language',
-      values: ['EN', 'Русский']
+      values: ['EN', 'Русский'],
     },
     soundRU: {
       title: 'Звук',
-      values: ['Вкл', 'Выкл']
+      values: ['Вкл', 'Выкл'],
     },
     soundEN: {
       title: 'Sound',
-      values: ['On', 'Off']
-    }
-  }
+      values: ['On', 'Off'],
+    },
+    modeRU: {
+      title: 'Сложность',
+      values: ['Легко', 'Экстрим'],
+    },
+    modeEN: {
+      title: 'Mode',
+      values: ['Common', 'Extreme'],
+    },
+  },
 };
 
 // const theme = new Switcher(leftInner.node, { title: SwitcherTitles.Theme, values: ['Light', 'Dark'] });

@@ -258,6 +258,15 @@ class State {
     return this._data.appSettings.lastVolume;
   }
 
+  public setGameMode(flag: boolean): void {
+    this._data.appSettings.hardMode = flag;
+    state.onUpdate.emit(StateOptions.changeGameMode);
+  }
+
+  public getGameMode(): boolean {
+    return this._data.appSettings.hardMode;
+  }
+
   public resetSettings(): void {
     this._data.appSettings.animation = true;
     this._data.appSettings.volume = '30';
@@ -278,6 +287,7 @@ class State {
       this._data.appSettings.stateSound = appSettings.stateSound;
       this._data.appSettings.theme = appSettings.theme;
       this._data.appSettings.volume = appSettings.volume;
+      this._data.appSettings.hardMode = appSettings.hardMode;
     } catch {
       return;
     }
@@ -354,6 +364,7 @@ const initialState: StateData = {
     theme: false,
     language: true,
     animation: true,
+    hardMode: false,
   },
   warningType: null,
 };

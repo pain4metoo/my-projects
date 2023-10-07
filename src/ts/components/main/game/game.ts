@@ -67,6 +67,11 @@ export class Game extends Control {
         case StateOptions.startGame:
           this.isExtremeMode();
           break;
+        case StateOptions.resetSettings:
+          if (!state.getGameMode()) {
+            this.removeExtremeMode();
+          }
+          break;
       }
     };
 

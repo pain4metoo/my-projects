@@ -34,7 +34,7 @@ export class Volume extends Control {
     soundControl.playSound(SoundTypes.volume);
   }
 
-  private setVolume(value: string): void {
+  public setVolume(value: string): void {
     state.setLastVolume(value);
     state.setVolume(value);
     lStorage.put('settings', state.getSettings());
@@ -56,7 +56,7 @@ export class Volume extends Control {
     }
   }
 
-  private onToggleVolume(): void {
+  public onToggleVolume(): void {
     soundControl.playSound(SoundTypes.btn);
     const volume = state.getVolume();
     if (+volume > 0) {

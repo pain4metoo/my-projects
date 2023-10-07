@@ -75,16 +75,10 @@ export const TRANSLATE: TKey = {
     },
     modeEN: {
       title: 'Mode',
-      values: ['Common', 'Extreme'],
+      values: ['Default', 'Extreme'],
     },
   },
 };
-
-// const theme = new Switcher(leftInner.node, { title: SwitcherTitles.Theme, values: ['Light', 'Dark'] });
-// const animation = new Switcher(leftInner.node, { title: SwitcherTitles.Animation, values: ['On', 'Off'] });
-// const language = new Switcher(leftInner.node, { title: SwitcherTitles.Language, values: ['EN', 'RU'] });
-
-// const sound = new Switcher(rightInner.node, { title: SwitcherTitles.Sound, values: ['On', 'Off'] });
 
 export function correctTranslater(lang: boolean, key: TList): Array<string> {
   const result: Array<string> = [];

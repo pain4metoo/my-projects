@@ -36,7 +36,10 @@ export class Header extends Control {
     const burgerMenu = new Control(nav.node, 'div', 'header_burger');
     const burgerItem = new Control(burgerMenu.node, 'div', 'header_burger_item');
     const burgerItem1 = new Control(burgerMenu.node, 'div', 'header_burger_item');
-    burgerMenu.node.onclick = (): void => this.openBurgerMenu(navList.node, burgerItem.node, burgerItem1.node);
+    burgerMenu.node.onclick = (): void => {
+      soundControl.playSound(SoundTypes.btn);
+      this.openBurgerMenu(navList.node, burgerItem.node, burgerItem1.node);
+    };
 
     // create buttons
     this.navItems.forEach((navLink: string) => {
@@ -125,6 +128,9 @@ export class Header extends Control {
         case StateOptions.changeLanguage:
           this.changeLanguage(mobileStopBtn.node);
           break;
+        case StateOptions.resetSettings:
+          this.changeLanguage(mobileStopBtn.node);
+          break;
       }
     };
 
@@ -185,6 +191,7 @@ export class Header extends Control {
     if (lang) {
       this.navItems.forEach((el, i) => {
         this.navItemsHtmlElements[i].textContent = el;
+        mobileBtn.textContent = 'stop';
       });
     } else {
       this.navItemsHtmlElements[0].textContent = 'рестарт';

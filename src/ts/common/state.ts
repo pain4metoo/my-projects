@@ -282,6 +282,7 @@ class State {
     this._data.appSettings.stateSound = true;
     this._data.appSettings.theme = false;
     this._data.appSettings.language = true;
+    this._data.appSettings.hardMode = false;
 
     state.onUpdate.emit(StateOptions.resetSettings);
     state.onUpdate.emit(StateOptions.closePopup);

@@ -38,6 +38,9 @@ export class App extends Control {
             this.fireWork.destroy();
           }
           break;
+        case StateOptions.resetSettings:
+          this.changeFontFamily(state.getLanguage(), parentNode);
+          break;
       }
     };
 

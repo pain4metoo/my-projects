@@ -60,6 +60,9 @@ export class SettingsPopup extends Control {
         case StateOptions.changeSound:
           sound.changeSound();
           break;
+        case StateOptions.changeVolume:
+          volume.showChanges();
+          break;
         case StateOptions.changeLanguage:
           state.onUpdate.remove(this.settingsPopupListener);
           settingsTitle.node.textContent = state.getLanguage() ? 'Settings' : 'Настройки';
@@ -69,6 +72,9 @@ export class SettingsPopup extends Control {
           break;
         case StateOptions.changeGameMode:
           gameMode.changeGameMode();
+          break;
+        case StateOptions.resetSettings:
+          volume.setVolume(state.getVolume());
           break;
       }
     };

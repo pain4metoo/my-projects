@@ -15,55 +15,28 @@
   z-index: 1;
   animation-name: gradient-shadow;
   animation-timing-function: ease;
-  animation-duration: 2s;
+  animation-duration: 3s;
   animation-iteration-count: infinite;
   border-radius: 5px;
 }
 
 @keyframes gradient-shadow {
   0% {
-    box-shadow: 0 0 17px 3px #c586c0, 0 0 4px 2px #c586c0;
+    box-shadow: 0 0 40px 20px #3d3d3d, 0 0 4px 2px #3d3d3d;
   }
   20% {
-    box-shadow: 0 0 17px 3px #0ff, 0 0 4px 2px #0ff;
+    box-shadow: 0 0 40px 20px #232720, 0 0 4px 2px #232720;
   }
   40% {
-    box-shadow: 0 0 17px 3px #0f0, 0 0 4px 2px #0f0;
+    box-shadow: 0 0 40px 20px #8f885b, 0 0 4px 2px #8f885b;
   }
   60% {
-    box-shadow: 0 0 17px 3px #ffff01, 0 0 4px 2px #ffff01;
+    box-shadow: 0 0 40px 20px #acab9b, 0 0 4px 2px #acab9b;
   }
   80% {
-    box-shadow: 0 0 17px 3px #f00, 0 0 4px 2px #f00;
+    box-shadow: 0 0 40px 20px #1f2723, 0 0 4px 2px #1f2723;
   }
   100% {
-    box-shadow: 0 0 17px 3px #c586c0, 0 0 4px 2px #c586c0;
-  }
-}
-
-@keyframes white-shadow {
-  0% {
-    box-shadow: 3rem -3rem 8rem 4rem #fff;
-  }
-  12.5% {
-    box-shadow: 3rem 1.5rem 8rem 4rem #fff;
-  }
-  25% {
-    box-shadow: 3rem 3rem 8rem 4rem #fff;
-  }
-  37.5% {
-    box-shadow: 0rem 3rem 8rem 4rem #fff;
-  }
-  50% {
-    box-shadow: -3rem 3rem 8rem 4rem #fff;
-  }
-  62.5% {
-    box-shadow: -3rem 0rem 8rem 4rem #fff;
-  }
-  75% {
-    box-shadow: -3rem -3rem 8rem 4rem #fff;
-  }
-  100% {
-    box-shadow: 0rem 0rem 8rem 4rem #fff;
+    box-shadow: 0 0 40px 20px #8e7b3e, 0 0 4px 2px #8e7b3e;
   }
 }

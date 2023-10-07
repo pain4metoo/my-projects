@@ -61,6 +61,12 @@ export class Game extends Control {
             this.removeExtremeMode();
           }
           break;
+        case StateOptions.stopGame:
+          this.removeExtremeMode(true);
+          break;
+        case StateOptions.startGame:
+          this.isExtremeMode();
+          break;
       }
     };
 
@@ -188,9 +194,12 @@ export class Game extends Control {
     }
   }
 
-  private removeExtremeMode(): void {
-    state.setStartGameMode(false);
+  private removeExtremeMode(isStopGame?: boolean): void {
     clearInterval(this.intervalExtremeMode);
+    state.setStartGameMode(false);
+    if (isStopGame) {
+      return;
+    }
     this.queueEL.forEach((el, i) => {
       el.style.fontSize = `${this.queueFontSize[i]}`;
     });

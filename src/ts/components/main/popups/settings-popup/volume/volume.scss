@@ -3,6 +3,7 @@
   align-items: center;
   margin-left: -6rem;
   margin-top: 3rem;
+  margin-bottom: 2.5rem;
   &_icon {
     display: block;
     min-width: 7rem;
@@ -46,12 +47,20 @@
   }
 }
 
+@media (max-width: 670px) {
+  .volume {
+    margin-top: 3.1rem;
+    margin-bottom: 0;
+  }
+}
+
 @media (max-width: 480px) {
   .volume {
     max-width: 30rem;
     width: 100%;
     margin-left: 0;
     max-width: inherit;
+    margin-top: 1rem;
     &_input::-webkit-slider-thumb {
       filter: none;
     }

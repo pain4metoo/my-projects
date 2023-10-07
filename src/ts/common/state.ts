@@ -270,7 +270,6 @@ class State {
 
   public setStartGameMode(flag: boolean): void {
     this._data.gameSettings.isStartHardMode = flag;
-    state.onUpdate.emit(StateOptions.setStartGameMode);
   }
 
   public getStartGameMode(): boolean {

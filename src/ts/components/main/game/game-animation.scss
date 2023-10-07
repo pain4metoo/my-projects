@@ -11,13 +11,14 @@
   top: 0;
   width: 100%;
   height: 100%;
-  box-shadow: 0 0 17px 3px #ffff01, 0 0 4px 2px #ffff01;
+  box-shadow: 0rem 0rem 8rem 4rem #fff;
   z-index: 1;
   animation-name: gradient-shadow;
   animation-timing-function: ease;
   animation-duration: 3s;
   animation-iteration-count: infinite;
   border-radius: 5px;
+  opacity: 0.5;
 }
 
 @keyframes gradient-shadow {

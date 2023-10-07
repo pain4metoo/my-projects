@@ -76,5 +76,4 @@ export enum StateOptions {
   setGameAnimation = 'set-game-animation',
   removeGameAnimation = 'remove-game-animation',
   changeGameMode = 'change-game-mode',
-  setStartGameMode = 'set-start-game-mode',
 }

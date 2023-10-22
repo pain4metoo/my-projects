@@ -5,38 +5,24 @@ import { StateOptions } from '../../../../../common/state-types';
 import { SoundTypes } from '../../../game/soundControl';
 import { soundControl } from '../../../../../../index';
 import './switcher.scss';
-
-export interface ISwitcher {
-  title: string;
-  values: Array<string>;
-}
-
-export enum SwitcherTitles {
-  Theme = 'Theme',
-  Animation = 'Animation',
-  Language = 'Language',
-  Sound = 'Sound',
-  Mode = 'Mode',
-}
-
-enum SwitcherTitlesRU {
-  Theme = 'Тема',
-  Animation = 'Анимация',
-  Language = 'Язык',
-  Sound = 'Звук',
-  Mode = 'Сложность',
-}
+import { LangType, SwitcherType } from '../settings-popup';
+import { TRANSLATE, Translate, TranslateLang } from '../../../../../common/language';
 
 export class Switcher extends Control {
   private switcherValue: Control<HTMLElement>;
-  private argSwitcher: ISwitcher;
   private input: Control<HTMLInputElement>;
-  constructor(parentNode: HTMLElement, argSwitcher: ISwitcher) {
+  private type: SwitcherType;
+  private settingsWords: TranslateLang;
+  private lang: LangType;
+
+  constructor(parentNode: HTMLElement, type: SwitcherType) {
     super(parentNode, 'div', 'switcher');
 
-    this.argSwitcher = argSwitcher;
+    this.type = type;
+    this.settingsWords = TRANSLATE.settings[this.type] as TranslateLang;
+    this.lang = state.getLanguage() ? LangType.En : LangType.Ru;
 
-    const title = new Control(this.node, 'h3', 'switcher_title', argSwitcher.title);
+    const title = new Control(this.node, 'h3', 'switcher_title', this.settingsWords[this.lang].title);
 
     const switcherInner = new Control(this.node, 'div', 'switcher_inner');
 
@@ -44,7 +30,7 @@ export class Switcher extends Control {
 
     const input: Control<HTMLInputElement> = new Control(label.node, 'input', 'switcher_checkbox');
     input.node.type = 'checkbox';
-    input.node.onclick = (): void => this.onChange(input.node.checked, argSwitcher.title);
+    input.node.onclick = (): void => this.onChange(input.node.checked);
     this.input = input;
 
     const span = new Control(label.node, 'span', 'switcher_slider');
@@ -52,125 +38,120 @@ export class Switcher extends Control {
     const switcherValue = new Control(switcherInner.node, 'p', 'switcher_value');
     this.switcherValue = switcherValue;
 
-    this.initIdentifyStates(input.node, argSwitcher.values, switcherValue.node, argSwitcher.title);
+    this.initIdentifyStates(input.node);
   }
 
   public changeTheme(): void {
-    if (this.argSwitcher.title === SwitcherTitles.Theme || this.argSwitcher.title === SwitcherTitlesRU.Theme) {
+    if (SwitcherType.Theme === this.type) {
       soundControl.playSound(SoundTypes.input);
       if (state.getTheme()) {
-        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
       } else {
-        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
       }
     }
   }
 
   public changeAnimation(): void {
-    if (this.argSwitcher.title === SwitcherTitles.Animation || this.argSwitcher.title === SwitcherTitlesRU.Animation) {
+    if (SwitcherType.Animation === this.type) {
       soundControl.playSound(SoundTypes.input);
       if (state.getAnimation()) {
-        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
       } else {
-        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
       }
     }
   }
   public changeLanguage(): void {
-    if (this.argSwitcher.title === SwitcherTitles.Language || this.argSwitcher.title === SwitcherTitlesRU.Language) {
+    if (SwitcherType.Language === this.type) {
       soundControl.playSound(SoundTypes.input);
       if (state.getLanguage()) {
-        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
       } else {
-        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
       }
     }
   }
   public changeSound(): void {
-    if (this.argSwitcher.title === SwitcherTitles.Sound || this.argSwitcher.title === SwitcherTitlesRU.Sound) {
+    if (SwitcherType.Sound === this.type) {
       if (state.getSound()) {
-        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
         this.input.node.checked = true;
       } else {
-        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
         this.input.node.checked = false;
       }
     }
   }
 
   public changeGameMode(): void {
-    if (this.argSwitcher.title === SwitcherTitles.Mode || this.argSwitcher.title === SwitcherTitlesRU.Mode) {
+    if (SwitcherType.Mode === this.type) {
       if (state.getGameMode()) {
-        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
         this.input.node.checked = true;
       } else {
-        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
         this.input.node.checked = false;
       }
     }
   }
 
-  private initIdentifyStates(
-    input: HTMLInputElement,
-    valuesArr: Array<string>,
-    valueTitle: HTMLElement,
-    type: string,
-  ): void {
-    if (type === SwitcherTitles.Animation || type === SwitcherTitlesRU.Animation) {
-      if (state.getAnimation()) {
-        input.checked = true;
-        valueTitle.textContent = valuesArr[0];
-      } else {
-        input.checked = false;
-        valueTitle.textContent = valuesArr[1];
-      }
-    }
-    if (type === SwitcherTitles.Sound || type === SwitcherTitlesRU.Sound) {
-      if (state.getSound()) {
-        input.checked = true;
-        valueTitle.textContent = valuesArr[0];
-      } else {
-        input.checked = false;
-        valueTitle.textContent = valuesArr[1];
-      }
-    }
-    if (type === SwitcherTitles.Language || type === SwitcherTitlesRU.Language) {
-      if (state.getLanguage()) {
-        input.checked = true;
-        valueTitle.textContent = valuesArr[0];
-      } else {
-        input.checked = false;
-        valueTitle.textContent = valuesArr[1];
-      }
-    }
-    if (type === SwitcherTitles.Theme || type === SwitcherTitlesRU.Theme) {
+  private initIdentifyStates(input: HTMLInputElement): void {
+    if (this.type === SwitcherType.Theme) {
       if (state.getTheme()) {
         input.checked = true;
-        valueTitle.textContent = valuesArr[1];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
       } else {
         input.checked = false;
-        valueTitle.textContent = valuesArr[0];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
       }
     }
-    if (type === SwitcherTitles.Mode || type === SwitcherTitlesRU.Mode) {
+    if (this.type === SwitcherType.Animation) {
+      if (state.getAnimation()) {
+        input.checked = true;
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
+      } else {
+        input.checked = false;
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
+      }
+    }
+    if (this.type === SwitcherType.Sound) {
+      if (state.getSound()) {
+        input.checked = true;
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
+      } else {
+        input.checked = false;
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
+      }
+    }
+    if (this.type === SwitcherType.Language) {
+      if (state.getLanguage()) {
+        input.checked = true;
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
+      } else {
+        input.checked = false;
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
+      }
+    }
+    if (this.type === SwitcherType.Mode) {
       if (state.getGameMode()) {
-        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
         this.input.node.checked = true;
       } else {
-        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
         this.input.node.checked = false;
       }
     }
   }
 
-  private onChange(flag: boolean, type: string): void {
-    if (type === SwitcherTitles.Theme || type === SwitcherTitlesRU.Theme) {
+  private onChange(flag: boolean): void {
+    if (this.type === SwitcherType.Theme) {
       state.setTheme(flag);
     }
-    if (type === SwitcherTitles.Animation || type === SwitcherTitlesRU.Animation) {
+    if (this.type === SwitcherType.Animation) {
       state.setAnimation(flag);
     }
-    if (type === SwitcherTitles.Sound || type === SwitcherTitlesRU.Sound) {
+    if (this.type === SwitcherType.Sound) {
       state.setSound(flag);
 
       if (+state.getVolume() > 0) {
@@ -179,10 +160,10 @@ export class Switcher extends Control {
         state.setVolume(state.getLastVolume());
       }
     }
-    if (type === SwitcherTitles.Language || type === SwitcherTitlesRU.Language) {
+    if (this.type === SwitcherType.Language) {
       state.setLanguage(flag);
     }
-    if (type === SwitcherTitles.Mode || type === SwitcherTitlesRU.Mode) {
+    if (this.type === SwitcherType.Mode) {
       state.setGameMode(flag);
     }
 

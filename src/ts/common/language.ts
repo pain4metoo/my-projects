@@ -1,11 +1,18 @@
-import { ISwitcher } from '../components/main/popups/settings-popup/swither/switcher';
-
-interface TKey {
-  [key: string]: Tvalue;
+export interface Translate {
+  [key: string]: TranslateProperty;
+}
+interface TranslateProperty {
+  [key: string]: string | TranslateLang;
 }
 
-interface Tvalue {
-  [key: string]: string | ISwitcher;
+export interface TranslateLang {
+  ru: TranslateSettings;
+  en: TranslateSettings;
+}
+
+interface TranslateSettings {
+  title: string;
+  values: Array<string>;
 }
 
 export enum TList {
@@ -17,7 +24,7 @@ export enum TList {
   settings = 'settings',
 }
 
-export const TRANSLATE: TKey = {
+export const TRANSLATE: Translate = {
   header: {
     restart: 'рестарт',
     stop: 'стоп',
@@ -37,45 +44,55 @@ export const TRANSLATE: TKey = {
     Your_Highest_Scores: 'Лучшие результаты',
   },
   settings: {
-    themeRU: {
-      title: 'Тема',
-      values: ['Светлая', 'Тёмная'],
+    theme: {
+      ru: {
+        title: 'Тема',
+        values: ['Светлая', 'Тёмная'],
+      },
+      en: {
+        title: 'Theme',
+        values: ['Light', 'Dark'],
+      },
     },
-    themeEN: {
-      title: 'Theme',
-      values: ['Light', 'Dark'],
+    animation: {
+      ru: {
+        title: 'Анимация',
+        values: ['Вкл', 'Выкл'],
+      },
+      en: {
+        title: 'Animation',
+        values: ['On', 'Off'],
+      },
     },
-    animRU: {
-      title: 'Анимация',
-      values: ['Вкл', 'Выкл'],
+    language: {
+      ru: {
+        title: 'Язык',
+        values: ['EN', 'Русский'],
+      },
+      en: {
+        title: 'Language',
+        values: ['EN', 'Русский'],
+      },
     },
-    animEN: {
-      title: 'Animation',
-      values: ['On', 'Off'],
+    sound: {
+      ru: {
+        title: 'Звук',
+        values: ['Вкл', 'Выкл'],
+      },
+      en: {
+        title: 'Sound',
+        values: ['On', 'Off'],
+      },
     },
-    langRU: {
-      title: 'Язык',
-      values: ['EN', 'Русский'],
-    },
-    langEN: {
-      title: 'Language',
-      values: ['EN', 'Русский'],
-    },
-    soundRU: {
-      title: 'Звук',
-      values: ['Вкл', 'Выкл'],
-    },
-    soundEN: {
-      title: 'Sound',
-      values: ['On', 'Off'],
-    },
-    modeRU: {
-      title: 'Сложность',
-      values: ['Легко', 'Экстрим'],
-    },
-    modeEN: {
-      title: 'Mode',
-      values: ['Default', 'Extreme'],
+    mode: {
+      ru: {
+        title: 'Сложность',
+        values: ['Легко', 'Экстрим'],
+      },
+      en: {
+        title: 'Mode',
+        values: ['Default', 'Extreme'],
+      },
     },
   },
 };

@@ -206,6 +206,7 @@ export class Game extends Control {
       return;
     }
     this.queueEL.forEach((el, i) => {
+      console.log(el);
       el.style.fontSize = `${this.queueFontSize[i]}`;
     });
   }

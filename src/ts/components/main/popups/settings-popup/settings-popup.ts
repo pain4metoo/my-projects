@@ -3,8 +3,21 @@ import { TRANSLATE } from '../../../../common/language';
 import { state } from '../../../../common/state';
 import { StateOptions } from '../../../../common/state-types';
 import './settings-popup.scss';
-import { ISwitcher, Switcher } from './swither/switcher';
+import { Switcher } from './swither/switcher';
 import { Volume } from './volume/volume';
+
+export enum SwitcherType {
+  Theme = 'theme',
+  Animation = 'animation',
+  Language = 'language',
+  Sound = 'sound',
+  Mode = 'mode',
+}
+
+export enum LangType {
+  Ru = 'ru',
+  En = 'en',
+}
 
 export class SettingsPopup extends Control {
   private settingsPopupListener: (type: StateOptions) => void;
@@ -22,29 +35,14 @@ export class SettingsPopup extends Control {
     const leftInner = new Control(settingsInner.node, 'div', 'settings_left');
     const rightInner = new Control(settingsInner.node, 'div', 'settings_right');
 
-    const theme = new Switcher(
-      leftInner.node,
-      state.getLanguage() ? (TRANSLATE.settings.themeEN as ISwitcher) : (TRANSLATE.settings.themeRU as ISwitcher),
-    );
-    const animation = new Switcher(
-      leftInner.node,
-      state.getLanguage() ? (TRANSLATE.settings.animEN as ISwitcher) : (TRANSLATE.settings.animRU as ISwitcher),
-    );
-    const language = new Switcher(
-      leftInner.node,
-      state.getLanguage() ? (TRANSLATE.settings.langEN as ISwitcher) : (TRANSLATE.settings.langRU as ISwitcher),
-    );
+    const theme = new Switcher(leftInner.node, SwitcherType.Theme);
+    const animation = new Switcher(leftInner.node, SwitcherType.Animation);
+    const language = new Switcher(leftInner.node, SwitcherType.Language);
 
-    const sound = new Switcher(
-      rightInner.node,
-      state.getLanguage() ? (TRANSLATE.settings.soundEN as ISwitcher) : (TRANSLATE.settings.soundRU as ISwitcher),
-    );
+    const sound = new Switcher(rightInner.node, SwitcherType.Sound);
     const volume = new Volume(sound.node);
 
-    const gameMode = new Switcher(
-      rightInner.node,
-      state.getLanguage() ? (TRANSLATE.settings.modeEN as ISwitcher) : (TRANSLATE.settings.modeRU as ISwitcher),
-    );
+    const gameMode = new Switcher(rightInner.node, SwitcherType.Mode);
 
     this.settingsPopupListener = (type: StateOptions): void => {
       switch (type) {

@@ -100,45 +100,55 @@ const TRANSLATE = {
     Your_Highest_Scores: 'Лучшие результаты'
   },
   settings: {
-    themeRU: {
-      title: 'Тема',
-      values: ['Светлая', 'Тёмная']
+    theme: {
+      ru: {
+        title: 'Тема',
+        values: ['Светлая', 'Тёмная']
+      },
+      en: {
+        title: 'Theme',
+        values: ['Light', 'Dark']
+      }
     },
-    themeEN: {
-      title: 'Theme',
-      values: ['Light', 'Dark']
+    animation: {
+      ru: {
+        title: 'Анимация',
+        values: ['Вкл', 'Выкл']
+      },
+      en: {
+        title: 'Animation',
+        values: ['On', 'Off']
+      }
     },
-    animRU: {
-      title: 'Анимация',
-      values: ['Вкл', 'Выкл']
+    language: {
+      ru: {
+        title: 'Язык',
+        values: ['EN', 'Русский']
+      },
+      en: {
+        title: 'Language',
+        values: ['EN', 'Русский']
+      }
     },
-    animEN: {
-      title: 'Animation',
-      values: ['On', 'Off']
+    sound: {
+      ru: {
+        title: 'Звук',
+        values: ['Вкл', 'Выкл']
+      },
+      en: {
+        title: 'Sound',
+        values: ['On', 'Off']
+      }
     },
-    langRU: {
-      title: 'Язык',
-      values: ['EN', 'Русский']
-    },
-    langEN: {
-      title: 'Language',
-      values: ['EN', 'Русский']
-    },
-    soundRU: {
-      title: 'Звук',
-      values: ['Вкл', 'Выкл']
-    },
-    soundEN: {
-      title: 'Sound',
-      values: ['On', 'Off']
-    },
-    modeRU: {
-      title: 'Сложность',
-      values: ['Легко', 'Экстрим']
-    },
-    modeEN: {
-      title: 'Mode',
-      values: ['Default', 'Extreme']
+    mode: {
+      ru: {
+        title: 'Сложность',
+        values: ['Легко', 'Экстрим']
+      },
+      en: {
+        title: 'Mode',
+        values: ['Default', 'Extreme']
+      }
     }
   }
 };
@@ -1453,6 +1463,7 @@ class Game extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
       return;
     }
     this.queueEL.forEach((el, i) => {
+      console.log(el);
       el.style.fontSize = `${this.queueFontSize[i]}`;
     });
   }
@@ -2196,68 +2207,81 @@ class ResultPopup extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SettingsPopup": () => (/* binding */ SettingsPopup)
+/* harmony export */   "LangType": () => (/* binding */ LangType),
+/* harmony export */   "SettingsPopup": () => (/* binding */ SettingsPopup),
+/* harmony export */   "SwitcherType": () => (/* binding */ SwitcherType)
 /* harmony export */ });
 /* harmony import */ var _common_control__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../common/control */ "./src/ts/common/control.ts");
-/* harmony import */ var _common_language__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../common/language */ "./src/ts/common/language.ts");
-/* harmony import */ var _common_state__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../common/state */ "./src/ts/common/state.ts");
-/* harmony import */ var _common_state_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../common/state-types */ "./src/ts/common/state-types.ts");
-/* harmony import */ var _settings_popup_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./settings-popup.scss */ "./src/ts/components/main/popups/settings-popup/settings-popup.scss");
-/* harmony import */ var _swither_switcher__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./swither/switcher */ "./src/ts/components/main/popups/settings-popup/swither/switcher.ts");
-/* harmony import */ var _volume_volume__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./volume/volume */ "./src/ts/components/main/popups/settings-popup/volume/volume.ts");
+/* harmony import */ var _common_state__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../common/state */ "./src/ts/common/state.ts");
+/* harmony import */ var _common_state_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../common/state-types */ "./src/ts/common/state-types.ts");
+/* harmony import */ var _settings_popup_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./settings-popup.scss */ "./src/ts/components/main/popups/settings-popup/settings-popup.scss");
+/* harmony import */ var _swither_switcher__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./swither/switcher */ "./src/ts/components/main/popups/settings-popup/swither/switcher.ts");
+/* harmony import */ var _volume_volume__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./volume/volume */ "./src/ts/components/main/popups/settings-popup/volume/volume.ts");
 
 
 
 
 
 
-
+var SwitcherType;
+(function (SwitcherType) {
+  SwitcherType["Theme"] = "theme";
+  SwitcherType["Animation"] = "animation";
+  SwitcherType["Language"] = "language";
+  SwitcherType["Sound"] = "sound";
+  SwitcherType["Mode"] = "mode";
+})(SwitcherType || (SwitcherType = {}));
+var LangType;
+(function (LangType) {
+  LangType["Ru"] = "ru";
+  LangType["En"] = "en";
+})(LangType || (LangType = {}));
 class SettingsPopup extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
   constructor(parentNode) {
     super(parentNode, 'div', 'settings');
-    const settingsTitle = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'h2', 'settings_title', _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? 'Settings' : 'Настройки');
+    const settingsTitle = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'h2', 'settings_title', _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage() ? 'Settings' : 'Настройки');
     const settingsInner = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'div', 'settings_inner');
     const leftInner = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](settingsInner.node, 'div', 'settings_left');
     const rightInner = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](settingsInner.node, 'div', 'settings_right');
-    const theme = new _swither_switcher__WEBPACK_IMPORTED_MODULE_5__.Switcher(leftInner.node, _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.themeEN : _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.themeRU);
-    const animation = new _swither_switcher__WEBPACK_IMPORTED_MODULE_5__.Switcher(leftInner.node, _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.animEN : _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.animRU);
-    const language = new _swither_switcher__WEBPACK_IMPORTED_MODULE_5__.Switcher(leftInner.node, _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.langEN : _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.langRU);
-    const sound = new _swither_switcher__WEBPACK_IMPORTED_MODULE_5__.Switcher(rightInner.node, _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.soundEN : _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.soundRU);
-    const volume = new _volume_volume__WEBPACK_IMPORTED_MODULE_6__.Volume(sound.node);
-    const gameMode = new _swither_switcher__WEBPACK_IMPORTED_MODULE_5__.Switcher(rightInner.node, _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.modeEN : _common_language__WEBPACK_IMPORTED_MODULE_1__.TRANSLATE.settings.modeRU);
+    const theme = new _swither_switcher__WEBPACK_IMPORTED_MODULE_4__.Switcher(leftInner.node, SwitcherType.Theme);
+    const animation = new _swither_switcher__WEBPACK_IMPORTED_MODULE_4__.Switcher(leftInner.node, SwitcherType.Animation);
+    const language = new _swither_switcher__WEBPACK_IMPORTED_MODULE_4__.Switcher(leftInner.node, SwitcherType.Language);
+    const sound = new _swither_switcher__WEBPACK_IMPORTED_MODULE_4__.Switcher(rightInner.node, SwitcherType.Sound);
+    const volume = new _volume_volume__WEBPACK_IMPORTED_MODULE_5__.Volume(sound.node);
+    const gameMode = new _swither_switcher__WEBPACK_IMPORTED_MODULE_4__.Switcher(rightInner.node, SwitcherType.Mode);
     this.settingsPopupListener = type => {
       switch (type) {
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeTheme:
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.changeTheme:
           theme.changeTheme();
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeAnimation:
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.changeAnimation:
           animation.changeAnimation();
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeLanguage:
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.changeLanguage:
           language.changeLanguage();
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeSound:
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.changeSound:
           sound.changeSound();
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeVolume:
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.changeVolume:
           volume.showChanges();
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeLanguage:
-          _common_state__WEBPACK_IMPORTED_MODULE_2__.state.onUpdate.remove(this.settingsPopupListener);
-          settingsTitle.node.textContent = _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? 'Settings' : 'Настройки';
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.changeLanguage:
+          _common_state__WEBPACK_IMPORTED_MODULE_1__.state.onUpdate.remove(this.settingsPopupListener);
+          settingsTitle.node.textContent = _common_state__WEBPACK_IMPORTED_MODULE_1__.state.getLanguage() ? 'Settings' : 'Настройки';
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.closePopup:
-          _common_state__WEBPACK_IMPORTED_MODULE_2__.state.onUpdate.remove(this.settingsPopupListener);
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.closePopup:
+          _common_state__WEBPACK_IMPORTED_MODULE_1__.state.onUpdate.remove(this.settingsPopupListener);
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.changeGameMode:
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.changeGameMode:
           gameMode.changeGameMode();
           break;
-        case _common_state_types__WEBPACK_IMPORTED_MODULE_3__.StateOptions.resetSettings:
-          volume.setVolume(_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getVolume());
+        case _common_state_types__WEBPACK_IMPORTED_MODULE_2__.StateOptions.resetSettings:
+          volume.setVolume(_common_state__WEBPACK_IMPORTED_MODULE_1__.state.getVolume());
           break;
       }
     };
-    _common_state__WEBPACK_IMPORTED_MODULE_2__.state.onUpdate.add(this.settingsPopupListener);
+    _common_state__WEBPACK_IMPORTED_MODULE_1__.state.onUpdate.add(this.settingsPopupListener);
   }
 }
 
@@ -2271,8 +2295,7 @@ class SettingsPopup extends _common_control__WEBPACK_IMPORTED_MODULE_0__["defaul
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Switcher": () => (/* binding */ Switcher),
-/* harmony export */   "SwitcherTitles": () => (/* binding */ SwitcherTitles)
+/* harmony export */   "Switcher": () => (/* binding */ Switcher)
 /* harmony export */ });
 /* harmony import */ var _common_control__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../common/control */ "./src/ts/common/control.ts");
 /* harmony import */ var _common_local_storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../common/local-storage */ "./src/ts/common/local-storage.ts");
@@ -2280,151 +2303,141 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _game_soundControl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../game/soundControl */ "./src/ts/components/main/game/soundControl.ts");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../index */ "./src/index.ts");
 /* harmony import */ var _switcher_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./switcher.scss */ "./src/ts/components/main/popups/settings-popup/swither/switcher.scss");
+/* harmony import */ var _settings_popup__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../settings-popup */ "./src/ts/components/main/popups/settings-popup/settings-popup.ts");
+/* harmony import */ var _common_language__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../common/language */ "./src/ts/common/language.ts");
 
 
 
 
 
 
-var SwitcherTitles;
-(function (SwitcherTitles) {
-  SwitcherTitles["Theme"] = "Theme";
-  SwitcherTitles["Animation"] = "Animation";
-  SwitcherTitles["Language"] = "Language";
-  SwitcherTitles["Sound"] = "Sound";
-  SwitcherTitles["Mode"] = "Mode";
-})(SwitcherTitles || (SwitcherTitles = {}));
-var SwitcherTitlesRU;
-(function (SwitcherTitlesRU) {
-  SwitcherTitlesRU["Theme"] = "\u0422\u0435\u043C\u0430";
-  SwitcherTitlesRU["Animation"] = "\u0410\u043D\u0438\u043C\u0430\u0446\u0438\u044F";
-  SwitcherTitlesRU["Language"] = "\u042F\u0437\u044B\u043A";
-  SwitcherTitlesRU["Sound"] = "\u0417\u0432\u0443\u043A";
-  SwitcherTitlesRU["Mode"] = "\u0421\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u044C";
-})(SwitcherTitlesRU || (SwitcherTitlesRU = {}));
+
+
 class Switcher extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
-  constructor(parentNode, argSwitcher) {
+  constructor(parentNode, type) {
     super(parentNode, 'div', 'switcher');
-    this.argSwitcher = argSwitcher;
-    const title = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'h3', 'switcher_title', argSwitcher.title);
+    this.type = type;
+    this.settingsWords = _common_language__WEBPACK_IMPORTED_MODULE_7__.TRANSLATE.settings[this.type];
+    this.lang = _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage() ? _settings_popup__WEBPACK_IMPORTED_MODULE_6__.LangType.En : _settings_popup__WEBPACK_IMPORTED_MODULE_6__.LangType.Ru;
+    const title = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'h3', 'switcher_title', this.settingsWords[this.lang].title);
     const switcherInner = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](this.node, 'div', 'switcher_inner');
     const label = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](switcherInner.node, 'label', 'switcher_switch');
     const input = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](label.node, 'input', 'switcher_checkbox');
     input.node.type = 'checkbox';
-    input.node.onclick = () => this.onChange(input.node.checked, argSwitcher.title);
+    input.node.onclick = () => this.onChange(input.node.checked);
     this.input = input;
     const span = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](label.node, 'span', 'switcher_slider');
     const switcherValue = new _common_control__WEBPACK_IMPORTED_MODULE_0__["default"](switcherInner.node, 'p', 'switcher_value');
     this.switcherValue = switcherValue;
-    this.initIdentifyStates(input.node, argSwitcher.values, switcherValue.node, argSwitcher.title);
+    this.initIdentifyStates(input.node);
   }
   changeTheme() {
-    if (this.argSwitcher.title === SwitcherTitles.Theme || this.argSwitcher.title === SwitcherTitlesRU.Theme) {
+    if (_settings_popup__WEBPACK_IMPORTED_MODULE_6__.SwitcherType.Theme === this.type) {
       _index__WEBPACK_IMPORTED_MODULE_4__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_3__.SoundTypes.input);
       if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getTheme()) {
-        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
       } else {
-        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
       }
     }
   }
   changeAnimation() {
-    if (this.argSwitcher.title === SwitcherTitles.Animation || this.argSwitcher.title === SwitcherTitlesRU.Animation) {
+    if (_settings_popup__WEBPACK_IMPORTED_MODULE_6__.SwitcherType.Animation === this.type) {
       _index__WEBPACK_IMPORTED_MODULE_4__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_3__.SoundTypes.input);
       if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getAnimation()) {
-        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
       } else {
-        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
       }
     }
   }
   changeLanguage() {
-    if (this.argSwitcher.title === SwitcherTitles.Language || this.argSwitcher.title === SwitcherTitlesRU.Language) {
+    if (_settings_popup__WEBPACK_IMPORTED_MODULE_6__.SwitcherType.Language === this.type) {
       _index__WEBPACK_IMPORTED_MODULE_4__.soundControl.playSound(_game_soundControl__WEBPACK_IMPORTED_MODULE_3__.SoundTypes.input);
       if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage()) {
-        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
       } else {
-        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
       }
     }
   }
   changeSound() {
-    if (this.argSwitcher.title === SwitcherTitles.Sound || this.argSwitcher.title === SwitcherTitlesRU.Sound) {
+    if (_settings_popup__WEBPACK_IMPORTED_MODULE_6__.SwitcherType.Sound === this.type) {
       if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getSound()) {
-        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
         this.input.node.checked = true;
       } else {
-        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
         this.input.node.checked = false;
       }
     }
   }
   changeGameMode() {
-    if (this.argSwitcher.title === SwitcherTitles.Mode || this.argSwitcher.title === SwitcherTitlesRU.Mode) {
+    if (_settings_popup__WEBPACK_IMPORTED_MODULE_6__.SwitcherType.Mode === this.type) {
       if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getGameMode()) {
-        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
         this.input.node.checked = true;
       } else {
-        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
         this.input.node.checked = false;
       }
     }
   }
-  initIdentifyStates(input, valuesArr, valueTitle, type) {
-    if (type === SwitcherTitles.Animation || type === SwitcherTitlesRU.Animation) {
-      if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getAnimation()) {
-        input.checked = true;
-        valueTitle.textContent = valuesArr[0];
-      } else {
-        input.checked = false;
-        valueTitle.textContent = valuesArr[1];
-      }
-    }
-    if (type === SwitcherTitles.Sound || type === SwitcherTitlesRU.Sound) {
-      if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getSound()) {
-        input.checked = true;
-        valueTitle.textContent = valuesArr[0];
-      } else {
-        input.checked = false;
-        valueTitle.textContent = valuesArr[1];
-      }
-    }
-    if (type === SwitcherTitles.Language || type === SwitcherTitlesRU.Language) {
-      if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage()) {
-        input.checked = true;
-        valueTitle.textContent = valuesArr[0];
-      } else {
-        input.checked = false;
-        valueTitle.textContent = valuesArr[1];
-      }
-    }
-    if (type === SwitcherTitles.Theme || type === SwitcherTitlesRU.Theme) {
+  initIdentifyStates(input) {
+    if (this.type === _settings_popup__WEBPACK_IMPORTED_MODULE_6__.SwitcherType.Theme) {
       if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getTheme()) {
         input.checked = true;
-        valueTitle.textContent = valuesArr[1];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
       } else {
         input.checked = false;
-        valueTitle.textContent = valuesArr[0];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
       }
     }
-    if (type === SwitcherTitles.Mode || type === SwitcherTitlesRU.Mode) {
+    if (this.type === _settings_popup__WEBPACK_IMPORTED_MODULE_6__.SwitcherType.Animation) {
+      if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getAnimation()) {
+        input.checked = true;
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
+      } else {
+        input.checked = false;
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
+      }
+    }
+    if (this.type === _settings_popup__WEBPACK_IMPORTED_MODULE_6__.SwitcherType.Sound) {
+      if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getSound()) {
+        input.checked = true;
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
+      } else {
+        input.checked = false;
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
+      }
+    }
+    if (this.type === _settings_popup__WEBPACK_IMPORTED_MODULE_6__.SwitcherType.Language) {
+      if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLanguage()) {
+        input.checked = true;
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
+      } else {
+        input.checked = false;
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
+      }
+    }
+    if (this.type === _settings_popup__WEBPACK_IMPORTED_MODULE_6__.SwitcherType.Mode) {
       if (_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getGameMode()) {
-        this.switcherValue.node.textContent = this.argSwitcher.values[1];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
         this.input.node.checked = true;
       } else {
-        this.switcherValue.node.textContent = this.argSwitcher.values[0];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
         this.input.node.checked = false;
       }
     }
   }
-  onChange(flag, type) {
-    if (type === SwitcherTitles.Theme || type === SwitcherTitlesRU.Theme) {
+  onChange(flag) {
+    if (this.type === _settings_popup__WEBPACK_IMPORTED_MODULE_6__.SwitcherType.Theme) {
       _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setTheme(flag);
     }
-    if (type === SwitcherTitles.Animation || type === SwitcherTitlesRU.Animation) {
+    if (this.type === _settings_popup__WEBPACK_IMPORTED_MODULE_6__.SwitcherType.Animation) {
       _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setAnimation(flag);
     }
-    if (type === SwitcherTitles.Sound || type === SwitcherTitlesRU.Sound) {
+    if (this.type === _settings_popup__WEBPACK_IMPORTED_MODULE_6__.SwitcherType.Sound) {
       _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setSound(flag);
       if (+_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getVolume() > 0) {
         _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setVolume('0');
@@ -2432,10 +2445,10 @@ class Switcher extends _common_control__WEBPACK_IMPORTED_MODULE_0__["default"] {
         _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setVolume(_common_state__WEBPACK_IMPORTED_MODULE_2__.state.getLastVolume());
       }
     }
-    if (type === SwitcherTitles.Language || type === SwitcherTitlesRU.Language) {
+    if (this.type === _settings_popup__WEBPACK_IMPORTED_MODULE_6__.SwitcherType.Language) {
       _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setLanguage(flag);
     }
-    if (type === SwitcherTitles.Mode || type === SwitcherTitlesRU.Mode) {
+    if (this.type === _settings_popup__WEBPACK_IMPORTED_MODULE_6__.SwitcherType.Mode) {
       _common_state__WEBPACK_IMPORTED_MODULE_2__.state.setGameMode(flag);
     }
     _common_local_storage__WEBPACK_IMPORTED_MODULE_1__.lStorage.put('settings', _common_state__WEBPACK_IMPORTED_MODULE_2__.state.getSettings());
@@ -2781,7 +2794,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".main_game_animation {\n  position: relative;\n  margin: 10px;\n  background-color: transparent;\n}\n\n.main_game_animation::before {\n  content: \"\";\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  box-shadow: 0rem 0rem 8rem 4rem #fff;\n  z-index: 1;\n  animation-name: gradient-shadow;\n  animation-timing-function: ease;\n  animation-duration: 3s;\n  animation-iteration-count: infinite;\n  border-radius: 5px;\n  opacity: 0.5;\n}\n\n@keyframes gradient-shadow {\n  0% {\n    box-shadow: 0 0 40px 20px #3d3d3d, 0 0 4px 2px #3d3d3d;\n  }\n  20% {\n    box-shadow: 0 0 40px 20px #232720, 0 0 4px 2px #232720;\n  }\n  40% {\n    box-shadow: 0 0 40px 20px #8f885b, 0 0 4px 2px #8f885b;\n  }\n  60% {\n    box-shadow: 0 0 40px 20px #acab9b, 0 0 4px 2px #acab9b;\n  }\n  80% {\n    box-shadow: 0 0 40px 20px #1f2723, 0 0 4px 2px #1f2723;\n  }\n  100% {\n    box-shadow: 0 0 40px 20px #8e7b3e, 0 0 4px 2px #8e7b3e;\n  }\n}\n.main_game {\n  margin: 0 auto;\n  max-width: 65rem;\n  width: 100%;\n}\n.main_game_over {\n  position: relative;\n  background: rgba(0, 0, 0, 0.4);\n  user-select: none;\n  pointer-events: none;\n  cursor: not-allowed;\n  opacity: 0.7;\n}\n.main_game_container {\n  display: grid;\n  padding: 0.5rem;\n  grid-gap: 0.5rem;\n  background: rgba(20, 19, 17, 0.64);\n  backdrop-filter: blur(5px);\n  box-shadow: 0rem 0rem 8rem 4rem #fff;\n  position: relative;\n}\n.main_game_container_3x3 {\n  grid-template-columns: repeat(3, 1fr);\n}\n.main_game_container_4x4 {\n  grid-template-columns: repeat(4, 1fr);\n}\n.main_game_container_5x5 {\n  grid-template-columns: repeat(5, 1fr);\n}\n.main_game_container_6x6 {\n  grid-template-columns: repeat(6, 1fr);\n}\n.main_game_container_7x7 {\n  grid-template-columns: repeat(7, 1fr);\n}\n.main_game_container_8x8 {\n  grid-template-columns: repeat(8, 1fr);\n}\n.main_game_square {\n  font-size: 4.8rem;\n  line-height: 140%;\n  color: #fff;\n  aspect-ratio: 1/1;\n  cursor: pointer;\n  text-align: center;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: linear 0.2s;\n  user-select: none;\n  border: 0.6rem solid #aeb1ab;\n  background: #3d3d3d;\n  opacity: 0.8;\n}\n.main_game_square_3x3 {\n  font-size: 4.8rem;\n}\n.main_game_square_4x4 {\n  font-size: 4.4rem;\n  border: 0.55rem solid #aeb1ab;\n}\n.main_game_square_5x5 {\n  font-size: 4rem;\n  border: 0.5rem solid #aeb1ab;\n}\n.main_game_square_6x6 {\n  font-size: 3.6rem;\n  border: 0.45rem solid #aeb1ab;\n}\n.main_game_square_7x7 {\n  font-size: 3.2rem;\n  border: 0.35rem solid #aeb1ab;\n}\n.main_game_square_8x8 {\n  font-size: 2.8rem;\n  border: 0.3rem solid #aeb1ab;\n}\n.main_game_square_empty {\n  border: none;\n  cursor: auto;\n  outline: none;\n  user-select: none;\n  z-index: 0;\n  background: none;\n}\n\n@media (max-width: 1920px) and (max-height: 1000px) {\n  .main_game {\n    max-width: 57rem;\n  }\n}\n@media (max-width: 870px) {\n  .main_game {\n    max-width: 55rem;\n  }\n  .main_game_container {\n    box-shadow: 0rem 0rem 5rem 4rem #fff;\n  }\n}\n@media (max-width: 670px) {\n  .main_game {\n    max-width: 50rem;\n  }\n  .main_game_container {\n    box-shadow: 0rem 0rem 6rem 3rem #fff;\n  }\n}\n@media (max-width: 450px) {\n  .main_game_square {\n    font-size: 2.1rem;\n    border: 0.3rem solid #aeb1ab;\n  }\n  .main_game_square_empty {\n    border: none;\n  }\n}\n@media (max-width: 350px) {\n  .main_game_square {\n    font-size: 1.7rem;\n    border: 0.2rem solid #aeb1ab;\n  }\n  .main_game_square_empty {\n    border: none;\n  }\n}", "",{"version":3,"sources":["webpack://./src/ts/components/main/game/game-animation.scss","webpack://./src/ts/components/main/game/game.scss","webpack://./src/style/variables.scss"],"names":[],"mappings":"AAAA;EACE,kBAAA;EACA,YAAA;EACA,6BAAA;ACCF;;ADEA;EACE,WAAA;EACA,kBAAA;EACA,OAAA;EACA,MAAA;EACA,WAAA;EACA,YAAA;EACA,oCAAA;EACA,UAAA;EACA,+BAAA;EACA,+BAAA;EACA,sBAAA;EACA,mCAAA;EACA,kBAAA;EACA,YAAA;ACCF;;ADEA;EACE;IACE,sDAAA;ECCF;EDCA;IACE,sDAAA;ECCF;EDCA;IACE,sDAAA;ECCF;EDCA;IACE,sDAAA;ECCF;EDCA;IACE,sDAAA;ECCF;EDCA;IACE,sDAAA;ECCF;AACF;AAvCA;EACE,cAAA;EACA,gBAAA;EACA,WAAA;AAyCF;AAxCE;EACE,kBAAA;EACA,8BAAA;EACA,iBAAA;EACA,oBAAA;EACA,mBAAA;EACA,YAAA;AA0CJ;AAxCE;EACE,aAAA;EACA,eAAA;EACA,gBAAA;EACA,kCAAA;EACA,0BAAA;EACA,oCAAA;EACA,kBAAA;AA0CJ;AAzCI;EACE,qCAAA;AA2CN;AAzCI;EACE,qCAAA;AA2CN;AAzCI;EACE,qCAAA;AA2CN;AAzCI;EACE,qCAAA;AA2CN;AAzCI;EACE,qCAAA;AA2CN;AAzCI;EACE,qCAAA;AA2CN;AAxCE;EACE,iBAAA;EACA,iBAAA;EACA,WClCS;EDmCT,iBAAA;EACA,eAAA;EACA,kBAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,uBAAA;EACA,iBAAA;EACA,4BAAA;EACA,mBAAA;EACA,YAAA;AA0CJ;AAzCI;EACE,iBAAA;AA2CN;AAzCI;EACE,iBAAA;EACA,6BAAA;AA2CN;AAzCI;EACE,eAAA;EACA,4BAAA;AA2CN;AAzCI;EACE,iBAAA;EACA,6BAAA;AA2CN;AAzCI;EACE,iBAAA;EACA,6BAAA;AA2CN;AAzCI;EACE,iBAAA;EACA,4BAAA;AA2CN;AAxCE;EACE,YAAA;EACA,YAAA;EACA,aAAA;EACA,iBAAA;EACA,UAAA;EACA,gBAAA;AA0CJ;;AAtCA;EACE;IACE,gBAAA;EAyCF;AACF;AAtCA;EACE;IACE,gBAAA;EAwCF;EAvCE;IACE,oCAAA;EAyCJ;AACF;AArCA;EACE;IACE,gBAAA;EAuCF;EAtCE;IACE,oCAAA;EAwCJ;AACF;AApCA;EAEI;IACE,iBAAA;IACA,4BAAA;EAqCJ;EApCI;IACE,YAAA;EAsCN;AACF;AAlCA;EAEI;IACE,iBAAA;IACA,4BAAA;EAmCJ;EAlCI;IACE,YAAA;EAoCN;AACF","sourcesContent":[".main_game_animation {\r\n  position: relative;\r\n  margin: 10px;\r\n  background-color: transparent;\r\n}\r\n\r\n.main_game_animation::before {\r\n  content: '';\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  width: 100%;\r\n  height: 100%;\r\n  box-shadow: 0rem 0rem 8rem 4rem #fff;\r\n  z-index: 1;\r\n  animation-name: gradient-shadow;\r\n  animation-timing-function: ease;\r\n  animation-duration: 3s;\r\n  animation-iteration-count: infinite;\r\n  border-radius: 5px;\r\n  opacity: 0.5;\r\n}\r\n\r\n@keyframes gradient-shadow {\r\n  0% {\r\n    box-shadow: 0 0 40px 20px #3d3d3d, 0 0 4px 2px #3d3d3d;\r\n  }\r\n  20% {\r\n    box-shadow: 0 0 40px 20px #232720, 0 0 4px 2px #232720;\r\n  }\r\n  40% {\r\n    box-shadow: 0 0 40px 20px #8f885b, 0 0 4px 2px #8f885b;\r\n  }\r\n  60% {\r\n    box-shadow: 0 0 40px 20px #acab9b, 0 0 4px 2px #acab9b;\r\n  }\r\n  80% {\r\n    box-shadow: 0 0 40px 20px #1f2723, 0 0 4px 2px #1f2723;\r\n  }\r\n  100% {\r\n    box-shadow: 0 0 40px 20px #8e7b3e, 0 0 4px 2px #8e7b3e;\r\n  }\r\n}\r\n","@import '../../../../assets/../style/variables.scss';\n@import './game-animation.scss';\n\n.main_game {\n  margin: 0 auto;\n  max-width: 65rem;\n  width: 100%;\n  &_over {\n    position: relative;\n    background: rgba(0, 0, 0, 0.4);\n    user-select: none;\n    pointer-events: none;\n    cursor: not-allowed;\n    opacity: 0.7;\n  }\n  &_container {\n    display: grid;\n    padding: 0.5rem;\n    grid-gap: 0.5rem;\n    background: rgba(20, 19, 17, 0.64);\n    backdrop-filter: blur(5px);\n    box-shadow: 0rem 0rem 8rem 4rem #fff;\n    position: relative;\n    &_3x3 {\n      grid-template-columns: repeat(3, 1fr);\n    }\n    &_4x4 {\n      grid-template-columns: repeat(4, 1fr);\n    }\n    &_5x5 {\n      grid-template-columns: repeat(5, 1fr);\n    }\n    &_6x6 {\n      grid-template-columns: repeat(6, 1fr);\n    }\n    &_7x7 {\n      grid-template-columns: repeat(7, 1fr);\n    }\n    &_8x8 {\n      grid-template-columns: repeat(8, 1fr);\n    }\n  }\n  &_square {\n    font-size: 4.8rem;\n    line-height: 140%;\n    color: $color-text;\n    aspect-ratio: 1/1;\n    cursor: pointer;\n    text-align: center;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: linear 0.2s;\n    user-select: none;\n    border: 0.6rem solid #aeb1ab;\n    background: #3d3d3d;\n    opacity: 0.8;\n    &_3x3 {\n      font-size: 4.8rem;\n    }\n    &_4x4 {\n      font-size: 4.4rem;\n      border: 0.55rem solid #aeb1ab;\n    }\n    &_5x5 {\n      font-size: 4rem;\n      border: 0.5rem solid #aeb1ab;\n    }\n    &_6x6 {\n      font-size: 3.6rem;\n      border: 0.45rem solid #aeb1ab;\n    }\n    &_7x7 {\n      font-size: 3.2rem;\n      border: 0.35rem solid #aeb1ab;\n    }\n    &_8x8 {\n      font-size: 2.8rem;\n      border: 0.3rem solid #aeb1ab;\n    }\n  }\n  &_square_empty {\n    border: none;\n    cursor: auto;\n    outline: none;\n    user-select: none;\n    z-index: 0;\n    background: none;\n  }\n}\n\n@media (max-width: 1920px) and (max-height: 1000px) {\n  .main_game {\n    max-width: 57rem;\n  }\n}\n\n@media (max-width: 870px) {\n  .main_game {\n    max-width: 55rem;\n    &_container {\n      box-shadow: 0rem 0rem 5rem 4rem #fff;\n    }\n  }\n}\n\n@media (max-width: 670px) {\n  .main_game {\n    max-width: 50rem;\n    &_container {\n      box-shadow: 0rem 0rem 6rem 3rem #fff;\n    }\n  }\n}\n\n@media (max-width: 450px) {\n  .main_game {\n    &_square {\n      font-size: 2.1rem;\n      border: 0.3rem solid #aeb1ab;\n      &_empty {\n        border: none;\n      }\n    }\n  }\n}\n@media (max-width: 350px) {\n  .main_game {\n    &_square {\n      font-size: 1.7rem;\n      border: 0.2rem solid #aeb1ab;\n      &_empty {\n        border: none;\n      }\n    }\n  }\n}\n","$font-family: 'Thasadith', sans-serif;\n\n$fwb: 700;\n$fwr: 400;\n\n// animation\n$count: 15;\n$size: 50px;\n$margin: $size * -0.5;\n\n$default-color: black;\n$color-text: #fff;\n$color-text-black: #0b0a0a;\n$color-btn: linear-gradient(180deg, rgba(148, 146, 141, 0.91) 0%, rgba(255, 255, 255, 0.12) 100%);\n$color-square: rgba(61, 61, 61, 0.8);\n\n%header-btns {\n  font-size: 2.5rem;\n  line-height: 140%;\n  border: none;\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  border: none;\n  background: linear-gradient(180deg, rgba(170, 170, 170, 0.91) 0%, #2e2d2c 100%);\n\n  backdrop-filter: blur(10px);\n  width: 100%;\n  height: 100%;\n  transition: 0.2s linear;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n\n%header-mobile-btn {\n  font-size: 2.5rem;\n  line-height: 140%;\n  display: none;\n  border: none;\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  background: $color-btn;\n  width: 10rem;\n\n  transition: 0.2s linear;\n  margin-top: 1.5rem;\n  margin-left: 1.5rem;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n\n%frame-btns {\n  font-size: 2.5rem;\n  line-height: 140%;\n  width: 10.5rem;\n  background: linear-gradient(180deg, rgba(170, 170, 170, 0.91) 0%, #2e2d2c 100%);\n  backdrop-filter: blur(10px);\n  transition: 0.2s linear;\n  border: none;\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n%collect-btn {\n  font-size: 2.5rem;\n  line-height: 140%;\n  border: none;\n  color: $color-text;\n  padding: 0.5rem 0rem;\n  max-width: 25.5rem;\n  width: 100%;\n  background: linear-gradient(180deg, rgba(170, 170, 170, 0.91) 0%, #2e2d2c 100%);\n\n  backdrop-filter: blur(10px);\n  transition: 0.2s linear;\n  cursor: pointer;\n  user-select: none;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n%popup-btn {\n  font-size: 3rem;\n  line-height: 140%;\n  position: absolute;\n  bottom: 0rem;\n  width: 100%;\n  border: none;\n  background: linear-gradient(180deg, #23221e 0%, rgba(255, 255, 249, 0) 100%);\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  transition: 0.2s linear;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    background: #3d3d3d;\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n%warning-btns {\n  font-size: 3.5rem;\n  line-height: 140%;\n  border: none;\n  background: linear-gradient(180deg, #23221e 0%, rgba(255, 255, 249, 0) 100%);\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  text-transform: uppercase;\n  height: 5.5rem;\n  max-width: 20rem;\n  width: 100%;\n  transition: 0.2s linear;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n}\n%close-btn {\n  width: 2.5rem;\n  height: 2.5rem;\n  cursor: pointer;\n  transition: 0.2s linear;\n  &:hover {\n    opacity: 0.5;\n  }\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".main_game_animation {\n  position: relative;\n  margin: 10px;\n  background-color: transparent;\n}\n\n.main_game_animation::before {\n  content: \"\";\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  box-shadow: 0rem 0rem 8rem 4rem #fff;\n  z-index: 1;\n  animation-name: gradient-shadow;\n  animation-timing-function: ease;\n  animation-duration: 3s;\n  animation-iteration-count: infinite;\n  border-radius: 5px;\n  opacity: 0.5;\n}\n\n@keyframes gradient-shadow {\n  0% {\n    box-shadow: 0 0 40px 20px #3d3d3d, 0 0 4px 2px #3d3d3d;\n  }\n  20% {\n    box-shadow: 0 0 40px 20px #232720, 0 0 4px 2px #232720;\n  }\n  40% {\n    box-shadow: 0 0 40px 20px #8f885b, 0 0 4px 2px #8f885b;\n  }\n  60% {\n    box-shadow: 0 0 40px 20px #acab9b, 0 0 4px 2px #acab9b;\n  }\n  80% {\n    box-shadow: 0 0 40px 20px #1f2723, 0 0 4px 2px #1f2723;\n  }\n  100% {\n    box-shadow: 0 0 40px 20px #8e7b3e, 0 0 4px 2px #8e7b3e;\n  }\n}\n.main_game {\n  margin: 0 auto;\n  max-width: 65rem;\n  width: 100%;\n}\n.main_game_over {\n  position: relative;\n  background: rgba(0, 0, 0, 0.4);\n  user-select: none;\n  pointer-events: none;\n  cursor: not-allowed;\n  opacity: 0.7;\n}\n.main_game_container {\n  display: grid;\n  padding: 0.5rem;\n  grid-gap: 0.5rem;\n  background: rgba(20, 19, 17, 0.64);\n  backdrop-filter: blur(5px);\n  box-shadow: 0rem 0rem 8rem 4rem #fff;\n  position: relative;\n}\n.main_game_container_3x3 {\n  grid-template-columns: repeat(3, 1fr);\n}\n.main_game_container_4x4 {\n  grid-template-columns: repeat(4, 1fr);\n}\n.main_game_container_5x5 {\n  grid-template-columns: repeat(5, 1fr);\n}\n.main_game_container_6x6 {\n  grid-template-columns: repeat(6, 1fr);\n}\n.main_game_container_7x7 {\n  grid-template-columns: repeat(7, 1fr);\n}\n.main_game_container_8x8 {\n  grid-template-columns: repeat(8, 1fr);\n}\n.main_game_square {\n  font-size: 4.8rem;\n  line-height: 140%;\n  color: #fff;\n  aspect-ratio: 1/1;\n  cursor: pointer;\n  text-align: center;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: linear 0.2s;\n  user-select: none;\n  border: 0.6rem solid #aeb1ab;\n  background: #3d3d3d;\n  opacity: 0.8;\n}\n.main_game_square_3x3 {\n  font-size: 4.8rem;\n}\n.main_game_square_4x4 {\n  font-size: 4.4rem;\n  border: 0.55rem solid #aeb1ab;\n}\n.main_game_square_5x5 {\n  font-size: 4rem;\n  border: 0.5rem solid #aeb1ab;\n}\n.main_game_square_6x6 {\n  font-size: 3.6rem;\n  border: 0.45rem solid #aeb1ab;\n}\n.main_game_square_7x7 {\n  font-size: 3.2rem;\n  border: 0.35rem solid #aeb1ab;\n}\n.main_game_square_8x8 {\n  font-size: 2.8rem;\n  border: 0.3rem solid #aeb1ab;\n}\n.main_game_square_empty {\n  border: none;\n  cursor: auto;\n  outline: none;\n  user-select: none;\n  z-index: 0;\n  background: none;\n}\n\n@media (max-width: 1920px) and (max-height: 1000px) {\n  .main_game {\n    max-width: 57rem;\n  }\n}\n@media (max-width: 870px) {\n  .main_game {\n    max-width: 55rem;\n  }\n  .main_game_container {\n    box-shadow: 0rem 0rem 5rem 4rem #fff;\n  }\n}\n@media (max-width: 670px) {\n  .main_game {\n    max-width: 50rem;\n  }\n  .main_game_container {\n    box-shadow: 0rem 0rem 6rem 3rem #fff;\n  }\n}\n@media (max-width: 450px) {\n  .main_game_square {\n    font-size: 2.1rem;\n    border: 0.3rem solid #aeb1ab;\n  }\n  .main_game_square_empty {\n    border: none;\n  }\n}\n@media (max-width: 350px) {\n  .main_game_square {\n    font-size: 1.7rem;\n    border: 0.2rem solid #aeb1ab;\n  }\n  .main_game_square_empty {\n    border: none;\n  }\n}", "",{"version":3,"sources":["webpack://./src/ts/components/main/game/game-animation.scss","webpack://./src/ts/components/main/game/game.scss","webpack://./src/style/variables.scss"],"names":[],"mappings":"AAAA;EACE,kBAAA;EACA,YAAA;EACA,6BAAA;ACCF;;ADEA;EACE,WAAA;EACA,kBAAA;EACA,OAAA;EACA,MAAA;EACA,WAAA;EACA,YAAA;EACA,oCAAA;EACA,UAAA;EACA,+BAAA;EACA,+BAAA;EACA,sBAAA;EACA,mCAAA;EACA,kBAAA;EACA,YAAA;ACCF;;ADEA;EACE;IACE,sDAAA;ECCF;EDCA;IACE,sDAAA;ECCF;EDCA;IACE,sDAAA;ECCF;EDCA;IACE,sDAAA;ECCF;EDCA;IACE,sDAAA;ECCF;EDCA;IACE,sDAAA;ECCF;AACF;AAvCA;EACE,cAAA;EACA,gBAAA;EACA,WAAA;AAyCF;AAxCE;EACE,kBAAA;EACA,8BAAA;EACA,iBAAA;EACA,oBAAA;EACA,mBAAA;EACA,YAAA;AA0CJ;AAxCE;EACE,aAAA;EACA,eAAA;EACA,gBAAA;EACA,kCAAA;EACA,0BAAA;EACA,oCAAA;EACA,kBAAA;AA0CJ;AAzCI;EACE,qCAAA;AA2CN;AAzCI;EACE,qCAAA;AA2CN;AAzCI;EACE,qCAAA;AA2CN;AAzCI;EACE,qCAAA;AA2CN;AAzCI;EACE,qCAAA;AA2CN;AAzCI;EACE,qCAAA;AA2CN;AAxCE;EACE,iBAAA;EACA,iBAAA;EACA,WClCS;EDmCT,iBAAA;EACA,eAAA;EACA,kBAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,uBAAA;EACA,iBAAA;EACA,4BAAA;EACA,mBAAA;EACA,YAAA;AA0CJ;AAzCI;EACE,iBAAA;AA2CN;AAzCI;EACE,iBAAA;EACA,6BAAA;AA2CN;AAzCI;EACE,eAAA;EACA,4BAAA;AA2CN;AAzCI;EACE,iBAAA;EACA,6BAAA;AA2CN;AAzCI;EACE,iBAAA;EACA,6BAAA;AA2CN;AAzCI;EACE,iBAAA;EACA,4BAAA;AA2CN;AAxCE;EACE,YAAA;EACA,YAAA;EACA,aAAA;EACA,iBAAA;EACA,UAAA;EACA,gBAAA;AA0CJ;;AAtCA;EACE;IACE,gBAAA;EAyCF;AACF;AAtCA;EACE;IACE,gBAAA;EAwCF;EAvCE;IACE,oCAAA;EAyCJ;AACF;AArCA;EACE;IACE,gBAAA;EAuCF;EAtCE;IACE,oCAAA;EAwCJ;AACF;AApCA;EAEI;IACE,iBAAA;IACA,4BAAA;EAqCJ;EApCI;IACE,YAAA;EAsCN;AACF;AAlCA;EAEI;IACE,iBAAA;IACA,4BAAA;EAmCJ;EAlCI;IACE,YAAA;EAoCN;AACF","sourcesContent":[".main_game_animation {\n  position: relative;\n  margin: 10px;\n  background-color: transparent;\n}\n\n.main_game_animation::before {\n  content: '';\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  box-shadow: 0rem 0rem 8rem 4rem #fff;\n  z-index: 1;\n  animation-name: gradient-shadow;\n  animation-timing-function: ease;\n  animation-duration: 3s;\n  animation-iteration-count: infinite;\n  border-radius: 5px;\n  opacity: 0.5;\n}\n\n@keyframes gradient-shadow {\n  0% {\n    box-shadow: 0 0 40px 20px #3d3d3d, 0 0 4px 2px #3d3d3d;\n  }\n  20% {\n    box-shadow: 0 0 40px 20px #232720, 0 0 4px 2px #232720;\n  }\n  40% {\n    box-shadow: 0 0 40px 20px #8f885b, 0 0 4px 2px #8f885b;\n  }\n  60% {\n    box-shadow: 0 0 40px 20px #acab9b, 0 0 4px 2px #acab9b;\n  }\n  80% {\n    box-shadow: 0 0 40px 20px #1f2723, 0 0 4px 2px #1f2723;\n  }\n  100% {\n    box-shadow: 0 0 40px 20px #8e7b3e, 0 0 4px 2px #8e7b3e;\n  }\n}\n","@import '../../../../assets/../style/variables.scss';\n@import './game-animation.scss';\n\n.main_game {\n  margin: 0 auto;\n  max-width: 65rem;\n  width: 100%;\n  &_over {\n    position: relative;\n    background: rgba(0, 0, 0, 0.4);\n    user-select: none;\n    pointer-events: none;\n    cursor: not-allowed;\n    opacity: 0.7;\n  }\n  &_container {\n    display: grid;\n    padding: 0.5rem;\n    grid-gap: 0.5rem;\n    background: rgba(20, 19, 17, 0.64);\n    backdrop-filter: blur(5px);\n    box-shadow: 0rem 0rem 8rem 4rem #fff;\n    position: relative;\n    &_3x3 {\n      grid-template-columns: repeat(3, 1fr);\n    }\n    &_4x4 {\n      grid-template-columns: repeat(4, 1fr);\n    }\n    &_5x5 {\n      grid-template-columns: repeat(5, 1fr);\n    }\n    &_6x6 {\n      grid-template-columns: repeat(6, 1fr);\n    }\n    &_7x7 {\n      grid-template-columns: repeat(7, 1fr);\n    }\n    &_8x8 {\n      grid-template-columns: repeat(8, 1fr);\n    }\n  }\n  &_square {\n    font-size: 4.8rem;\n    line-height: 140%;\n    color: $color-text;\n    aspect-ratio: 1/1;\n    cursor: pointer;\n    text-align: center;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    transition: linear 0.2s;\n    user-select: none;\n    border: 0.6rem solid #aeb1ab;\n    background: #3d3d3d;\n    opacity: 0.8;\n    &_3x3 {\n      font-size: 4.8rem;\n    }\n    &_4x4 {\n      font-size: 4.4rem;\n      border: 0.55rem solid #aeb1ab;\n    }\n    &_5x5 {\n      font-size: 4rem;\n      border: 0.5rem solid #aeb1ab;\n    }\n    &_6x6 {\n      font-size: 3.6rem;\n      border: 0.45rem solid #aeb1ab;\n    }\n    &_7x7 {\n      font-size: 3.2rem;\n      border: 0.35rem solid #aeb1ab;\n    }\n    &_8x8 {\n      font-size: 2.8rem;\n      border: 0.3rem solid #aeb1ab;\n    }\n  }\n  &_square_empty {\n    border: none;\n    cursor: auto;\n    outline: none;\n    user-select: none;\n    z-index: 0;\n    background: none;\n  }\n}\n\n@media (max-width: 1920px) and (max-height: 1000px) {\n  .main_game {\n    max-width: 57rem;\n  }\n}\n\n@media (max-width: 870px) {\n  .main_game {\n    max-width: 55rem;\n    &_container {\n      box-shadow: 0rem 0rem 5rem 4rem #fff;\n    }\n  }\n}\n\n@media (max-width: 670px) {\n  .main_game {\n    max-width: 50rem;\n    &_container {\n      box-shadow: 0rem 0rem 6rem 3rem #fff;\n    }\n  }\n}\n\n@media (max-width: 450px) {\n  .main_game {\n    &_square {\n      font-size: 2.1rem;\n      border: 0.3rem solid #aeb1ab;\n      &_empty {\n        border: none;\n      }\n    }\n  }\n}\n@media (max-width: 350px) {\n  .main_game {\n    &_square {\n      font-size: 1.7rem;\n      border: 0.2rem solid #aeb1ab;\n      &_empty {\n        border: none;\n      }\n    }\n  }\n}\n","$font-family: 'Thasadith', sans-serif;\n\n$fwb: 700;\n$fwr: 400;\n\n// animation\n$count: 15;\n$size: 50px;\n$margin: $size * -0.5;\n\n$default-color: black;\n$color-text: #fff;\n$color-text-black: #0b0a0a;\n$color-btn: linear-gradient(180deg, rgba(148, 146, 141, 0.91) 0%, rgba(255, 255, 255, 0.12) 100%);\n$color-square: rgba(61, 61, 61, 0.8);\n\n%header-btns {\n  font-size: 2.5rem;\n  line-height: 140%;\n  border: none;\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  border: none;\n  background: linear-gradient(180deg, rgba(170, 170, 170, 0.91) 0%, #2e2d2c 100%);\n\n  backdrop-filter: blur(10px);\n  width: 100%;\n  height: 100%;\n  transition: 0.2s linear;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n\n%header-mobile-btn {\n  font-size: 2.5rem;\n  line-height: 140%;\n  display: none;\n  border: none;\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  background: $color-btn;\n  width: 10rem;\n\n  transition: 0.2s linear;\n  margin-top: 1.5rem;\n  margin-left: 1.5rem;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n\n%frame-btns {\n  font-size: 2.5rem;\n  line-height: 140%;\n  width: 10.5rem;\n  background: linear-gradient(180deg, rgba(170, 170, 170, 0.91) 0%, #2e2d2c 100%);\n  backdrop-filter: blur(10px);\n  transition: 0.2s linear;\n  border: none;\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n%collect-btn {\n  font-size: 2.5rem;\n  line-height: 140%;\n  border: none;\n  color: $color-text;\n  padding: 0.5rem 0rem;\n  max-width: 25.5rem;\n  width: 100%;\n  background: linear-gradient(180deg, rgba(170, 170, 170, 0.91) 0%, #2e2d2c 100%);\n\n  backdrop-filter: blur(10px);\n  transition: 0.2s linear;\n  cursor: pointer;\n  user-select: none;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n%popup-btn {\n  font-size: 3rem;\n  line-height: 140%;\n  position: absolute;\n  bottom: 0rem;\n  width: 100%;\n  border: none;\n  background: linear-gradient(180deg, #23221e 0%, rgba(255, 255, 249, 0) 100%);\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  transition: 0.2s linear;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    background: #3d3d3d;\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n%warning-btns {\n  font-size: 3.5rem;\n  line-height: 140%;\n  border: none;\n  background: linear-gradient(180deg, #23221e 0%, rgba(255, 255, 249, 0) 100%);\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  text-transform: uppercase;\n  height: 5.5rem;\n  max-width: 20rem;\n  width: 100%;\n  transition: 0.2s linear;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n}\n%close-btn {\n  width: 2.5rem;\n  height: 2.5rem;\n  cursor: pointer;\n  transition: 0.2s linear;\n  &:hover {\n    opacity: 0.5;\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2973,7 +2986,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".switcher {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-bottom: 1rem;\n  width: 100%;\n}\n.switcher_title {\n  font-size: 2.7rem;\n  line-height: 140%;\n  text-align: center;\n  color: #fff;\n  margin: 0;\n}\n.switcher_inner {\n  display: flex;\n  align-items: center;\n  width: 23rem;\n}\n.switcher_switch {\n  position: relative;\n  display: inline-block;\n  width: 10rem;\n  height: 5rem;\n  margin-right: 2.2rem;\n}\n.switcher_checkbox {\n  display: none;\n}\n.switcher_slider {\n  position: absolute;\n  cursor: pointer;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: linear-gradient(180deg, rgba(35, 34, 30, 0.59) 0%, rgba(255, 255, 249, 0) 100%);\n  transition: 0.5s ease;\n}\n.switcher_slider::before {\n  position: absolute;\n  content: \"\";\n  height: 4rem;\n  width: 4rem;\n  left: 0.4rem;\n  bottom: 0.5rem;\n  background: linear-gradient(180deg, rgba(226, 226, 226, 0.54) 0%, #bcbcbc 100%);\n  transition: 0.5s ease;\n}\n.switcher_value {\n  font-size: 2.5rem;\n  line-height: 140%;\n  color: #fff;\n}\n\n.switcher_checkbox:checked + .switcher_slider {\n  background: rgba(191, 186, 172, 0.3);\n  box-shadow: 0rem 0rem 2rem 0rem #fff;\n}\n\n.switcher_checkbox:checked + .switcher_slider::before {\n  transform: translateX(5rem);\n}\n\n@media (max-width: 670px) {\n  .switcher_value {\n    margin-top: 1rem;\n    margin-bottom: 1rem;\n  }\n}\n@media (max-width: 500px) {\n  .switcher {\n    margin-bottom: 1.5rem;\n  }\n  .switcher_switch {\n    width: 100%;\n    height: 4rem;\n    margin-right: 0;\n    position: relative;\n    z-index: 1;\n    margin-left: 1rem;\n    margin-right: 1rem;\n  }\n  .switcher_inner {\n    width: 100%;\n  }\n  .switcher_title {\n    font-size: 1.9rem;\n    margin-bottom: 0.5rem;\n  }\n  .switcher_slider {\n    width: 100%;\n  }\n  .switcher_slider::before {\n    height: 3rem;\n    width: 4rem;\n    left: 0.2rem;\n    bottom: 0.5rem;\n  }\n  .switcher_value {\n    font-size: 1.6rem;\n    position: absolute;\n    transform: translateX(-50%);\n    left: 50%;\n    user-select: none;\n    z-index: 0;\n  }\n  .switcher_checkbox:checked + .switcher_slider::before {\n    transform: translateX(82vw);\n  }\n  .switcher_checkbox:checked + .switcher_value {\n    color: black;\n  }\n  .switcher_checkbox:checked + .switcher_slider {\n    background: rgba(191, 186, 172, 0.3);\n  }\n}\n@media (max-width: 415px) {\n  .switcher_switch {\n    font-size: 2rem;\n  }\n  .switcher_checkbox:checked + .switcher_slider::before {\n    transform: translateX(80vw);\n  }\n}\n@media (max-width: 370px) {\n  .switcher_checkbox:checked + .switcher_slider::before {\n    transform: translateX(76vw);\n  }\n}", "",{"version":3,"sources":["webpack://./src/ts/components/main/popups/settings-popup/swither/switcher.scss","webpack://./src/style/variables.scss"],"names":[],"mappings":"AAEA;EACE,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,mBAAA;EACA,WAAA;AADF;AAEE;EACE,iBAAA;EACA,iBAAA;EACA,kBAAA;EACA,WCDS;EDET,SAAA;AAAJ;AAEE;EACE,aAAA;EACA,mBAAA;EACA,YAAA;AAAJ;AAEE;EACE,kBAAA;EACA,qBAAA;EACA,YAAA;EACA,YAAA;EACA,oBAAA;AAAJ;AAEE;EACE,aAAA;AAAJ;AAEE;EACE,kBAAA;EACA,eAAA;EACA,MAAA;EACA,OAAA;EACA,QAAA;EACA,SAAA;EACA,2FAAA;EACA,qBAAA;AAAJ;AACI;EACE,kBAAA;EACA,WAAA;EACA,YAAA;EACA,WAAA;EACA,YAAA;EACA,cAAA;EACA,+EAAA;EACA,qBAAA;AACN;AAEE;EACE,iBAAA;EACA,iBAAA;EACA,WC1CS;AD0Cb;;AAIA;EACE,oCAAA;EACA,oCAAA;AADF;;AAIA;EACE,2BAAA;AADF;;AAIA;EAEI;IACE,gBAAA;IACA,mBAAA;EAFJ;AACF;AAMA;EACE;IACE,qBAAA;EAJF;EAKE;IACE,WAAA;IACA,YAAA;IACA,eAAA;IACA,kBAAA;IACA,UAAA;IACA,iBAAA;IACA,kBAAA;EAHJ;EAKE;IACE,WAAA;EAHJ;EAKE;IACE,iBAAA;IACA,qBAAA;EAHJ;EAKE;IACE,WAAA;EAHJ;EAII;IACE,YAAA;IACA,WAAA;IACA,YAAA;IACA,cAAA;EAFN;EAKE;IACE,iBAAA;IACA,kBAAA;IACA,2BAAA;IACA,SAAA;IACA,iBAAA;IACA,UAAA;EAHJ;EAKE;IACE,2BAAA;EAHJ;EAKE;IACE,YAAA;EAHJ;EAKE;IACE,oCAAA;EAHJ;AACF;AAOA;EAEI;IACE,eAAA;EANJ;EAQE;IACE,2BAAA;EANJ;AACF;AAUA;EAEI;IACE,2BAAA;EATJ;AACF","sourcesContent":["@import '../../../../../../assets/../style/variables.scss';\n\n.switcher {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-bottom: 1rem;\n  width: 100%;\n  &_title {\n    font-size: 2.7rem;\n    line-height: 140%;\n    text-align: center;\n    color: $color-text;\n    margin: 0;\n  }\n  &_inner {\n    display: flex;\n    align-items: center;\n    width: 23rem;\n  }\n  &_switch {\n    position: relative;\n    display: inline-block;\n    width: 10rem;\n    height: 5rem;\n    margin-right: 2.2rem;\n  }\n  &_checkbox {\n    display: none;\n  }\n  &_slider {\n    position: absolute;\n    cursor: pointer;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: linear-gradient(180deg, rgba(35, 34, 30, 0.59) 0%, rgba(255, 255, 249, 0) 100%);\n    transition: 0.5s ease;\n    &::before {\n      position: absolute;\n      content: '';\n      height: 4rem;\n      width: 4rem;\n      left: 0.4rem;\n      bottom: 0.5rem;\n      background: linear-gradient(180deg, rgba(226, 226, 226, 0.54) 0%, #bcbcbc 100%);\n      transition: 0.5s ease;\n    }\n  }\n  &_value {\n    font-size: 2.5rem;\n    line-height: 140%;\n    color: $color-text;\n  }\n}\n\n.switcher_checkbox:checked + .switcher_slider {\n  background: rgba(191, 186, 172, 0.3);\n  box-shadow: 0rem 0rem 2rem 0rem #fff;\n}\n\n.switcher_checkbox:checked + .switcher_slider::before {\n  transform: translateX(5rem);\n}\n\n@media (max-width: 670px) {\n  .switcher {\n    &_value {\n      margin-top: 1rem;\n      margin-bottom: 1rem;\n    }\n  }\n}\n\n@media (max-width: 500px) {\n  .switcher {\n    margin-bottom: 1.5rem;\n    &_switch {\n      width: 100%;\n      height: 4rem;\n      margin-right: 0;\n      position: relative;\n      z-index: 1;\n      margin-left: 1rem;\n      margin-right: 1rem;\n    }\n    &_inner {\n      width: 100%;\n    }\n    &_title {\n      font-size: 1.9rem;\n      margin-bottom: 0.5rem;\n    }\n    &_slider {\n      width: 100%;\n      &::before {\n        height: 3rem;\n        width: 4rem;\n        left: 0.2rem;\n        bottom: 0.5rem;\n      }\n    }\n    &_value {\n      font-size: 1.6rem;\n      position: absolute;\n      transform: translateX(-50%);\n      left: 50%;\n      user-select: none;\n      z-index: 0;\n    }\n    &_checkbox:checked + .switcher_slider::before {\n      transform: translateX(82vw);\n    }\n    &_checkbox:checked + .switcher_value {\n      color: black;\n    }\n    &_checkbox:checked + .switcher_slider {\n      background: rgba(191, 186, 172, 0.3);\n    }\n  }\n}\n\n@media (max-width: 415px) {\n  .switcher {\n    &_switch {\n      font-size: 2rem;\n    }\n    &_checkbox:checked + .switcher_slider::before {\n      transform: translateX(80vw);\n    }\n  }\n}\n\n@media (max-width: 370px) {\n  .switcher {\n    &_checkbox:checked + .switcher_slider::before {\n      transform: translateX(76vw);\n    }\n  }\n}\n","$font-family: 'Thasadith', sans-serif;\n\n$fwb: 700;\n$fwr: 400;\n\n// animation\n$count: 15;\n$size: 50px;\n$margin: $size * -0.5;\n\n$default-color: black;\n$color-text: #fff;\n$color-text-black: #0b0a0a;\n$color-btn: linear-gradient(180deg, rgba(148, 146, 141, 0.91) 0%, rgba(255, 255, 255, 0.12) 100%);\n$color-square: rgba(61, 61, 61, 0.8);\n\n%header-btns {\n  font-size: 2.5rem;\n  line-height: 140%;\n  border: none;\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  border: none;\n  background: linear-gradient(180deg, rgba(170, 170, 170, 0.91) 0%, #2e2d2c 100%);\n\n  backdrop-filter: blur(10px);\n  width: 100%;\n  height: 100%;\n  transition: 0.2s linear;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n\n%header-mobile-btn {\n  font-size: 2.5rem;\n  line-height: 140%;\n  display: none;\n  border: none;\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  background: $color-btn;\n  width: 10rem;\n\n  transition: 0.2s linear;\n  margin-top: 1.5rem;\n  margin-left: 1.5rem;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n\n%frame-btns {\n  font-size: 2.5rem;\n  line-height: 140%;\n  width: 10.5rem;\n  background: linear-gradient(180deg, rgba(170, 170, 170, 0.91) 0%, #2e2d2c 100%);\n  backdrop-filter: blur(10px);\n  transition: 0.2s linear;\n  border: none;\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n%collect-btn {\n  font-size: 2.5rem;\n  line-height: 140%;\n  border: none;\n  color: $color-text;\n  padding: 0.5rem 0rem;\n  max-width: 25.5rem;\n  width: 100%;\n  background: linear-gradient(180deg, rgba(170, 170, 170, 0.91) 0%, #2e2d2c 100%);\n\n  backdrop-filter: blur(10px);\n  transition: 0.2s linear;\n  cursor: pointer;\n  user-select: none;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n%popup-btn {\n  font-size: 3rem;\n  line-height: 140%;\n  position: absolute;\n  bottom: 0rem;\n  width: 100%;\n  border: none;\n  background: linear-gradient(180deg, #23221e 0%, rgba(255, 255, 249, 0) 100%);\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  transition: 0.2s linear;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    background: #3d3d3d;\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n%warning-btns {\n  font-size: 3.5rem;\n  line-height: 140%;\n  border: none;\n  background: linear-gradient(180deg, #23221e 0%, rgba(255, 255, 249, 0) 100%);\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  text-transform: uppercase;\n  height: 5.5rem;\n  max-width: 20rem;\n  width: 100%;\n  transition: 0.2s linear;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n}\n%close-btn {\n  width: 2.5rem;\n  height: 2.5rem;\n  cursor: pointer;\n  transition: 0.2s linear;\n  &:hover {\n    opacity: 0.5;\n  }\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".switcher {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-bottom: 1rem;\n  width: 100%;\n}\n.switcher_title {\n  font-size: 2.7rem;\n  line-height: 140%;\n  text-align: center;\n  color: #fff;\n  margin: 0;\n}\n.switcher_title::first-letter {\n  text-transform: uppercase;\n}\n.switcher_inner {\n  display: flex;\n  align-items: center;\n  width: 23rem;\n}\n.switcher_switch {\n  position: relative;\n  display: inline-block;\n  width: 10rem;\n  height: 5rem;\n  margin-right: 2.2rem;\n}\n.switcher_checkbox {\n  display: none;\n}\n.switcher_slider {\n  position: absolute;\n  cursor: pointer;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: linear-gradient(180deg, rgba(35, 34, 30, 0.59) 0%, rgba(255, 255, 249, 0) 100%);\n  transition: 0.5s ease;\n}\n.switcher_slider::before {\n  position: absolute;\n  content: \"\";\n  height: 4rem;\n  width: 4rem;\n  left: 0.4rem;\n  bottom: 0.5rem;\n  background: linear-gradient(180deg, rgba(226, 226, 226, 0.54) 0%, #bcbcbc 100%);\n  transition: 0.5s ease;\n}\n.switcher_value {\n  font-size: 2.5rem;\n  line-height: 140%;\n  color: #fff;\n}\n\n.switcher_checkbox:checked + .switcher_slider {\n  background: rgba(142, 122, 61, 0.3);\n}\n\n.switcher_checkbox:checked + .switcher_slider::before {\n  transform: translateX(5rem);\n}\n\n@media (max-width: 670px) {\n  .switcher_value {\n    margin-top: 1rem;\n    margin-bottom: 1rem;\n  }\n}\n@media (max-width: 500px) {\n  .switcher {\n    margin-bottom: 1.5rem;\n  }\n  .switcher_switch {\n    width: 100%;\n    height: 4rem;\n    margin-right: 0;\n    position: relative;\n    z-index: 1;\n    margin-left: 1rem;\n    margin-right: 1rem;\n  }\n  .switcher_inner {\n    width: 100%;\n  }\n  .switcher_title {\n    font-size: 1.9rem;\n    margin-bottom: 0.5rem;\n  }\n  .switcher_slider {\n    width: 100%;\n  }\n  .switcher_slider::before {\n    height: 3rem;\n    width: 4rem;\n    left: 0.2rem;\n    bottom: 0.5rem;\n  }\n  .switcher_value {\n    font-size: 1.6rem;\n    position: absolute;\n    transform: translateX(-50%);\n    left: 50%;\n    user-select: none;\n    z-index: 0;\n  }\n  .switcher_checkbox:checked + .switcher_slider::before {\n    transform: translateX(82vw);\n  }\n  .switcher_checkbox:checked + .switcher_value {\n    color: black;\n  }\n  .switcher_checkbox:checked + .switcher_slider {\n    background: rgba(142, 122, 61, 0.3);\n  }\n}\n@media (max-width: 415px) {\n  .switcher_switch {\n    font-size: 2rem;\n  }\n  .switcher_checkbox:checked + .switcher_slider::before {\n    transform: translateX(80vw);\n  }\n}\n@media (max-width: 370px) {\n  .switcher_checkbox:checked + .switcher_slider::before {\n    transform: translateX(76vw);\n  }\n}", "",{"version":3,"sources":["webpack://./src/ts/components/main/popups/settings-popup/swither/switcher.scss","webpack://./src/style/variables.scss"],"names":[],"mappings":"AAEA;EACE,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,mBAAA;EACA,WAAA;AADF;AAEE;EACE,iBAAA;EACA,iBAAA;EACA,kBAAA;EACA,WCDS;EDET,SAAA;AAAJ;AACI;EACE,yBAAA;AACN;AAEE;EACE,aAAA;EACA,mBAAA;EACA,YAAA;AAAJ;AAEE;EACE,kBAAA;EACA,qBAAA;EACA,YAAA;EACA,YAAA;EACA,oBAAA;AAAJ;AAEE;EACE,aAAA;AAAJ;AAEE;EACE,kBAAA;EACA,eAAA;EACA,MAAA;EACA,OAAA;EACA,QAAA;EACA,SAAA;EACA,2FAAA;EACA,qBAAA;AAAJ;AACI;EACE,kBAAA;EACA,WAAA;EACA,YAAA;EACA,WAAA;EACA,YAAA;EACA,cAAA;EACA,+EAAA;EACA,qBAAA;AACN;AAEE;EACE,iBAAA;EACA,iBAAA;EACA,WC7CS;AD6Cb;;AAIA;EACE,mCAAA;AADF;;AAIA;EACE,2BAAA;AADF;;AAIA;EAEI;IACE,gBAAA;IACA,mBAAA;EAFJ;AACF;AAMA;EACE;IACE,qBAAA;EAJF;EAKE;IACE,WAAA;IACA,YAAA;IACA,eAAA;IACA,kBAAA;IACA,UAAA;IACA,iBAAA;IACA,kBAAA;EAHJ;EAKE;IACE,WAAA;EAHJ;EAKE;IACE,iBAAA;IACA,qBAAA;EAHJ;EAKE;IACE,WAAA;EAHJ;EAII;IACE,YAAA;IACA,WAAA;IACA,YAAA;IACA,cAAA;EAFN;EAKE;IACE,iBAAA;IACA,kBAAA;IACA,2BAAA;IACA,SAAA;IACA,iBAAA;IACA,UAAA;EAHJ;EAKE;IACE,2BAAA;EAHJ;EAKE;IACE,YAAA;EAHJ;EAKE;IACE,mCAAA;EAHJ;AACF;AAOA;EAEI;IACE,eAAA;EANJ;EAQE;IACE,2BAAA;EANJ;AACF;AAUA;EAEI;IACE,2BAAA;EATJ;AACF","sourcesContent":["@import '../../../../../../assets/../style/variables.scss';\n\n.switcher {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-bottom: 1rem;\n  width: 100%;\n  &_title {\n    font-size: 2.7rem;\n    line-height: 140%;\n    text-align: center;\n    color: $color-text;\n    margin: 0;\n    &::first-letter {\n      text-transform: uppercase;\n    }\n  }\n  &_inner {\n    display: flex;\n    align-items: center;\n    width: 23rem;\n  }\n  &_switch {\n    position: relative;\n    display: inline-block;\n    width: 10rem;\n    height: 5rem;\n    margin-right: 2.2rem;\n  }\n  &_checkbox {\n    display: none;\n  }\n  &_slider {\n    position: absolute;\n    cursor: pointer;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: linear-gradient(180deg, rgba(35, 34, 30, 0.59) 0%, rgba(255, 255, 249, 0) 100%);\n    transition: 0.5s ease;\n    &::before {\n      position: absolute;\n      content: '';\n      height: 4rem;\n      width: 4rem;\n      left: 0.4rem;\n      bottom: 0.5rem;\n      background: linear-gradient(180deg, rgba(226, 226, 226, 0.54) 0%, #bcbcbc 100%);\n      transition: 0.5s ease;\n    }\n  }\n  &_value {\n    font-size: 2.5rem;\n    line-height: 140%;\n    color: $color-text;\n  }\n}\n\n.switcher_checkbox:checked + .switcher_slider {\n  background: rgba(142, 122, 61, 0.3);\n}\n\n.switcher_checkbox:checked + .switcher_slider::before {\n  transform: translateX(5rem);\n}\n\n@media (max-width: 670px) {\n  .switcher {\n    &_value {\n      margin-top: 1rem;\n      margin-bottom: 1rem;\n    }\n  }\n}\n\n@media (max-width: 500px) {\n  .switcher {\n    margin-bottom: 1.5rem;\n    &_switch {\n      width: 100%;\n      height: 4rem;\n      margin-right: 0;\n      position: relative;\n      z-index: 1;\n      margin-left: 1rem;\n      margin-right: 1rem;\n    }\n    &_inner {\n      width: 100%;\n    }\n    &_title {\n      font-size: 1.9rem;\n      margin-bottom: 0.5rem;\n    }\n    &_slider {\n      width: 100%;\n      &::before {\n        height: 3rem;\n        width: 4rem;\n        left: 0.2rem;\n        bottom: 0.5rem;\n      }\n    }\n    &_value {\n      font-size: 1.6rem;\n      position: absolute;\n      transform: translateX(-50%);\n      left: 50%;\n      user-select: none;\n      z-index: 0;\n    }\n    &_checkbox:checked + .switcher_slider::before {\n      transform: translateX(82vw);\n    }\n    &_checkbox:checked + .switcher_value {\n      color: black;\n    }\n    &_checkbox:checked + .switcher_slider {\n      background: rgba(142, 122, 61, 0.3);\n    }\n  }\n}\n\n@media (max-width: 415px) {\n  .switcher {\n    &_switch {\n      font-size: 2rem;\n    }\n    &_checkbox:checked + .switcher_slider::before {\n      transform: translateX(80vw);\n    }\n  }\n}\n\n@media (max-width: 370px) {\n  .switcher {\n    &_checkbox:checked + .switcher_slider::before {\n      transform: translateX(76vw);\n    }\n  }\n}\n","$font-family: 'Thasadith', sans-serif;\n\n$fwb: 700;\n$fwr: 400;\n\n// animation\n$count: 15;\n$size: 50px;\n$margin: $size * -0.5;\n\n$default-color: black;\n$color-text: #fff;\n$color-text-black: #0b0a0a;\n$color-btn: linear-gradient(180deg, rgba(148, 146, 141, 0.91) 0%, rgba(255, 255, 255, 0.12) 100%);\n$color-square: rgba(61, 61, 61, 0.8);\n\n%header-btns {\n  font-size: 2.5rem;\n  line-height: 140%;\n  border: none;\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  border: none;\n  background: linear-gradient(180deg, rgba(170, 170, 170, 0.91) 0%, #2e2d2c 100%);\n\n  backdrop-filter: blur(10px);\n  width: 100%;\n  height: 100%;\n  transition: 0.2s linear;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n\n%header-mobile-btn {\n  font-size: 2.5rem;\n  line-height: 140%;\n  display: none;\n  border: none;\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  background: $color-btn;\n  width: 10rem;\n\n  transition: 0.2s linear;\n  margin-top: 1.5rem;\n  margin-left: 1.5rem;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n\n%frame-btns {\n  font-size: 2.5rem;\n  line-height: 140%;\n  width: 10.5rem;\n  background: linear-gradient(180deg, rgba(170, 170, 170, 0.91) 0%, #2e2d2c 100%);\n  backdrop-filter: blur(10px);\n  transition: 0.2s linear;\n  border: none;\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n%collect-btn {\n  font-size: 2.5rem;\n  line-height: 140%;\n  border: none;\n  color: $color-text;\n  padding: 0.5rem 0rem;\n  max-width: 25.5rem;\n  width: 100%;\n  background: linear-gradient(180deg, rgba(170, 170, 170, 0.91) 0%, #2e2d2c 100%);\n\n  backdrop-filter: blur(10px);\n  transition: 0.2s linear;\n  cursor: pointer;\n  user-select: none;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n%popup-btn {\n  font-size: 3rem;\n  line-height: 140%;\n  position: absolute;\n  bottom: 0rem;\n  width: 100%;\n  border: none;\n  background: linear-gradient(180deg, #23221e 0%, rgba(255, 255, 249, 0) 100%);\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  transition: 0.2s linear;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:disabled {\n    background: #3d3d3d;\n    opacity: 0.3;\n    cursor: not-allowed;\n  }\n}\n%warning-btns {\n  font-size: 3.5rem;\n  line-height: 140%;\n  border: none;\n  background: linear-gradient(180deg, #23221e 0%, rgba(255, 255, 249, 0) 100%);\n  color: $color-text;\n  cursor: pointer;\n  user-select: none;\n  text-transform: uppercase;\n  height: 5.5rem;\n  max-width: 20rem;\n  width: 100%;\n  transition: 0.2s linear;\n  &:hover {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n  &:active {\n    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,\n      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;\n    opacity: 0.8;\n  }\n}\n%close-btn {\n  width: 2.5rem;\n  height: 2.5rem;\n  cursor: pointer;\n  transition: 0.2s linear;\n  &:hover {\n    opacity: 0.5;\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2999,7 +3012,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".volume {\n  display: flex;\n  align-items: center;\n  margin-left: -6rem;\n  margin-top: 3rem;\n  margin-bottom: 2.5rem;\n}\n.volume_icon {\n  display: block;\n  min-width: 7rem;\n  height: 7rem;\n  object-fit: contain;\n  cursor: pointer;\n  margin-right: 0.5rem;\n}\n.volume_input[type=range] {\n  -webkit-appearance: none;\n  cursor: pointer;\n  height: 0.3rem;\n  outline: none;\n  transition: 0.5s ease-in-out;\n  max-width: 14rem;\n  width: 100%;\n}\n.volume_input[type=range]::-webkit-slider-thumb {\n  appearance: none;\n  filter: drop-shadow(0px 0px 1.2000000477px #fff) drop-shadow(0px 0px 2.4000000954px #fff) drop-shadow(0px 0px 8.3999996185px #fff) drop-shadow(0px 0px 16.7999992371px #d9d9d9) drop-shadow(0px 0px 28.7999992371px #d9d9d9) drop-shadow(0px 0px 50.4000015259px #d9d9d9);\n  appearance: none;\n  width: 0.3rem;\n  height: 2rem;\n  background-color: white;\n  cursor: pointer;\n  transition: ease 0.5s;\n}\n.volume_input[type=range]::-moz-range-thumb {\n  appearance: none;\n  filter: drop-shadow(0px 0px 1.2000000477px #fff) drop-shadow(0px 0px 2.4000000954px #fff) drop-shadow(0px 0px 8.3999996185px #fff) drop-shadow(0px 0px 16.7999992371px #d9d9d9) drop-shadow(0px 0px 28.7999992371px #d9d9d9) drop-shadow(0px 0px 50.4000015259px #d9d9d9);\n  appearance: none;\n  width: 0.3rem;\n  height: 2rem;\n  background-color: white;\n  cursor: pointer;\n  transition: ease 0.5s;\n}\n\n@media (max-width: 670px) {\n  .volume {\n    margin-top: 3.1rem;\n    margin-bottom: 0;\n  }\n}\n@media (max-width: 500px) {\n  .volume {\n    max-width: 30rem;\n    width: 100%;\n    margin-left: 0;\n    max-width: inherit;\n    margin-top: 1rem;\n  }\n  .volume_input::-webkit-slider-thumb {\n    filter: none;\n  }\n  .volume_input::-moz-range-thumb {\n    filter: none;\n  }\n  .volume_input[type=range] {\n    max-width: none;\n    width: 100%;\n    margin-right: 2rem;\n  }\n  .volume_icon {\n    min-width: 5rem;\n  }\n}", "",{"version":3,"sources":["webpack://./src/ts/components/main/popups/settings-popup/volume/volume.scss"],"names":[],"mappings":"AAAA;EACE,aAAA;EACA,mBAAA;EACA,kBAAA;EACA,gBAAA;EACA,qBAAA;AACF;AAAE;EACE,cAAA;EACA,eAAA;EACA,YAAA;EACA,mBAAA;EACA,eAAA;EACA,oBAAA;AAEJ;AAAE;EACE,wBAAA;EACA,eAAA;EACA,cAAA;EACA,aAAA;EACA,4BAAA;EACA,gBAAA;EACA,WAAA;AAEJ;AAAE;EACE,gBAAA;EACA,yQAAA;EAGA,gBAAA;EACA,aAAA;EACA,YAAA;EACA,uBAAA;EACA,eAAA;EACA,qBAAA;AAAJ;AAEE;EACE,gBAAA;EACA,yQAAA;EAGA,gBAAA;EACA,aAAA;EACA,YAAA;EACA,uBAAA;EACA,eAAA;EACA,qBAAA;AAFJ;;AAMA;EACE;IACE,kBAAA;IACA,gBAAA;EAHF;AACF;AAMA;EACE;IACE,gBAAA;IACA,WAAA;IACA,cAAA;IACA,kBAAA;IACA,gBAAA;EAJF;EAKE;IACE,YAAA;EAHJ;EAKE;IACE,YAAA;EAHJ;EAKE;IACE,eAAA;IACA,WAAA;IACA,kBAAA;EAHJ;EAKE;IACE,eAAA;EAHJ;AACF","sourcesContent":[".volume {\n  display: flex;\n  align-items: center;\n  margin-left: -6rem;\n  margin-top: 3rem;\n  margin-bottom: 2.5rem;\n  &_icon {\n    display: block;\n    min-width: 7rem;\n    height: 7rem;\n    object-fit: contain;\n    cursor: pointer;\n    margin-right: 0.5rem;\n  }\n  &_input[type='range'] {\n    -webkit-appearance: none;\n    cursor: pointer;\n    height: 0.3rem;\n    outline: none;\n    transition: 0.5s ease-in-out;\n    max-width: 14rem;\n    width: 100%;\n  }\n  &_input[type='range']::-webkit-slider-thumb {\n    appearance: none;\n    filter: drop-shadow(0px 0px 1.2000000476837158px #fff) drop-shadow(0px 0px 2.4000000953674316px #fff)\n      drop-shadow(0px 0px 8.399999618530273px #fff) drop-shadow(0px 0px 16.799999237060547px #d9d9d9)\n      drop-shadow(0px 0px 28.799999237060547px #d9d9d9) drop-shadow(0px 0px 50.400001525878906px #d9d9d9);\n    appearance: none;\n    width: 0.3rem;\n    height: 2rem;\n    background-color: white;\n    cursor: pointer;\n    transition: ease 0.5s;\n  }\n  &_input[type='range']::-moz-range-thumb {\n    appearance: none;\n    filter: drop-shadow(0px 0px 1.2000000476837158px #fff) drop-shadow(0px 0px 2.4000000953674316px #fff)\n      drop-shadow(0px 0px 8.399999618530273px #fff) drop-shadow(0px 0px 16.799999237060547px #d9d9d9)\n      drop-shadow(0px 0px 28.799999237060547px #d9d9d9) drop-shadow(0px 0px 50.400001525878906px #d9d9d9);\n    appearance: none;\n    width: 0.3rem;\n    height: 2rem;\n    background-color: white;\n    cursor: pointer;\n    transition: ease 0.5s;\n  }\n}\n\n@media (max-width: 670px) {\n  .volume {\n    margin-top: 3.1rem;\n    margin-bottom: 0;\n  }\n}\n\n@media (max-width: 500px) {\n  .volume {\n    max-width: 30rem;\n    width: 100%;\n    margin-left: 0;\n    max-width: inherit;\n    margin-top: 1rem;\n    &_input::-webkit-slider-thumb {\n      filter: none;\n    }\n    &_input::-moz-range-thumb {\n      filter: none;\n    }\n    &_input[type='range'] {\n      max-width: none;\n      width: 100%;\n      margin-right: 2rem;\n    }\n    &_icon {\n      min-width: 5rem;\n    }\n  }\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".volume {\n  display: flex;\n  align-items: center;\n  margin-left: -6rem;\n  margin-top: 3rem;\n  margin-bottom: 2.5rem;\n}\n.volume_icon {\n  display: block;\n  min-width: 7rem;\n  height: 7rem;\n  object-fit: contain;\n  cursor: pointer;\n  margin-right: 0.5rem;\n}\n.volume_input[type=range] {\n  appearance: none;\n  cursor: pointer;\n  height: 0.3rem;\n  outline: none;\n  transition: 0.5s ease-in-out;\n  max-width: 14rem;\n  width: 100%;\n}\n.volume_input[type=range]::-webkit-slider-thumb {\n  appearance: none;\n  width: 0.3rem;\n  height: 2rem;\n  background-color: white;\n  cursor: pointer;\n  transition: ease 0.5s;\n}\n.volume_input[type=range]::-moz-range-thumb {\n  appearance: none;\n  width: 0.3rem;\n  height: 2rem;\n  background-color: white;\n  cursor: pointer;\n  transition: ease 0.5s;\n}\n\n@media (max-width: 670px) {\n  .volume {\n    margin-top: 3.1rem;\n    margin-bottom: 0;\n  }\n}\n@media (max-width: 500px) {\n  .volume {\n    max-width: 30rem;\n    width: 100%;\n    margin-left: 0;\n    max-width: inherit;\n    margin-top: 1rem;\n  }\n  .volume_input::-webkit-slider-thumb {\n    filter: none;\n  }\n  .volume_input::-moz-range-thumb {\n    filter: none;\n  }\n  .volume_input[type=range] {\n    max-width: none;\n    width: 100%;\n    margin-right: 2rem;\n  }\n  .volume_icon {\n    min-width: 5rem;\n  }\n}", "",{"version":3,"sources":["webpack://./src/ts/components/main/popups/settings-popup/volume/volume.scss"],"names":[],"mappings":"AAAA;EACE,aAAA;EACA,mBAAA;EACA,kBAAA;EACA,gBAAA;EACA,qBAAA;AACF;AAAE;EACE,cAAA;EACA,eAAA;EACA,YAAA;EACA,mBAAA;EACA,eAAA;EACA,oBAAA;AAEJ;AAAE;EACE,gBAAA;EACA,eAAA;EACA,cAAA;EACA,aAAA;EACA,4BAAA;EACA,gBAAA;EACA,WAAA;AAEJ;AAAE;EACE,gBAAA;EACA,aAAA;EACA,YAAA;EACA,uBAAA;EACA,eAAA;EACA,qBAAA;AAEJ;AAAE;EACE,gBAAA;EACA,aAAA;EACA,YAAA;EACA,uBAAA;EACA,eAAA;EACA,qBAAA;AAEJ;;AAEA;EACE;IACE,kBAAA;IACA,gBAAA;EACF;AACF;AAEA;EACE;IACE,gBAAA;IACA,WAAA;IACA,cAAA;IACA,kBAAA;IACA,gBAAA;EAAF;EACE;IACE,YAAA;EACJ;EACE;IACE,YAAA;EACJ;EACE;IACE,eAAA;IACA,WAAA;IACA,kBAAA;EACJ;EACE;IACE,eAAA;EACJ;AACF","sourcesContent":[".volume {\n  display: flex;\n  align-items: center;\n  margin-left: -6rem;\n  margin-top: 3rem;\n  margin-bottom: 2.5rem;\n  &_icon {\n    display: block;\n    min-width: 7rem;\n    height: 7rem;\n    object-fit: contain;\n    cursor: pointer;\n    margin-right: 0.5rem;\n  }\n  &_input[type='range'] {\n    appearance: none;\n    cursor: pointer;\n    height: 0.3rem;\n    outline: none;\n    transition: 0.5s ease-in-out;\n    max-width: 14rem;\n    width: 100%;\n  }\n  &_input[type='range']::-webkit-slider-thumb {\n    appearance: none;\n    width: 0.3rem;\n    height: 2rem;\n    background-color: white;\n    cursor: pointer;\n    transition: ease 0.5s;\n  }\n  &_input[type='range']::-moz-range-thumb {\n    appearance: none;\n    width: 0.3rem;\n    height: 2rem;\n    background-color: white;\n    cursor: pointer;\n    transition: ease 0.5s;\n  }\n}\n\n@media (max-width: 670px) {\n  .volume {\n    margin-top: 3.1rem;\n    margin-bottom: 0;\n  }\n}\n\n@media (max-width: 500px) {\n  .volume {\n    max-width: 30rem;\n    width: 100%;\n    margin-left: 0;\n    max-width: inherit;\n    margin-top: 1rem;\n    &_input::-webkit-slider-thumb {\n      filter: none;\n    }\n    &_input::-moz-range-thumb {\n      filter: none;\n    }\n    &_input[type='range'] {\n      max-width: none;\n      width: 100%;\n      margin-right: 2rem;\n    }\n    &_icon {\n      min-width: 5rem;\n    }\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4705,4 +4718,4 @@ module.exports = __webpack_require__.p + "assets/volume-on.svg";
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=bundle-5fb3d5f96c8c0409cf9c.js.map
+//# sourceMappingURL=bundle-8ffb931921adc42fb3c2.js.map

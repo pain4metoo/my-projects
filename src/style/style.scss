@@ -22,15 +22,17 @@ body {
   line-height: 2.7rem;
   font-weight: $fwr;
   position: relative;
-  background-image: url('../assets/image/main-bg-light-preload.jpg');
   background-size: cover;
   background-position: center;
 }
 
-.body_original {
-  background-image: url('../assets/image/main-bg-light.jpg');
+.body_original_light {
+  background-image: url('../assets/image/main-bg-light.jpg') !important;
 }
 
+.body_original_dark {
+  background-image: url('../assets/image/main-bg-dark.jpg') !important;
+}
 .wrapper {
   display: flex;
   flex-direction: column;

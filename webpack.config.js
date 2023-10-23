@@ -55,6 +55,7 @@ const getHtmlPlugins = (pages) => pages.map(({ html, name, script, style }) => n
   template: html,
   filename: html,
   chunks: [script ? name : null, style ? `${name}-styles` : null].filter(c => !!c),
+  favicon: path.resolve(__dirname, 'src/assets', 'favicon.ico'),
 }));
 
 module.exports = ({ development }) => {

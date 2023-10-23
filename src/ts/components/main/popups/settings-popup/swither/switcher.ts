@@ -44,9 +44,9 @@ export class Switcher extends Control {
     if (SwitcherType.Theme === this.type) {
       soundControl.playSound(SoundTypes.input);
       if (state.getTheme()) {
-        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
-      } else {
         this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
+      } else {
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
       }
     }
   }
@@ -99,10 +99,10 @@ export class Switcher extends Control {
     if (this.type === SwitcherType.Theme) {
       if (state.getTheme()) {
         input.checked = true;
-        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
       } else {
         input.checked = false;
-        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
+        this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
       }
     }
     if (this.type === SwitcherType.Animation) {

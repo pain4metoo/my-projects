@@ -5,6 +5,7 @@ import { Footer } from './footer/footer';
 import { Header } from './header/header';
 import { Main } from './main/main';
 import mainBG from '../../assets/image/main-bg-light.jpg';
+import mainBgDark from '../../assets/image/main-bg-dark.jpg';
 import fireworkIMG from '../../assets/image/firework.gif';
 
 export class App extends Control {
@@ -41,17 +42,41 @@ export class App extends Control {
         case StateOptions.resetSettings:
           this.changeFontFamily(state.getLanguage(), parentNode);
           break;
+        case StateOptions.changeTheme:
+          this.createBG(parentNode);
+          break;
       }
     };
 
     state.onUpdate.add(this.appListener);
   }
+  // body {
+  //   background-image: url('../assets/image/main-bg-light-preload.jpg');
+  // }
+
+  // .body_original {
+  //   background-image: url('../assets/image/main-bg-light.jpg');
+  // }
 
   private createBG(body: HTMLElement): void {
     const img: HTMLImageElement = new Image();
-    img.src = mainBG;
+
+    if (state.getTheme()) {
+      body.style.backgroundImage = `url('../assets/image/main-bg-dark-preload.jpg')`;
+      img.src = mainBgDark;
+    } else {
+      body.style.backgroundImage = `url('../assets/image/main-bg-light-preload.jpg')`;
+      img.src = mainBG;
+    }
+
     img.onload = async (): Promise<void> => {
-      body.classList.add('body_original');
+      if (state.getTheme()) {
+        body.classList.add('body_original_dark');
+        body.classList.remove('body_original_light');
+      } else {
+        body.classList.add('body_original_light');
+        body.classList.remove('body_original_dark');
+      }
     };
   }
 

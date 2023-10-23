@@ -85,6 +85,7 @@ export class Switcher extends Control {
 
   public changeGameMode(): void {
     if (SwitcherType.Mode === this.type) {
+      soundControl.playSound(SoundTypes.input);
       if (state.getGameMode()) {
         this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
         this.input.node.checked = true;

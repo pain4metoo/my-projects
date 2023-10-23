@@ -44,7 +44,7 @@ export class SoundControl {
     switch (type) {
       case SoundTypes.move:
         this.sound.src = move;
-        this.sound.play();
+        this.play();
         break;
       case SoundTypes.win:
         this.sound.src = win;
@@ -91,7 +91,7 @@ export class SoundControl {
     if (!isPlaying) {
       setTimeout(() => {
         this.sound.play();
-      }, 150);
+      }, 0);
     }
   }
 

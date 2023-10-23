@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "target": "ES2016",
     "rootDir": "./src/",
     "moduleResolution": "Node",
     "sourceMap": true,
@@ -9,6 +8,8 @@
     "noImplicitAny": true,
     "outDir": "./dist/",
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "target": "es6",
+    "module": "commonjs"
   }
 }

@@ -1,85 +1,132 @@
+const fs = require('fs');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const FileManagerPlugin = require('filemanager-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 
-module.exports = {
-  entry: path.join(__dirname, 'src', 'index.ts'),
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'index.[contenthash].js',
-    assetModuleFilename: path.join('assets', '[name].[contenthash][ext]'),
-  },
-  resolve: {
-    extensions: ['.ts', '.js'],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.js$/,
-        use: 'babel-loader',
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.(scss|css)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-      },
-      {
-        test: /\.(png|jpg|gif|wav|mp3)$/,
-        type: 'asset/inline',
-      },
-      {
-        test: /\.(ttf|woff|woff2|eot|svg)$/,
-        type: 'asset/inline',
-      },
-    ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'index.html'),
-      filename: 'index.html',
-      favicon: path.resolve(__dirname, 'src/assets', 'favicon.ico'),
-    }),
-    new FileManagerPlugin({
-      events: {
-        onStart: {
-          delete: ['dist'],
-        },
-      },
-    }),
-    new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css',
-    }),
-    new ESLintPlugin({
-      extensions: 'ts',
-    }),
-  ],
+const htmlFile = /^([-_\d\w]+).html$/i;
+const srcPath = path.resolve(__dirname, 'src');
+
+const devServer = (isDev) => !isDev ? {} : {
   devServer: {
-    watchFiles: path.join(__dirname, 'src'),
-    port: 3000,
-  },
-  optimization: {
-    minimizer: [
-      new ImageMinimizerPlugin({
-        minimizer: {
-          implementation: ImageMinimizerPlugin.imageminMinify,
-          options: {
-            plugins: [
-              ['gifsicle', { interlaced: true }],
-              ['jpegtran', { progressive: true }],
-              ['optipng', { optimizationLevel: 5 }],
-              ['svgo', { name: 'preset-default' }],
-            ],
-          },
-        },
-      }),
-    ],
+    open: true,
+    port: 'auto',
+    static: {
+      directory: srcPath,
+      watch: true,
+    },
   },
 };
+
+const getRelative = (absolutePath) => path.relative(srcPath, absolutePath);
+const makePath = (relativePath) => './' + relativePath.replace(/\\+/g, '/');
+
+const getPages = (dir, n) => {
+  const dirContent = fs.readdirSync(dir);
+  const pages = dirContent
+    .filter(f => htmlFile.test(f))
+    .reduce((res, f, i) => {
+      const name = path.basename(f, path.extname(f));
+      res.push({
+        name: `p${n += i}`,
+        dir: getRelative(dir),
+        html: makePath(getRelative(path.join(dir, f))),
+        script: dirContent.find(f => new RegExp(`^${name}\.[tj]s$`, 'i').test(f)),
+        style: dirContent.find(f => new RegExp(`^${name}\.s(c|a)ss$`, 'i').test(f)),
+      });
+      return res;
+    }, [])
+    .concat(dirContent
+      .filter(f => fs.lstatSync(path.resolve(dir, f)).isDirectory())
+      .reduce((res, f) => [...res, ...getPages(path.resolve(dir, f), n + 1)], [])
+    );
+
+  return pages;
+};
+
+const getEntryPoints = (pages) => pages.reduce((entry, { name, dir, script, style }) => Object.assign(entry,
+  script ? { [name]: makePath(path.join(dir, script)) } : {},
+  style ? { [`${name}-styles`]: makePath(path.join(dir, style)) } : {},
+), {});
+
+const getHtmlPlugins = (pages) => pages.map(({ html, name, script, style }) => new HtmlWebpackPlugin({
+  template: html,
+  filename: html,
+  chunks: [script ? name : null, style ? `${name}-styles` : null].filter(c => !!c),
+}));
+
+module.exports = ({ development }) => {
+  const pages = getPages(srcPath, 1);
+  return {
+    mode: development ? 'development' : 'production',
+    devtool: development ? 'inline-source-map' : false,
+    entry: getEntryPoints(pages),
+    context: srcPath,
+    output: {
+      filename: 'js/[name].[contenthash].js',
+      path: path.resolve(__dirname, 'dist'),
+      assetModuleFilename: '[file]',
+    },
+    target: ['web', 'es6'],
+    module: {
+      rules: [
+        {
+          test: /\.[tj]s$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
+        },
+        {
+          test: /\.(?:ico|gif|png|jpg|jpeg|svg|webp)$/i,
+          type: 'asset/resource',
+        },
+        {
+          test: /\.(?:mp3|wav|ogg|mp4)$/i,
+          type: 'asset/resource',
+        },
+        {
+          test: /\.(woff(2)?|eot|ttf|otf)$/i,
+          type: 'asset/resource',
+        },
+        {
+          test: /\.css$/i,
+          use: [{ loader: MiniCssExtractPlugin.loader, options: { publicPath: '../' } }, 'css-loader'],
+        },
+        {
+          test: /\.s[ac]ss$/i,
+          use: [{ loader: MiniCssExtractPlugin.loader, options: { publicPath: '../' } }, 'css-loader', 'sass-loader']
+        }
+      ],
+    },
+    plugins: [
+      new MiniCssExtractPlugin({ filename: 'css/[name].[contenthash].css' }),
+      ...getHtmlPlugins(pages),
+      new CopyPlugin({
+        patterns: [
+          {
+            from: '**/*',
+            context: srcPath,
+            globOptions: {
+              ignore: [
+                '**/*.js',
+                '**/*.ts',
+                '**/*.scss',
+                '**/*.sass',
+                '**/*.html',
+              ],
+            },
+            noErrorOnMissing: true,
+            force: true,
+          }
+        ],
+      }),
+      new CleanWebpackPlugin(),
+      new RemoveEmptyScriptsPlugin(),
+    ],
+    resolve: {
+      extensions: ['.js', '.ts'],
+    },
+    ...devServer(development)
+  };
+}

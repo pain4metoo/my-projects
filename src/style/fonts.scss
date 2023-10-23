@@ -1,7 +1,9 @@
 @font-face {
   font-family: 'Thasadith';
   src: url('../assets/fonts/Thasadith-Regular.eot');
-  src: local('☺'), url('../assets/fonts/Thasadith-Regular.woff') format('woff'),
+  src:
+    local('☺'),
+    url('../assets/fonts/Thasadith-Regular.woff') format('woff'),
     url('../assets/fonts/Thasadith-Regular.ttf') format('truetype'),
     url('../assets/fonts/Thasadith-Regular.woff2') format('woff2');
   font-weight: normal;
@@ -11,7 +13,9 @@
 @font-face {
   font-family: 'Thasadith';
   src: url('../assets/fonts/Thasadith-Bold.eot');
-  src: local('☺'), url('../assets/fonts/Thasadith-Bold.woff') format('woff'),
+  src:
+    local('☺'),
+    url('../assets/fonts/Thasadith-Bold.woff') format('woff'),
     url('../assets/fonts/Thasadith-Bold.ttf') format('truetype'),
     url('../assets/fonts/Thasadith-Bold.woff') format('woff2');
   font-weight: bold;
@@ -21,7 +25,9 @@
 @font-face {
   font-family: 'Inter';
   src: url('../assets/fonts/Inter-Regular.eot');
-  src: local('☺'), url('../assets/fonts/Inter-Regular.woff') format('woff'),
+  src:
+    local('☺'),
+    url('../assets/fonts/Inter-Regular.woff') format('woff'),
     url('../assets/fonts/Inter-Regular.ttf') format('truetype'),
     url('../assets/fonts/Inter-Regular.woff2') format('woff2');
   font-weight: 400;
@@ -31,8 +37,11 @@
 @font-face {
   font-family: 'Inter';
   src: url('../assets/fonts/Inter-Bold.eot');
-  src: local('☺'), url('../assets/fonts/Inter-Bold.woff') format('woff'),
-    url('../assets/fonts/Inter-Bold.ttf') format('truetype'), url('../assets/fonts/Inter-Bold.woff2') format('woff2');
+  src:
+    local('☺'),
+    url('../assets/fonts/Inter-Bold.woff') format('woff'),
+    url('../assets/fonts/Inter-Bold.ttf') format('truetype'),
+    url('../assets/fonts/Inter-Bold.woff2') format('woff2');
   font-weight: bold;
   font-style: normal;
 }

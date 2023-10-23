@@ -6,7 +6,7 @@ export class FinishPopup extends Control {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'popups_finish');
 
-    const finishTitle = new Control(
+    new Control(
       this.node,
       'h2',
       'popups_finish_title',
@@ -15,14 +15,14 @@ export class FinishPopup extends Control {
 
     const collectInfo = new Control(this.node, 'div', 'popups_collect_info');
 
-    const finishTime = new Control(
+    new Control(
       collectInfo.node,
       'h4',
       'popups_finish_time',
       `${state.getLanguage() ? `Game time: ${state.getResult().time}` : `Время игры: ${state.getResult().time}`}`
     );
 
-    const finishMoves = new Control(
+    new Control(
       collectInfo.node,
       'h4',
       'popups_finish_moves',

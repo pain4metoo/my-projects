@@ -27,7 +27,7 @@ export class Popups extends Control {
       popupsInner.node,
       'button',
       'popups_new_btn',
-      state.getLanguage() ? 'restart' : 'новая игра',
+      state.getLanguage() ? 'restart' : 'новая игра'
     );
     newGameBtn.node.onclick = (): void => this.onNewGameBtn();
 

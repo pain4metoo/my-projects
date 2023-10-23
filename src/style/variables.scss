@@ -29,13 +29,23 @@ $color-square: rgba(61, 61, 61, 0.8);
   height: 100%;
   transition: 0.2s linear;
   &:hover {
-    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
-      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+    box-shadow:
+      0px 0px 0.72px 0px #fff,
+      0px 0px 1.44px 0px #fff,
+      0px 0px 5.04px 0px #fff,
+      0px 0px 10.08px 0px #fff,
+      0px 0px 17.28px 0px #fff,
+      0px 0px 30.24px 0px #fff;
     opacity: 0.8;
   }
   &:active {
-    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
-      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+    box-shadow:
+      0px 0px 0.72px 0px #fff,
+      0px 0px 1.44px 0px #fff,
+      0px 0px 5.04px 0px #fff,
+      0px 0px 10.08px 0px #fff,
+      0px 0px 17.28px 0px #fff,
+      0px 0px 30.24px 0px #fff;
     opacity: 0.8;
   }
   &:disabled {
@@ -59,13 +69,23 @@ $color-square: rgba(61, 61, 61, 0.8);
   margin-top: 1.5rem;
   margin-left: 1.5rem;
   &:hover {
-    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
-      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+    box-shadow:
+      0px 0px 0.72px 0px #fff,
+      0px 0px 1.44px 0px #fff,
+      0px 0px 5.04px 0px #fff,
+      0px 0px 10.08px 0px #fff,
+      0px 0px 17.28px 0px #fff,
+      0px 0px 30.24px 0px #fff;
     opacity: 0.8;
   }
   &:active {
-    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
-      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+    box-shadow:
+      0px 0px 0.72px 0px #fff,
+      0px 0px 1.44px 0px #fff,
+      0px 0px 5.04px 0px #fff,
+      0px 0px 10.08px 0px #fff,
+      0px 0px 17.28px 0px #fff,
+      0px 0px 30.24px 0px #fff;
     opacity: 0.8;
   }
   &:disabled {
@@ -86,13 +106,23 @@ $color-square: rgba(61, 61, 61, 0.8);
   cursor: pointer;
   user-select: none;
   &:hover {
-    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
-      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+    box-shadow:
+      0px 0px 0.72px 0px #fff,
+      0px 0px 1.44px 0px #fff,
+      0px 0px 5.04px 0px #fff,
+      0px 0px 10.08px 0px #fff,
+      0px 0px 17.28px 0px #fff,
+      0px 0px 30.24px 0px #fff;
     opacity: 0.8;
   }
   &:active {
-    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
-      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+    box-shadow:
+      0px 0px 0.72px 0px #fff,
+      0px 0px 1.44px 0px #fff,
+      0px 0px 5.04px 0px #fff,
+      0px 0px 10.08px 0px #fff,
+      0px 0px 17.28px 0px #fff,
+      0px 0px 30.24px 0px #fff;
     opacity: 0.8;
   }
   &:disabled {
@@ -115,13 +145,23 @@ $color-square: rgba(61, 61, 61, 0.8);
   cursor: pointer;
   user-select: none;
   &:hover {
-    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
-      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+    box-shadow:
+      0px 0px 0.72px 0px #fff,
+      0px 0px 1.44px 0px #fff,
+      0px 0px 5.04px 0px #fff,
+      0px 0px 10.08px 0px #fff,
+      0px 0px 17.28px 0px #fff,
+      0px 0px 30.24px 0px #fff;
     opacity: 0.8;
   }
   &:active {
-    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
-      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+    box-shadow:
+      0px 0px 0.72px 0px #fff,
+      0px 0px 1.44px 0px #fff,
+      0px 0px 5.04px 0px #fff,
+      0px 0px 10.08px 0px #fff,
+      0px 0px 17.28px 0px #fff,
+      0px 0px 30.24px 0px #fff;
     opacity: 0.8;
   }
   &:disabled {
@@ -142,13 +182,23 @@ $color-square: rgba(61, 61, 61, 0.8);
   user-select: none;
   transition: 0.2s linear;
   &:hover {
-    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
-      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+    box-shadow:
+      0px 0px 0.72px 0px #fff,
+      0px 0px 1.44px 0px #fff,
+      0px 0px 5.04px 0px #fff,
+      0px 0px 10.08px 0px #fff,
+      0px 0px 17.28px 0px #fff,
+      0px 0px 30.24px 0px #fff;
     opacity: 0.8;
   }
   &:active {
-    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
-      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+    box-shadow:
+      0px 0px 0.72px 0px #fff,
+      0px 0px 1.44px 0px #fff,
+      0px 0px 5.04px 0px #fff,
+      0px 0px 10.08px 0px #fff,
+      0px 0px 17.28px 0px #fff,
+      0px 0px 30.24px 0px #fff;
     opacity: 0.8;
   }
   &:disabled {
@@ -171,13 +221,23 @@ $color-square: rgba(61, 61, 61, 0.8);
   width: 100%;
   transition: 0.2s linear;
   &:hover {
-    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
-      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+    box-shadow:
+      0px 0px 0.72px 0px #fff,
+      0px 0px 1.44px 0px #fff,
+      0px 0px 5.04px 0px #fff,
+      0px 0px 10.08px 0px #fff,
+      0px 0px 17.28px 0px #fff,
+      0px 0px 30.24px 0px #fff;
     opacity: 0.8;
   }
   &:active {
-    box-shadow: 0px 0px 0.72px 0px #fff, 0px 0px 1.44px 0px #fff, 0px 0px 5.04px 0px #fff, 0px 0px 10.08px 0px #fff,
-      0px 0px 17.28px 0px #fff, 0px 0px 30.24px 0px #fff;
+    box-shadow:
+      0px 0px 0.72px 0px #fff,
+      0px 0px 1.44px 0px #fff,
+      0px 0px 5.04px 0px #fff,
+      0px 0px 10.08px 0px #fff,
+      0px 0px 17.28px 0px #fff,
+      0px 0px 30.24px 0px #fff;
     opacity: 0.8;
   }
 }

@@ -25,7 +25,7 @@ export class Header extends Control {
       nav.node,
       'button',
       'header_mobile_btn',
-      state.getLanguage() ? 'stop' : 'стоп',
+      state.getLanguage() ? 'stop' : 'стоп'
     );
     mobileStopBtn.node.onclick = (): void => {
       soundControl.playSound(SoundTypes.btn);
@@ -137,7 +137,7 @@ export class Header extends Control {
     state.onUpdate.add(this.headerListener);
   }
 
-  private changeStateStopBtn(mobileBtn: HTMLButtonElement, flag: boolean) {
+  private changeStateStopBtn(mobileBtn: HTMLButtonElement, flag: boolean): void {
     if (flag) {
       this.navItemsHtmlElements[1].disabled = true;
       mobileBtn.disabled = true;

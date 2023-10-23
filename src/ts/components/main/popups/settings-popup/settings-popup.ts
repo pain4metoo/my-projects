@@ -1,5 +1,4 @@
 import Control from '../../../../common/control';
-import { TRANSLATE } from '../../../../common/language';
 import { state } from '../../../../common/state';
 import { StateOptions } from '../../../../common/state-types';
 import './settings-popup.scss';
@@ -27,7 +26,7 @@ export class SettingsPopup extends Control {
       this.node,
       'h2',
       'settings_title',
-      state.getLanguage() ? 'Settings' : 'Настройки',
+      state.getLanguage() ? 'Settings' : 'Настройки'
     );
 
     const settingsInner = new Control(this.node, 'div', 'settings_inner');
@@ -52,9 +51,6 @@ export class SettingsPopup extends Control {
         case StateOptions.changeAnimation:
           animation.changeAnimation();
           break;
-        case StateOptions.changeLanguage:
-          language.changeLanguage();
-          break;
         case StateOptions.changeSound:
           sound.changeSound();
           break;
@@ -62,6 +58,7 @@ export class SettingsPopup extends Control {
           volume.showChanges();
           break;
         case StateOptions.changeLanguage:
+          language.changeLanguage();
           state.onUpdate.remove(this.settingsPopupListener);
           settingsTitle.node.textContent = state.getLanguage() ? 'Settings' : 'Настройки';
           break;

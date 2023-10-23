@@ -55,11 +55,11 @@ export class Main extends Control {
 
     state.onUpdate.add(this.mainListener);
 
-    const sectionCounter = new Counter(this.node);
+    new Counter(this.node);
 
     const sectionGameContainer = new Control(this.node, 'section', 'main_game');
     let sectionGame = new Game(sectionGameContainer.node);
 
-    const sectionFrameSize = new FrameSize(this.node);
+    new FrameSize(this.node);
   }
 }

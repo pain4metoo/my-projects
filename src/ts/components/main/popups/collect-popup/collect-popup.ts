@@ -6,7 +6,7 @@ export class CollectPopup extends Control {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'popups_collect');
 
-    const collectTitle = new Control(
+    new Control(
       this.node,
       'h2',
       'popups_collect_title',
@@ -15,7 +15,7 @@ export class CollectPopup extends Control {
 
     const collectInfo = new Control(this.node, 'div', 'popups_collect_info');
 
-    const collectTime = new Control(
+    new Control(
       collectInfo.node,
       'h4',
       'popups_collect_time',
@@ -26,14 +26,14 @@ export class CollectPopup extends Control {
       }`
     );
 
-    const totalTime = new Control(
+    new Control(
       collectInfo.node,
       'h2',
       'popups_collect_total_time',
       `${state.getLanguage() ? `Game time: ${state.getResult().time}` : `Игровое время: ${state.getResult().time}`}`
     );
 
-    const totalMoves = new Control(
+    new Control(
       collectInfo.node,
       'h2',
       'popups_collect_moves',

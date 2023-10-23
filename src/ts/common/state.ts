@@ -1,4 +1,4 @@
-import { Result, lStorage } from './local-storage';
+import { lStorage } from './local-storage';
 import Signal from './signal';
 import { AppSettings, StateData, StateOptions } from './state-types';
 

@@ -23,21 +23,33 @@
 
 @keyframes gradient-shadow {
   0% {
-    box-shadow: 0 0 40px 20px #3d3d3d, 0 0 4px 2px #3d3d3d;
+    box-shadow:
+      0 0 40px 20px #3d3d3d,
+      0 0 4px 2px #3d3d3d;
   }
   20% {
-    box-shadow: 0 0 40px 20px #232720, 0 0 4px 2px #232720;
+    box-shadow:
+      0 0 40px 20px #232720,
+      0 0 4px 2px #232720;
   }
   40% {
-    box-shadow: 0 0 40px 20px #8f885b, 0 0 4px 2px #8f885b;
+    box-shadow:
+      0 0 40px 20px #8f885b,
+      0 0 4px 2px #8f885b;
   }
   60% {
-    box-shadow: 0 0 40px 20px #acab9b, 0 0 4px 2px #acab9b;
+    box-shadow:
+      0 0 40px 20px #acab9b,
+      0 0 4px 2px #acab9b;
   }
   80% {
-    box-shadow: 0 0 40px 20px #1f2723, 0 0 4px 2px #1f2723;
+    box-shadow:
+      0 0 40px 20px #1f2723,
+      0 0 4px 2px #1f2723;
   }
   100% {
-    box-shadow: 0 0 40px 20px #8e7b3e, 0 0 4px 2px #8e7b3e;
+    box-shadow:
+      0 0 40px 20px #8e7b3e,
+      0 0 4px 2px #8e7b3e;
   }
 }

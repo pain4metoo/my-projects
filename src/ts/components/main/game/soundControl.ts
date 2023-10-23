@@ -19,7 +19,7 @@ export enum SoundTypes {
   volume = 'volume',
   delete = 'delete',
   roboWin = 'robo-win',
-  popup = 'popup'
+  popup = 'popup',
 }
 
 export class SoundControl {

@@ -16,13 +16,13 @@ export class App extends Control {
 
     this.createBG(parentNode);
 
-    const header = new Header(this.node);
+    new Header(this.node);
     const main = new Main(this.node);
-    const footer = new Footer(this.node);
+    new Footer(this.node);
 
     this.changeFontFamily(state.getLanguage(), parentNode);
 
-    this.appListener = (type: StateOptions) => {
+    this.appListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.changeLanguage:
           this.changeFontFamily(state.getLanguage(), parentNode);
@@ -55,7 +55,7 @@ export class App extends Control {
     };
   }
 
-  private changeFontFamily(isEn: boolean, parentNode: HTMLElement) {
+  private changeFontFamily(isEn: boolean, parentNode: HTMLElement): void {
     isEn
       ? (parentNode.style.fontFamily = `'Thasadith', sans-serif`)
       : (parentNode.style.fontFamily = `'Inter', sans-serif`);

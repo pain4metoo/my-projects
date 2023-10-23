@@ -206,7 +206,6 @@ export class Game extends Control {
       return;
     }
     this.queueEL.forEach((el, i) => {
-      console.log(el);
       el.style.fontSize = `${this.queueFontSize[i]}`;
     });
   }
@@ -250,7 +249,7 @@ export class Game extends Control {
     matrix: Array<Array<number>>,
     move: Array<number>,
     zero: Array<number>,
-    isCollectPuzzle: boolean,
+    isCollectPuzzle: boolean
   ): Array<Array<number>> {
     [matrix[move[0]][move[1]], matrix[zero[0]][zero[1]]] = [matrix[zero[0]][zero[1]], matrix[move[0]][move[1]]];
 
@@ -290,7 +289,7 @@ export class Game extends Control {
         }
         return false;
       })
-      .filter(el => el);
+      .filter((el) => el);
 
     currentMatrix.forEach((el, i) => {
       if (el === 0) {

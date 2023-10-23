@@ -1,12 +1,11 @@
 import Control from '../../../../../common/control';
 import { lStorage } from '../../../../../common/local-storage';
 import { state } from '../../../../../common/state';
-import { StateOptions } from '../../../../../common/state-types';
 import { SoundTypes } from '../../../game/soundControl';
 import { soundControl } from '../../../../../../index';
 import './switcher.scss';
 import { LangType, SwitcherType } from '../settings-popup';
-import { TRANSLATE, Translate, TranslateLang } from '../../../../../common/language';
+import { TRANSLATE, TranslateLang } from '../../../../../common/language';
 
 export class Switcher extends Control {
   private switcherValue: Control<HTMLElement>;
@@ -22,7 +21,7 @@ export class Switcher extends Control {
     this.settingsWords = TRANSLATE.settings[this.type] as TranslateLang;
     this.lang = state.getLanguage() ? LangType.En : LangType.Ru;
 
-    const title = new Control(this.node, 'h3', 'switcher_title', this.settingsWords[this.lang].title);
+    new Control(this.node, 'h3', 'switcher_title', this.settingsWords[this.lang].title);
 
     const switcherInner = new Control(this.node, 'div', 'switcher_inner');
 
@@ -33,7 +32,7 @@ export class Switcher extends Control {
     input.node.onclick = (): void => this.onChange(input.node.checked);
     this.input = input;
 
-    const span = new Control(label.node, 'span', 'switcher_slider');
+    new Control(label.node, 'span', 'switcher_slider');
 
     const switcherValue = new Control(switcherInner.node, 'p', 'switcher_value');
     this.switcherValue = switcherValue;

@@ -1,71 +1,85 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FileManagerPlugin = require('filemanager-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
-  entry: {
-    bundle: path.resolve(__dirname, 'src/index.ts')
-  },
+  entry: path.join(__dirname, 'src', 'index.ts'),
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name]-[contenthash].js',
-    clean: true,
-    assetModuleFilename: 'assets/[name][ext]'
+    path: path.join(__dirname, 'dist'),
+    filename: 'index.[contenthash].js',
+    assetModuleFilename: path.join('assets', '[name].[contenthash][ext]'),
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js']
-  },
-  devtool: 'source-map',
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'dist')
-    },
-    port: 3000,
-    open: true,
-    hot: false,
-    liveReload: true
+    extensions: ['.ts', '.js'],
   },
   module: {
     rules: [
       {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.js$/,
+        use: 'babel-loader',
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        }
       },
       {
-        test: /\.png|svg|jpe?g|gif|webp$/i,
-        type: 'asset/resource'
+        test: /\.(scss|css)$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.mp3|wav/,
-        type: 'asset/resource'
+        test: /\.(png|jpg|gif|wav|mp3)$/,
+        type: 'asset/inline',
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        type: 'asset/resource'
+        test: /\.(ttf|woff|woff2|eot|svg)$/,
+        type: 'asset/inline',
       },
-      {
-        test: /\.tsx?$/,
-        use: ['babel-loader', 'ts-loader'],
-        exclude: /node_modules/
-      }
-    ]
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Gem puzzle',
+      template: path.join(__dirname, 'src', 'index.html'),
       filename: 'index.html',
-      template: 'src/index.html',
-      favicon: path.resolve(__dirname, 'src/assets', 'favicon.ico')
-    })
-  ]
+      favicon: path.resolve(__dirname, 'src/assets', 'favicon.ico'),
+    }),
+    new FileManagerPlugin({
+      events: {
+        onStart: {
+          delete: ['dist'],
+        },
+      },
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
+    }),
+    new ESLintPlugin({
+      extensions: 'ts',
+    }),
+  ],
+  devServer: {
+    watchFiles: path.join(__dirname, 'src'),
+    port: 3000,
+  },
+  optimization: {
+    minimizer: [
+      new ImageMinimizerPlugin({
+        minimizer: {
+          implementation: ImageMinimizerPlugin.imageminMinify,
+          options: {
+            plugins: [
+              ['gifsicle', { interlaced: true }],
+              ['jpegtran', { progressive: true }],
+              ['optipng', { optimizationLevel: 5 }],
+              ['svgo', { name: 'preset-default' }],
+            ],
+          },
+        },
+      }),
+    ],
+  },
 };

@@ -1,7 +1,6 @@
 import Control from '../../../../common/control';
 import { state } from '../../../../common/state';
 import './warning-popup.scss';
-import closeSVG from '../../../../../assets/svg/close-btn.svg';
 import { SoundTypes } from '../../game/soundControl';
 import { soundControl } from '../../../../../index';
 
@@ -10,12 +9,7 @@ export class WarningPopup extends Control {
     super(parentNode, 'div', 'warning');
 
     const popupInner = new Control(this.node, 'div', 'warning_inner');
-    const popupText = new Control(
-      popupInner.node,
-      'p',
-      'warning_text',
-      state.getLanguage() ? 'Are you sure?' : 'Вы уверены?'
-    );
+    new Control(popupInner.node, 'p', 'warning_text', state.getLanguage() ? 'Are you sure?' : 'Вы уверены?');
 
     const popupBtnContainer = new Control(popupInner.node, 'div', 'warning_btns');
     const btnTrue = new Control(popupBtnContainer.node, 'button', 'warning_btn', state.getLanguage() ? 'Yes' : 'Да');

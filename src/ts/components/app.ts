@@ -5,15 +5,46 @@ import { Footer } from './footer/footer';
 import { Header } from './header/header';
 import { Main } from './main/main';
 import mainBG from '../../assets/image/main-bg-light.jpg';
+import mainBGPreload from '../../assets/image/main-bg-light-preload.jpg';
 import mainBgDark from '../../assets/image/main-bg-dark.jpg';
+import mainBGDarkPreload from '../../assets/image/main-bg-dark-preload.jpg';
 import fireworkIMG from '../../assets/image/firework.gif';
+
+export enum EventCode {
+  ArrowDown = 'ArrowDown',
+  ArrowLeft = 'ArrowLeft',
+  ArrowUp = 'ArrowUp',
+  ArrowRight = 'ArrowRight',
+}
 
 export class App extends Control {
   private appListener: (type: StateOptions) => void;
   private fireWork!: Control<HTMLImageElement>;
+  private bgIMG: HTMLImageElement;
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'wrapper');
+
+    parentNode.onkeydown = (event): boolean | void => {
+      switch (event.code) {
+        case EventCode.ArrowDown:
+          state.setEventKeyDown(EventCode.ArrowDown);
+          break;
+        case EventCode.ArrowLeft:
+          state.setEventKeyDown(EventCode.ArrowLeft);
+          break;
+        case EventCode.ArrowUp:
+          state.setEventKeyDown(EventCode.ArrowUp);
+          break;
+        case EventCode.ArrowRight:
+          state.setEventKeyDown(EventCode.ArrowRight);
+          break;
+        default:
+          return false;
+      }
+    };
+
+    this.bgIMG = new Image();
 
     this.createBG(parentNode);
 
@@ -52,25 +83,19 @@ export class App extends Control {
   }
 
   private createBG(body: HTMLElement): void {
-    const img: HTMLImageElement = new Image();
-
     if (state.getTheme()) {
-      body.style.backgroundImage = `url('./assets/image/main-bg-dark-preload.jpg')`;
-      img.src = mainBgDark;
+      body.style.backgroundImage = `url(${mainBGDarkPreload})`;
+      this.bgIMG.src = mainBgDark;
+      this.bgIMG.onload = async (): Promise<void> => {
+        body.style.backgroundImage = `url(${this.bgIMG.src})`;
+      };
     } else {
-      body.style.backgroundImage = `url('./assets/image/main-bg-light-preload.jpg')`;
-      img.src = mainBG;
+      body.style.backgroundImage = `url(${mainBGPreload})`;
+      this.bgIMG.src = mainBG;
+      this.bgIMG.onload = async (): Promise<void> => {
+        body.style.backgroundImage = `url(${this.bgIMG.src})`;
+      };
     }
-
-    img.onload = async (): Promise<void> => {
-      if (state.getTheme()) {
-        body.classList.add('body_original_dark');
-        body.classList.remove('body_original_light');
-      } else {
-        body.classList.add('body_original_light');
-        body.classList.remove('body_original_dark');
-      }
-    };
   }
 
   private changeFontFamily(isEn: boolean, parentNode: HTMLElement): void {

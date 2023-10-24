@@ -25,6 +25,7 @@ export enum SoundTypes {
 export class SoundControl {
   private sound: HTMLAudioElement;
   private soundListener: (type: StateOptions) => void;
+
   constructor() {
     this.sound = new Audio();
     this.sound.volume = Number(state.getVolume()) / 100;
@@ -44,7 +45,7 @@ export class SoundControl {
     switch (type) {
       case SoundTypes.move:
         this.sound.src = move;
-        this.play();
+        this.sound.play();
         break;
       case SoundTypes.win:
         this.sound.src = win;
@@ -76,7 +77,7 @@ export class SoundControl {
         break;
       case SoundTypes.popup:
         this.sound.src = popup;
-        this.play();
+        this.sound.play();
         break;
     }
   }
@@ -89,13 +90,9 @@ export class SoundControl {
       this.sound.readyState > this.sound.HAVE_CURRENT_DATA;
     this.sound.currentTime = 0;
     if (!isPlaying) {
-      try {
-        setTimeout(() => {
-          this.sound.play();
-        }, 0);
-      } catch {
-        return;
-      }
+      setTimeout(() => {
+        this.sound.play();
+      }, 150);
     }
   }
 

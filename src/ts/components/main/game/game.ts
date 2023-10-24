@@ -72,6 +72,9 @@ export class Game extends Control {
             this.removeExtremeMode();
           }
           break;
+        case StateOptions.setEventKeyDown:
+          this.handlerKeyDown(state.getGameField().flat());
+          break;
       }
     };
 
@@ -275,6 +278,35 @@ export class Game extends Control {
         el.classList.remove('main_game_square_empty');
       }
     });
+  }
+
+  private handlerKeyDown(currentMatrix: Array<number>): void {
+    // We iterate only from 0 to 3 indices inclusive and take the value of the game square
+    const currKeyDownCode = state.getEventKeyDown();
+    const currentAvailableMoves = Object.values(this.availableMoves(state.getGameField()));
+    const currMovesWithoutZero = currentAvailableMoves.slice(0, currentAvailableMoves.length - 1);
+    const keyDownCode: { [key: string]: number } = {
+      ArrowRight: 0,
+      ArrowLeft: 1,
+      ArrowDown: 2,
+      ArrowUp: 3,
+    };
+
+    if (currKeyDownCode) {
+      const isNonEmptyMove = !!currMovesWithoutZero[keyDownCode[currKeyDownCode]][2];
+
+      if (
+        isNonEmptyMove &&
+        !state.getPopupState() &&
+        !state.getCollectState() &&
+        !state.getStateShuffle() &&
+        !state.getIsWinGame()
+      ) {
+        this.moveByClick(currMovesWithoutZero[keyDownCode[currKeyDownCode]][2]);
+      }
+
+      return;
+    }
   }
 
   private handlerDragAndDrop(currentMatrix: Array<number>): void {

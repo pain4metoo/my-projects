@@ -1,3 +1,4 @@
+import { EventCode } from '../components/app';
 import { Result } from './local-storage';
 
 export interface StateData {
@@ -15,10 +16,12 @@ interface GameSettings {
   isTimeRunning: boolean;
   isWin: boolean;
   isCollectStart: boolean;
+  isShuffleStart: boolean;
   result: { moves: number; time: string; collectTime: string; collectMoves: number };
   results: Array<Result>;
   deleteTarget: number;
   isStartHardMode: boolean;
+  lastKeyDownCode: EventCode | null;
 }
 
 export interface AppSettings {
@@ -77,4 +80,5 @@ export enum StateOptions {
   setGameAnimation = 'set-game-animation',
   removeGameAnimation = 'remove-game-animation',
   changeGameMode = 'change-game-mode',
+  setEventKeyDown = 'set-event-key-down',
 }

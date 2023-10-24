@@ -1,3 +1,4 @@
+import { EventCode } from '../components/app';
 import { lStorage } from './local-storage';
 import Signal from './signal';
 import { AppSettings, StateData, StateOptions } from './state-types';
@@ -113,11 +114,17 @@ class State {
   }
 
   public shuffleStart(): void {
+    this._data.gameSettings.isShuffleStart = true;
     state.onUpdate.emit(StateOptions.shuffleStart);
   }
 
   public shuffleStop(): void {
+    this._data.gameSettings.isShuffleStart = false;
     state.onUpdate.emit(StateOptions.shuffleStop);
+  }
+
+  public getStateShuffle(): boolean {
+    return this._data.gameSettings.isShuffleStart;
   }
 
   public collectBtnDisable(): void {
@@ -125,19 +132,21 @@ class State {
   }
 
   public createPopup(): void {
-    this._data.appSettings.isOpenPopup = true;
     state.onUpdate.emit(StateOptions.createPopup);
   }
 
   public showCollectPopup(): void {
+    this._data.appSettings.isOpenPopup = true;
     state.onUpdate.emit(StateOptions.showCollectPopup);
   }
 
   public showFinishPopup(): void {
+    this._data.appSettings.isOpenPopup = true;
     state.onUpdate.emit(StateOptions.showFinishPopup);
   }
 
   public showResultPopup(): void {
+    this._data.appSettings.isOpenPopup = true;
     state.onUpdate.emit(StateOptions.showResultPopup);
   }
 
@@ -186,6 +195,10 @@ class State {
     this._data.gameSettings.isCollectStart = flag;
   }
 
+  public getCollectState(): boolean {
+    return this._data.gameSettings.isCollectStart;
+  }
+
   public clearResults(): void {
     state.onUpdate.emit(StateOptions.clearLocalStorage);
   }
@@ -201,6 +214,7 @@ class State {
   }
 
   public openSettings(): void {
+    this._data.appSettings.isOpenPopup = true;
     state.onUpdate.emit(StateOptions.showSettings);
   }
 
@@ -285,6 +299,7 @@ class State {
     this._data.appSettings.theme = false;
     this._data.appSettings.language = true;
     this._data.appSettings.hardMode = false;
+    this._data.appSettings.isOpenPopup = false;
 
     state.onUpdate.emit(StateOptions.resetSettings);
     state.onUpdate.emit(StateOptions.closePopup);
@@ -339,8 +354,11 @@ class State {
   }
 
   public closeBurgerMenu(): void {
-    this._data.appSettings.isOpenPopup = false;
     state.onUpdate.emit(StateOptions.closeBurgerMenu);
+  }
+
+  public getPopupState(): boolean {
+    return this._data.appSettings.isOpenPopup;
   }
 
   public setGameAnimation(): void {
@@ -349,6 +367,15 @@ class State {
 
   public removeGameAnimation(): void {
     state.onUpdate.emit(StateOptions.removeGameAnimation);
+  }
+
+  public setEventKeyDown(code: EventCode): void {
+    this._data.gameSettings.lastKeyDownCode = code;
+    state.onUpdate.emit(StateOptions.setEventKeyDown);
+  }
+
+  public getEventKeyDown(): string | null {
+    return this._data.gameSettings.lastKeyDownCode;
   }
 }
 
@@ -362,8 +389,10 @@ const initialState: StateData = {
     isTimeRunning: false,
     isWin: false,
     isCollectStart: false,
+    isShuffleStart: false,
     deleteTarget: -1,
     isStartHardMode: false,
+    lastKeyDownCode: null,
     result: {
       moves: 0,
       time: '00:00:00',

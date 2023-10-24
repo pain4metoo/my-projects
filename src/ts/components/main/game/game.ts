@@ -95,7 +95,6 @@ export class Game extends Control {
       const square = new Control(this.node, 'div', 'main_game_square', `${currentGamePuzzle[i]}`);
       square.node.classList.add(`main_game_square_${currentGameSize}x${currentGameSize}`);
       this.gameSquareHTML.push(square.node);
-
       square.node.onclick = (): void => this.moveByClick(Number(square.node.textContent));
     }
   }
@@ -114,7 +113,7 @@ export class Game extends Control {
         this.changeStateGameField(false);
         soundControl.pauseSound();
         state.stopCollectTimer();
-        state.removGametAnimation();
+        state.removeGameAnimation();
         state.shuffleStop();
         this.handlerDragAndDrop(state.getGameField().flat());
       }

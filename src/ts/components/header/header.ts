@@ -46,7 +46,6 @@ export class Header extends Control {
       const navItem = new Control(navList.node, 'li', 'header_list_item');
       const navItemLink: Control<HTMLButtonElement> = new Control(navItem.node, 'button', 'header_item_btn');
       this.navItemsHtmlElements.push(navItemLink.node);
-
       switch (navLink) {
         case NavItem.Restart:
           navItemLink.node.textContent = state.getLanguage() ? 'restart' : 'рестарт';

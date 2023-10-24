@@ -55,10 +55,10 @@ export class App extends Control {
     const img: HTMLImageElement = new Image();
 
     if (state.getTheme()) {
-      body.style.backgroundImage = `url('../../assets/image/main-bg-dark-preload.jpg')`;
+      body.style.backgroundImage = `url('./assets/image/main-bg-dark-preload.jpg')`;
       img.src = mainBgDark;
     } else {
-      body.style.backgroundImage = `url('../../assets/image/main-bg-light-preload.jpg')`;
+      body.style.backgroundImage = `url('./assets/image/main-bg-light-preload.jpg')`;
       img.src = mainBG;
     }
 

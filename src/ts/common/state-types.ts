@@ -29,6 +29,7 @@ export interface AppSettings {
   language: boolean;
   animation: boolean;
   hardMode: boolean;
+  isOpenPopup: boolean;
 }
 
 export enum StateOptions {

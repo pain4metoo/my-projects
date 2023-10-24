@@ -125,6 +125,7 @@ class State {
   }
 
   public createPopup(): void {
+    this._data.appSettings.isOpenPopup = true;
     state.onUpdate.emit(StateOptions.createPopup);
   }
 
@@ -141,6 +142,7 @@ class State {
   }
 
   public closePopup(): void {
+    this._data.appSettings.isOpenPopup = false;
     state.onUpdate.emit(StateOptions.closePopup);
   }
 
@@ -332,10 +334,12 @@ class State {
   }
 
   public openBurgerMenu(): void {
+    this._data.appSettings.isOpenPopup = true;
     state.onUpdate.emit(StateOptions.openBurgerMenu);
   }
 
   public closeBurgerMenu(): void {
+    this._data.appSettings.isOpenPopup = false;
     state.onUpdate.emit(StateOptions.closeBurgerMenu);
   }
 
@@ -343,7 +347,7 @@ class State {
     state.onUpdate.emit(StateOptions.setGameAnimation);
   }
 
-  public removGametAnimation(): void {
+  public removeGameAnimation(): void {
     state.onUpdate.emit(StateOptions.removeGameAnimation);
   }
 }
@@ -376,6 +380,7 @@ const initialState: StateData = {
     language: true,
     animation: true,
     hardMode: false,
+    isOpenPopup: false,
   },
   warningType: null,
 };

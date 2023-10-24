@@ -89,9 +89,13 @@ export class SoundControl {
       this.sound.readyState > this.sound.HAVE_CURRENT_DATA;
     this.sound.currentTime = 0;
     if (!isPlaying) {
-      setTimeout(() => {
-        this.sound.play();
-      }, 150);
+      try {
+        setTimeout(() => {
+          this.sound.play();
+        }, 0);
+      } catch {
+        return;
+      }
     }
   }
 

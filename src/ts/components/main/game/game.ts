@@ -109,7 +109,7 @@ export class Game extends Control {
   }
 
   private shuffleCycle(): void {
-    const maxShuffle = 1;
+    const maxShuffle = this.getRandomShuffleCount();
     let counter = 0;
     state.shuffleStart();
     state.startCollectTimer();

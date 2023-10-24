@@ -11,6 +11,8 @@ export class Moves extends Control {
     const movesBlockText = new Control(movesBlock.node, 'p', 'main_counters_text main_counters_txt', 'Moves: ');
     const movesBlockNumber = new Control(movesBlock.node, 'p', 'main_counters_number main_counters_txt', '0');
 
+    this.changeTheme(state.getTheme(), movesBlockText.node, movesBlockNumber.node);
+
     state.onUpdate.add((type: StateOptions) => {
       switch (type) {
         case StateOptions.moveCounter:
@@ -31,10 +33,23 @@ export class Moves extends Control {
         case StateOptions.resetSettings:
           this.switchLang(state.getLanguage(), movesBlockText.node);
           break;
+        case StateOptions.changeTheme:
+          this.changeTheme(state.getTheme(), movesBlockText.node, movesBlockNumber.node);
+          break;
       }
     });
 
     this.switchLang(state.getLanguage(), movesBlockText.node);
+  }
+
+  private changeTheme(theme: boolean, text: HTMLElement, text1: HTMLElement): void {
+    if (theme) {
+      text.classList.add('main_counters_txt_dark');
+      text1.classList.add('main_counters_txt_dark');
+    } else {
+      text.classList.remove('main_counters_txt_dark');
+      text1.classList.remove('main_counters_txt_dark');
+    }
   }
 
   private switchLang(currentLang: boolean, el: HTMLElement): void {

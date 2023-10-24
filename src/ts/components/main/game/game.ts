@@ -29,6 +29,7 @@ export class Game extends Control {
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'main_game_container');
+
     this.gameListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.newGame:
@@ -75,12 +76,17 @@ export class Game extends Control {
         case StateOptions.setEventKeyDown:
           this.handlerKeyDown(state.getGameField().flat());
           break;
+        case StateOptions.changeTheme:
+          this.changeTheme(state.getTheme());
+          break;
       }
     };
 
     state.onUpdate.add(this.gameListener);
 
     this.createGame();
+
+    this.changeTheme(state.getTheme());
   }
 
   private createGame(): void {
@@ -103,7 +109,7 @@ export class Game extends Control {
   }
 
   private shuffleCycle(): void {
-    const maxShuffle = this.getRandomShuffleCount();
+    const maxShuffle = 1;
     let counter = 0;
     state.shuffleStart();
     state.startCollectTimer();
@@ -484,5 +490,17 @@ export class Game extends Control {
     } else {
       this.node.classList.remove('main_game_over');
     }
+  }
+
+  private changeTheme(theme: boolean): void {
+    this.gameSquareHTML.forEach((el) => {
+      if (theme) {
+        this.node.classList.add('main_game_container_dark');
+        el.classList.add('main_game_square_dark');
+      } else {
+        this.node.classList.remove('main_game_container_dark');
+        el.classList.remove('main_game_square_dark');
+      }
+    });
   }
 }

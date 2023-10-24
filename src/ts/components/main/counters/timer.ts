@@ -19,6 +19,8 @@ export class Timer extends Control {
 
     this.timeNodeHtml = timeBlockNumber.node;
 
+    this.changeTheme(state.getTheme(), timeBlockText.node, timeBlockNumber.node);
+
     state.onUpdate.add((type: StateOptions) => {
       switch (type) {
         case StateOptions.startGame:
@@ -54,9 +56,22 @@ export class Timer extends Control {
         case StateOptions.resetSettings:
           this.switchLang(state.getLanguage(), timeBlockText.node);
           break;
+        case StateOptions.changeTheme:
+          this.changeTheme(state.getTheme(), timeBlockText.node, timeBlockNumber.node);
+          break;
       }
     });
     this.switchLang(state.getLanguage(), timeBlockText.node);
+  }
+
+  private changeTheme(theme: boolean, text: HTMLElement, text1: HTMLElement): void {
+    if (theme) {
+      text.classList.add('main_counters_txt_dark');
+      text1.classList.add('main_counters_txt_dark');
+    } else {
+      text.classList.remove('main_counters_txt_dark');
+      text1.classList.remove('main_counters_txt_dark');
+    }
   }
 
   private switchLang(currentLang: boolean, el: HTMLElement): void {

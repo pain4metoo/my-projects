@@ -90,6 +90,8 @@ export class Header extends Control {
       }
     });
 
+    this.changeTheme(state.getTheme());
+
     this.headerListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.startGame:
@@ -130,10 +132,23 @@ export class Header extends Control {
         case StateOptions.resetSettings:
           this.changeLanguage(mobileStopBtn.node);
           break;
+        case StateOptions.changeTheme:
+          this.changeTheme(state.getTheme());
+          break;
       }
     };
 
     state.onUpdate.add(this.headerListener);
+  }
+
+  private changeTheme(theme: boolean): void {
+    this.navItemsHtmlElements.forEach((el) => {
+      if (theme) {
+        el.classList.add('header_item_btn_dark');
+      } else {
+        el.classList.remove('header_item_btn_dark');
+      }
+    });
   }
 
   private changeStateStopBtn(mobileBtn: HTMLButtonElement, flag: boolean): void {

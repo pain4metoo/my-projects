@@ -29,8 +29,30 @@
   &_item_btn {
     @extend %header-btns;
   }
+  &_item_btn_dark {
+    background: linear-gradient(180deg, #1a4256 0%, #0a1415 100%);
+    color: #a1d0e7;
+    &:hover {
+      box-shadow:
+        0px 0px 0.54px 0px #000,
+        0px 0px 1.08px 0px #000,
+        0px 0px 3.78px 0px #000,
+        0px 0px 7.56px 0px #000,
+        0px 0px 12.96px 0px #000,
+        0px 0px 22.68px 0px #000;
+    }
+  }
   &_item_btn_active {
     background: rgb(142, 122, 61);
+  }
+  &_item_btn_active_dark {
+    box-shadow:
+      0px 0px 13.5px 0px #477790,
+      0px 0px 27px 0px #477790,
+      0px 0px 94.5px 0px #477790,
+      0px 0px 189px 0px #477790,
+      0px 0px 324px 0px #477790,
+      0px 0px 567px 0px #477790;
   }
   &_list_item:not(:last-child) {
     margin-right: 2rem;

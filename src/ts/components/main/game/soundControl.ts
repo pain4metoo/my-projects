@@ -91,7 +91,7 @@ export class SoundControl {
     if (!isPlaying) {
       setTimeout(() => {
         this.sound.play();
-      }, 0);
+      }, 150);
     }
   }
 

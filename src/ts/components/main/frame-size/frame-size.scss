@@ -35,14 +35,46 @@
       margin-right: 0.4rem;
     }
   }
+  &_other_size_dark {
+    color: #a1d0e7;
+    background: linear-gradient(180deg, #1a4256 0%, #0a1415 100%);
+    &:hover {
+      box-shadow:
+        0px 0px 0.54px 0px #000,
+        0px 0px 1.08px 0px #000,
+        0px 0px 3.78px 0px #000,
+        0px 0px 7.56px 0px #000,
+        0px 0px 12.96px 0px #000,
+        0px 0px 22.68px 0px #000;
+    }
+  }
   &_other_size_active {
     background: rgb(142, 122, 61);
+  }
+  &_other_size_active_dark {
+    background: linear-gradient(180deg, #5d8498 0%, #182728 100%);
   }
   &_btn {
     @extend %collect-btn;
   }
+  &_btn_dark {
+    background: linear-gradient(180deg, #1a4256 0%, #0a1415 100%);
+    color: #a1d0e7;
+    &:hover {
+      box-shadow:
+        0px 0px 0.54px 0px #000,
+        0px 0px 1.08px 0px #000,
+        0px 0px 3.78px 0px #000,
+        0px 0px 7.56px 0px #000,
+        0px 0px 12.96px 0px #000,
+        0px 0px 22.68px 0px #000;
+    }
+  }
   &_btn_active {
     background: rgb(142, 122, 61);
+  }
+  &_btn_active_dark {
+    background: linear-gradient(180deg, #5d8498 0%, #182728 100%);
   }
 }
 

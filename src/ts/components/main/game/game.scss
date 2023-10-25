@@ -23,6 +23,7 @@
     position: relative;
     &_dark {
       background: linear-gradient(180deg, rgba(38, 72, 89, 0.64) 0%, rgba(14, 34, 40, 0.64) 100%);
+      box-shadow: 0rem 0rem 8rem 4rem #000f18;
     }
     &_3x3 {
       grid-template-columns: repeat(3, 1fr);
@@ -84,6 +85,7 @@
     &_dark {
       background: rgba(3, 5, 6, 0.4);
       border-color: #071113;
+      color: #a1d0e7;
     }
   }
   &_square_empty {
@@ -108,6 +110,10 @@
     &_container {
       box-shadow: 0rem 0rem 5rem 4rem #fff;
     }
+    &_container_dark {
+      background: linear-gradient(180deg, rgba(38, 72, 89, 0.64) 0%, rgba(14, 34, 40, 0.64) 100%);
+      box-shadow: 0rem 0rem 8rem 4rem #000f18;
+    }
   }
 }
 
@@ -117,6 +123,10 @@
     &_container {
       box-shadow: 0rem 0rem 6rem 3rem #fff;
     }
+    &_container_dark {
+      background: linear-gradient(180deg, rgba(38, 72, 89, 0.64) 0%, rgba(14, 34, 40, 0.64) 100%);
+      box-shadow: 0rem 0rem 8rem 4rem #000f18;
+    }
   }
 }
 
@@ -125,6 +135,9 @@
     &_square {
       font-size: 2.1rem;
       border: 0.3rem solid #aeb1ab;
+      &_dark {
+        border-color: #071113;
+      }
       &_empty {
         border: none;
       }
@@ -136,6 +149,9 @@
     &_square {
       font-size: 1.7rem;
       border: 0.2rem solid #aeb1ab;
+      &_dark {
+        border-color: #071113;
+      }
       &_empty {
         border: none;
       }

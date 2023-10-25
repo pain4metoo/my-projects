@@ -19,13 +19,13 @@ export class Main extends Control {
       switch (type) {
         case StateOptions.setGameAnimation:
           if (state.getAnimation()) {
-            sectionGameContainer.node.classList.add('main_game_animation');
+            this.changeAnimation(state.getTheme(), true, sectionGameContainer.node);
           } else {
-            sectionGameContainer.node.classList.remove('main_game_animation');
+            this.changeAnimation(state.getTheme(), false, sectionGameContainer.node);
           }
           break;
         case StateOptions.removeGameAnimation:
-          sectionGameContainer.node.classList.remove('main_game_animation');
+          this.changeAnimation(state.getTheme(), false, sectionGameContainer.node);
           break;
         case StateOptions.newGame:
           sectionGame.destroy();
@@ -50,6 +50,12 @@ export class Main extends Control {
           this.node.style.zIndex = '0';
           this.node.style.position = 'inherit';
           break;
+        case StateOptions.collectPuzzle:
+          this.changeAnimation(state.getTheme(), true, sectionGameContainer.node);
+          break;
+        case StateOptions.shuffleStop:
+          this.changeAnimation(state.getTheme(), false, sectionGameContainer.node);
+          break;
       }
     };
 
@@ -61,5 +67,20 @@ export class Main extends Control {
     let sectionGame = new Game(sectionGameContainer.node);
 
     new FrameSize(this.node);
+  }
+
+  private changeAnimation(theme: boolean, flag: boolean, container: HTMLElement): void {
+    if (flag) {
+      if (theme) {
+        container.classList.add('main_game_animation_dark');
+        container.classList.remove('main_game_animation');
+      } else {
+        container.classList.add('main_game_animation');
+        container.classList.remove('main_game_animation_dark');
+      }
+    } else {
+      container.classList.remove('main_game_animation_dark');
+      container.classList.remove('main_game_animation');
+    }
   }
 }

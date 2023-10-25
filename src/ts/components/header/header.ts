@@ -18,6 +18,7 @@ export class Header extends Control {
   private navItemsHtmlElements: Array<HTMLButtonElement> = [];
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'header', 'header');
+
     const nav = new Control(this.node, 'nav', 'header_nav');
     const navList = new Control(nav.node, 'ul', 'header_list');
 
@@ -29,8 +30,10 @@ export class Header extends Control {
     );
     mobileStopBtn.node.onclick = (): void => {
       soundControl.playSound(SoundTypes.btn);
-      mobileStopBtn.node.classList.add('header_mobile_btn_active');
+
       state.setStopGame();
+      state.setStopGameBtn(true);
+      this.changeThemeActive(state.getTheme(), true, this.navItemsHtmlElements[1], mobileStopBtn.node);
     };
 
     const burgerMenu = new Control(nav.node, 'div', 'header_burger');
@@ -54,7 +57,7 @@ export class Header extends Control {
             state.setNewGame();
             this.closeBurgerMenu(navList.node, burgerItem.node, burgerItem1.node);
             state.closeBurgerMenu();
-            navItemLink.node.classList.add('header_item_btn_active');
+            this.changeThemeActive(state.getTheme(), true, navItemLink.node);
           };
           break;
         case NavItem.Stop:
@@ -62,35 +65,36 @@ export class Header extends Control {
           navItemLink.node.disabled = true;
           navItem.node.onclick = (): void => {
             soundControl.playSound(SoundTypes.btn);
-            navItemLink.node.classList.add('header_item_btn_active');
             state.setStopGame();
+            state.setStopGameBtn(true);
             navItemLink.node.disabled = true;
+            this.changeThemeActive(state.getTheme(), true, navItemLink.node, mobileStopBtn.node);
           };
           break;
         case NavItem.Results:
           navItemLink.node.textContent = state.getLanguage() ? 'results' : 'результаты';
           navItem.node.onclick = (): void => {
             soundControl.playSound(SoundTypes.popup);
-            navItemLink.node.classList.add('header_item_btn_active');
             this.showResultPopup();
             this.closeBurgerMenu(navList.node, burgerItem.node, burgerItem1.node);
             state.closeBurgerMenu();
+            this.changeThemeActive(state.getTheme(), true, navItemLink.node);
           };
           break;
         case NavItem.Settings:
           navItemLink.node.textContent = state.getLanguage() ? 'settings' : 'настройки';
           navItem.node.onclick = (): void => {
             soundControl.playSound(SoundTypes.popup);
-            navItemLink.node.classList.add('header_item_btn_active');
             this.showSettings();
             this.closeBurgerMenu(navList.node, burgerItem.node, burgerItem1.node);
             state.closeBurgerMenu();
+            this.changeThemeActive(state.getTheme(), true, navItemLink.node);
           };
           break;
       }
     });
 
-    this.changeTheme(state.getTheme());
+    this.changeTheme(state.getTheme(), mobileStopBtn.node, burgerItem.node, burgerItem1.node);
 
     this.headerListener = (type: StateOptions): void => {
       switch (type) {
@@ -100,8 +104,7 @@ export class Header extends Control {
 
         case StateOptions.stopBtnEnable:
           this.changeStateStopBtn(mobileStopBtn.node, false);
-          this.navItemsHtmlElements[1].classList.remove('header_item_btn_active');
-          mobileStopBtn.node.classList.remove('header_mobile_btn_active');
+          this.changeThemeActive(state.getTheme(), false, this.navItemsHtmlElements[1], mobileStopBtn.node);
           break;
 
         case StateOptions.stopBtnDisable:
@@ -111,29 +114,41 @@ export class Header extends Control {
         case StateOptions.shuffleStart:
           this.changeStateButtons(true);
           this.changeStateStopBtn(mobileStopBtn.node, true);
-          this.navItemsHtmlElements[1].classList.remove('header_item_btn_active');
-          mobileStopBtn.node.classList.remove('header_mobile_btn_active');
-          this.navItemsHtmlElements[0].classList.add('header_item_btn_active');
+          this.changeThemeActive(state.getTheme(), false, this.navItemsHtmlElements[1], mobileStopBtn.node);
+          this.changeThemeActive(state.getTheme(), true, this.navItemsHtmlElements[0]);
           break;
 
         case StateOptions.shuffleStop:
           this.changeStateButtons(false);
-          this.navItemsHtmlElements[0].classList.remove('header_item_btn_active');
+          this.changeThemeActive(state.getTheme(), false, this.navItemsHtmlElements[0]);
           break;
 
         case StateOptions.closePopup:
-          this.navItemsHtmlElements[2].classList.remove('header_item_btn_active');
-          this.navItemsHtmlElements[3].classList.remove('header_item_btn_active');
+          this.changeThemeActive(state.getTheme(), false, this.navItemsHtmlElements[2]);
+          this.changeThemeActive(state.getTheme(), false, this.navItemsHtmlElements[3]);
           break;
 
         case StateOptions.changeLanguage:
           this.changeLanguage(mobileStopBtn.node);
           break;
-        case StateOptions.resetSettings:
-          this.changeLanguage(mobileStopBtn.node);
-          break;
         case StateOptions.changeTheme:
-          this.changeTheme(state.getTheme());
+          this.changeTheme(state.getTheme(), mobileStopBtn.node, burgerItem.node, burgerItem1.node);
+
+          // for settings btn
+          if (state.getPopupState()) {
+            this.changeThemeActive(state.getTheme(), true, this.navItemsHtmlElements[3]);
+          } else {
+            this.changeThemeActive(state.getTheme(), false, this.navItemsHtmlElements[3]);
+          }
+
+          // for stop btn
+          console.log(state.getStopGameBtn());
+          if (state.getStopGameBtn()) {
+            this.changeThemeActive(state.getTheme(), true, this.navItemsHtmlElements[1], mobileStopBtn.node);
+          } else {
+            this.changeThemeActive(state.getTheme(), false, this.navItemsHtmlElements[1], mobileStopBtn.node);
+          }
+
           break;
       }
     };
@@ -141,7 +156,49 @@ export class Header extends Control {
     state.onUpdate.add(this.headerListener);
   }
 
-  private changeTheme(theme: boolean): void {
+  private changeThemeActive(theme: boolean, flag: boolean, btn: HTMLButtonElement, mobBtn?: HTMLButtonElement): void {
+    if (flag) {
+      if (theme) {
+        btn.classList.add('header_item_btn_active_dark');
+        btn.classList.remove('header_item_btn_active');
+        if (mobBtn) {
+          mobBtn.classList.add('header_mobile_btn_active_dark');
+          mobBtn.classList.remove('header_mobile_btn_active');
+        }
+      } else {
+        btn.classList.remove('header_item_btn_active_dark');
+        btn.classList.add('header_item_btn_active');
+        if (mobBtn) {
+          mobBtn.classList.add('header_mobile_btn_active');
+          mobBtn.classList.remove('header_mobile_btn_active_dark');
+        }
+      }
+    } else {
+      btn.classList.remove('header_item_btn_active_dark');
+      btn.classList.remove('header_item_btn_active');
+      if (mobBtn) {
+        mobBtn.classList.remove('header_mobile_btn_active_dark');
+        mobBtn.classList.remove('header_mobile_btn_active');
+      }
+    }
+  }
+
+  private changeTheme(
+    theme: boolean,
+    mobileBtn: HTMLButtonElement,
+    burgerItem: HTMLElement,
+    burgerItem1: HTMLElement
+  ): void {
+    if (theme) {
+      mobileBtn.classList.add('header_item_btn_dark');
+      burgerItem.classList.add('header_burger_item_dark');
+      burgerItem1.classList.add('header_burger_item_dark');
+    } else {
+      mobileBtn.classList.remove('header_item_btn_dark');
+      burgerItem.classList.remove('header_burger_item_dark');
+      burgerItem1.classList.remove('header_burger_item_dark');
+    }
+
     this.navItemsHtmlElements.forEach((el) => {
       if (theme) {
         el.classList.add('header_item_btn_dark');

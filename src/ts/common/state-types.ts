@@ -13,6 +13,7 @@ interface GameSettings {
   movesMade: Array<Array<number>>;
   moveCounter: number;
   isStartGame: boolean;
+  isStopGameBtn: boolean;
   isTimeRunning: boolean;
   isWin: boolean;
   isCollectStart: boolean;

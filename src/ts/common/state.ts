@@ -301,6 +301,8 @@ class State {
     this._data.appSettings.hardMode = false;
     this._data.appSettings.isOpenPopup = false;
 
+    state.onUpdate.emit(StateOptions.changeTheme);
+    state.onUpdate.emit(StateOptions.changeLanguage);
     state.onUpdate.emit(StateOptions.resetSettings);
     state.onUpdate.emit(StateOptions.closePopup);
   }
@@ -377,6 +379,14 @@ class State {
   public getEventKeyDown(): string | null {
     return this._data.gameSettings.lastKeyDownCode;
   }
+
+  public setStopGameBtn(flag: boolean): void {
+    this._data.gameSettings.isStopGameBtn = flag;
+  }
+
+  public getStopGameBtn(): boolean {
+    return this._data.gameSettings.isStopGameBtn;
+  }
 }
 
 const initialState: StateData = {
@@ -386,6 +396,7 @@ const initialState: StateData = {
     movesMade: [],
     moveCounter: 0,
     isStartGame: false,
+    isStopGameBtn: false,
     isTimeRunning: false,
     isWin: false,
     isCollectStart: false,

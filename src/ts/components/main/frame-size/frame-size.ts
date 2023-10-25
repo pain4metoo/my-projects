@@ -9,6 +9,7 @@ import { TList, correctTranslater } from '../../../common/language';
 export class FrameSize extends Control {
   private otherSize: Array<string> = ['3x3', '4x4', '5x5', '6x6', '7x7', '8x8'];
   private otherSizeHtml: Array<HTMLButtonElement> = [];
+
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'section', 'main_frame');
 
@@ -20,7 +21,13 @@ export class FrameSize extends Control {
     );
 
     btnCollectPuzzle.node.onclick = (): void => {
-      btnCollectPuzzle.node.classList.add('main_frame_btn_active');
+      if (state.getTheme()) {
+        btnCollectPuzzle.node.classList.add('main_frame_btn_active_dark');
+        btnCollectPuzzle.node.classList.remove('main_frame_btn_active');
+      } else {
+        btnCollectPuzzle.node.classList.add('main_frame_btn_active');
+        btnCollectPuzzle.node.classList.remove('main_frame_btn_active_dark');
+      }
       state.setCollectPuzzle();
     };
 
@@ -38,23 +45,15 @@ export class FrameSize extends Control {
       sizeEL.node.disabled = true;
       sizeEL.node.onclick = (): void => this.setNewFrameSize(Number(size[0])); // get and set in the state first symbol from string
       this.otherSizeHtml.push(sizeEL.node);
-      if (state.getFrameSize() === Number(this.otherSize[i][0])) {
-        sizeEL.node.classList.add('main_frame_other_size_active');
-      } else {
-        sizeEL.node.classList.remove('main_frame_other_size_active');
-      }
     });
+
+    this.changeTheme(state.getTheme(), btnCollectPuzzle.node);
+    this.changeThemeActive(state.getTheme());
 
     state.onUpdate.add((type: StateOptions) => {
       switch (type) {
         case StateOptions.changeSize:
-          this.otherSizeHtml.forEach((el: HTMLElement, i) => {
-            if (state.getFrameSize() === Number(this.otherSize[i][0])) {
-              el.classList.add('main_frame_other_size_active');
-            } else {
-              el.classList.remove('main_frame_other_size_active');
-            }
-          });
+          this.changeThemeActive(state.getTheme());
           break;
         case StateOptions.shuffleStart:
           btnCollectPuzzle.node.disabled = true;
@@ -63,7 +62,11 @@ export class FrameSize extends Control {
         case StateOptions.shuffleStop:
           btnCollectPuzzle.node.disabled = false;
           this.changeBtnSizeState(false);
-          btnCollectPuzzle.node.classList.remove('main_frame_btn_active');
+          if (state.getTheme()) {
+            btnCollectPuzzle.node.classList.remove('main_frame_btn_active_dark');
+          } else {
+            btnCollectPuzzle.node.classList.remove('main_frame_btn_active');
+          }
           break;
         case StateOptions.collectBtnOn:
           btnCollectPuzzle.node.disabled = true;
@@ -77,12 +80,46 @@ export class FrameSize extends Control {
         case StateOptions.changeLanguage:
           this.switchLang(state.getLanguage(), btnCollectPuzzle.node);
           break;
-        case StateOptions.resetSettings:
-          this.switchLang(state.getLanguage(), btnCollectPuzzle.node);
+        case StateOptions.changeTheme:
+          this.changeTheme(state.getTheme(), btnCollectPuzzle.node);
+          this.changeThemeActive(state.getTheme());
           break;
       }
     });
     this.switchLang(state.getLanguage(), btnCollectPuzzle.node);
+  }
+
+  private changeThemeActive(theme: boolean) {
+    this.otherSizeHtml.forEach((el: HTMLElement, i) => {
+      if (state.getFrameSize() === Number(this.otherSize[i][0])) {
+        if (theme) {
+          el.classList.add('main_frame_other_size_active_dark');
+          el.classList.remove('main_frame_other_size_active');
+        } else {
+          el.classList.add('main_frame_other_size_active');
+          el.classList.remove('main_frame_other_size_active_dark');
+        }
+      } else {
+        el.classList.remove('main_frame_other_size_active_dark');
+        el.classList.remove('main_frame_other_size_active');
+      }
+    });
+  }
+
+  private changeTheme(theme: boolean, btnCollect: HTMLButtonElement): void {
+    this.otherSizeHtml.forEach((el) => {
+      if (theme) {
+        el.classList.add('main_frame_other_size_dark');
+      } else {
+        el.classList.remove('main_frame_other_size_dark');
+      }
+    });
+
+    if (theme) {
+      btnCollect.classList.add('main_frame_btn_dark');
+    } else {
+      btnCollect.classList.remove('main_frame_btn_dark');
+    }
   }
 
   private switchLang(currentLang: boolean, el: HTMLElement): void {

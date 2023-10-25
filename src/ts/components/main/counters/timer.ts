@@ -53,9 +53,6 @@ export class Timer extends Control {
         case StateOptions.changeLanguage:
           this.switchLang(state.getLanguage(), timeBlockText.node);
           break;
-        case StateOptions.resetSettings:
-          this.switchLang(state.getLanguage(), timeBlockText.node);
-          break;
         case StateOptions.changeTheme:
           this.changeTheme(state.getTheme(), timeBlockText.node, timeBlockNumber.node);
           break;

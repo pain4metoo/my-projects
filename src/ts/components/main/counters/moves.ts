@@ -30,9 +30,7 @@ export class Moves extends Control {
         case StateOptions.changeLanguage:
           this.switchLang(state.getLanguage(), movesBlockText.node);
           break;
-        case StateOptions.resetSettings:
-          this.switchLang(state.getLanguage(), movesBlockText.node);
-          break;
+
         case StateOptions.changeTheme:
           this.changeTheme(state.getTheme(), movesBlockText.node, movesBlockNumber.node);
           break;

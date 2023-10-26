@@ -75,7 +75,7 @@ export class Game extends Control {
           }
           break;
         case StateOptions.setEventKeyDown:
-          this.handlerKeyDown(state.getGameField().flat());
+          this.handlerKeyDown();
           break;
         case StateOptions.changeTheme:
           this.changeTheme(state.getTheme());
@@ -287,7 +287,7 @@ export class Game extends Control {
     });
   }
 
-  private handlerKeyDown(currentMatrix: Array<number>): void {
+  private handlerKeyDown(): void {
     // We iterate only from 0 to 3 indices inclusive and take the value of the game square
     const currKeyDownCode = state.getEventKeyDown();
     const currentAvailableMoves = Object.values(this.availableMoves(state.getGameField()));

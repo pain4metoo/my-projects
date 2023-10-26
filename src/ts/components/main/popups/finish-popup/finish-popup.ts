@@ -6,6 +6,12 @@ export class FinishPopup extends Control {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'popups_finish');
 
+    if (state.getTheme()) {
+      this.node.classList.add('popups_finish_dark');
+    } else {
+      this.node.classList.remove('popups_finish_dark');
+    }
+
     new Control(
       this.node,
       'h2',

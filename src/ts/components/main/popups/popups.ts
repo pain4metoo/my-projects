@@ -33,6 +33,8 @@ export class Popups extends Control {
 
     closeBtn.node.onclick = (): void => this.onDeletePopup();
 
+    this.changeTheme(state.getTheme(), newGameBtn.node, popupsInner.node);
+
     this.popupsListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.showCollectPopup:
@@ -102,10 +104,23 @@ export class Popups extends Control {
           this.popupSettings.destroy();
           this.popupSettings = new SettingsPopup(popupsInner.node);
           break;
+        case StateOptions.changeTheme:
+          this.changeTheme(state.getTheme(), newGameBtn.node, popupsInner.node);
+          break;
       }
     };
 
     state.onUpdate.add(this.popupsListener);
+  }
+
+  private changeTheme(theme: boolean, btn: HTMLButtonElement, elInner: HTMLElement): void {
+    if (theme) {
+      btn.classList.add('popups_new_btn_dark');
+      elInner.classList.add('popups_inner_dark');
+    } else {
+      btn.classList.remove('popups_new_btn_dark');
+      elInner.classList.remove('popups_inner_dark');
+    }
   }
 
   private showWarning(type: string): void {

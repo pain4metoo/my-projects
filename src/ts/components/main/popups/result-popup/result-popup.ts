@@ -11,6 +11,7 @@ import { TList, correctTranslater } from '../../../../common/language';
 export class ResultPopup extends Control {
   private resultPopupListener: (type: StateOptions) => void;
   private ResultHtmlElements: Array<HTMLElement> = [];
+  private tableElements: Array<HTMLElement> = [];
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'popups_result');
@@ -18,6 +19,8 @@ export class ResultPopup extends Control {
     const localStorageResult = (lStorage.get('results') as Array<Result>) || [];
 
     this.createTable(localStorageResult);
+
+    this.changeTheme(state.getTheme(), this.tableElements);
 
     this.resultPopupListener = (type: StateOptions): void => {
       switch (type) {
@@ -27,6 +30,9 @@ export class ResultPopup extends Control {
         case StateOptions.closePopup:
           state.onUpdate.remove(this.resultPopupListener);
           break;
+        case StateOptions.changeTheme:
+          this.changeTheme(state.getTheme(), this.tableElements);
+          break;
       }
     };
 
@@ -34,16 +40,30 @@ export class ResultPopup extends Control {
     state.onUpdate.add(this.resultPopupListener);
   }
 
+  private changeTheme(theme: boolean, elements: Array<HTMLElement>): void {
+    elements.forEach((el) => {
+      if (theme) {
+        el.classList.add('popups_result_dark_theme');
+      } else {
+        el.classList.remove('popups_result_dark_theme');
+      }
+    });
+  }
+
   private createTable(localStorage: Array<Result>): void {
     const table: Control<HTMLTableElement> = new Control(this.node, 'table', 'popups_result_table');
     const tHead = new Control(table.node, 'thead', 'popups_result_thead');
+    this.tableElements.push(tHead.node);
     const tBody = new Control(table.node, 'tbody', 'popups_result_tbody');
     const tableTitleInner = new Control(tHead.node, 'tr', 'popups_result_title');
+
     const tabletitle: Control<HTMLTableCellElement> = new Control(tableTitleInner.node, 'th', 'popups_result_title');
     tabletitle.node.colSpan = 4;
+    this.tableElements.push(tabletitle.node);
     this.ResultHtmlElements.push(tabletitle.node);
     const lang = state.getLanguage();
     const tableInner = new Control(tBody.node, 'tr', 'popups_result_tr');
+    this.tableElements.push(tableInner.node);
     new Control(tableInner.node, 'td', 'popups_result_td', `${lang ? 'Place' : 'Место'}`);
     new Control(tableInner.node, 'td', 'popups_result_td', `${lang ? 'Frame-size' : 'Размер поля'}`);
     new Control(tableInner.node, 'td', 'popups_result_td', `${lang ? 'Moves' : 'Ходы'}`);
@@ -52,6 +72,7 @@ export class ResultPopup extends Control {
     if (localStorage.length > 0) {
       localStorage.forEach((el: Result, i) => {
         const tableInner = new Control(tBody.node, 'tr', 'popups_result_tr');
+        this.tableElements.push(tableInner.node);
         new Control(tableInner.node, 'td', 'popups_result_td', `${i + 1}`);
         new Control(tableInner.node, 'td', 'popups_result_td', `${el.frameSize}`);
         new Control(tableInner.node, 'td', 'popups_result_td', `${el.moves}`);

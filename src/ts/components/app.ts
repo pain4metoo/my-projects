@@ -9,6 +9,7 @@ import mainBGPreload from '../../assets/image/main-bg-light-preload.jpg';
 import mainBgDark from '../../assets/image/main-bg-dark.jpg';
 import mainBGDarkPreload from '../../assets/image/main-bg-dark-preload.jpg';
 import fireworkIMG from '../../assets/image/firework.gif';
+import fireworkIMGDark from '../../assets/image/firework-dark.gif';
 
 export enum EventCode {
   ArrowDown = 'ArrowDown',
@@ -62,7 +63,12 @@ export class App extends Control {
         case StateOptions.winGame:
           if (state.getAnimation()) {
             this.fireWork = new Control(main.node, 'img', 'firework');
-            this.fireWork.node.src = fireworkIMG;
+
+            if (state.getTheme()) {
+              this.fireWork.node.src = fireworkIMGDark;
+            } else {
+              this.fireWork.node.src = fireworkIMG;
+            }
           }
           break;
         case StateOptions.closePopup:

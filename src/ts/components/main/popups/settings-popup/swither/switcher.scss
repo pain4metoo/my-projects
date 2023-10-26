@@ -15,6 +15,9 @@
     &::first-letter {
       text-transform: uppercase;
     }
+    &_dark {
+      color: #a1d0e7;
+    }
   }
   &_inner {
     display: flex;
@@ -50,16 +53,28 @@
       background: linear-gradient(180deg, rgba(226, 226, 226, 0.54) 0%, #bcbcbc 100%);
       transition: 0.5s ease;
     }
+    &_dark {
+      background: linear-gradient(180deg, #04090a 0%, #182728 100%);
+      &::before {
+        background: #7092a4;
+      }
+    }
   }
   &_value {
     font-size: 2.5rem;
     line-height: 140%;
     color: $color-text;
+    &_dark {
+      color: #a1d0e7;
+    }
   }
 }
 
 .switcher_checkbox:checked + .switcher_slider {
   background: rgba(142, 122, 61, 0.3);
+}
+.switcher_checkbox:checked + .switcher_slider_dark {
+  background: linear-gradient(180deg, #436a73 0%, #0c191a 100%);
 }
 
 .switcher_checkbox:checked + .switcher_slider::before {

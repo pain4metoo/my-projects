@@ -47,6 +47,7 @@
     z-index: 2;
     padding-top: 0.7rem;
     padding-bottom: 0.7rem;
+    border-color: inherit;
     &:nth-child(1) {
       width: 7rem;
       border-left: none;
@@ -100,6 +101,14 @@
     background: url('../../../../../assets/svg/close-btn.svg') no-repeat center/contain;
     right: 1rem;
     top: 1.3rem;
+  }
+  &_dark_theme {
+    color: #a1d0e7;
+    border-color: #132935;
+    &:hover:not(:first-child) {
+      background: linear-gradient(180deg, #5d8498 0%, #182728 100%);
+      opacity: 0.5;
+    }
   }
 }
 

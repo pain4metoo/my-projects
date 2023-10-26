@@ -142,7 +142,7 @@ export class Header extends Control {
           }
 
           // for stop btn
-          console.log(state.getStopGameBtn());
+
           if (state.getStopGameBtn()) {
             this.changeThemeActive(state.getTheme(), true, this.navItemsHtmlElements[1], mobileStopBtn.node);
           } else {

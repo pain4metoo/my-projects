@@ -9,10 +9,12 @@ import { TRANSLATE, TranslateLang } from '../../../../../common/language';
 
 export class Switcher extends Control {
   private switcherValue: Control<HTMLElement>;
+  private switcherSlider: Control<HTMLElement>;
   private input: Control<HTMLInputElement>;
   private type: SwitcherType;
   private settingsWords: TranslateLang;
   private lang: LangType;
+  private switcherTitle: HTMLElement;
 
   constructor(parentNode: HTMLElement, type: SwitcherType) {
     super(parentNode, 'div', 'switcher');
@@ -21,7 +23,8 @@ export class Switcher extends Control {
     this.settingsWords = TRANSLATE.settings[this.type] as TranslateLang;
     this.lang = state.getLanguage() ? LangType.En : LangType.Ru;
 
-    new Control(this.node, 'h3', 'switcher_title', this.settingsWords[this.lang].title);
+    const switcherTitle = new Control(this.node, 'h3', 'switcher_title', this.settingsWords[this.lang].title);
+    this.switcherTitle = switcherTitle.node;
 
     const switcherInner = new Control(this.node, 'div', 'switcher_inner');
 
@@ -32,7 +35,8 @@ export class Switcher extends Control {
     input.node.onclick = (): void => this.onChange(input.node.checked);
     this.input = input;
 
-    new Control(label.node, 'span', 'switcher_slider');
+    const span = new Control(label.node, 'span', 'switcher_slider');
+    this.switcherSlider = span;
 
     const switcherValue = new Control(switcherInner.node, 'p', 'switcher_value');
     this.switcherValue = switcherValue;
@@ -40,7 +44,20 @@ export class Switcher extends Control {
     this.initIdentifyStates(input.node);
   }
 
+  private changeThemeStyle(theme: boolean): void {
+    if (theme) {
+      this.switcherValue.node.classList.add('switcher_value_dark');
+      this.switcherTitle.classList.add('switcher_title_dark');
+      this.switcherSlider.node.classList.add('switcher_slider_dark');
+    } else {
+      this.switcherValue.node.classList.remove('switcher_value_dark');
+      this.switcherTitle.classList.remove('switcher_title_dark');
+      this.switcherSlider.node.classList.remove('switcher_slider_dark');
+    }
+  }
+
   public changeTheme(): void {
+    this.changeThemeStyle(state.getTheme());
     if (SwitcherType.Theme === this.type) {
       soundControl.playSound(SoundTypes.input);
       if (state.getTheme()) {
@@ -97,6 +114,7 @@ export class Switcher extends Control {
   }
 
   private initIdentifyStates(input: HTMLInputElement): void {
+    this.changeThemeStyle(state.getTheme());
     if (this.type === SwitcherType.Theme) {
       if (state.getTheme()) {
         input.checked = true;

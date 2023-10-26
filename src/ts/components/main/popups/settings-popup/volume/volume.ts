@@ -22,11 +22,20 @@ export class Volume extends Control {
 
     const input: Control<HTMLInputElement> = new Control(this.node, 'input', 'volume_input');
     input.node.type = 'range';
-    input.node.style.background = `linear-gradient(to right, #ffa500 ${state.getVolume()}%, #ffa500 0%, #fff ${state.getVolume()}%, white 100%)`;
     input.node.value = state.getVolume();
     input.node.oninput = (): void => this.setVolume(input.node.value);
     input.node.onchange = (): void => this.playSound();
     this.input = input.node;
+
+    this.changeTheme();
+  }
+
+  public changeTheme(): void {
+    if (state.getTheme()) {
+      this.input.style.background = `linear-gradient(to right, rgb(51, 103, 133) ${state.getVolume()}%, rgb(255 255 255) 0${state.getVolume()}%, rgb(255, 255, 255) 19%, white 100%)`;
+    } else {
+      this.input.style.background = `linear-gradient(to right, #ffa500 ${state.getVolume()}%, #ffa500 0%, #fff ${state.getVolume()}%, white 100%)`;
+    }
   }
 
   private playSound(): void {
@@ -44,7 +53,11 @@ export class Volume extends Control {
     const value = state.getVolume();
 
     this.input.value = value;
-    this.input.style.background = `linear-gradient(to right, #ffa500 ${value}%, #ffa500 0%, #fff ${value}%, white 100%)`;
+    if (state.getTheme()) {
+      this.input.style.background = `linear-gradient(to right, rgb(51, 103, 133) ${state.getVolume()}%, rgb(255 255 255) 0${state.getVolume()}%, rgb(255, 255, 255) 19%, white 100%)`;
+    } else {
+      this.input.style.background = `linear-gradient(to right, #ffa500 ${value}%, #ffa500 0%, #fff ${value}%, white 100%)`;
+    }
 
     if (+value === 0) {
       this.icon.src = volumeOff;

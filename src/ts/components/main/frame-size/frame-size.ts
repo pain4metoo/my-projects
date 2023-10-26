@@ -35,7 +35,7 @@ export class FrameSize extends Control {
 
     const otherSizeBlock = new Control(this.node, 'div', 'main_frame_other');
 
-    this.otherSize.forEach((size: string, i) => {
+    this.otherSize.forEach((size: string) => {
       const sizeEL: Control<HTMLButtonElement> = new Control(
         otherSizeBlock.node,
         'button',
@@ -89,7 +89,7 @@ export class FrameSize extends Control {
     this.switchLang(state.getLanguage(), btnCollectPuzzle.node);
   }
 
-  private changeThemeActive(theme: boolean) {
+  private changeThemeActive(theme: boolean): void {
     this.otherSizeHtml.forEach((el: HTMLElement, i) => {
       if (state.getFrameSize() === Number(this.otherSize[i][0])) {
         if (theme) {

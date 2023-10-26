@@ -43,10 +43,18 @@ export class SettingsPopup extends Control {
 
     const gameMode = new Switcher(rightInner.node, SwitcherType.Mode);
 
+    this.changeTheme(state.getTheme(), settingsTitle.node);
+
     this.settingsPopupListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.changeTheme:
           theme.changeTheme();
+          animation.changeTheme();
+          language.changeTheme();
+          sound.changeTheme();
+          gameMode.changeTheme();
+          volume.changeTheme();
+          this.changeTheme(state.getTheme(), settingsTitle.node);
           break;
         case StateOptions.changeAnimation:
           animation.changeAnimation();
@@ -75,5 +83,13 @@ export class SettingsPopup extends Control {
     };
 
     state.onUpdate.add(this.settingsPopupListener);
+  }
+
+  private changeTheme(theme: boolean, title: HTMLElement): void {
+    if (theme) {
+      title.classList.add('settings_title_dark');
+    } else {
+      title.classList.remove('settings_title_dark');
+    }
   }
 }

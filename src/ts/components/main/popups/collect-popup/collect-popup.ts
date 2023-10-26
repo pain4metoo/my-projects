@@ -6,6 +6,12 @@ export class CollectPopup extends Control {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'popups_collect');
 
+    if (state.getTheme()) {
+      this.node.classList.add('popups_collect_dark');
+    } else {
+      this.node.classList.remove('popups_collect_dark');
+    }
+
     new Control(
       this.node,
       'h2',

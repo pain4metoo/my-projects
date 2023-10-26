@@ -10,6 +10,9 @@
     text-align: center;
     color: $color-text;
     margin: 0;
+    &_dark {
+      color: #a1d0e7;
+    }
   }
   &_inner {
     display: flex;

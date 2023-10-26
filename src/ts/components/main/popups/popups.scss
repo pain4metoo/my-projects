@@ -8,9 +8,9 @@
   top: 0;
   background: rgba(0, 0, 0, 0.6);
   z-index: 1000;
+  -webkit-backdrop-filter: blur(0.75rem);
   backdrop-filter: blur(0.75rem);
   user-select: none;
-
   &_inner {
     display: flex;
     flex-direction: column;

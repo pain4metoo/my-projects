@@ -21,7 +21,7 @@
     transform: translate(-50%, -50%);
     max-width: 90rem;
     width: 100%;
-    min-height: 35rem;
+    min-height: 38rem;
     border: 0.5rem solid #7e7d7b;
     padding-bottom: 7rem;
     background: rgba(21, 22, 19, 0.86);
@@ -67,10 +67,6 @@
 
 @media (max-width: 540px) {
   .popups {
-    &_inner {
-      padding-bottom: 4rem;
-    }
-
     &_result_title {
       font-size: 3rem;
     }

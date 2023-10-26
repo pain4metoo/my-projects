@@ -130,7 +130,7 @@ export class Game extends Control {
   }
 
   private shuffleCycle(): void {
-    const maxShuffle = this.getRandomShuffleCount();
+    const maxShuffle = 0;
     let counter = 0;
 
     state.shuffleStart();

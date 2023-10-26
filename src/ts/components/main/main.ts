@@ -64,7 +64,7 @@ export class Main extends Control {
           break;
 
         case StateOptions.closeBurgerMenu:
-          this.node.style.zIndex = '0';
+          this.node.style.zIndex = '2';
           this.node.style.position = 'inherit';
 
           break;

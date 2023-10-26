@@ -7,6 +7,7 @@
   margin: 0 auto;
   margin-top: 2rem;
   width: 100%;
+
   &_block_right {
     display: flex;
     align-items: center;
@@ -14,9 +15,11 @@
     position: relative;
     z-index: 1;
   }
+
   &_time_number {
     width: 16rem;
   }
+
   &_moves {
     display: flex;
     align-items: center;
@@ -24,18 +27,22 @@
     position: relative;
     z-index: 1;
   }
+
   &_text {
     margin-right: 0.5rem;
   }
+
   &_time_text {
     margin-right: 0.5rem;
   }
+
   &_txt {
     font-size: 3.7rem;
     line-height: 140%;
     color: $color-text-black;
     margin: 0;
   }
+
   &_txt_dark {
     color: #a1d0e7;
   }
@@ -50,9 +57,11 @@
 @media (max-width: 870px) {
   .main_counters {
     max-width: 55rem;
+
     &_time_number {
       width: 13rem;
     }
+
     &_txt {
       font-size: 2.9rem;
     }
@@ -71,9 +80,11 @@
     &_time_number {
       width: 10rem;
     }
+
     &_moves {
       width: 100%;
     }
+
     &_txt {
       font-size: 2.1rem;
     }

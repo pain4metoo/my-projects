@@ -40,9 +40,12 @@ export class Popups extends Control {
         case StateOptions.showCollectPopup:
           this.popupCollect = new CollectPopup(popupsInner.node);
           newGameBtn.node.style.display = 'block';
+
           break;
+
         case StateOptions.showResultPopup:
           this.popupResult = new ResultPopup(popupsInner.node);
+
           newGameBtn.node.textContent = state.getLanguage() ? 'delete all results' : 'очистить результаты';
           newGameBtn.node.onclick = (): void => this.showWarning(StateOptions.showResultPopup);
 
@@ -55,7 +58,9 @@ export class Popups extends Control {
           } else {
             newGameBtn.node.disabled = true;
           }
+
           break;
+
         case StateOptions.deleteTargetFromStorage:
           if (lStorage.get('results') !== null) {
             if ((lStorage.get('results') as Array<Result>).length > 0) {
@@ -64,16 +69,22 @@ export class Popups extends Control {
               newGameBtn.node.disabled = true;
             }
           }
+
           break;
+
         case StateOptions.showFinishPopup:
           this.popupFinish = new FinishPopup(popupsInner.node);
           newGameBtn.node.style.display = 'block';
+
           break;
+
         case StateOptions.showSettings:
           this.popupSettings = new SettingsPopup(popupsInner.node);
           newGameBtn.node.textContent = state.getLanguage() ? 'reset settings' : 'сбросить настройки';
           newGameBtn.node.onclick = (): void => this.showWarning(StateOptions.showSettings);
+
           break;
+
         case StateOptions.clearLocalStorage:
           this.popupResult.destroy();
           this.popupResult = new ResultPopup(popupsInner.node);
@@ -84,28 +95,40 @@ export class Popups extends Control {
               newGameBtn.node.disabled = true;
             }
           }
+
           break;
+
         case StateOptions.showNewResult:
           this.popupResult.destroy();
           this.popupResult = new ResultPopup(popupsInner.node);
+
           break;
 
         case StateOptions.warningResults:
           this.deleteResults();
+
           break;
+
         case StateOptions.warningSettings:
           this.resetSettings();
+
           break;
+
         case StateOptions.closePopup:
           state.onUpdate.remove(this.popupsListener);
+
           break;
+
         case StateOptions.changeLanguage:
           newGameBtn.node.textContent = state.getLanguage() ? 'reset settings' : 'сбросить настройки';
           this.popupSettings.destroy();
           this.popupSettings = new SettingsPopup(popupsInner.node);
+
           break;
+
         case StateOptions.changeTheme:
           this.changeTheme(state.getTheme(), newGameBtn.node, popupsInner.node);
+
           break;
       }
     };

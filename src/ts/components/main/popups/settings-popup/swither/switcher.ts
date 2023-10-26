@@ -58,8 +58,10 @@ export class Switcher extends Control {
 
   public changeTheme(): void {
     this.changeThemeStyle(state.getTheme());
+
     if (SwitcherType.Theme === this.type) {
       soundControl.playSound(SoundTypes.input);
+
       if (state.getTheme()) {
         this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
       } else {
@@ -71,6 +73,7 @@ export class Switcher extends Control {
   public changeAnimation(): void {
     if (SwitcherType.Animation === this.type) {
       soundControl.playSound(SoundTypes.input);
+
       if (state.getAnimation()) {
         this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
       } else {
@@ -81,6 +84,7 @@ export class Switcher extends Control {
   public changeLanguage(): void {
     if (SwitcherType.Language === this.type) {
       soundControl.playSound(SoundTypes.input);
+
       if (state.getLanguage()) {
         this.switcherValue.node.textContent = this.settingsWords[this.lang].values[0];
       } else {
@@ -103,6 +107,7 @@ export class Switcher extends Control {
   public changeGameMode(): void {
     if (SwitcherType.Mode === this.type) {
       soundControl.playSound(SoundTypes.input);
+
       if (state.getGameMode()) {
         this.switcherValue.node.textContent = this.settingsWords[this.lang].values[1];
         this.input.node.checked = true;
@@ -115,6 +120,7 @@ export class Switcher extends Control {
 
   private initIdentifyStates(input: HTMLInputElement): void {
     this.changeThemeStyle(state.getTheme());
+
     if (this.type === SwitcherType.Theme) {
       if (state.getTheme()) {
         input.checked = true;
@@ -166,9 +172,11 @@ export class Switcher extends Control {
     if (this.type === SwitcherType.Theme) {
       state.setTheme(flag);
     }
+
     if (this.type === SwitcherType.Animation) {
       state.setAnimation(flag);
     }
+
     if (this.type === SwitcherType.Sound) {
       state.setSound(flag);
 
@@ -178,9 +186,11 @@ export class Switcher extends Control {
         state.setVolume(state.getLastVolume());
       }
     }
+
     if (this.type === SwitcherType.Language) {
       state.setLanguage(flag);
     }
+
     if (this.type === SwitcherType.Mode) {
       state.setGameMode(flag);
     }

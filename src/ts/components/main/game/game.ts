@@ -1,11 +1,11 @@
 import Control from '../../../common/control';
 import { state } from '../../../common/state';
-import './game.scss';
 import { StateOptions } from '../../../common/state-types';
 import { Result, lStorage } from '../../../common/local-storage';
 import { GenerateMatrix } from './generateMatrix';
 import { SoundTypes } from './soundControl';
 import { soundControl } from '../../../..';
+import './game.scss';
 
 interface AvailableMovesFromEmptySquare {
   axisXLeft: Array<number>;
@@ -17,14 +17,10 @@ interface AvailableMovesFromEmptySquare {
 
 export class Game extends Control {
   private gameListener: (type: StateOptions) => void;
-
   private gameSquareHTML: Array<HTMLElement> = [];
-
   public results = (lStorage.get('results') as Array<Result>) || [];
-
   private queueEL: Array<HTMLElement> = [];
   private queueFontSize: Array<string> = [];
-
   private intervalExtremeMode!: number;
 
   constructor(parentNode: HTMLElement) {
@@ -35,7 +31,9 @@ export class Game extends Control {
         case StateOptions.newGame:
           state.onUpdate.remove(this.gameListener);
           this.removeExtremeMode();
+
           break;
+
         case StateOptions.winGame:
           this.removeExtremeMode();
           if (state.getIsWinGame()) {
@@ -43,42 +41,63 @@ export class Game extends Control {
           } else {
             this.node.classList.remove('main_game_over');
           }
+
           break;
+
         case StateOptions.collectPuzzle:
           this.removeExtremeMode();
           this.collectPazzle();
+
           break;
+
         case StateOptions.clearLocalStorage:
           this.deleteResult();
+
           break;
+
         case StateOptions.deleteTargetFromStorage:
           this.deleteResult(state.getDeleteTargetFromStorage());
+
           break;
+
         case StateOptions.setMove:
           this.isExtremeMode();
+
           break;
+
         case StateOptions.changeGameMode:
           if (!state.getGameMode()) {
             this.removeExtremeMode();
           }
+
           break;
+
         case StateOptions.stopGame:
           this.removeExtremeMode(true);
+
           break;
+
         case StateOptions.startGame:
           state.setStopGameBtn(false);
           this.isExtremeMode();
+
           break;
+
         case StateOptions.resetSettings:
           if (!state.getGameMode()) {
             this.removeExtremeMode();
           }
+
           break;
+
         case StateOptions.setEventKeyDown:
           this.handlerKeyDown();
+
           break;
+
         case StateOptions.changeTheme:
           this.changeTheme(state.getTheme());
+
           break;
       }
     };
@@ -99,6 +118,7 @@ export class Game extends Control {
   private createElementsHTML(): void {
     const currentGameSize = state.getFrameSize();
     const currentGamePuzzle: Array<number> = state.getGameField().flat();
+
     this.node.classList.add(`main_game_container_${currentGameSize}x${currentGameSize}`);
 
     for (let i = 0; i < currentGameSize * currentGameSize; i++) {
@@ -112,19 +132,24 @@ export class Game extends Control {
   private shuffleCycle(): void {
     const maxShuffle = this.getRandomShuffleCount();
     let counter = 0;
+
     state.shuffleStart();
     state.startCollectTimer();
     this.changeStateGameField(true);
     state.setGameAnimation();
+
     const handle = setInterval((): void => {
       this.singleStrokeCycle();
       if (counter === maxShuffle) {
         clearInterval(handle); // stops intervals
+
         this.changeStateGameField(false);
         soundControl.pauseSound();
+
         state.stopCollectTimer();
         state.removeGameAnimation();
         state.shuffleStop();
+
         this.handlerDragAndDrop(state.getGameField().flat());
       }
       counter++;
@@ -179,6 +204,7 @@ export class Game extends Control {
 
   private getRandomMove(availableMoves: AvailableMovesFromEmptySquare): Array<number> {
     const objValuesFromAvalableMoves = Object.values(availableMoves);
+
     const availableMovesArr = objValuesFromAvalableMoves.reduce((acc, el, i, arr): number => {
       if (i !== arr.length - 1 && el.length > 0) {
         // check the first 4 subarrays that they are not empty. We don't need the 5th subarray.
@@ -210,7 +236,9 @@ export class Game extends Control {
 
   private removeExtremeMode(isStopGame?: boolean): void {
     clearInterval(this.intervalExtremeMode);
+
     state.setStartGameMode(false);
+
     if (isStopGame) {
       return;
     }
@@ -290,8 +318,11 @@ export class Game extends Control {
   private handlerKeyDown(): void {
     // We iterate only from 0 to 3 indices inclusive and take the value of the game square
     const currKeyDownCode = state.getEventKeyDown();
+
     const currentAvailableMoves = Object.values(this.availableMoves(state.getGameField()));
+
     const currMovesWithoutZero = currentAvailableMoves.slice(0, currentAvailableMoves.length - 1);
+
     const keyDownCode: { [key: string]: number } = {
       ArrowRight: 0,
       ArrowLeft: 1,
@@ -358,23 +389,31 @@ export class Game extends Control {
     state.setStartGame();
     state.setCollectState(true);
     state.stopBtnDisable();
+
     soundControl.playSound(SoundTypes.collect);
+
     this.changeStateGameField(true);
     const handle = setInterval((): void => {
       const positionOfZero: Array<number> = this.availableMoves(state.getGameField()).emptySquare;
       const spliceLastMove = state.getAllMoves().splice(-1)[0];
+
       this.makeMove(state.getGameField(), spliceLastMove, positionOfZero, true);
       state.setCollectMoves();
+
       if (state.getAllMoves().length === 0) {
         this.changeStateGameField(false);
         soundControl.pauseSound();
+
         state.setCollectState(false);
         state.clearCollectMoves();
         clearInterval(handle); // stops intervals
+
         state.shuffleStop();
         state.collectBtnDisable();
         state.setWinGame(true);
+
         this.showCollectResult();
+
         soundControl.playSound(SoundTypes.roboWin);
       }
     }, 1);
@@ -382,6 +421,7 @@ export class Game extends Control {
 
   private moveByClick(squareValue: number): void {
     const availableMoveArr: Array<Array<number>> = Object.values(this.availableMoves(state.getGameField()));
+
     availableMoveArr.forEach((el: Array<number>): void => {
       if (el[2] === squareValue) {
         this.makeMove(state.getGameField(), el, this.availableMoves(state.getGameField()).emptySquare, false);
@@ -396,6 +436,7 @@ export class Game extends Control {
     state.setMoveCounter();
     state.setStartGame();
     state.stopBtnEnable();
+
     if (this.isWin()) {
       state.setWinGame(true);
       this.showFinishResult();
@@ -412,6 +453,7 @@ export class Game extends Control {
       moves: state.getResult().moves,
       time: state.getResult().time,
     };
+
     const maxItemsInLocal = 10;
 
     if (this.results.includes(result)) {

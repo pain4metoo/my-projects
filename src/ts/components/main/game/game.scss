@@ -5,6 +5,7 @@
   margin: 0 auto;
   max-width: 65rem;
   width: 100%;
+
   &_over {
     position: relative;
     background: rgba(0, 0, 0, 0.4);
@@ -13,6 +14,7 @@
     cursor: not-allowed;
     opacity: 0.7;
   }
+
   &_container {
     display: grid;
     padding: 0.5rem;
@@ -21,29 +23,37 @@
     backdrop-filter: blur(5px);
     box-shadow: 0rem 0rem 8rem 4rem #fff;
     position: relative;
+
     &_dark {
       background: linear-gradient(180deg, rgba(38, 72, 89, 0.64) 0%, rgba(14, 34, 40, 0.64) 100%);
       box-shadow: 0rem 0rem 8rem 4rem #000f18;
     }
+
     &_3x3 {
       grid-template-columns: repeat(3, 1fr);
     }
+
     &_4x4 {
       grid-template-columns: repeat(4, 1fr);
     }
+
     &_5x5 {
       grid-template-columns: repeat(5, 1fr);
     }
+
     &_6x6 {
       grid-template-columns: repeat(6, 1fr);
     }
+
     &_7x7 {
       grid-template-columns: repeat(7, 1fr);
     }
+
     &_8x8 {
       grid-template-columns: repeat(8, 1fr);
     }
   }
+
   &_square {
     font-size: 4.8rem;
     line-height: 140%;
@@ -59,29 +69,36 @@
     border: 0.6rem solid #aeb1ab;
     background: #3d3d3d;
     opacity: 0.8;
+
     &_3x3 {
       font-size: 4.8rem;
     }
+
     &_4x4 {
       font-size: 4.4rem;
       border: 0.55rem solid #aeb1ab;
     }
+
     &_5x5 {
       font-size: 4rem;
       border: 0.5rem solid #aeb1ab;
     }
+
     &_6x6 {
       font-size: 3.6rem;
       border: 0.45rem solid #aeb1ab;
     }
+
     &_7x7 {
       font-size: 3.2rem;
       border: 0.35rem solid #aeb1ab;
     }
+
     &_8x8 {
       font-size: 2.8rem;
       border: 0.3rem solid #aeb1ab;
     }
+
     &_dark {
       background: rgba(3, 5, 6, 0.4);
       border-color: #071113;
@@ -107,9 +124,11 @@
 @media (max-width: 870px) {
   .main_game {
     max-width: 55rem;
+
     &_container {
       box-shadow: 0rem 0rem 5rem 4rem #fff;
     }
+
     &_container_dark {
       background: linear-gradient(180deg, rgba(38, 72, 89, 0.64) 0%, rgba(14, 34, 40, 0.64) 100%);
       box-shadow: 0rem 0rem 8rem 4rem #000f18;
@@ -120,9 +139,11 @@
 @media (max-width: 670px) {
   .main_game {
     max-width: 50rem;
+
     &_container {
       box-shadow: 0rem 0rem 6rem 3rem #fff;
     }
+
     &_container_dark {
       background: linear-gradient(180deg, rgba(38, 72, 89, 0.64) 0%, rgba(14, 34, 40, 0.64) 100%);
       box-shadow: 0rem 0rem 8rem 4rem #000f18;
@@ -135,9 +156,11 @@
     &_square {
       font-size: 2.1rem;
       border: 0.3rem solid #aeb1ab;
+
       &_dark {
         border-color: #071113;
       }
+
       &_empty {
         border: none;
       }
@@ -149,9 +172,11 @@
     &_square {
       font-size: 1.7rem;
       border: 0.2rem solid #aeb1ab;
+
       &_dark {
         border-color: #071113;
       }
+
       &_empty {
         border: none;
       }

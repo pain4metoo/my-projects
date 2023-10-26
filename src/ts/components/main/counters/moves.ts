@@ -17,22 +17,32 @@ export class Moves extends Control {
       switch (type) {
         case StateOptions.moveCounter:
           this.makeMove(movesBlockNumber.node);
+
           break;
+
         case StateOptions.newGame:
           movesBlockNumber.node.textContent = '0';
+
           break;
+
         case StateOptions.winGame:
           state.setResultMoves(Number(movesBlockNumber.node.textContent));
+
           break;
+
         case StateOptions.setCollectMoves:
           movesBlockNumber.node.textContent = `${state.getMoveCounter() + state.getCollectMoves()}`;
+
           break;
+
         case StateOptions.changeLanguage:
           this.switchLang(state.getLanguage(), movesBlockText.node);
+
           break;
 
         case StateOptions.changeTheme:
           this.changeTheme(state.getTheme(), movesBlockText.node, movesBlockNumber.node);
+
           break;
       }
     });

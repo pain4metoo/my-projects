@@ -11,6 +11,7 @@ export class Timer extends Control {
   private hour = 0;
   private collectTimer!: number;
   private collectSec = 1;
+
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'main_counters_block_right');
 
@@ -25,36 +26,51 @@ export class Timer extends Control {
       switch (type) {
         case StateOptions.startGame:
           this.setTimer(state.getStopStartGame(), state.getToggleTimer());
+
           break;
+
         case StateOptions.stopGame:
           setTimeout(() => {
             this.stopTimer(state.getStopStartGame(), state.getToggleTimer());
           }, 1000);
+
           break;
+
         case StateOptions.newGame:
           timeBlockNumber.node.textContent = '00:00:00';
           this.newGame();
+
           break;
+
         case StateOptions.winGame:
           if (timeBlockNumber.node.textContent) {
             state.setResultTime(timeBlockNumber.node.textContent);
           }
+
           break;
+
         case StateOptions.collectStartTimer:
           this.setTimer(state.getStopStartGame(), state.getToggleTimer());
 
           this.setCollectGameTimer();
+
           break;
+
         case StateOptions.collectStopTimer:
           this.stopTimer(state.getStopStartGame(), state.getToggleTimer());
 
           this.stopCollectGameTimer();
+
           break;
+
         case StateOptions.changeLanguage:
           this.switchLang(state.getLanguage(), timeBlockText.node);
+
           break;
+
         case StateOptions.changeTheme:
           this.changeTheme(state.getTheme(), timeBlockText.node, timeBlockNumber.node);
+
           break;
       }
     });

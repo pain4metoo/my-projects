@@ -20,8 +20,10 @@ export enum LangType {
 
 export class SettingsPopup extends Control {
   private settingsPopupListener: (type: StateOptions) => void;
+
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'settings');
+
     const settingsTitle = new Control(
       this.node,
       'h2',
@@ -55,29 +57,44 @@ export class SettingsPopup extends Control {
           gameMode.changeTheme();
           volume.changeTheme();
           this.changeTheme(state.getTheme(), settingsTitle.node);
+
           break;
+
         case StateOptions.changeAnimation:
           animation.changeAnimation();
+
           break;
+
         case StateOptions.changeSound:
           sound.changeSound();
+
           break;
+
         case StateOptions.changeVolume:
           volume.showChanges();
+
           break;
+
         case StateOptions.changeLanguage:
           language.changeLanguage();
           state.onUpdate.remove(this.settingsPopupListener);
           settingsTitle.node.textContent = state.getLanguage() ? 'Settings' : 'Настройки';
+
           break;
+
         case StateOptions.closePopup:
           state.onUpdate.remove(this.settingsPopupListener);
+
           break;
+
         case StateOptions.changeGameMode:
           gameMode.changeGameMode();
+
           break;
+
         case StateOptions.resetSettings:
           volume.setVolume(state.getVolume());
+
           break;
       }
     };

@@ -9,6 +9,8 @@
   background: rgba(0, 0, 0, 0.6);
   z-index: 1000;
   backdrop-filter: blur(0.75rem);
+  user-select: none;
+
   &_inner {
     display: flex;
     flex-direction: column;
@@ -23,11 +25,13 @@
     border: 0.5rem solid #7e7d7b;
     padding-bottom: 7rem;
     background: rgba(21, 22, 19, 0.86);
-    backdrop-filter: blur(7.5px);
   }
+
   &_inner_dark {
     border-color: #132935;
+    background: rgba(3, 5, 6, 0.5);
   }
+
   &_close_btn {
     @extend %close-btn;
     background: url('../../../../assets/svg/close-btn.svg') no-repeat center/contain;
@@ -36,12 +40,15 @@
     top: 1rem;
     border: none;
   }
+
   &_new_btn {
     @extend %popup-btn;
   }
+
   &_new_btn_dark {
     background: linear-gradient(180deg, #1a4256 0%, #0a1415 100%);
     color: #a1d0e7;
+
     &:hover {
       box-shadow:
         0px 0px 0.54px 0px #000,
@@ -51,6 +58,7 @@
         0px 0px 12.96px 0px #000,
         0px 0px 22.68px 0px #000;
     }
+
     &:disabled {
       background: linear-gradient(180deg, #5d8498 0%, #182728 100%);
     }
@@ -62,13 +70,16 @@
     &_inner {
       padding-bottom: 4rem;
     }
+
     &_result_title {
       font-size: 3rem;
     }
+
     &_close_btn {
       width: 3rem;
       height: 3rem;
     }
+
     &_new_btn {
       font-size: 2.5rem;
     }

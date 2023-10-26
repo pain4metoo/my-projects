@@ -3,9 +3,11 @@
 .header {
   background: rgba(20, 19, 17, 0.5);
   backdrop-filter: blur(0.6rem);
+
   &_nav {
     padding: 1.5rem 0rem;
   }
+
   &_list {
     display: flex;
     justify-content: center;
@@ -13,22 +15,28 @@
     padding: 0;
     margin: 0;
   }
+
   &_list_item {
     user-select: none;
   }
+
   &_mobile_btn {
     @extend %header-mobile-btn;
   }
+
   &_mobile_btn_active {
     background: rgb(142, 122, 61);
   }
+
   &_list_item {
     max-width: 15rem;
     width: 100%;
   }
+
   &_item_btn {
     @extend %header-btns;
   }
+
   &_item_btn_dark {
     background: linear-gradient(180deg, #1a4256 0%, #0a1415 100%);
     color: #a1d0e7;
@@ -42,22 +50,28 @@
         0px 0px 22.68px 0px #000;
     }
   }
+
   &_mobile_btn_active_dark {
     background: linear-gradient(180deg, #5d8498 0%, #182728 100%);
   }
+
   &_item_btn_active {
     background: rgb(142, 122, 61);
   }
+
   &_item_btn_active_dark {
     background: linear-gradient(180deg, #5d8498 0%, #182728 100%);
   }
+
   &_list_item:not(:last-child) {
     margin-right: 2rem;
   }
+
   &_item_link {
     color: $default-color;
     text-decoration: none;
   }
+
   &_burger {
     display: none;
   }
@@ -74,13 +88,16 @@
 @media (max-width: 570px) {
   .header {
     height: 7rem;
+
     &_mobile_btn {
       display: block;
       position: absolute;
     }
+
     &_nav {
       padding: 0;
     }
+
     &_list {
       height: 100vh;
       position: fixed;
@@ -96,28 +113,34 @@
       background: rgba(21, 22, 19, 0.86);
       backdrop-filter: blur(7.5px);
       width: 100%;
+
       &_item:not(:last-child) {
         margin-right: 0;
       }
+
       &_item:nth-child(2) {
         display: none;
       }
     }
+
     &_list_item {
       max-width: inherit;
       width: 100%;
       height: 6rem;
     }
+
     &_item_btn {
       font-size: 2.5rem;
       line-height: 140%;
     }
+
     &_list_show {
       display: flex;
       transform: translateY(0rem);
       opacity: 1;
       z-index: 1002;
     }
+
     &_burger {
       display: block;
       position: fixed;
@@ -129,15 +152,18 @@
       transition: linear 0.2s;
       z-index: 1002;
     }
+
     &_burger_item {
       display: block;
       height: 0.4rem;
       background-color: beige;
       margin-bottom: 0.5rem;
       transition: all 0.5s;
+
       &_dark {
         background: linear-gradient(180deg, #5d8498 0%, #182728 100%);
       }
+
       &_rotate {
         z-index: 1003;
         &:nth-child(1) {

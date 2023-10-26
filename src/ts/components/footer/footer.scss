@@ -9,15 +9,18 @@
   backdrop-filter: blur(0.6rem);
   position: relative;
   z-index: 1;
+
   &_year {
     font-size: 1.5rem;
     line-height: 1.2rem;
     color: $color-text;
     margin-left: 4rem;
   }
+
   &_year_dark {
     color: #a1d0e7;
   }
+
   &_link {
     font-size: 1.5rem;
     line-height: 1.2rem;
@@ -30,6 +33,7 @@
       opacity: 0.5;
     }
   }
+
   &_link_dark {
     color: #a1d0e7;
   }

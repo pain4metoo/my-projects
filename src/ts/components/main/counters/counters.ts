@@ -1,8 +1,7 @@
 import Control from '../../../common/control';
-
-import './counter.scss';
 import { Moves } from './moves';
 import { Timer } from './timer';
+import './counter.scss';
 
 export class Counter extends Control {
   constructor(parentNode: HTMLElement) {

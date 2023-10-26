@@ -53,6 +53,7 @@ export class Volume extends Control {
     const value = state.getVolume();
 
     this.input.value = value;
+
     if (state.getTheme()) {
       this.input.style.background = `linear-gradient(to right, rgb(51, 103, 133) ${state.getVolume()}%, rgb(255 255 255) 0${state.getVolume()}%, rgb(255, 255, 255) 19%, white 100%)`;
     } else {
@@ -70,7 +71,9 @@ export class Volume extends Control {
 
   public onToggleVolume(): void {
     soundControl.playSound(SoundTypes.btn);
+
     const volume = state.getVolume();
+
     if (+volume > 0) {
       state.setLastVolume(volume);
       state.setVolume('0');

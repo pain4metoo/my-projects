@@ -30,16 +30,24 @@ export class App extends Control {
       switch (event.code) {
         case EventCode.ArrowDown:
           state.setEventKeyDown(EventCode.ArrowDown);
+
           break;
+
         case EventCode.ArrowLeft:
           state.setEventKeyDown(EventCode.ArrowLeft);
+
           break;
+
         case EventCode.ArrowUp:
           state.setEventKeyDown(EventCode.ArrowUp);
+
           break;
+
         case EventCode.ArrowRight:
           state.setEventKeyDown(EventCode.ArrowRight);
+
           break;
+
         default:
           return false;
       }
@@ -59,7 +67,9 @@ export class App extends Control {
       switch (type) {
         case StateOptions.changeLanguage:
           this.changeFontFamily(state.getLanguage(), parentNode);
+
           break;
+
         case StateOptions.winGame:
           if (state.getAnimation()) {
             this.fireWork = new Control(main.node, 'img', 'firework');
@@ -70,14 +80,19 @@ export class App extends Control {
               this.fireWork.node.src = fireworkIMG;
             }
           }
+
           break;
+
         case StateOptions.closePopup:
           if (this.fireWork) {
             this.fireWork.destroy();
           }
+
           break;
+
         case StateOptions.changeTheme:
           this.createBG(parentNode);
+
           break;
       }
     };

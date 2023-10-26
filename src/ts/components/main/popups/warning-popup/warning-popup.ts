@@ -12,6 +12,7 @@ import { StateOptions } from '../../../../common/state-types';
 
 export class WarningPopup extends Control {
   private warningListener: (type: StateOptions) => void;
+
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'warning');
 
@@ -24,8 +25,10 @@ export class WarningPopup extends Control {
     );
 
     const popupBtnContainer = new Control(popupInner.node, 'div', 'warning_btns');
+
     const btnTrue = new Control(popupBtnContainer.node, 'button', 'warning_btn', state.getLanguage() ? 'Yes' : 'Да');
     btnTrue.node.onclick = (): void => this.onTrue();
+
     const btnFalse = new Control(popupBtnContainer.node, 'button', 'warning_btn', state.getLanguage() ? 'No' : 'Нет');
     btnFalse.node.onclick = (): void => this.onClosePopup();
 

@@ -6,24 +6,29 @@
   align-items: center;
   margin-bottom: 1rem;
   width: 100%;
+
   &_title {
     font-size: 2.7rem;
     line-height: 140%;
     text-align: center;
     color: $color-text;
     margin: 0;
+
     &::first-letter {
       text-transform: uppercase;
     }
+
     &_dark {
       color: #a1d0e7;
     }
   }
+
   &_inner {
     display: flex;
     align-items: center;
     width: 23rem;
   }
+
   &_switch {
     position: relative;
     display: inline-block;
@@ -31,9 +36,11 @@
     height: 5rem;
     margin-right: 2.2rem;
   }
+
   &_checkbox {
     display: none;
   }
+
   &_slider {
     position: absolute;
     cursor: pointer;
@@ -43,6 +50,7 @@
     bottom: 0;
     background: linear-gradient(180deg, rgba(35, 34, 30, 0.59) 0%, rgba(255, 255, 249, 0) 100%);
     transition: 0.5s ease;
+
     &::before {
       position: absolute;
       content: '';
@@ -53,17 +61,21 @@
       background: linear-gradient(180deg, rgba(226, 226, 226, 0.54) 0%, #bcbcbc 100%);
       transition: 0.5s ease;
     }
+
     &_dark {
       background: linear-gradient(180deg, #04090a 0%, #182728 100%);
+
       &::before {
         background: #7092a4;
       }
     }
   }
+
   &_value {
     font-size: 2.5rem;
     line-height: 140%;
     color: $color-text;
+
     &_dark {
       color: #a1d0e7;
     }

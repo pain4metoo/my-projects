@@ -4,6 +4,7 @@
   margin-left: -6rem;
   margin-top: 3rem;
   margin-bottom: 2.5rem;
+
   &_icon {
     display: block;
     min-width: 7rem;
@@ -12,6 +13,7 @@
     cursor: pointer;
     margin-right: 0.5rem;
   }
+
   &_input[type='range'] {
     appearance: none;
     cursor: pointer;
@@ -21,6 +23,7 @@
     max-width: 14rem;
     width: 100%;
   }
+
   &_input[type='range']::-webkit-slider-thumb {
     appearance: none;
     width: 0.3rem;
@@ -29,6 +32,7 @@
     cursor: pointer;
     transition: ease 0.5s;
   }
+
   &_input[type='range']::-moz-range-thumb {
     appearance: none;
     width: 0.3rem;
@@ -53,17 +57,21 @@
     margin-left: 0;
     max-width: inherit;
     margin-top: 1rem;
+
     &_input::-webkit-slider-thumb {
       filter: none;
     }
+
     &_input::-moz-range-thumb {
       filter: none;
     }
+
     &_input[type='range'] {
       max-width: none;
       width: 100%;
       margin-right: 2rem;
     }
+
     &_icon {
       min-width: 5rem;
     }

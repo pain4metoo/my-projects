@@ -16,6 +16,7 @@ export class Header extends Control {
   private headerListener: (type: StateOptions) => void;
   private navItems: Array<string> = ['restart', 'stop', 'results', 'settings'];
   private navItemsHtmlElements: Array<HTMLButtonElement> = [];
+
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'header', 'header');
 
@@ -28,6 +29,7 @@ export class Header extends Control {
       'header_mobile_btn',
       state.getLanguage() ? 'stop' : 'стоп'
     );
+
     mobileStopBtn.node.onclick = (): void => {
       soundControl.playSound(SoundTypes.btn);
 
@@ -49,6 +51,7 @@ export class Header extends Control {
       const navItem = new Control(navList.node, 'li', 'header_list_item');
       const navItemLink: Control<HTMLButtonElement> = new Control(navItem.node, 'button', 'header_item_btn');
       this.navItemsHtmlElements.push(navItemLink.node);
+
       switch (navLink) {
         case NavItem.Restart:
           navItemLink.node.textContent = state.getLanguage() ? 'restart' : 'рестарт';
@@ -59,7 +62,9 @@ export class Header extends Control {
             state.closeBurgerMenu();
             this.changeThemeActive(state.getTheme(), true, navItemLink.node);
           };
+
           break;
+
         case NavItem.Stop:
           navItemLink.node.textContent = state.getLanguage() ? 'stop' : 'стоп';
           navItemLink.node.disabled = true;
@@ -70,7 +75,9 @@ export class Header extends Control {
             navItemLink.node.disabled = true;
             this.changeThemeActive(state.getTheme(), true, navItemLink.node, mobileStopBtn.node);
           };
+
           break;
+
         case NavItem.Results:
           navItemLink.node.textContent = state.getLanguage() ? 'results' : 'результаты';
           navItem.node.onclick = (): void => {
@@ -80,7 +87,9 @@ export class Header extends Control {
             state.closeBurgerMenu();
             this.changeThemeActive(state.getTheme(), true, navItemLink.node);
           };
+
           break;
+
         case NavItem.Settings:
           navItemLink.node.textContent = state.getLanguage() ? 'settings' : 'настройки';
           navItem.node.onclick = (): void => {
@@ -90,6 +99,7 @@ export class Header extends Control {
             state.closeBurgerMenu();
             this.changeThemeActive(state.getTheme(), true, navItemLink.node);
           };
+
           break;
       }
     });
@@ -100,15 +110,18 @@ export class Header extends Control {
       switch (type) {
         case StateOptions.startGame:
           this.changeStateStopBtn(mobileStopBtn.node, false);
+
           break;
 
         case StateOptions.stopBtnEnable:
           this.changeStateStopBtn(mobileStopBtn.node, false);
           this.changeThemeActive(state.getTheme(), false, this.navItemsHtmlElements[1], mobileStopBtn.node);
+
           break;
 
         case StateOptions.stopBtnDisable:
           this.changeStateStopBtn(mobileStopBtn.node, true);
+
           break;
 
         case StateOptions.shuffleStart:
@@ -116,21 +129,26 @@ export class Header extends Control {
           this.changeStateStopBtn(mobileStopBtn.node, true);
           this.changeThemeActive(state.getTheme(), false, this.navItemsHtmlElements[1], mobileStopBtn.node);
           this.changeThemeActive(state.getTheme(), true, this.navItemsHtmlElements[0]);
+
           break;
 
         case StateOptions.shuffleStop:
           this.changeStateButtons(false);
           this.changeThemeActive(state.getTheme(), false, this.navItemsHtmlElements[0]);
+
           break;
 
         case StateOptions.closePopup:
           this.changeThemeActive(state.getTheme(), false, this.navItemsHtmlElements[2]);
           this.changeThemeActive(state.getTheme(), false, this.navItemsHtmlElements[3]);
+
           break;
 
         case StateOptions.changeLanguage:
           this.changeLanguage(mobileStopBtn.node);
+
           break;
+
         case StateOptions.changeTheme:
           this.changeTheme(state.getTheme(), mobileStopBtn.node, burgerItem.node, burgerItem1.node);
 
@@ -142,7 +160,6 @@ export class Header extends Control {
           }
 
           // for stop btn
-
           if (state.getStopGameBtn()) {
             this.changeThemeActive(state.getTheme(), true, this.navItemsHtmlElements[1], mobileStopBtn.node);
           } else {

@@ -8,33 +8,49 @@
     line-height: 140%;
     text-align: center;
     color: $color-text;
+    user-select: none;
   }
+
   &_table {
     width: 100%;
     height: 100%;
     border-collapse: collapse;
   }
+
   &_thead {
     height: 10rem;
     border-bottom: 0.5rem solid #7f7e7c;
   }
+
   &_empty {
-    font-size: 5rem;
+    font-size: 3.5rem;
     line-height: 140%;
     color: $color-text;
-    opacity: 0.3;
+    opacity: 0.5;
     display: flex;
     justify-content: center;
+    user-select: none;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+
+    &_dark {
+      color: #a1d0e7;
+    }
   }
   &_th {
     font-size: 4rem;
     line-height: 140%;
   }
+
   &_tr {
     position: relative;
     text-align: center;
     color: $color-text;
     transition: linear 0.3s;
+    user-select: none;
+
     &:hover:not(:first-child) {
       background: #7f7e7c;
       opacity: 0.5;
@@ -48,14 +64,17 @@
     padding-top: 0.7rem;
     padding-bottom: 0.7rem;
     border-color: inherit;
+
     &:nth-child(1) {
       width: 7rem;
       border-left: none;
     }
+
     &:nth-child(4) {
       border-right: none;
     }
   }
+
   &_list {
     font-size: 2.4rem;
     line-height: 140%;
@@ -65,6 +84,7 @@
     width: 100%;
     margin: 0rem 0rem 4rem;
   }
+
   &_wrapper {
     display: flex;
     align-items: center;
@@ -74,18 +94,22 @@
     margin-bottom: 1rem;
     padding: 0.5rem;
   }
+
   &_item {
     font-size: 3.5rem;
     line-height: 140%;
     color: white;
+
     &:nth-child(2) {
       max-width: 30rem;
       width: 100%;
     }
+
     &:nth-child(3) {
       max-width: 18.5rem;
       width: 100%;
     }
+
     &:nth-child(4) {
       max-width: 28rem;
       width: 100%;
@@ -95,6 +119,7 @@
     max-width: 3rem;
     width: 100%;
   }
+
   &_delete {
     @extend %close-btn;
     position: absolute;
@@ -102,9 +127,11 @@
     right: 1rem;
     top: 1.3rem;
   }
+
   &_dark_theme {
     color: #a1d0e7;
     border-color: #132935;
+
     &:hover:not(:first-child) {
       background: linear-gradient(180deg, #5d8498 0%, #182728 100%);
       opacity: 0.5;
@@ -129,9 +156,11 @@
     &_title {
       font-size: 3rem;
     }
+
     &_td {
       font-size: 1.6rem;
     }
+
     &_empty {
       font-size: 3rem;
     }

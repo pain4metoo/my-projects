@@ -12,6 +12,7 @@ export class Main extends Control {
   private mainListener: (type: StateOptions) => void;
   private mainPopups!: Popups;
   private warningPopup!: WarningPopup;
+
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'main', 'main');
 
@@ -23,38 +24,59 @@ export class Main extends Control {
           } else {
             this.changeAnimation(state.getTheme(), false, sectionGameContainer.node);
           }
+
           break;
+
         case StateOptions.removeGameAnimation:
           this.changeAnimation(state.getTheme(), false, sectionGameContainer.node);
+
           break;
+
         case StateOptions.newGame:
           sectionGame.destroy();
           sectionGame = new Game(sectionGameContainer.node);
+
           break;
+
         case StateOptions.createPopup:
           this.mainPopups = new Popups(this.node);
+
           break;
+
         case StateOptions.closePopup:
           this.mainPopups.destroy();
+
           break;
+
         case StateOptions.showWarningPopup:
           this.warningPopup = new WarningPopup(this.node);
+
           break;
+
         case StateOptions.closeWarningPopup:
           this.warningPopup.destroy();
+
           break;
+
         case StateOptions.openBurgerMenu:
           this.node.style.zIndex = '-1';
+
           break;
+
         case StateOptions.closeBurgerMenu:
           this.node.style.zIndex = '0';
           this.node.style.position = 'inherit';
+
           break;
+
         case StateOptions.collectPuzzle:
           this.changeAnimation(state.getTheme(), true, sectionGameContainer.node);
+
           break;
+
         case StateOptions.shuffleStop:
           this.changeAnimation(state.getTheme(), false, sectionGameContainer.node);
+
           break;
       }
     };

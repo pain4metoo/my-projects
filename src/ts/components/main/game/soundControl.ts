@@ -25,10 +25,17 @@ export enum SoundTypes {
 export class SoundControl {
   private sound: HTMLAudioElement;
   private soundListener: (type: StateOptions) => void;
+  private isSafari: boolean = false;
 
   constructor() {
     this.sound = new Audio();
     this.sound.volume = Number(state.getVolume()) / 100;
+
+    if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+      this.isSafari = true;
+    } else {
+      this.isSafari = false;
+    }
 
     this.soundListener = (type: StateOptions): void => {
       switch (type) {
@@ -93,9 +100,11 @@ export class SoundControl {
 
   private play(): void {
     // check is Safari or not cuz in the Safari oncanplay doesn't work;
-    if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+    if (this.isSafari) {
       this.sound.oncanplaythrough = (): void => {
-        this.sound.play();
+        this.sound.play().catch((error: string) => {
+          throw Error(error);
+        });
       };
     } else {
       this.sound.oncanplay = (): void => {

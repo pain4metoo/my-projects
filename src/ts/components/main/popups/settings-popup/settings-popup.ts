@@ -20,9 +20,16 @@ export enum LangType {
 
 export class SettingsPopup extends Control {
   private settingsPopupListener: (type: StateOptions) => void;
+  private isSafari: boolean = false;
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'settings');
+
+    if (navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+      this.isSafari = true;
+    } else {
+      this.isSafari = false;
+    }
 
     const settingsTitle = new Control(
       this.node,
@@ -42,6 +49,11 @@ export class SettingsPopup extends Control {
 
     const sound = new Switcher(rightInner.node, SwitcherType.Sound);
     const volume = new Volume(sound.node);
+
+    if (this.isSafari) {
+      sound.destroy();
+      volume.destroy();
+    }
 
     const gameMode = new Switcher(rightInner.node, SwitcherType.Mode);
 

@@ -53,49 +53,50 @@ export class SoundControl {
     switch (type) {
       case SoundTypes.move:
         this.sound.src = move;
-        this.play();
+
         break;
 
       case SoundTypes.win:
         this.sound.src = win;
-        this.play();
+
         break;
 
       case SoundTypes.collect:
         this.sound.src = collect;
-        this.play();
+
         break;
 
       case SoundTypes.btn:
         this.sound.src = btn;
-        this.play();
+
         break;
 
       case SoundTypes.input:
         this.sound.src = input;
-        this.play();
+
         break;
 
       case SoundTypes.volume:
         this.sound.src = volume;
-        this.play();
+
         break;
 
       case SoundTypes.delete:
         this.sound.src = deleteS;
-        this.play();
+
         break;
 
       case SoundTypes.roboWin:
         this.sound.src = roboWin;
-        this.play();
+
         break;
 
       case SoundTypes.popup:
         this.sound.src = popup;
-        this.play();
+
         break;
     }
+    this.play();
   }
 
   private play(): void {

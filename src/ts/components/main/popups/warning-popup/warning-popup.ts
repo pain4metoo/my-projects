@@ -38,6 +38,12 @@ export class WarningPopup extends Control {
       switch (type) {
         case StateOptions.changeTheme:
           this.changeTheme(state.getTheme(), popupInner.node, popupText.node, btnTrue.node, btnFalse.node);
+
+          break;
+
+        case StateOptions.closeWarningPopup:
+          state.onUpdate.remove(this.warningListener);
+
           break;
       }
     };

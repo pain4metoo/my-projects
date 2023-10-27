@@ -92,11 +92,14 @@ export class SoundControl {
   }
 
   private play(): void {
-    this.sound.onloadedmetadata = (): void => {
+    // check is Safari or not cuz in the Safari oncanplay doesn't work;
+    if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+      this.sound.play();
+    } else {
       this.sound.oncanplay = (): void => {
         this.sound.play();
       };
-    };
+    }
   }
 
   public pauseSound(): void {

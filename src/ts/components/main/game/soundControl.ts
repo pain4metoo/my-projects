@@ -45,73 +45,56 @@ export class SoundControl {
     switch (type) {
       case SoundTypes.move:
         this.sound.src = move;
-        this.sound.play();
 
         break;
 
       case SoundTypes.win:
         this.sound.src = win;
-        this.play();
 
         break;
 
       case SoundTypes.collect:
         this.sound.src = collect;
-        this.play();
 
         break;
 
       case SoundTypes.btn:
         this.sound.src = btn;
-        this.play();
 
         break;
 
       case SoundTypes.input:
         this.sound.src = input;
-        this.play();
 
         break;
 
       case SoundTypes.volume:
         this.sound.src = volume;
-        this.play();
 
         break;
 
       case SoundTypes.delete:
         this.sound.src = deleteS;
-        this.play();
 
         break;
 
       case SoundTypes.roboWin:
         this.sound.src = roboWin;
-        this.play();
 
         break;
 
       case SoundTypes.popup:
         this.sound.src = popup;
-        this.sound.play();
 
         break;
     }
+    this.play();
   }
 
   private play(): void {
-    // check sound delay
-    const isPlaying =
-      this.sound.currentTime > 0 &&
-      !this.sound.paused &&
-      !this.sound.ended &&
-      this.sound.readyState > this.sound.HAVE_CURRENT_DATA;
-    this.sound.currentTime = 0;
-    if (!isPlaying) {
-      setTimeout(() => {
-        this.sound.play();
-      }, 150);
-    }
+    this.sound.oncanplay = (): void => {
+      this.sound.play();
+    };
   }
 
   public pauseSound(): void {

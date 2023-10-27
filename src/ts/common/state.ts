@@ -6,6 +6,7 @@ import { AppSettings, StateData, StateOptions } from './state-types';
 class State {
   private _data: StateData;
   public onUpdate: Signal<StateOptions> = new Signal();
+
   constructor(initialState: StateData) {
     this._data = initialState;
   }
@@ -132,6 +133,7 @@ class State {
   }
 
   public createPopup(): void {
+    this._data.appSettings.isOpenPopup = true;
     state.onUpdate.emit(StateOptions.createPopup);
   }
 

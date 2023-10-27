@@ -5,6 +5,7 @@ class Control<NodeType extends HTMLElement = HTMLElement> {
     const el = document.createElement(tagName);
     el.className = className;
     el.textContent = content;
+
     if (parentNode) {
       parentNode.append(el);
     }

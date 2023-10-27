@@ -26,33 +26,6 @@ export class App extends Control {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'wrapper');
 
-    parentNode.onkeydown = (event): boolean | void => {
-      switch (event.code) {
-        case EventCode.ArrowDown:
-          state.setEventKeyDown(EventCode.ArrowDown);
-
-          break;
-
-        case EventCode.ArrowLeft:
-          state.setEventKeyDown(EventCode.ArrowLeft);
-
-          break;
-
-        case EventCode.ArrowUp:
-          state.setEventKeyDown(EventCode.ArrowUp);
-
-          break;
-
-        case EventCode.ArrowRight:
-          state.setEventKeyDown(EventCode.ArrowRight);
-
-          break;
-
-        default:
-          return false;
-      }
-    };
-
     this.bgIMG = new Image();
 
     this.createBG(parentNode);
@@ -62,6 +35,8 @@ export class App extends Control {
     new Footer(this.node);
 
     this.changeFontFamily(state.getLanguage(), parentNode);
+
+    this.keysControl(parentNode);
 
     this.appListener = (type: StateOptions): void => {
       switch (type) {
@@ -88,16 +63,61 @@ export class App extends Control {
             this.fireWork.destroy();
           }
 
+          this.keysControl(parentNode);
+
           break;
 
         case StateOptions.changeTheme:
           this.createBG(parentNode);
 
           break;
+
+        case StateOptions.createPopup:
+          this.keysControl(parentNode);
+
+          break;
       }
     };
 
     state.onUpdate.add(this.appListener);
+  }
+
+  private keysControl(node: HTMLElement): void {
+    if (state.getPopupState()) {
+      node.onkeydown = (): boolean => false;
+    } else {
+      node.onkeydown = (event): boolean | void => {
+        switch (event.code) {
+          case EventCode.ArrowDown:
+            event.preventDefault();
+
+            state.setEventKeyDown(EventCode.ArrowDown);
+
+            break;
+
+          case EventCode.ArrowLeft:
+            event.preventDefault();
+
+            state.setEventKeyDown(EventCode.ArrowLeft);
+
+            break;
+
+          case EventCode.ArrowUp:
+            event.preventDefault();
+
+            state.setEventKeyDown(EventCode.ArrowUp);
+
+            break;
+
+          case EventCode.ArrowRight:
+            event.preventDefault();
+
+            state.setEventKeyDown(EventCode.ArrowRight);
+
+            break;
+        }
+      };
+    }
   }
 
   private createBG(body: HTMLElement): void {

@@ -40,10 +40,6 @@ export class SoundControl {
     this.soundListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.changeVolume:
-          if (state.getVolume() === '0') {
-            this.sound.pause();
-          }
-
           this.sound.volume = Number(state.getVolume()) / 100;
 
           break;
@@ -106,14 +102,11 @@ export class SoundControl {
   private play(): void {
     // check is Safari or not cuz in the Safari oncanplay doesn't work;
     if (this.isSafari) {
-      this.sound.play().catch((error: string) => {
-        throw Error(error);
-      });
+      this.sound.load();
+      this.sound.play();
     } else {
       this.sound.oncanplay = (): void => {
-        this.sound.play().catch((error: string) => {
-          throw Error(error);
-        });
+        this.sound.play();
       };
     }
   }

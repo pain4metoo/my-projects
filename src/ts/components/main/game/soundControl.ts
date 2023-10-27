@@ -101,11 +101,9 @@ export class SoundControl {
   private play(): void {
     // check is Safari or not cuz in the Safari oncanplay doesn't work;
     if (this.isSafari) {
-      this.sound.oncanplaythrough = (): void => {
-        this.sound.play().catch((error: string) => {
-          throw Error(error);
-        });
-      };
+      this.sound.play().catch((error: string) => {
+        throw Error(error);
+      });
     } else {
       this.sound.oncanplay = (): void => {
         this.sound.play().catch((error: string) => {

@@ -92,8 +92,10 @@ export class SoundControl {
   }
 
   private play(): void {
-    this.sound.oncanplay = (): void => {
-      this.sound.play();
+    this.sound.onloadedmetadata = (): void => {
+      this.sound.oncanplay = (): void => {
+        this.sound.play();
+      };
     };
   }
 

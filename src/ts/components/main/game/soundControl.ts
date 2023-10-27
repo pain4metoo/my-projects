@@ -31,7 +31,7 @@ export class SoundControl {
     this.sound = new Audio();
     this.sound.volume = Number(state.getVolume()) / 100;
 
-    if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+    if (navigator.userAgent.indexOf('Safari') !== -1 && navigator.userAgent.indexOf('Chrome') == -1) {
       this.isSafari = true;
     } else {
       this.isSafari = false;
@@ -40,7 +40,12 @@ export class SoundControl {
     this.soundListener = (type: StateOptions): void => {
       switch (type) {
         case StateOptions.changeVolume:
+          if (state.getVolume() === '0') {
+            this.sound.pause();
+          }
+
           this.sound.volume = Number(state.getVolume()) / 100;
+
           break;
       }
     };

@@ -4,11 +4,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 const mode = process.env.NODE_ENV || 'development';
-
 const devMode = mode === 'development';
-
-const target = devMode ? 'web' : 'browserlist';
-const devtool = devMode ? 'source-map' : null;
+const target = devMode ? 'web' : 'browserslist';
+const devtool = devMode ? 'source-map' : undefined;
 
 module.exports = {
   mode,
@@ -51,10 +49,20 @@ module.exports = {
             options: {
               postcssOptions: {
                 plugins: [require('postcss-preset-env')],
+                config: path.resolve(__dirname, 'postcss.config.js'),
               },
             },
           },
-          'sass-loader',
+          'group-css-media-queries-loader',
+          {
+            loader: 'resolve-url-loader',
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
         ],
       },
       {
@@ -78,17 +86,17 @@ module.exports = {
                 enabled: false,
               },
               pngquant: {
-                quality: [0.65, 0.90],
-                speed: 4
+                quality: [0.65, 0.9],
+                speed: 4,
               },
               gifsicle: {
                 interlaced: false,
               },
               // the webp option will enable WEBP
               webp: {
-                quality: 75
-              }
-            }
+                quality: 75,
+              },
+            },
           },
         ],
         type: 'asset/resource',
@@ -103,6 +111,6 @@ module.exports = {
           },
         },
       },
-    ]
-  }
-}
+    ],
+  },
+};

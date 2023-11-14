@@ -1,6 +1,7 @@
 @font-face {
   font-family: 'Roboto';
-  src: url('../assets/fonts/Roboto-Thin.woff2') format('woff2'),
+  src:
+    url('../assets/fonts/Roboto-Thin.woff2') format('woff2'),
     url('../assets/fonts/Roboto-Thin.woff') format('woff');
   font-weight: 100;
   font-style: normal;
@@ -9,7 +10,8 @@
 
 @font-face {
   font-family: 'Roboto';
-  src: url('../assets/fonts/Roboto-Light.woff2') format('woff2'),
+  src:
+    url('../assets/fonts/Roboto-Light.woff2') format('woff2'),
     url('../assets/fonts/Roboto-Light.woff') format('woff');
   font-weight: 300;
   font-style: normal;
@@ -18,7 +20,8 @@
 
 @font-face {
   font-family: 'Roboto';
-  src: url('../assets/fonts/Roboto-Regular.woff2') format('woff2'),
+  src:
+    url('../assets/fonts/Roboto-Regular.woff2') format('woff2'),
     url('../assets/fonts/Roboto-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
@@ -28,8 +31,9 @@
 @font-face {
   font-family: 'Roboto';
 
-  src: url('../assets/fonts/Roboto-Medium.woff2') format('woff2'),
-    url('../assets/fonts/Roboto-Mediumwoff') format('woff');
+  src:
+    url('../assets/fonts/Roboto-Medium.woff2') format('woff2'),
+    url('../assets/fonts/Roboto-Medium.woff') format('woff');
   font-weight: 500;
   font-style: normal;
   font-display: swap;

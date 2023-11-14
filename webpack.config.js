@@ -49,7 +49,6 @@ module.exports = {
             options: {
               postcssOptions: {
                 plugins: [require('postcss-preset-env')],
-                config: path.resolve(__dirname, 'postcss.config.js'),
               },
             },
           },

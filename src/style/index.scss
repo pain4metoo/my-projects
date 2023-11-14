@@ -1,10 +1,8 @@
 @import '../libs/normalize.css';
 @import '../style/fonts.scss';
 @import '../style/variables.scss';
-
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import '../style/header.scss';
+@import '../style/welcome.scss';
 
 *,
 *::after,
@@ -20,4 +18,10 @@ html {
 
 body {
   @extend %font-default;
+}
+
+.container {
+  max-width: 146rem;
+  margin: 0 auto;
+  padding: 0 1rem;
 }

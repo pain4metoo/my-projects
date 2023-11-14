@@ -1,0 +1,12 @@
+.header {
+  background-color: $dark;
+  color: $text-light;
+  &_title {
+    font-size: 2.8rem;
+    letter-spacing: 0.5rem;
+  }
+  &_logo {
+    width: 4.9rem;
+    height: 2.6rem;
+  }
+}

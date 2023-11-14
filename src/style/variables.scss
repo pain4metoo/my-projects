@@ -1,0 +1,24 @@
+// colors
+
+$text-dark: #000;
+$text-light: #fff;
+
+$dark: #030303;
+$red: #710707;
+$gold: #9d8665;
+
+$link-visit: #fff;
+$link-hover: #9d8665;
+$link-active: #7e6c51;
+
+$btn-color: #710707;
+$btn-hover: #9d8665;
+
+// font var
+
+%font-default {
+  font-family: 'Roboto', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  line-height: normal;
+}

@@ -1,1 +1,19 @@
 @import '../libs/normalize.css';
+@import '../style/fonts.scss';
+@import '../style/variables.scss';
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-size: 10px;
+}
+
+body {
+  @extend %font-default;
+}

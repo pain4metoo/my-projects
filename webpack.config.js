@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 const mode = process.env.NODE_ENV || 'development';
 
@@ -17,7 +18,7 @@ module.exports = {
     port: 3000,
     open: true,
     hot: true,
-  }
+  },
   entry: ['@babel/polyfill', path.resolve(__dirname, 'src', 'index.js')],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -31,7 +32,8 @@ module.exports = {
     })
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
-    })
+    }),
+    new ESLintPlugin(),
   ],
   module: {
     rules: [

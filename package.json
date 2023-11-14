@@ -3,8 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "webpack serve",
+    "dev": "webpack",
+    "build": "webpack --node-env=production",
+    "clear": "rd /s /q dist"
+  },
   "keywords": [],
   "author": "pain4metoo",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
 }

@@ -1,0 +1,49 @@
+@import '../style/variables.scss';
+
+.explore {
+  background-color: $dark;
+  padding-top: 7.5rem;
+  padding-bottom: 7rem;
+  &_title {
+    font-family: 'Forum', sans-serif;
+    font-size: 8rem;
+    font-weight: 400;
+    line-height: 9rem;
+    letter-spacing: 0.5rem;
+    text-transform: uppercase;
+    color: $text-light;
+    position: relative;
+    margin: 0;
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2.7rem;
+      width: 66rem;
+      height: 0.3rem;
+      background-color: $red;
+    }
+  }
+  &_inner {
+    display: flex;
+    justify-content: space-between;
+  }
+  &_right {
+    margin-top: 1.5rem;
+  }
+  &_text {
+    font-weight: 300;
+    color: $text-light;
+    line-height: 3.85rem;
+    max-width: 65rem;
+    &_1 {
+      margin-top: 10.7rem;
+    }
+    &_2 span {
+      color: #caaa7d;
+    }
+    &_3 {
+      max-width: 66rem;
+    }
+  }
+}

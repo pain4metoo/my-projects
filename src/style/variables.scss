@@ -27,3 +27,17 @@ $btn-hover: #9d8665;
 
 $index-text: 2;
 $index-img: 1;
+
+// gallery img
+
+%size-1 {
+  max-width: 45.6rem;
+  width: 100%;
+  height: 57rem;
+}
+
+%size-2 {
+  max-width: 45.6rem;
+  width: 100%;
+  height: 45.6rem;
+}

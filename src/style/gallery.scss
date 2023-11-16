@@ -1,4 +1,87 @@
 @import './variables.scss';
 
 .gallery {
+  padding-top: 7.5rem;
+  background-color: $dark;
+  &_title {
+    font-family: 'Forum', sans-serif;
+    font-size: 8rem;
+    font-weight: 400;
+    line-height: 9rem;
+    letter-spacing: 0.5rem;
+    text-transform: uppercase;
+    color: $text-light;
+  }
+  &_items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2.4rem 3.6rem;
+    margin-top: 7.5rem;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 350px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000 100%);
+      pointer-events: none;
+    }
+  }
+  &_item {
+    &_1 {
+      @extend %size-1;
+      margin-top: 5rem;
+    }
+    &_2 {
+      @extend %size-2;
+    }
+    &_3 {
+      @extend %size-1;
+      margin-top: 5rem;
+    }
+    &_4 {
+      @extend %size-1;
+    }
+    &_5 {
+      @extend %size-1;
+      margin-top: -16.3rem;
+    }
+    &_6 {
+      @extend %size-2;
+    }
+    &_7 {
+      @extend %size-2;
+    }
+    &_8 {
+      @extend %size-1;
+      margin-top: -16.3rem;
+    }
+    &_9 {
+      @extend %size-2;
+      margin-top: -11.4rem;
+    }
+    &_10 {
+      max-width: 45.6rem;
+      width: 100%;
+      height: 24.2rem;
+    }
+    &_11 {
+      max-width: 45.6rem;
+      width: 100%;
+      height: 29.2rem;
+      margin-top: -5rem;
+    }
+    &_12 {
+      max-width: 45.6rem;
+      width: 100%;
+      height: 34.2rem;
+      margin-top: -11.4rem;
+    }
+  }
+  &_img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }

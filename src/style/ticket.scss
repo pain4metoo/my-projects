@@ -1,0 +1,151 @@
+@import './variables.scss';
+
+.ticket {
+  padding-top: 7.5rem;
+  padding-bottom: 7.5rem;
+  background-color: $text-light;
+  &_title {
+    font-family: 'Forum', sans-serif;
+    font-size: 8rem;
+    font-weight: 400;
+    line-height: 9rem;
+    letter-spacing: 0.5rem;
+    text-transform: uppercase;
+    color: $gold;
+    margin: 0;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 0.3rem;
+      bottom: -2.8rem;
+      left: 0;
+      background-color: $red;
+    }
+  }
+  &_blocks {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10.3rem;
+  }
+  &_img {
+    max-width: 72rem;
+    width: 100%;
+    height: 55rem;
+    margin-right: 6rem;
+  }
+  &_type_title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: $text-dark;
+    margin: 0;
+    margin-bottom: 2rem;
+  }
+  &_amount_title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: $text-dark;
+    margin: 0;
+    margin-bottom: 2.5rem;
+    text-align: right;
+  }
+  &_type {
+    max-width: 25rem;
+    width: 100%;
+    margin-left: -21.5rem;
+  }
+  &_label_inner {
+    display: flex;
+    align-items: center;
+  }
+  &_type_input {
+    appearance: none;
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+  }
+  &_type_dot {
+    display: block;
+    width: 1.7rem;
+    height: 1.7rem;
+    outline: none;
+    border: 0.2rem solid #000000;
+    border-radius: 50%;
+    margin-right: 2.3rem;
+  }
+  &_type_text {
+    color: $text-dark;
+    font-weight: 300;
+    margin: 0;
+  }
+  &_amount_item {
+    display: flex;
+    flex-direction: column;
+    margin-left: 4rem;
+    &:not(:first-child) {
+      margin-bottom: 1.1rem;
+    }
+  }
+  &_amount_counter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 0.3rem solid $text-dark;
+    width: 15rem;
+    padding: 0.3rem 1.4rem;
+  }
+  &_amount_text {
+    color: $text-dark;
+    font-weight: 300;
+    margin: 0;
+    margin-bottom: 1.5rem;
+  }
+  &_amount_num {
+    color: $text-dark;
+    font-weight: 300;
+    margin: 0;
+    text-align: center;
+  }
+  &_amount_sign {
+    font-size: 3.2rem;
+    font-weight: 400;
+    color: $text-dark;
+  }
+  &_amount_total {
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: 1.65px;
+    margin: 4.5rem 0rem 6rem;
+    margin-left: 4.4rem;
+  }
+  &_btn {
+    font-weight: 300;
+    letter-spacing: 0.2rem;
+    color: $text-light;
+    width: 17.5rem;
+    background-color: $text-dark;
+    border: none;
+    outline: none;
+    height: 5rem;
+    cursor: pointer;
+    transition: 0.5s ease;
+    margin-left: 2rem;
+  }
+}
+
+.ticket_type_input:checked ~ .ticket_label_inner .ticket_type_dot {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+
+    width: 0.7rem;
+    height: 0.7rem;
+    background-color: $text-dark;
+    left: 0.3rem;
+    bottom: 0.3rem;
+    border: 0.3rem solid #000000;
+    border-radius: 50%;
+  }
+}

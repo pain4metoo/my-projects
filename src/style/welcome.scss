@@ -55,6 +55,16 @@
   &_slider {
     position: relative;
     z-index: $index-img;
+    &::after {
+      content: '';
+      position: absolute;
+      pointer-events: none;
+      height: 100%;
+      width: 40rem;
+      left: 0;
+      top: 0;
+      background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.7) 16.19%, rgba(0, 0, 0, 0) 30.73%);
+    }
   }
   &_slider_img {
     width: 100rem;

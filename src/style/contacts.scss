@@ -1,0 +1,55 @@
+@import './variables.scss';
+
+.contacts {
+  padding-top: 7.5rem;
+  padding-bottom: 6.9rem;
+  background-color: $text-light;
+  &_title {
+    font-family: 'Forum', sans-serif;
+    font-size: 8rem;
+    line-height: 9rem;
+    font-weight: 400;
+    letter-spacing: 0.5rem;
+    color: $gold;
+    text-transform: uppercase;
+    position: relative;
+    margin: 0;
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2.8rem;
+      background-color: $red;
+      width: 100%;
+      height: 0.3rem;
+    }
+  }
+  &_blocks {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10.3rem;
+  }
+  &_name {
+    font-size: 2.8rem;
+    color: $text-dark;
+    font-weight: 500;
+    max-width: 22.7rem;
+    margin: 0;
+  }
+  &_text {
+    color: $text-dark;
+    font-weight: 300;
+    text-decoration: none;
+    margin: 0;
+  }
+  &_adress_1 {
+    margin-top: 5rem;
+  }
+  &_phone {
+    margin-top: 2.5rem;
+  }
+  &_text_mail {
+    display: block;
+    margin-top: 2.1rem;
+  }
+}

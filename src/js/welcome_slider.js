@@ -1,4 +1,8 @@
+import { isVisibleEl } from './additional';
+
 {
+  document.body.addEventListener('keydown', (event) => onKeyDownHandler(event));
+
   const btnControlArr = document.querySelectorAll('.welcome_controls_btn');
   btnControlArr.forEach((el, i) => {
     el.onclick = () => {
@@ -21,20 +25,12 @@
 
   const arrowLeft = document.querySelector('.welcome_control_arrow_left');
   arrowLeft.onclick = () => {
-    if (prevTarget - 1 < minSlidersIn) {
-      changeSlider(maxSlidersIn);
-    } else {
-      changeSlider(prevTarget - 1);
-    }
+    moveSliderLeft();
   };
 
   const arrowRight = document.querySelector('.welcome_control_arrow_right');
   arrowRight.onclick = () => {
-    if (prevTarget + 1 > maxSlidersIn) {
-      changeSlider(minSlidersIn);
-    } else {
-      changeSlider(prevTarget + 1);
-    }
+    moveSliderRight();
   };
 
   const changeSlider = (target) => {
@@ -87,21 +83,45 @@
       let currX = e.clientX;
 
       if (currX > prevX) {
-        if (prevTarget - 1 < minSlidersIn) {
-          changeSlider(maxSlidersIn);
-        } else {
-          changeSlider(prevTarget - 1);
-        }
+        moveSliderLeft();
       }
       if (currX < prevX) {
-        if (prevTarget + 1 > maxSlidersIn) {
-          changeSlider(minSlidersIn);
-        } else {
-          changeSlider(prevTarget + 1);
-        }
+        moveSliderRight();
       }
 
       event.target.onmousemove = null;
+    }
+  };
+
+  const onKeyDownHandler = (event) => {
+    const welcomeSlider = document.querySelector('.welcome_slider');
+    const keyCode = event.key;
+
+    if (isVisibleEl(welcomeSlider)) {
+      switch (keyCode) {
+        case 'ArrowLeft':
+          moveSliderLeft();
+          break;
+        case 'ArrowRight':
+          moveSliderRight();
+          break;
+      }
+    }
+  };
+
+  const moveSliderLeft = () => {
+    if (prevTarget - 1 < minSlidersIn) {
+      changeSlider(maxSlidersIn);
+    } else {
+      changeSlider(prevTarget - 1);
+    }
+  };
+
+  const moveSliderRight = () => {
+    if (prevTarget + 1 > maxSlidersIn) {
+      changeSlider(minSlidersIn);
+    } else {
+      changeSlider(prevTarget + 1);
     }
   };
 }

@@ -274,9 +274,176 @@
     </section>
     <section class="ticket">
       <div class="container">
+        <div class="form_layout">
+          <form class="form">
+            <button type="button" class="form_close_btn"></button>
+            <div class="form_inner">
+              <div class="form_left">
+                <img src="./assets/svg/form_logo.svg" alt="form-logo" class="form_logo">
+                <h3 class="form_title">Booking tickets</h3>
+                <h5 class="form_title_text">Tour to Louvre</h5>
+
+                <div class="form_el_inner">
+                  <label class="form_date_label">
+                    <p class="form_date_label_text">Date</p>
+                    <input type="date" class="form_date">
+                  </label>
+
+                  <label class="form_time_label">
+                    <p class="form_time_label_text">Time</p>
+                    <input type="time" class="form_time">
+                  </label>
+
+                </div>
+
+                <label class="form_name_label form_label_default">
+                  <input type="text" class="form_name" placeholder="Name">
+                </label>
+
+                <label class="form_email_label form_label_default">
+                  <input type="email" class="form_email" placeholder="E-mail">
+                </label>
+
+                <label class="form_phone_label form_label_default">
+                  <input type="tel" class="form_phone" placeholder="Phone">
+                </label>
+
+                <label class="form_select_label form_label_default">
+                  <select class="form_select">
+                    <option value="Ticket Type" disabled selected hidden>Ticket Type</option>
+                    <option class="form_select_option" value="Permanent exhibition">Permanent exhibition</option>
+                    <option class="form_select_option" value="Temporary exhibition">Temporary exhibition</option>
+                    <option class="form_select_option" value="Combined Admission">Combined Admission</option>
+                  </select>
+                </label>
+
+                <div class="form_entry_ticket">
+                  <h5 class="form_entry_title">Entry ticket</h5>
+
+                  <div class="form_entry_basic">
+                    <p class="form_entry_basic_text">Basic 18+ (20 €)</p>
+
+                    <div class="form_amount_counter">
+                      <span class="form_amount_minus form_amount_sign">&#8722;</span>
+                      <p class="form_amount_num">2</p>
+                      <span class="form_amount_plus form_amount_sign">+</span>
+                    </div>
+                  </div>
+
+                  <div class="form_entry_senior">
+                    <p class="form_entry_senior_text">Senior 65+ (10 €)</p>
+
+                    <div class="form_amount_counter">
+                      <span class="form_amount_minus form_amount_sign">&#8722;</span>
+                      <p class="form_amount_num">2</p>
+                      <span class="form_amount_plus form_amount_sign">+</span>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="form_right">
+                <div class="form_right_info">
+                  <div class="form_right_info_inner">
+                    <h3 class="form_right_title">Overview</h3>
+                    <h4 class="form_right_title_2">Tour to Louvre</h4>
+                    <p class="form_right_data form_right_info_text">Friday, August 19</p>
+                    <p class="form_right_time form_right_info_text">16 : 30</p>
+                    <p class="form_right_type form_right_info_text">Temporary exhibition</p>
+                  </div>
+                  <img src="./assets/image/form_img.png" alt="image" class="form_info_img">
+                </div>
+
+                <div class="form_right_order">
+                  <div class="form_right_order_basic">
+                    <div class="form_right_order_left">
+                      <p class="form_right_order_num">2</p>
+                      <p class="form_right_order_sum">Basic (20 €)</p>
+                    </div>
+                    <p class="form_right_order_price">40 €</p>
+                  </div>
+
+                  <div class="form_right_order_senior">
+                    <div class="form_right_order_left">
+                      <p class="form_right_order_num">2</p>
+                      <p class="form_right_order_sum">Senior (10 €)</p>
+                    </div>
+                    <p class="form_right_order_price">20 €</p>
+                  </div>
+                </div>
+
+                <div class="form_right_total">
+                  <p class="form_right_total_text">Total:</p>
+                  <p class="form_right_total_price">60 €</p>
+                </div>
+
+                <div class="form_right_card">
+                  <div class="form_right_card_1">
+                    <p class="form_right_card_number_text form_right_card_text">Card number</p>
+                    <input type="number" class="form_right_card_number">
+                    <p class="form_right_date_text form_right_card_text">Expiration date</p>
+
+                    <div class="form_right_date_info">
+                      <div class="form_right_date_inner">
+                        <select class="form_right_select_month">
+                          <option value="01">01</option>
+                          <option value="02">02</option>
+                          <option value="03">03</option>
+                          <option value="04">04</option>
+                          <option value="05">05</option>
+                          <option value="06">06</option>
+                          <option value="07">07</option>
+                          <option value="08">08</option>
+                          <option value="09">09</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                        </select>
+                        <div class="form_right_arrows">
+                          <button class="form_right_date_arrow form_right_date_arrow_top" type="btn"></button>
+                          <button class="form_right_date_arrow form_right_date_arrow_bottom" type="btn"></button>
+                        </div>
+                      </div>
+
+                      <div class="form_right_date_inner">
+                        <select class="form_right_select_year">
+                          <option value="2023">2023</option>
+                          <option value="2024">2024</option>
+                          <option value="2025">2025</option>
+                          <option value="2026">2026</option>
+                          <option value="2027">2027</option>
+                          <option value="2028">2028</option>
+                          <option value="2029">2029</option>
+                          <option value="2030">2030</option>
+                          <option value="2031">2031</option>
+                          <option value="2032">2032</option>
+                          <option value="2033">2033</option>
+                          <option value="2034">2034</option>
+                        </select>
+                        <div class="form_right_arrows">
+                          <button class="form_right_date_arrow form_right_date_arrow_top" type="btn"></button>
+                          <button class="form_right_date_arrow form_right_date_arrow_bottom" type="btn"></button>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="form_right_card_name_text form_right_card_text">Cardholder name</p>
+                    <input type="text" class="form_right_card_name">
+                  </div>
+                  <div class="form_right_card_2">
+                    <p class="form_right_card_cv_text form_right_card_text">CVC/CVV</p>
+                    <input type="number" class="form_right_card_cv">
+                    <p class="form_right_card_cv_text_1">The last </br> 3 or 4 digits on back </br> of the card</p>
+                  </div>
+                </div>
+
+                <button class="form_right_btn" type="button">Book</button>
+              </div>
+            </div>
+          </form>
+        </div>
         <div class="ticket_inner">
           <h3 class="ticket_title">BUY TICKETS</h3>
-
           <div class="ticket_blocks">
             <img src="./assets/image/ticket_img.png" alt="image" class="ticket_img">
             <div class="ticket_type">

@@ -1,0 +1,759 @@
+@import './variables.scss';
+
+.form {
+  background-color: #ffffff;
+  padding: 9.1rem 23.5rem;
+  position: fixed;
+  z-index: $index-form;
+  max-width: 144rem;
+  width: 100%;
+  height: 84.5rem;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  &_close_btn {
+    position: absolute;
+    right: 2.9rem;
+    top: 2.9rem;
+    border: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: url('../assets/svg/form_close.svg') no-repeat center/cover;
+  }
+  &_layout {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: $index-form-layout;
+  }
+  &_inner {
+    display: flex;
+  }
+  &_left {
+    display: flex;
+    flex-direction: column;
+    margin-right: 2.1rem;
+  }
+  &_logo {
+    width: 8.5rem;
+    height: 4.1rem;
+  }
+  &_title {
+    font-family: 'Forum', sans-serif;
+    font-size: 5rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: $gold;
+    margin: 0;
+    margin-top: -0.5rem;
+  }
+  &_title_text {
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: $red;
+    position: relative;
+    margin: 0;
+    margin-top: 1.8rem;
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0rem;
+      bottom: -1.2rem;
+      max-width: 40rem;
+      width: 100%;
+      height: 0.3rem;
+      background-color: #740c11;
+    }
+  }
+  &_el_inner {
+    margin-top: 7.3rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  &_date_label {
+    width: 19rem;
+    height: 4.5rem;
+    border: 0.1rem solid $dark;
+    padding-right: 1.5rem;
+    transition: 0.5s ease;
+    position: relative;
+    margin-right: 2rem;
+    &::after {
+      content: '';
+      position: absolute;
+      background: url('../assets/svg/date.svg') no-repeat center/cover;
+      width: 1.5rem;
+      height: 1.5rem;
+      top: 1.5rem;
+      left: 1.5rem;
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      background: url('../assets/svg/form_arrow_bot.svg') no-repeat center/cover;
+      width: 1.7rem;
+      height: 1.7rem;
+      top: 1.5rem;
+      right: 1.3rem;
+    }
+  }
+  &_date_label_open {
+    &::before {
+      content: '';
+      position: absolute;
+      background: url('../assets/svg/form_arrow_top.svg') no-repeat center/cover;
+      width: 1.7rem;
+      height: 1.7rem;
+      top: 1.3rem;
+      right: 1.3rem;
+    }
+  }
+  &_date {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+  }
+  &_date_label_text {
+    font-size: 1.8rem;
+    color: $dark;
+    font-weight: 400;
+    margin-left: 4.5rem;
+    margin: 1.2rem 0rem 1.2rem 4.5rem;
+    pointer-events: none;
+  }
+  &_time_label {
+    width: 19rem;
+    height: 4.5rem;
+    border: 0.1rem solid $dark;
+    padding-right: 1.5rem;
+    transition: 0.5s ease;
+    position: relative;
+    margin-right: 2rem;
+    &::after {
+      content: '';
+      position: absolute;
+      background: url('../assets/svg/time.svg') no-repeat center/cover;
+      width: 1.5rem;
+      height: 1.5rem;
+      top: 1.5rem;
+      left: 1.5rem;
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      background: url('../assets/svg/form_arrow_bot.svg') no-repeat center/cover;
+      width: 1.7rem;
+      height: 1.7rem;
+      top: 1.3rem;
+      right: 1.3rem;
+    }
+  }
+  &_time_label_text {
+    font-size: 1.8rem;
+    color: $dark;
+    font-weight: 400;
+    margin-left: 4.5rem;
+    margin: 1.2rem 0rem 1.2rem 4.5rem;
+    pointer-events: none;
+  }
+  &_time {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+  }
+  &_label_default {
+    max-width: 40rem;
+    width: 100%;
+    height: 4.5rem;
+    border: 0.1rem solid $dark;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  &_name_label {
+    &::after {
+      content: '';
+      position: absolute;
+      background: url('../assets/svg/name.svg') no-repeat center/cover;
+      width: 1.3rem;
+      height: 1.5rem;
+      left: 1.5rem;
+      top: 1.3rem;
+    }
+  }
+  &_name {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding-left: 4.3rem;
+    padding-bottom: 0.5rem;
+    border: none;
+    &::placeholder {
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: $dark;
+    }
+  }
+  &_email_label {
+    margin-bottom: 2rem;
+    &::after {
+      content: '';
+      position: absolute;
+      background: url('../assets/svg/email.svg') no-repeat center/cover;
+      width: 1.5rem;
+      height: 1.1rem;
+      left: 1.5rem;
+      top: 1.5rem;
+    }
+  }
+  &_email {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding-left: 4.4rem;
+    padding-bottom: 0.6rem;
+    border: none;
+    &::placeholder {
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: $dark;
+    }
+  }
+  &_phone_label {
+    &::after {
+      content: '';
+      position: absolute;
+      background: url('../assets/svg/tel.svg') no-repeat center/cover;
+      width: 1.4rem;
+      height: 2.3rem;
+      left: 1.5rem;
+      top: 1.1rem;
+    }
+  }
+  &_phone {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding-left: 4.4rem;
+    border: none;
+    &::placeholder {
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: $dark;
+    }
+  }
+  &_select_label {
+    border: none;
+    &::after {
+      content: '';
+      position: absolute;
+      left: 1.5rem;
+      top: 1.3rem;
+      background: url('../assets/svg/ticket_type.svg') no-repeat center/cover;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      background: url('../assets/svg/form_arrow_bot.svg') no-repeat center/cover;
+      width: 1.7rem;
+      height: 1.7rem;
+      top: 1.3rem;
+      right: 1.3rem;
+      z-index: 1;
+    }
+  }
+  &_select_label_open {
+    &::before {
+      content: '';
+      position: absolute;
+      background: url('../assets/svg/form_arrow_top.svg') no-repeat center/cover;
+      width: 1.7rem;
+      height: 1.7rem;
+      top: 1.3rem;
+      right: 1.3rem;
+      z-index: 1;
+    }
+  }
+  &_select {
+    max-width: 40rem;
+    width: 100%;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: $dark;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    appearance: none;
+    padding-left: 4.3rem;
+    font-size: 1.8rem;
+    color: $dark;
+    font-weight: 400;
+    transition: 0.5s ease;
+  }
+  &_select_option {
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: $dark;
+  }
+  &_entry_ticket {
+    max-width: 40rem;
+    width: 100%;
+    max-height: 13.5rem;
+    border: 0.1rem solid $dark;
+  }
+  &_entry_title {
+    font-family: 'Forum', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    text-transform: capitalize;
+    color: $gold;
+    margin: 0;
+    margin-top: 1rem;
+    margin-left: 1.5rem;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      max-width: 37rem;
+      width: 100%;
+      height: 0.2rem;
+      background-color: $red;
+      opacity: 0.9;
+      bottom: -0.6rem;
+      left: -0.1rem;
+    }
+  }
+  &_entry_basic {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.8rem;
+    color: $dark;
+    font-weight: 400;
+    margin: 2.2rem auto 1.8rem;
+    max-width: 37rem;
+    width: 100%;
+  }
+  &_entry_senior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.8rem;
+    color: $dark;
+    font-weight: 400;
+    margin-top: 2rem;
+    max-width: 37rem;
+    width: 100%;
+    margin: 0rem auto 1.8rem;
+  }
+  &_entry_basic_text {
+    margin: 0;
+    max-width: 14rem;
+    width: 100%;
+  }
+  &_entry_senior_text {
+    margin: 0;
+    max-width: 14rem;
+    width: 100%;
+  }
+  &_amount_num {
+    font-size: 1.8rem;
+    color: $dark;
+    font-weight: 400;
+    margin: 0;
+    width: 3.5rem;
+    height: 2.5rem;
+    text-align: center;
+    border: 0.1rem solid $dark;
+  }
+  &_amount_sign {
+    display: block;
+    width: 3.5rem;
+    height: 2.5rem;
+    background-color: $dark;
+    color: $text-light;
+  }
+  &_amount_counter {
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+  &_right {
+    max-width: 53rem;
+    width: 100%;
+    padding: 2.5rem 3rem 2.6rem;
+    border: 0.1rem solid $dark;
+    position: relative;
+  }
+  &_right_info {
+    display: flex;
+    justify-content: space-between;
+  }
+  &_right_title {
+    font-size: 3.2rem;
+    font-weight: 500;
+    color: #272727;
+    margin: 0;
+  }
+  &_right_title_2 {
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: #740c11;
+    margin: 0;
+    margin-top: 0.2rem;
+    margin-bottom: 1rem;
+  }
+  &_right_info_text {
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: $dark;
+    margin: 0;
+    margin-left: 3rem;
+    position: relative;
+    &:not(:first-child) {
+      margin-top: 0.25rem;
+    }
+  }
+  &_right_data {
+    &::after {
+      content: '';
+      position: absolute;
+      left: -3rem;
+      bottom: 0.6rem;
+      background: url('../assets/svg/date.svg') no-repeat center/cover;
+      width: 1.5rem;
+      height: 1.5rem;
+      outline: none;
+    }
+  }
+  &_right_time {
+    &::after {
+      content: '';
+      position: absolute;
+      left: -3rem;
+      bottom: 0.6rem;
+      background: url('../assets/svg/time.svg') no-repeat center/cover;
+      width: 1.5rem;
+      height: 1.5rem;
+      outline: none;
+    }
+  }
+  &_right_type {
+    &::after {
+      content: '';
+      position: absolute;
+      left: -3rem;
+      bottom: 0.6rem;
+      background: url('../assets/svg/ticket_type.svg') no-repeat center/cover;
+      width: 1.5rem;
+      height: 1.5rem;
+      outline: none;
+    }
+  }
+  &_info_img {
+    width: 15rem;
+    height: 12rem;
+  }
+  &_right_order {
+    margin-top: 2.3rem;
+  }
+  &_right_order_senior {
+    margin-top: 0.5rem;
+  }
+  &_right_order_basic {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &_right_order_senior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &_right_order_left {
+    display: flex;
+    align-items: center;
+    max-width: 17rem;
+    width: 100%;
+  }
+  &_right_order_num {
+    font-size: 1.8rem;
+    color: #a4a4a3;
+    margin: 0;
+    width: 3.2rem;
+    background-color: $dark;
+    border-radius: 0.5rem;
+    text-align: center;
+    margin-right: 1rem;
+  }
+  &_right_order_sum {
+    font-size: 2.2rem;
+    color: $dark;
+    margin: 0;
+    max-width: 12.6rem;
+    width: 100%;
+  }
+  &_right_order_price {
+    font-size: 2.2rem;
+    color: $dark;
+    margin: 0;
+  }
+  &_right_total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2.1rem;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      top: -1.2rem;
+      left: 0;
+      background-color: $red;
+      width: 100%;
+      height: 0.2rem;
+    }
+  }
+  &_right_total_text {
+    font-size: 3.2rem;
+    color: $dark;
+    margin: 0;
+  }
+  &_right_total_price {
+    font-size: 3.2rem;
+    color: $dark;
+    margin: 0;
+  }
+  &_right_card {
+    margin-top: 1rem;
+    position: relative;
+  }
+  &_right_card_1 {
+    max-width: 36rem;
+    width: 100%;
+    max-height: 21.1rem;
+    background-color: #bcbcbc;
+    border-radius: 0.5rem;
+    padding: 1.5rem 2rem;
+    position: relative;
+    z-index: 2;
+    &::after {
+      content: '';
+      position: absolute;
+      width: 5.5rem;
+      height: 1.6rem;
+      background: url('../assets/image/visa.png') no-repeat center/cover;
+      right: 2.1rem;
+      top: 3.5rem;
+    }
+    &::before {
+      content: '';
+      position: absolute;
+      width: 5.3rem;
+      height: 3.2rem;
+      background: url('../assets/image/mastercard.png') no-repeat center/cover;
+      right: 2.1rem;
+      top: 6.5rem;
+    }
+  }
+  &_right_card_text {
+    font-size: 1.2rem;
+    color: #161615;
+    font-weight: 400;
+    margin: 0;
+    margin-bottom: 0.5rem;
+  }
+  &_right_date_text {
+    margin-top: 1rem;
+  }
+  &_right_card_number {
+    max-width: 21.5rem;
+    width: 100%;
+    background-color: $text-light;
+    height: 3.5rem;
+    border: 0.5px solid #a4a4a3;
+    font-size: 1.2rem;
+    color: #161615;
+    font-weight: 400;
+    padding-left: 1rem;
+  }
+  &_right_date_info {
+    display: flex;
+    align-items: center;
+  }
+  &_right_date_inner {
+    display: flex;
+    align-items: center;
+    max-width: 10rem;
+    width: 100%;
+    height: 3.5rem;
+    background-color: $text-light;
+    position: relative;
+    &:first-child {
+      margin-right: 1.5rem;
+    }
+  }
+  &_right_select_month {
+    appearance: none;
+    padding-left: 1rem;
+    font-size: 1.2rem;
+    color: #161615;
+    font-weight: 400;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    border: 0.5px solid #a4a4a3;
+  }
+  &_right_select_year {
+    appearance: none;
+    padding-left: 1rem;
+    font-size: 1.2rem;
+    color: #161615;
+    font-weight: 400;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    border: 0.5px solid #a4a4a3;
+  }
+  &_right_arrows {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    margin-right: 0.9rem;
+    &::after {
+      content: '';
+      position: absolute;
+      width: 0.5px;
+      background-color: #a4a4a3;
+      top: 0;
+      bottom: 0;
+      right: 2rem;
+    }
+  }
+  &_right_date_arrow {
+    width: 0.6rem;
+    height: 0.4rem;
+    position: relative;
+    z-index: 2;
+    border: none;
+    cursor: pointer;
+    transition: 0.5s ease;
+  }
+  &_right_date_arrow_top {
+    background: url('../assets/svg/form_arrow_top_small.svg') no-repeat center/contain;
+    margin-bottom: 0.3rem;
+  }
+  &_right_date_arrow_bottom {
+    background: url('../assets/svg/form_arrow_bot_small.svg') no-repeat center/contain;
+  }
+  &_right_card_name_text {
+    margin-top: 1rem;
+  }
+  &_right_card_name {
+    max-width: 32rem;
+    width: 100%;
+    height: 3.5rem;
+    background-color: $text-light;
+    border: none;
+    font-size: 1.2rem;
+    color: #161615;
+    font-weight: 400;
+    padding-left: 1rem;
+  }
+  &_right_card_2 {
+    max-width: 36rem;
+    width: 100%;
+    height: 21.1rem;
+    background-color: #939393;
+    position: absolute;
+    z-index: 1;
+    top: 3rem;
+    right: -0.2rem;
+    border-radius: 0.5rem;
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0rem;
+      left: 0rem;
+      top: 2.5rem;
+      height: 4.5rem;
+      background-color: #161615;
+    }
+  }
+  &_right_card_cv_text {
+    position: absolute;
+    right: 3.4rem;
+    bottom: 10.8rem;
+  }
+  &_right_card_cv {
+    width: 7.5rem;
+    height: 3.5rem;
+    background-color: $text-light;
+    border: none;
+    font-size: 1.2rem;
+    color: #161615;
+    font-weight: 400;
+    position: absolute;
+    right: 2rem;
+    bottom: 7.1rem;
+    text-align: center;
+  }
+  &_right_card_cv_text_1 {
+    font-size: 1rem;
+    color: #161615;
+    font-weight: 400;
+    width: 5.5rem;
+    position: absolute;
+    right: 3rem;
+    bottom: 1.5rem;
+    margin: 0;
+  }
+  &_right_btn {
+    width: 22rem;
+    height: 4.5rem;
+    background-color: $red;
+    opacity: 0.9;
+    color: $text-light;
+    font-size: 2.2rem;
+    font-weight: 400;
+    border: none;
+    transition: 0.5s ease;
+    position: absolute;
+    right: 2.8rem;
+    bottom: 2.6rem;
+  }
+}

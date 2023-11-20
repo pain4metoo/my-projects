@@ -28,6 +28,10 @@
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: $index-form-layout;
+    display: none;
+  }
+  &_layout_show {
+    display: block;
   }
   &_inner {
     display: flex;

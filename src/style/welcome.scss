@@ -64,11 +64,14 @@
       left: 0;
       top: 0;
       background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.7) 16.19%, rgba(0, 0, 0, 0) 30.73%);
+      z-index: 2;
     }
   }
   &_slider_img {
     width: 100rem;
     height: 75rem;
+    pointer-events: none;
+    outline: none;
   }
   &_slider_controls {
     max-width: 60rem;
@@ -82,6 +85,7 @@
     position: absolute;
     right: 0;
     bottom: -5.4rem;
+    z-index: 2;
   }
   &_controls_number {
     display: flex;
@@ -106,6 +110,8 @@
     height: 1.6rem;
     background-color: $text-light;
     border: none;
+    cursor: pointer;
+    transition: 0.5s ease linear;
     &:not(:last-child) {
       margin-right: 2rem;
     }
@@ -117,8 +123,12 @@
   &_control_arrow {
     width: 3rem;
     height: 0.8rem;
+    cursor: pointer;
+    transition: 0.5s ease;
     &:not(:last-child) {
       margin-right: 2rem;
     }
   }
 }
+
+@import './welcome_slider.scss';

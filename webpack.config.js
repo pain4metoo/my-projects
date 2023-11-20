@@ -15,7 +15,7 @@ module.exports = {
   devServer: {
     port: 3000,
     open: true,
-    hot: true,
+    hot: false,
   },
   entry: ['@babel/polyfill', path.resolve(__dirname, 'src', 'index.js')],
   output: {
@@ -27,6 +27,36 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'index.html'),
+      filename: 'index.html',
+      chunks: ['main'],
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/tour-pages/', 'tour_0.html'),
+      filename: 'tour_0.html',
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/tour-pages/', 'tour_1.html'),
+      filename: 'tour_1.html',
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/tour-pages/', 'tour_2.html'),
+      filename: 'tour_2.html',
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/tour-pages/', 'tour_3.html'),
+      filename: 'tour_3.html',
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/tour-pages/', 'tour_4.html'),
+      filename: 'tour_4.html',
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/tour-pages/', 'tour_5.html'),
+      filename: 'tour_5.html',
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'src/tour-pages/', 'tour_6.html'),
+      filename: 'tour_6.html',
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
@@ -73,6 +103,7 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|webp|gif|svg)$/i,
+        type: 'asset/inline',
         use: [
           {
             loader: 'image-webpack-loader',
@@ -98,7 +129,6 @@ module.exports = {
             },
           },
         ],
-        type: 'asset/resource',
       },
       {
         test: /\.m?js$/,

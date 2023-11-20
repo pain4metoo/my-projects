@@ -33,6 +33,9 @@
   &_link {
     text-decoration: none;
     color: $text-dark;
+    &:hover .tour_item_title::after {
+      width: 100%;
+    }
   }
   &_img {
     max-width: 44rem;
@@ -48,6 +51,7 @@
     margin: 0;
     margin-top: 2rem;
     position: relative;
+    transition: 0.5s ease;
     &::after {
       content: '';
       position: absolute;
@@ -56,6 +60,7 @@
       width: 30rem;
       height: 0.2rem;
       background-color: $red;
+      transition: 0.5s ease;
     }
   }
   &_text {

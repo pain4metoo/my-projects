@@ -45,6 +45,10 @@
     border: none;
     outline: none;
     transition: 0.5s ease;
+    cursor: pointer;
+    &:hover {
+      filter: invert(63%) sepia(0%) saturate(1%) hue-rotate(181deg) brightness(97%) contrast(84%);
+    }
   }
   &_controls {
     background-color: $text-dark;
@@ -68,6 +72,9 @@
     height: 3.1rem;
     cursor: pointer;
     transition: 0.5s ease;
+    &:hover {
+      filter: invert(63%) sepia(0%) saturate(1%) hue-rotate(181deg) brightness(97%) contrast(84%);
+    }
   }
   &_control_progress[type='range'] {
     appearance: none;
@@ -93,6 +100,9 @@
     cursor: pointer;
     margin-right: 5rem;
     transition: 0.5s ease;
+    &:hover {
+      filter: invert(63%) sepia(0%) saturate(1%) hue-rotate(181deg) brightness(97%) contrast(84%);
+    }
   }
   &_control_progress_vol[type='range'] {
     appearance: none;
@@ -117,6 +127,9 @@
     height: 3.5rem;
     cursor: pointer;
     transition: 0.5s ease;
+    &:hover {
+      filter: invert(63%) sepia(0%) saturate(1%) hue-rotate(181deg) brightness(97%) contrast(84%);
+    }
   }
   &_player_small {
     display: flex;
@@ -143,6 +156,9 @@
     transition: 0.5s ease;
     outline: none;
     border: none;
+    &:hover {
+      filter: invert(7%) sepia(82%) saturate(4559%) hue-rotate(355deg) brightness(97%) contrast(101%);
+    }
   }
   &_small_dot {
     background-color: #999999;
@@ -152,6 +168,9 @@
     outline: none;
     transition: 0.5s ease;
     cursor: pointer;
+    &:hover {
+      background-color: #710707;
+    }
   }
   &_small_right {
     background: url('../assets/svg/small_video_right.svg') no-repeat center/cover;

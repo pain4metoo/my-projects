@@ -9,6 +9,12 @@
   }
   &_inner_logo {
     display: flex;
+    &:hover .header_title {
+      color: $gold;
+    }
+    &:hover .header_logo {
+      filter: invert(55%) sepia(16%) saturate(704%) hue-rotate(356deg) brightness(95%) contrast(89%);
+    }
   }
   &_title {
     font-size: 2.8rem;
@@ -17,11 +23,13 @@
     text-transform: uppercase;
     font-weight: 400;
     line-height: inherit;
+    transition: 0.5s ease;
   }
   &_logo {
     width: 4.9rem;
     height: 2.6rem;
     margin-right: 2.5rem;
+    transition: 0.5s ease;
   }
   &_list {
     display: flex;
@@ -37,5 +45,12 @@
     color: $text-light;
     text-decoration: none;
     font-weight: 100;
+    transition: 0.5s ease;
+    &:active {
+      color: $link-active;
+    }
+    &:hover {
+      color: $link-hover;
+    }
   }
 }

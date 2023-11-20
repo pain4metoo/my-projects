@@ -21,6 +21,16 @@
     display: flex;
     justify-content: space-between;
     margin-right: 13.5rem;
+    transition: 0.5s ease;
+    height: 3.5rem;
+    &:hover .footer_logo_text {
+      color: $gold;
+      transition: 0.5s ease;
+    }
+    &:hover .footer_logo {
+      filter: invert(55%) sepia(16%) saturate(704%) hue-rotate(356deg) brightness(95%) contrast(89%);
+      transition: 0.5s ease;
+    }
   }
   &_logo {
     width: 5.4rem;
@@ -66,6 +76,13 @@
     color: $text-light;
     letter-spacing: 0.2rem;
     text-decoration: none;
+    transition: 0.5s ease;
+    &:active {
+      color: $link-active;
+    }
+    &:hover {
+      color: $link-hover;
+    }
   }
   &_social {
     margin-top: 2rem;
@@ -77,6 +94,11 @@
     border: 1px solid #666;
     position: relative;
     margin-right: 2.5rem;
+    transition: 0.5s ease;
+    &:hover .footer_social_img {
+      transition: 0.5s ease;
+      filter: invert(55%) sepia(16%) saturate(704%) hue-rotate(356deg) brightness(95%) contrast(89%);
+    }
   }
   &_social_link {
     position: absolute;

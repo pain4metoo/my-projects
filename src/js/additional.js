@@ -1,15 +1,15 @@
 export function isVisibleEl(el) {
-  const animItemHeight = el.offsetHeight;
-  const animItemOffset = offset(el).top;
-  const animStart = 4;
+  const elHeight = el.offsetHeight;
+  const elOffset = offset(el).top;
+  const elStart = 4;
 
-  let animeItemPoint = window.innerHeight - animItemHeight / animStart;
+  let elPoint = window.innerHeight - elHeight / elStart;
 
-  if (animItemHeight > window.innerHeight) {
-    animeItemPoint = window.innerHeight - window.innerHeight / animStart;
+  if (elHeight > window.innerHeight) {
+    elPoint = window.innerHeight - window.innerHeight / elStart;
   }
 
-  if (pageYOffset > animItemOffset - animeItemPoint && pageYOffset < animItemOffset + animItemHeight) {
+  if (pageYOffset > elOffset - elPoint && pageYOffset < elOffset + elHeight) {
     return true;
   } else {
     return false;

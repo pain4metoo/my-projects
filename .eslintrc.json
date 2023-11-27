@@ -6,12 +6,13 @@
   "extends": ["plugin:prettier/recommended", "eslint:recommended", "prettier"],
   "plugins": ["prettier"],
   "parserOptions": {
-    "ecmaVersion": 2020,
+    "ecmaVersion": 2023,
     "sourceType": "module"
   },
   "rules": {
     "prettier/prettier": 0,
     "no-debugger": 0,
-    "no-console": 0
+    "no-console": 0,
+    "no-unused-vars": 0
   }
 }

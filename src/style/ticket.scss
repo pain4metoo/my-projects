@@ -93,8 +93,7 @@
     align-items: center;
     justify-content: space-between;
     border: 0.3rem solid $text-dark;
-    width: 15rem;
-    padding: 0.3rem 1.4rem;
+    padding: 0.22rem 0.7rem;
   }
   &_amount_text {
     color: $text-dark;
@@ -105,20 +104,32 @@
   &_amount_num {
     color: $text-dark;
     font-weight: 300;
-    margin: 0;
+    margin: 0 auto;
     text-align: center;
+    border: none;
+    outline: none;
+    width: 3.2rem;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
   &_amount_sign {
     font-size: 3.2rem;
     font-weight: 400;
     color: $text-dark;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
   }
   &_amount_total {
     font-size: 2.8rem;
     font-weight: 700;
     letter-spacing: 1.65px;
     margin: 4.5rem 0rem 6rem;
-    margin-left: 4.4rem;
+    max-width: 20rem;
   }
   &_btn {
     font-weight: 300;

@@ -1,0 +1,88 @@
+@import './variables.scss';
+
+.tns-outer {
+  position: relative;
+}
+
+.tns-controls [data-controls='prev'] {
+  background-image: url('../assets/svg/small_video_left.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position: center;
+  width: 12px;
+  height: 12px;
+  border: none;
+  font-size: 0;
+  position: absolute;
+  bottom: -52px;
+  left: 43.2%;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.5s ease-in-out;
+  &:hover {
+    filter: invert(6%) sepia(76%) saturate(6849%) hue-rotate(17deg) brightness(97%) contrast(107%);
+  }
+}
+
+.tns-controls [data-controls='next'] {
+  background-image: url('../assets/svg/small_video_right.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position: center;
+  width: 12px;
+  height: 12px;
+  border: none;
+  font-size: 0;
+  position: absolute;
+  bottom: -52px;
+  left: 56%;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.5s ease-in-out;
+  &:hover {
+    filter: invert(6%) sepia(76%) saturate(6849%) hue-rotate(17deg) brightness(97%) contrast(107%);
+  }
+}
+
+.tns-nav button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background-color: #999999;
+  outline: none;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: all 0.5s;
+  position: absolute;
+  &:hover {
+    background-color: #710707;
+  }
+}
+
+.tns-nav [data-nav='0'] {
+  bottom: -52px;
+  left: 45.3%;
+}
+.tns-nav [data-nav='1'] {
+  bottom: -52px;
+  left: 47.4%;
+}
+.tns-nav [data-nav='2'] {
+  bottom: -52px;
+  left: 49.6%;
+}
+.tns-nav [data-nav='3'] {
+  bottom: -52px;
+  left: 51.8%;
+}
+.tns-nav [data-nav='4'] {
+  bottom: -52px;
+  left: 54.1%;
+}
+
+.tns-nav .tns-nav-active {
+  background-color: #333333;
+}

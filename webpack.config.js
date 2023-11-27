@@ -102,7 +102,7 @@ module.exports = {
         },
       },
       {
-        test: /\.(jpe?g|png|webp|gif|svg)$/i,
+        test: /\.(jpe?g|png|webp|gif|svg|mp4)$/i,
         type: 'asset/inline',
         use: [
           {

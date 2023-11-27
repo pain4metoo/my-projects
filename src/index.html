@@ -7,6 +7,7 @@
   <title>Museum Louvre</title>
   <link res="icon" href="./assets/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="./assets/favicon.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
 </head>
 
 <body>
@@ -197,50 +198,53 @@
               masterpieces such as Mona Lisa or Hammurabi's Code</p>
           </div>
           <div class="video_player">
-            <video src="./assets/video/video2.mp4" class="video_frame"></video>
+            <video class="video_frame">
+              <source class="video_source" src="./assets/video/video0.mp4" type="audio/mp4">
+            </video>
             <button class="video_btn_play" type="button"></button>
             <div class="video_controls">
               <div class="video_controls_inner">
-                <img src="../src/assets/svg/video_play.svg" alt="play" class="video_control_play">
+                <button class="video_control_play"></button>
                 <input type="range" class="video_control_progress" value="0" step="1" max="100">
-                <img src="../src/assets/svg/video_volume.svg" alt="volume" class="video_control_volume">
-                <input type="range" class="video_control_progress_vol" value="0" step="1" max="100">
-                <img src="../src/assets/svg/video_full.svg" alt="fullscreen" class="video_control_full">
+                <button class="video_control_volume"></button>
+                <input type="range" class="video_control_progress_vol" step="1" max="100" value="40">
+                <button class="video_control_full"></button>
               </div>
             </div>
           </div>
-          <div class="video_player_small">
-            <iframe width="452" height="254"
-              src="https://www.youtube.com/embed/zp1BXPX8jcU?si=WihFBR1G-_N6nQJk&amp;start=1"
-              title="YouTube video player" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-            <iframe width="452" height="254"
-              src="https://www.youtube.com/embed/Vi5D6FKhRmo?si=qQtXsR9UpO14xB2f&amp;start=1"
-              title="YouTube video player" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-            <iframe width="452" height="254" src="https://www.youtube.com/embed/NOhDysLnTvY?si=63ErtSdO-_GH9xgK"
-              title="YouTube video player" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-            <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/aWmJ5DgyWPI?si=RmpyGuusCdjoXA-n"
-              title="YouTube video player" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe>
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/2OR0OCr6uRE?si=xVLhEJJB1LY9s4fF"
-              title="YouTube video player" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen></iframe> -->
-          </div>
-          <div class="video_player_small_control">
-            <button class="video_small_left video_small_arrow" type="button"></button>
-            <span class="video_small_dot"></span>
-            <span class="video_small_dot"></span>
-            <span class="video_small_dot"></span>
-            <span class="video_small_dot"></span>
-            <span class="video_small_dot"></span>
-            <button class="video_small_right video_small_arrow" type="button"></button>
+          <div class="video_player_small video_slider">
+            <!-- <div class="video_player_small_item">
+              <iframe width="100%" height="100%"
+                src="https://www.youtube.com/embed/zp1BXPX8jcU?si=WihFBR1G-_N6nQJk&amp;start=1"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+            <div class="video_player_small_item">
+              <iframe width="100%" height="100%"
+                src="https://www.youtube.com/embed/Vi5D6FKhRmo?si=qQtXsR9UpO14xB2f&amp;start=1"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+            <div class="video_player_small_item">
+              <iframe width="100%" height="100%" src="https://www.youtube.com/embed/NOhDysLnTvY?si=63ErtSdO-_GH9xgK"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+            <div class="video_player_small_item">
+              <iframe width="100%" height="100%" src="https://www.youtube.com/embed/aWmJ5DgyWPI?si=RmpyGuusCdjoXA-n"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+            <div class="video_player_small_item">
+              <iframe width="100%" height="100%" src="https://www.youtube.com/embed/2OR0OCr6uRE?si=xVLhEJJB1LY9s4fF"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div> -->
           </div>
         </div>
       </div>
@@ -286,13 +290,22 @@
             <div class="gallery_item gallery_item_12">
               <img src="../src/assets/image/gallery_12.jpg" alt="image" class="gallery_img">
             </div>
+            <div class="gallery_item gallery_item_13" style="display: none;">
+              <img src="../src/assets/image/gallery_13.jpg" alt="image" class="gallery_img">
+            </div>
+            <div class="gallery_item gallery_item_14" style="display: none;">
+              <img src="../src/assets/image/gallery_14.jpg" alt="image" class="gallery_img">
+            </div>
+            <div class="gallery_item gallery_item_15" style="display: none;">
+              <img src="../src/assets/image/gallery_15.jpg" alt="image" class="gallery_img">
+            </div>
           </div>
         </div>
       </div>
     </section>
     <section class="ticket" id="tickets">
       <div class="container">
-        <div class="form_layout">
+        <div class="form_layout form_layout_show">
           <form class="form">
             <button type="button" class="form_close_btn"></button>
             <div class="form_inner">
@@ -307,10 +320,30 @@
                     <input type="date" class="form_date">
                   </label>
 
-                  <label class="form_time_label">
-                    <p class="form_time_label_text">Time</p>
-                    <input type="time" class="form_time">
-                  </label>
+                  <div class="form_time">
+                    <select class="form_time_select">
+                      <option class="form_time_option" selected disabled hidden>Time</option>
+                      <option class="form_time_option">9 : 00</option>
+                      <option class="form_time_option">9 : 30</option>
+                      <option class="form_time_option">10 : 00</option>
+                      <option class="form_time_option">10 : 30</option>
+                      <option class="form_time_option">11 : 00</option>
+                      <option class="form_time_option">11 : 30</option>
+                      <option class="form_time_option">12 : 00</option>
+                      <option class="form_time_option">12 : 30</option>
+                      <option class="form_time_option">13 : 00</option>
+                      <option class="form_time_option">13 : 30</option>
+                      <option class="form_time_option">14 : 00</option>
+                      <option class="form_time_option">14 : 30</option>
+                      <option class="form_time_option">15 : 00</option>
+                      <option class="form_time_option">15 : 30</option>
+                      <option class="form_time_option">16 : 00</option>
+                      <option class="form_time_option">16 : 30</option>
+                      <option class="form_time_option">17 : 00</option>
+                      <option class="form_time_option">17 : 30</option>
+                      <option class="form_time_option">18 : 00</option>
+                    </select>
+                  </div>
 
                 </div>
 
@@ -329,46 +362,50 @@
                 <label class="form_select_label form_label_default">
                   <select class="form_select">
                     <option value="Ticket Type" disabled selected hidden>Ticket Type</option>
-                    <option class="form_select_option" value="Permanent exhibition">Permanent exhibition</option>
-                    <option class="form_select_option" value="Temporary exhibition">Temporary exhibition</option>
-                    <option class="form_select_option" value="Combined Admission">Combined Admission</option>
+                    <option class="form_select_option" value="0">Permanent exhibition</option>
+                    <option class="form_select_option" value="1">Temporary exhibition</option>
+                    <option class="form_select_option" value="2">Combined Admission</option>
                   </select>
                 </label>
 
                 <div class="form_entry_ticket">
                   <h5 class="form_entry_title">Entry ticket</h5>
-
                   <div class="form_entry_basic">
                     <p class="form_entry_basic_text">Basic 18+ (20 €)</p>
-
                     <div class="form_amount_counter">
-                      <span class="form_amount_minus form_amount_sign">&#8722;</span>
-                      <p class="form_amount_num">2</p>
-                      <span class="form_amount_plus form_amount_sign">+</span>
+                      <button id="form_minus_basic" type="button" class="form_amount_minus form_amount_sign">
+                        &#8722;
+                      </button>
+                      <input id="form_basic" class="form_amount_num form_basic" type="number" placeholder="0"
+                        readonly />
+                      <button id="form_plus_basic" type="button" class="form_amount_plus form_amount_sign">
+                        +
+                      </button>
                     </div>
                   </div>
-
                   <div class="form_entry_senior">
                     <p class="form_entry_senior_text">Senior 65+ (10 €)</p>
-
                     <div class="form_amount_counter">
-                      <span class="form_amount_minus form_amount_sign">&#8722;</span>
-                      <p class="form_amount_num">2</p>
-                      <span class="form_amount_plus form_amount_sign">+</span>
+                      <button id="form_minus_senior" type="button" class="form_amount_minus form_amount_sign">
+                        &#8722;
+                      </button>
+                      <input id="form_senior" class="form_amount_num form_senior" type="number" placeholder="0"
+                        readonly />
+                      <button id="form_plus_senior" type="button" class="form_amount_plus form_amount_sign">
+                        +
+                      </button>
                     </div>
                   </div>
                 </div>
-
-
               </div>
               <div class="form_right">
                 <div class="form_right_info">
                   <div class="form_right_info_inner">
                     <h3 class="form_right_title">Overview</h3>
                     <h4 class="form_right_title_2">Tour to Louvre</h4>
-                    <p class="form_right_data form_right_info_text">Friday, August 19</p>
-                    <p class="form_right_time form_right_info_text">16 : 30</p>
-                    <p class="form_right_type form_right_info_text">Temporary exhibition</p>
+                    <p id="form_date_text" class="form_right_data form_right_info_text">Friday, August 19</p>
+                    <p id="form_time_text" class="form_right_time form_right_info_text">16 : 30</p>
+                    <p id="form_type_text" class="form_right_type form_right_info_text">Temporary exhibition</p>
                   </div>
                   <img src="../src/assets/image/form_img.png" alt="image" class="form_info_img">
                 </div>
@@ -376,7 +413,7 @@
                 <div class="form_right_order">
                   <div class="form_right_order_basic">
                     <div class="form_right_order_left">
-                      <p class="form_right_order_num">2</p>
+                      <p id="form_basic_counter" class="form_right_order_num">2</p>
                       <p class="form_right_order_sum">Basic (20 €)</p>
                     </div>
                     <p class="form_right_order_price">40 €</p>
@@ -384,7 +421,7 @@
 
                   <div class="form_right_order_senior">
                     <div class="form_right_order_left">
-                      <p class="form_right_order_num">2</p>
+                      <p id="form_senior_counter" class="form_right_order_num">2</p>
                       <p class="form_right_order_sum">Senior (10 €)</p>
                     </div>
                     <p class="form_right_order_price">20 €</p>
@@ -393,7 +430,7 @@
 
                 <div class="form_right_total">
                   <p class="form_right_total_text">Total:</p>
-                  <p class="form_right_total_price">60 €</p>
+                  <p id="form_total" class="form_right_total_price">60 €</p>
                 </div>
 
                 <div class="form_right_card">
@@ -495,9 +532,13 @@
                 <p class="ticket_amount_text">Basic 18+</p>
 
                 <div class="ticket_amount_counter">
-                  <span class="ticket_amount_minus ticket_amount_sign">&#8722;</span>
-                  <p class="ticket_amount_num">1</p>
-                  <span class="ticket_amount_plus ticket_amount_sign">+</span>
+                  <button id="ticket_minus_basic" type="button" class="ticket_amount_minus ticket_amount_sign">
+                    &#8722;
+                  </button>
+                  <input id="ticket_basic" class="ticket_amount_num basic" type="number" placeholder="0" readonly />
+                  <button id="ticket_plus_basic" type="button" class="ticket_amount_plus ticket_amount_sign">
+                    +
+                  </button>
                 </div>
               </div>
 
@@ -505,9 +546,13 @@
                 <p class="ticket_amount_text">Senior 65+</p>
 
                 <div class="ticket_amount_counter">
-                  <span class="ticket_amount_minus ticket_amount_sign">&#8722;</span>
-                  <p class="ticket_amount_num">1</p>
-                  <span class="ticket_amount_plus ticket_amount_sign">+</span>
+                  <button id="ticket_minus_senior" type="button" class="ticket_amount_minus ticket_amount_sign">
+                    &#8722;
+                  </button>
+                  <input id="ticket_senior" class=" ticket_amount_num senior" type="number" placeholder="0" readonly>
+                  <button id="ticket_plus_senior" type="button" class="ticket_amount_plus ticket_amount_sign">
+                    +
+                  </button>
                 </div>
               </div>
 

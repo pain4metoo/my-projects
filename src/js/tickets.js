@@ -57,6 +57,13 @@ import validation from './form_validation.js';
     updateTicket();
   };
 
+  const sendForm = document.querySelector('.form_right_btn');
+  sendForm.onclick = () => {
+    console.log(validation.checkValidation());
+    // form.classList.remove('form_layout_show');
+    // updateTicket();
+  };
+
   const ticketBasicMinus = document.getElementById('ticket_minus_basic');
   ticketBasicMinus.onclick = () => {
     ticketCounterMinus(ticketBasicInp, true);
@@ -261,7 +268,8 @@ import validation from './form_validation.js';
     if (validation.isValidDate) {
       isValidField(dateLabel, true);
     } else {
-      isValidField(dateLabel, false);
+      isValidField(dateLabel, false, 'Please enter a valid date');
+      return;
     }
 
     let day = date.getDate();
@@ -287,49 +295,63 @@ import validation from './form_validation.js';
   };
 
   time.onchange = () => {
-    localStorage.setItem('time', time.value);
     validation.isValidTime = time.value;
-    updateForm();
 
     if (validation.isValidTime) {
       isValidField(time, true);
     } else {
-      isValidField(time, false);
+      isValidField(time, false, 'Please enter a valid time');
+      return;
     }
+
+    localStorage.setItem('time', time.value);
+
+    updateForm();
   };
 
   const name = document.querySelector('.form_name');
   name.oninput = () => {
+    if (name.value.length > 30) {
+      name.value = name.value.slice(0, 30);
+    }
     validation.isValidName = name.value;
 
     if (validation.isValidName) {
       isValidField(name, true);
     } else {
-      isValidField(name, false);
+      isValidField(name, false, 'Please enter a valid name');
     }
   };
 
   const email = document.querySelector('.form_email');
 
   email.oninput = () => {
+    if (email.value.length > 35) {
+      email.value = email.value.slice(0, 35);
+    }
+
     validation.isValidEmail = email.value;
 
     if (validation.isValidEmail) {
       isValidField(email, true);
     } else {
-      isValidField(email, false);
+      isValidField(email, false, 'Please enter a valid email');
     }
   };
 
   const phone = document.querySelector('.form_phone');
 
   phone.oninput = () => {
+    if (phone.value.length >= 18) {
+      phone.value = phone.value.slice(0, 18);
+    }
+
     validation.isValidPhone = phone.value;
 
     if (validation.isValidPhone) {
       isValidField(phone, true);
     } else {
-      isValidField(phone, false);
+      isValidField(phone, false, 'Please enter a valid phone number');
     }
   };
 
@@ -341,7 +363,7 @@ import validation from './form_validation.js';
     if (validation.isValidTickets) {
       isValidField(ticketCountsField, true);
     } else {
-      isValidField(ticketCountsField, false);
+      isValidField(ticketCountsField, false, 'Please choose at least 1 ticket to proceed with the purchase', true);
     }
   };
 
@@ -357,15 +379,199 @@ import validation from './form_validation.js';
     }
   };
 
-  const isValidField = (field, isValid) => {
+  const cardNumberInp = document.querySelector('.form_right_card_number');
+  cardNumberInp.oninput = () => {
+    if (cardNumberInp.value.length > 20) {
+      cardNumberInp.value = cardNumberInp.value.slice(0, 16);
+    }
+    validation.isValidCardNumber = cardNumberInp.value;
+
+    if (validation.isValidCardNumber) {
+      isValidField(cardNumberInp, true);
+    } else {
+      isValidField(cardNumberInp, false, 'Please enter a valid card number.');
+    }
+  };
+
+  const selectCardMonth = document.querySelector('.form_right_select_month');
+  selectCardMonth.onchange = () => {
+    validation.isValidCardDateMonth = selectCardMonth.value;
+
+    if (validation.isValidCardDateMonth) {
+      isValidField(selectCardMonth, true);
+    } else {
+      isValidField(selectCardMonth, false, 'invalid');
+    }
+  };
+
+  const monthOptions = document.querySelectorAll('.form_right_option_month');
+
+  const arrowMonthUp = document.getElementById('arrow_top_month');
+  arrowMonthUp.onclick = () => {
+    if (selectCardMonth.value) {
+      let curr = parseInt(selectCardMonth.value);
+      let newV = ++curr;
+      if (curr <= 12) {
+        if (newV < 10) {
+          selectCardMonth.value = `0${newV}`;
+        } else {
+          selectCardMonth.value = `${newV}`;
+        }
+      } else {
+        selectCardMonth.value = '01';
+      }
+    }
+
+    validation.isValidCardDateMonth = selectCardMonth.value;
+
+    if (validation.isValidCardDateMonth) {
+      isValidField(selectCardMonth, true);
+    } else {
+      isValidField(selectCardMonth, false, 'invalid');
+    }
+  };
+  const arrowMonthLow = document.getElementById('arrow_bot_month');
+  arrowMonthLow.onclick = () => {
+    if (selectCardMonth.value) {
+      let curr = parseInt(selectCardMonth.value);
+      let newV = --curr;
+      if (curr > 0) {
+        if (newV > 9) {
+          selectCardMonth.value = `${newV}`;
+        } else {
+          selectCardMonth.value = `0${newV}`;
+        }
+      } else {
+        selectCardMonth.value = '12';
+      }
+    }
+
+    validation.isValidCardDateMonth = selectCardMonth.value;
+
+    if (validation.isValidCardDateMonth) {
+      isValidField(selectCardMonth, true);
+    } else {
+      isValidField(selectCardMonth, false, 'invalid');
+    }
+  };
+
+  const selectCardYear = document.querySelector('.form_right_select_year');
+  selectCardYear.onchange = () => {
+    validation.isValidCardDateYear = selectCardYear.value;
+
+    if (validation.isValidCardDateYear) {
+      isValidField(selectCardYear, true);
+    } else {
+      isValidField(selectCardYear, false, 'invalid');
+    }
+  };
+
+  const arrowYearUp = document.getElementById('arrow_top_year');
+  arrowYearUp.onclick = () => {
+    if (selectCardYear.value) {
+      let curr = parseInt(selectCardYear.value);
+      let newV = ++curr;
+      if (curr < 2034) {
+        selectCardYear.value = newV.toString();
+      } else {
+        selectCardYear.value = '2024';
+      }
+    }
+
+    validation.isValidCardDateYear = selectCardYear.value;
+
+    if (validation.isValidCardDateYear) {
+      isValidField(selectCardYear, true);
+    } else {
+      isValidField(selectCardYear, false, 'invalid');
+    }
+  };
+
+  const arrowYearLow = document.getElementById('arrow_bot_year');
+  arrowYearLow.onclick = () => {
+    if (selectCardYear.value) {
+      let curr = parseInt(selectCardYear.value);
+      let newV = --curr;
+      if (curr > 2023) {
+        selectCardYear.value = newV.toString();
+      } else {
+        selectCardYear.value = '2034';
+      }
+    }
+
+    validation.isValidCardDateYear = selectCardYear.value;
+
+    if (validation.isValidCardDateYear) {
+      isValidField(selectCardYear, true);
+    } else {
+      isValidField(selectCardYear, false, 'invalid');
+    }
+  };
+
+  const cardHolderNameInp = document.querySelector('.form_right_card_name');
+  cardHolderNameInp.oninput = () => {
+    if (cardHolderNameInp.value.length > 40) {
+      cardHolderNameInp.value = cardHolderNameInp.value.slice(0, 40);
+    }
+
+    validation.isValidCardName = cardHolderNameInp.value;
+
+    if (validation.isValidCardName) {
+      isValidField(cardHolderNameInp, true);
+    } else {
+      isValidField(cardHolderNameInp, false, 'Please enter a valid cardholder name.');
+    }
+  };
+
+  const cardCVInp = document.querySelector('.form_right_card_cv');
+  cardCVInp.oninput = () => {
+    if (cardCVInp.value.length >= 4) {
+      cardCVInp.value = cardCVInp.value.slice(0, 4);
+    }
+
+    validation.isValidCardCv = cardCVInp.value;
+
+    if (validation.isValidCardCv) {
+      isValidField(cardCVInp, true);
+    } else {
+      isValidField(cardCVInp, false, 'Please enter a valid CVC/CVV.');
+    }
+  };
+
+  let isCreate = false;
+
+  const isValidField = (field, isValid, invalidtext, isAppend) => {
+    const invalidEl = document.createElement('div');
+    invalidEl.classList.add('form_invalid_error');
+    invalidEl.textContent = invalidtext;
+
     if (field.classList.contains('form_valid') || field.classList.contains('form_invalid')) {
       field.classList.remove('form_valid');
       field.classList.remove('form_invalid');
     }
     if (isValid) {
       field.classList.add('form_valid');
+      field.classList.remove('form_invalid');
     } else {
+      field.classList.remove('form_valid');
       field.classList.add('form_invalid');
+    }
+    if (field.classList.contains('form_invalid')) {
+      if (!isCreate) {
+        isCreate = true;
+        if (!isAppend) {
+          field.after(invalidEl);
+        } else {
+          field.append(invalidEl);
+        }
+
+        setTimeout(() => {
+          if (invalidEl) {
+            invalidEl.remove();
+            isCreate = false;
+          }
+        }, 2000);
+      }
     }
   };
 }

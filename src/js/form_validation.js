@@ -8,7 +8,8 @@ class Validation {
     this._isValidTypeTicket = false;
     this._isValidTickets = false;
     this._isValidCardNumber = false;
-    this._isValidCardDate = false;
+    this._isValidCardDateMonth = false;
+    this._isValidCardDateYear = false;
     this._isValidCardName = false;
     this._isValidCardCv = false;
   }
@@ -105,24 +106,112 @@ class Validation {
     return this._isValidTickets;
   }
 
-  set isValidCardNumber(cardNumber) {}
+  set isValidCardNumber(ccn) {
+    const arr = ccn
+      .toString()
+      .slice(0, ccn.toString().length - 1)
+      .split('')
+      .reverse();
+    const evenIndex = [];
+    const oddIndex = [];
+
+    for (let i = 0; i < arr.length; i += 1) {
+      if (i === 0) {
+        oddIndex.push(+ccn.toString()[ccn.toString().length - 1]);
+      }
+      if (i % 2 === 0) {
+        evenIndex.push(+arr[i]);
+      } else {
+        oddIndex.push(+arr[i]);
+      }
+    }
+
+    const sumOfEven = evenIndex
+      .map((num) => (num * 2).toString())
+      .map((el) => {
+        if (el.split('').length > 1) {
+          return el.split('').reduce((acc, it) => acc + +it, 0);
+        }
+        return +el;
+      })
+      .reduce((acc, num) => acc + num, 0);
+
+    const sumOfOdd = oddIndex.reduce((acc, num) => acc + +num, 0);
+    const controlNumber = `${sumOfEven + sumOfOdd}`;
+    const checkLohnArg = +controlNumber[controlNumber.length - 1] === 0;
+
+    const creditCardRegex =
+      /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|6(?:011|5[0-9]{2})[0-9]{12}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
+
+    if (checkLohnArg && creditCardRegex.test(ccn)) {
+      this._isValidCardNumber = true;
+    } else {
+      this._isValidCardNumber = false;
+    }
+  }
   get isValidCardNumber() {
-    return null;
+    return this._isValidCardNumber;
   }
 
-  set isValidCardDate(cardDate) {}
-  get isValidCardDate() {
-    return null;
+  set isValidCardDateMonth(month) {
+    const monthRegex = /^(0[1-9]|1[0-2])$/;
+
+    if (monthRegex.test(month) && month) {
+      this._isValidCardDateMonth = true;
+    } else {
+      this._isValidCardDateMonth = false;
+    }
+  }
+  get isValidCardDateMonth() {
+    return this._isValidCardDateMonth;
   }
 
-  set isValidCardName(cardName) {}
+  set isValidCardDateYear(year) {
+    const yearRegex = /^(\d{2}|\d{4})$/;
+
+    if (yearRegex.test(year) && year) {
+      this._isValidCardDateYear = true;
+    } else {
+      this._isValidCardDateYear = false;
+    }
+  }
+  get isValidCardDateYear() {
+    return this._isValidCardDateYear;
+  }
+
+  set isValidCardName(cardName) {
+    const cardholderNameRegex = /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/;
+
+    if (cardholderNameRegex.test(cardName) && cardName.length > 4) {
+      this._isValidCardName = true;
+    } else {
+      this._isValidCardName = false;
+    }
+  }
   get isValidCardName() {
-    return null;
+    return this._isValidCardName;
   }
 
-  set isValidCardCv(cardCV) {}
+  set isValidCardCv(cardCV) {
+    const cvcRegex = /^[0-9]{3,4}$/;
+
+    if (cvcRegex.test(cardCV) && cardCV) {
+      this._isValidCardCv = true;
+    } else {
+      this._isValidCardCv = false;
+    }
+  }
   get isValidCardCv() {
-    return null;
+    return this._isValidCardCv;
+  }
+
+  checkValidation() {
+    const keys = [];
+    for (let key in this) {
+      keys.push(this[key]);
+    }
+
+    return keys.filter((el) => !el).length === 0;
   }
 }
 

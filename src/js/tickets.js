@@ -47,6 +47,8 @@ import validation from './form_validation.js';
   openForm.onclick = () => {
     form.classList.add('form_layout_show');
     updateForm();
+    checkValidTicketsCount();
+    checkValidTicketType();
   };
 
   const closeForm = document.querySelector('.form_close_btn');
@@ -92,6 +94,7 @@ import validation from './form_validation.js';
     setTotal();
     updateTicket();
     updateForm();
+    checkValidTicketsCount();
   };
 
   const ticketCounterPlus = (input, isBasic) => {
@@ -107,6 +110,7 @@ import validation from './form_validation.js';
     setTotal();
     updateTicket();
     updateForm();
+    checkValidTicketsCount();
   };
 
   const ticketTypes = document.querySelectorAll('.ticket_type_input');
@@ -117,6 +121,7 @@ import validation from './form_validation.js';
       setTotal();
       updateTicket();
       updateForm();
+      checkValidTicketType();
     };
   });
 
@@ -165,6 +170,7 @@ import validation from './form_validation.js';
     setTotal();
     updateTicket();
     updateForm();
+    checkValidTicketType();
   };
 
   const formTypeText = document.getElementById('form_type_text');
@@ -324,6 +330,30 @@ import validation from './form_validation.js';
       isValidField(phone, true);
     } else {
       isValidField(phone, false);
+    }
+  };
+
+  const checkValidTicketsCount = () => {
+    const ticketCountsField = document.querySelector('.form_entry_ticket');
+
+    validation.isValidTickets = localStorage.getItem('basic') || localStorage.getItem('senior');
+
+    if (validation.isValidTickets) {
+      isValidField(ticketCountsField, true);
+    } else {
+      isValidField(ticketCountsField, false);
+    }
+  };
+
+  const checkValidTicketType = () => {
+    const ticketTypeField = document.querySelector('.form_select');
+
+    validation.isValidTypeTicket = localStorage.getItem('type');
+
+    if (validation.isValidTypeTicket) {
+      isValidField(ticketTypeField, true);
+    } else {
+      isValidField(ticketTypeField, false);
     }
   };
 

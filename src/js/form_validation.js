@@ -83,14 +83,26 @@ class Validation {
     return this._isValidPhone;
   }
 
-  set isValidTypeTicket(type) {}
+  set isValidTypeTicket(type) {
+    if (type === '0' || type === '1' || (type === '2' && type)) {
+      this._isValidTypeTicket = true;
+    } else {
+      this._isValidTypeTicket = false;
+    }
+  }
   get isValidTypeTicket() {
-    return null;
+    return this._isValidTypeTicket;
   }
 
-  set isValidTickets(tickets) {}
+  set isValidTickets(tickets) {
+    if ((localStorage.getItem('basic') === '0' && localStorage.getItem('senior') === '0') || !tickets) {
+      this._isValidTickets = false;
+    } else {
+      this._isValidTickets = true;
+    }
+  }
   get isValidTickets() {
-    return null;
+    return this._isValidTickets;
   }
 
   set isValidCardNumber(cardNumber) {}

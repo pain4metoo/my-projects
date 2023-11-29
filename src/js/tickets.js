@@ -58,10 +58,64 @@ import validation from './form_validation.js';
   };
 
   const sendForm = document.querySelector('.form_right_btn');
+  const formPopup = document.querySelector('.form_order_popup');
+
   sendForm.onclick = () => {
-    console.log(validation.checkValidation());
-    // form.classList.remove('form_layout_show');
-    // updateTicket();
+    if (validation.checkValidation()) {
+      setTimeout(() => {
+        formPopup.classList.add('form_order_popup_show');
+        form.style.pointerEvents = 'none';
+        setTimeout(() => {
+          form.classList.remove('form_layout_show');
+          form.style.pointerEvents = 'inherit';
+          updateTicket();
+          formPopup.classList.remove('form_order_popup_show');
+        }, 1500);
+      }, 0);
+    } else {
+      const invalidFields = validation.isValidField();
+      invalidFields.forEach((el) => {
+        const index = el[0];
+        switch (index) {
+          case 0:
+            isValidField(dateLabel, false);
+            break;
+          case 1:
+            isValidField(time, false);
+            break;
+          case 2:
+            isValidField(name, false);
+            break;
+          case 3:
+            isValidField(email, false);
+            break;
+          case 4:
+            isValidField(phone, false);
+            break;
+          case 5:
+            isValidField(ticketTypeField, false);
+            break;
+          case 6:
+            isValidField(ticketCountsField, false);
+            break;
+          case 7:
+            isValidField(cardNumberInp, false);
+            break;
+          case 8:
+            isValidField(selectCardMonth, false);
+            break;
+          case 9:
+            isValidField(selectCardYear, false);
+            break;
+          case 10:
+            isValidField(cardHolderNameInp, false);
+            break;
+          case 11:
+            isValidField(cardCVInp, false);
+            break;
+        }
+      });
+    }
   };
 
   const ticketBasicMinus = document.getElementById('ticket_minus_basic');
@@ -355,9 +409,8 @@ import validation from './form_validation.js';
     }
   };
 
+  const ticketCountsField = document.querySelector('.form_entry_ticket');
   const checkValidTicketsCount = () => {
-    const ticketCountsField = document.querySelector('.form_entry_ticket');
-
     validation.isValidTickets = localStorage.getItem('basic') || localStorage.getItem('senior');
 
     if (validation.isValidTickets) {
@@ -367,9 +420,8 @@ import validation from './form_validation.js';
     }
   };
 
+  const ticketTypeField = document.querySelector('.form_select');
   const checkValidTicketType = () => {
-    const ticketTypeField = document.querySelector('.form_select');
-
     validation.isValidTypeTicket = localStorage.getItem('type');
 
     if (validation.isValidTypeTicket) {

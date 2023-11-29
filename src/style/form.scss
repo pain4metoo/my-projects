@@ -44,6 +44,32 @@
     line-height: 1.4rem;
     font-weight: 300;
   }
+  &_order_popup {
+    position: inherit;
+    transform: translate(-50%, -50%);
+    left: -100%;
+    max-width: 42rem;
+    width: 100%;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.9);
+    color: $text-light;
+    z-index: -1;
+    opacity: 0;
+  }
+  &_order_popup_show {
+    left: 50%;
+    top: 50%;
+    animation: order-show linear 0.5s;
+    opacity: 1;
+    z-index: 5;
+  }
+  &_order_text {
+    font-size: 2.2rem;
+    line-height: 3.1rem;
+    font-weight: 400;
+    text-align: center;
+    margin: 2rem 0;
+  }
   &_inner {
     display: flex;
   }
@@ -882,5 +908,14 @@
   }
   &_invalid {
     border: 1px solid red;
+  }
+}
+
+@keyframes order-show {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 50%;
   }
 }

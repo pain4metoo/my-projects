@@ -6,3 +6,5 @@ import './js/player.js';
 import './js/gallery.js';
 import './js/tickets.js';
 import './js/form_validation.js';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import './js/mapbox.js';

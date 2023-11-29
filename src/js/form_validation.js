@@ -213,6 +213,19 @@ class Validation {
 
     return keys.filter((el) => !el).length === 0;
   }
+
+  isValidField() {
+    const values = [];
+    let i = 0;
+    for (let key in this) {
+      if (!this[key]) {
+        values.push([i, this[key]]);
+      }
+      i++;
+    }
+
+    return values;
+  }
 }
 
 const validation = new Validation();

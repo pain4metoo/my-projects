@@ -111,8 +111,8 @@
   }
   &_control_progress[type='range']::-webkit-slider-thumb {
     appearance: none;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
     background-color: $text-light;
   }

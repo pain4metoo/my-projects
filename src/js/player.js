@@ -12,7 +12,6 @@
 
   const progressBar = document.querySelector('.video_control_progress');
   progressBar.oninput = () => onShowProgressVideo();
-  progressBar.onclick = (e) => onRewindVideo(e);
 
   const volumeIMG = document.querySelector('.video_control_volume');
   volumeIMG.onclick = () => onToggleVolume();
@@ -24,6 +23,9 @@
   btnFullscreen.onclick = () => onFullScreen();
 
   const onTogglePlay = () => {
+    if (document.fullscreenElement) {
+      return;
+    }
     if (video.paused) {
       video.play();
       btnPlay.classList.add('video_control_pause');
@@ -37,22 +39,39 @@
   };
 
   const onShowProgressVideo = () => {
-    const progress = progressBar.value;
-    progressBar.style.background = `linear-gradient(to right, #710707 0%, #710707 ${progress}%, #fff ${progress}%, white 100%)`;
+    if (document.fullscreenElement) {
+      return;
+    }
+    const value = progressBar.value;
+    progressBar.style.background = `linear-gradient(to right, #710707 0%, #710707 ${value}%, #FFFFFF ${value}%, #FFFFFF 100%)`;
+
+    video.currentTime = video.duration * (value / 100);
   };
 
   const updateProgressVideo = () => {
-    let value = Math.floor(video.currentTime) / (Math.floor(video.duration) / 100);
+    if (document.fullscreenElement) {
+      return;
+    }
+    let value = (100 * video.currentTime) / video.duration;
 
-    progressBar.value = value;
-    onShowProgressVideo();
+    progressBar.value = Math.round(value);
+
+    progressBar.style.background = `linear-gradient(to right, #710707 0%, #710707 ${Math.round(
+      value
+    )}%, #FFFFFF ${Math.round(value)}%, #FFFFFF 100%)`;
+
+    if (video.duration === video.currentTime) {
+      endVideo();
+    }
   };
 
-  const onRewindVideo = (event) => {
-    let width = event.target.offsetWidth;
-    let pos = event.offsetX;
-    this.value = (100 * pos) / width;
-    video.currentTime = video.duration * (pos / width);
+  const endVideo = () => {
+    video.pause();
+    btnPlay.src = '../assets/svg/video_play.svg';
+    btnPlay.classList.remove('video_control_pause');
+    bigBtnPlay.classList.remove('hiden');
+    video.currentTime = 0;
+    updateProgressVideo();
   };
 
   const onToggleVolume = () => {

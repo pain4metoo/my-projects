@@ -53,28 +53,6 @@ import img15 from '../assets/image/gallery_15.jpg';
     el.src = gallerySrcArr[i];
   });
 
-  window.addEventListener('scroll', () => {
-    galleryItems.forEach((el, i) => {
-      if (isVisibleEl(el)) {
-        el.classList.add('gallery_item_anim');
-      }
-
-      el.onclick = () => {
-        const src = gallerySrcArr[i];
-        let target = 1;
-
-        for (let key in PICTURE) {
-          if (PICTURE[key].src === src) {
-            target = key;
-            break;
-          }
-        }
-
-        showInfoImg(target, src);
-      };
-    });
-  });
-
   const showInfoImg = (imgNumber, src) => {
     const popup = document.querySelector('.gallery_popup');
     popup.onclick = () => closePopup(popup);
@@ -96,4 +74,37 @@ import img15 from '../assets/image/gallery_15.jpg';
   const closePopup = (el) => {
     el.classList.remove('gallery_popup_open');
   };
+
+  const faq = document.querySelector('.gallery_faq_block');
+  faq.onclick = () => {
+    localStorage.setItem('faq', '1');
+    faq.classList.remove('gallery_faq_show');
+  };
+
+  window.addEventListener('scroll', () => {
+    galleryItems.forEach((el, i) => {
+      if (isVisibleEl(el)) {
+        el.classList.add('gallery_item_anim');
+        if (!faq.classList.contains('gallery_faq_show')) {
+          if (localStorage.getItem('faq') === '0') {
+            faq.classList.add('gallery_faq_show');
+          }
+        }
+      }
+
+      el.onclick = () => {
+        const src = gallerySrcArr[i];
+        let target = 1;
+
+        for (let key in PICTURE) {
+          if (PICTURE[key].src === src) {
+            target = key;
+            break;
+          }
+        }
+
+        showInfoImg(target, src);
+      };
+    });
+  });
 }

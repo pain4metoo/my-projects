@@ -18,6 +18,9 @@ import validation from './form_validation.js';
     if (!localStorage.getItem('date')) {
       localStorage.setItem('date', '');
     }
+    if (!localStorage.getItem('faq')) {
+      localStorage.setItem('faq', '0');
+    }
 
     setTotal();
     updateTicket();

@@ -3,6 +3,64 @@
 .gallery {
   padding-top: 7.5rem;
   background-color: $dark;
+  position: relative;
+  overflow: hidden;
+  &_faq_block {
+    max-width: 200px;
+    height: 100px;
+    width: 100%;
+    position: absolute;
+    right: 2rem;
+    top: 5rem;
+    background-color: wheat;
+    transition: 0.5s ease;
+    padding: 1rem;
+    transform: translateX(400%);
+    opacity: 0;
+  }
+  &_faq_show {
+    opacity: 0.7;
+    transform: translateX(0);
+    transition: 0.5s ease;
+  }
+  &_faq_btn {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    right: 5px;
+    top: 5px;
+    background-image: url('../assets/svg/form_close.svg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    outline: none;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    z-index: 1;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+  &_faq_text {
+    font-family: 'Forum', sans-serif;
+    font-size: 1.8rem;
+    text-align: center;
+    margin: 0;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      background-image: url('../assets/svg/atention.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      width: 15px;
+      height: 35px;
+      right: -5px;
+      top: 20px;
+    }
+  }
   &_popup {
     position: fixed;
     width: 100%;
@@ -34,6 +92,7 @@
     background-color: #d2b183;
     padding: 1rem;
     z-index: 11;
+    animation: popup-open 0.5s linear;
   }
   &_popup_left {
     width: 100%;
@@ -56,14 +115,16 @@
     margin-bottom: 1rem;
   }
   &_popup_about {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: 300;
     margin: 0;
     color: $text-dark;
   }
   &_popup_img {
-    width: 30rem;
-    height: 40rem;
+    max-width: 40rem;
+    width: 100%;
+    height: 50rem;
+    object-fit: cover;
   }
   &_title {
     font-family: 'Forum', sans-serif;
@@ -170,5 +231,18 @@
     transform: translateY(0%);
     opacity: 1;
     z-index: 1;
+  }
+}
+
+@keyframes popup-open {
+  0% {
+    transform: translate(-50%, -50%);
+    left: -150%;
+    top: 50%;
+  }
+  100% {
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
   }
 }

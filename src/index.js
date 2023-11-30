@@ -8,3 +8,4 @@ import './js/tickets.js';
 import './js/form_validation.js';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './js/mapbox.js';
+import './js/iframe_fix.js';

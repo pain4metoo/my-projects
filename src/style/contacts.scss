@@ -28,6 +28,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 10.3rem;
+    position: relative;
   }
   &_name {
     font-size: 2.8rem;
@@ -52,4 +53,10 @@
     display: block;
     margin-top: 2.1rem;
   }
+}
+
+#map {
+  max-width: 96rem;
+  width: 100%;
+  height: 62rem;
 }

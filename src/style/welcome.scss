@@ -2,6 +2,7 @@
 
 .welcome {
   background-color: $dark;
+  overflow: hidden;
   &_inner {
     display: flex;
     padding-bottom: 5.4rem;
@@ -60,6 +61,10 @@
     top: 17.8rem;
     z-index: $index-text;
   }
+  &_right {
+    max-width: 100rem;
+    width: 100%;
+  }
   &_slider {
     position: relative;
     z-index: $index-img;
@@ -75,31 +80,38 @@
       z-index: 2;
     }
   }
+  &_slider_item {
+    overflow: hidden;
+  }
   &_slider_img {
-    width: 100rem;
-    height: 75rem;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     outline: none;
   }
-  &_slider_controls {
+  &_slider_controls_inner {
+    display: flex;
+    justify-content: center;
     max-width: 60rem;
     width: 100%;
     height: 12rem;
     background-color: $dark;
     color: $text-light;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     position: absolute;
     right: 0;
     bottom: -5.4rem;
     z-index: 2;
   }
+  &_slider_controls {
+    display: flex;
+    align-items: center;
+    max-width: 45.1rem;
+    width: 100%;
+  }
   &_controls_number {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-left: 7.4rem;
+    margin-right: 5.5rem;
   }
   &_controls_stick {
     display: block;
@@ -127,8 +139,10 @@
       margin-right: 2rem;
     }
   }
+  &_controls_btns {
+    margin-right: 5.3rem;
+  }
   &_controls_arrows {
-    margin-right: 7.5rem;
     margin-bottom: 0.7rem;
   }
   &_control_arrow {
@@ -145,4 +159,232 @@
   }
 }
 
-@import './welcome_slider.scss';
+@media (max-width: 1400px) {
+  .welcome {
+    &_title {
+      font-size: 7rem;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .welcome {
+    &_left {
+      margin-top: 6.6rem;
+      margin-left: 1rem;
+    }
+    &_left_menu_hide {
+      opacity: 0;
+      z-index: -1;
+      pointer-events: none;
+    }
+    &_title {
+      font-size: 5rem;
+    }
+    &_title_1 {
+      margin-bottom: 3.5rem;
+    }
+    &_title_3 {
+      font-size: 2.4rem;
+      margin-top: 1rem;
+    }
+    &_right {
+      max-width: 70rem;
+      margin-right: 1rem;
+    }
+    &_link {
+      width: 30rem;
+      height: 6rem;
+      font-size: 2rem;
+      padding-top: 2rem;
+      margin-top: 21.1rem;
+    }
+    &_slider_controls_inner {
+      max-width: 100%;
+    }
+    &_slider_controls {
+      max-width: 40.1rem;
+      padding-top: 2.3rem;
+      margin-left: 13.2rem;
+    }
+    &_controls_num {
+      font-size: 2rem;
+      font-weight: 400;
+      line-height: 4rem;
+    }
+    &_controls_number {
+      margin-right: 4.1rem;
+    }
+    &_controls_btns {
+      margin: 0;
+      padding-bottom: 0.5rem;
+      margin-right: 4.5rem;
+    }
+    &_controls_btn {
+      width: 1.2rem;
+      height: 1.2rem;
+      &:not(:last-child) {
+        margin-right: 1.95rem;
+      }
+    }
+    &_controls_arrows {
+      margin-right: 0;
+    }
+    &_control_arrow:not(:last-child) {
+      margin-right: 1.4rem;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .welcome {
+    &_title {
+      font-size: 5rem;
+    }
+    &_title_3 {
+      font-size: 2rem;
+    }
+    &_slider_controls {
+      margin-left: 1.5rem;
+    }
+    &_slider_controls_inner {
+      height: 8rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome {
+    padding-bottom: 4rem;
+    &_inner {
+      flex-direction: column;
+      margin-top: -1rem;
+    }
+    &_left {
+      margin: 0;
+    }
+    &_right {
+      max-width: 72.8rem;
+      margin: 0 auto;
+    }
+    &_title {
+      font-size: 4rem;
+      font-weight: 400;
+      line-height: 6rem;
+      text-align: center;
+      max-width: 100%;
+    }
+    &_title_1 {
+      margin-bottom: 0;
+    }
+    &_title_2 {
+      position: static;
+    }
+    &_title_3 {
+      position: static;
+      text-align: center;
+      max-width: 100%;
+      margin-top: 2.5rem;
+      margin-bottom: 4.6rem;
+    }
+    &_link {
+      display: none;
+    }
+    &_slider::after {
+      content: '';
+      display: none;
+    }
+    &_slides_controls {
+      height: 10rem;
+    }
+    &_slider_controls_inner {
+      bottom: -7.4rem;
+    }
+    &_slider_controls {
+      margin-left: 0;
+    }
+  }
+}
+
+@media (max-width: 670px) {
+  .welcome {
+    &_title {
+      font-size: 2.8rem;
+      line-height: 4rem;
+    }
+    &_title_2 {
+      min-width: initial;
+    }
+    &_title_3 {
+      font-size: 1.6rem;
+      font-weight: 300;
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  .welcome {
+    &_slider_controls {
+      max-width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    &_controls_btns {
+      margin-right: 4.2rem;
+    }
+    &_title_3 {
+      min-width: initial;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .welcome {
+    &_slider_controls {
+      padding-top: 0.9rem;
+      margin-left: 0.5rem;
+    }
+    &_slider_inner {
+      justify-content: center;
+    }
+    &_slider_item {
+      max-width: 38rem;
+      height: 28.5rem;
+    }
+    &_inner {
+      margin-top: 0.7rem;
+    }
+    &_title_3 {
+      margin-bottom: 5rem;
+    }
+    &_controls_num {
+      font-size: 1.6rem;
+      &:not(:last-child) {
+        margin-right: 0.5rem;
+      }
+    }
+    &_controls_number {
+      margin-right: 2.5rem;
+    }
+    &_controls_btn {
+      width: 0.7rem;
+      height: 0.7rem;
+      padding: 0;
+      &:not(:last-child) {
+        margin-right: 0.5rem;
+      }
+    }
+    &_controls_btns {
+      margin-right: 2.5rem;
+    }
+    &_controls_num {
+      width: 1.6rem;
+    }
+    &_controls_num:not(:first-child) {
+      margin-left: 0.5rem;
+    }
+    &_control_arrow {
+      width: 2rem;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import './style/index.scss';
+import './js/header.js';
 import './js/welcome_slider.js';
 import './js/explore.js';
 import './js/video_slider.js';

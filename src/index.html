@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Museum Louvre</title>
   <meta name="description"
     content="A website containing information about the Louvre Museum, here you can buy tickets to the Louvre">
+  <title>Museum Louvre</title>
   <link res="icon" href="./assets/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="./assets/favicon.png" type="image/png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
@@ -20,7 +20,12 @@
           <img src="./assets/svg/logo.svg" alt="logo" class="header_logo" />
           <h1 class="header_title">Louvre</h1>
         </div>
-        <div class="header_nav">
+        <div class="header_burger">
+          <div class="header_burger_item header_burger_item_1"></div>
+          <div class="header_burger_item header_burger_item_2"></div>
+          <div class="header_burger_item header_burger_item_3"></div>
+        </div>
+        <nav class="header_nav">
           <ul class="header_list">
             <li class="header_list_item">
               <a href="#tour" class="header_list_link">
@@ -53,10 +58,47 @@
               </a>
             </li>
           </ul>
-        </div>
+          <div class="header_nav_additional header_nav_additional_hide">
+            <div class="header_nav_images">
+              <img src="./assets/image/burger_img_1.png" alt="image" class="header_nav_img header_nav_img_1">
+              <div class="header_nav_container_images">
+                <img src="./assets/image/burger_img_2.png" alt="image" class="header_nav_img header_nav_img_2">
+                <img src="./assets/image/burger_img_3.png" alt="image" class="header_nav_img header_nav_img_3">
+              </div>
+            </div>
+            <div class="footer_social header_social">
+              <div class="footer_social_item">
+                <a href="https://www.youtube.com/user/louvre" class="footer_social_link" target="_blank">
+                  <img src="./assets/svg/youtube.svg" alt="youtube" class="footer_social_img">
+                </a>
+              </div>
+              <div class="footer_social_item">
+                <a href="https://www.instagram.com/museelouvre/" class="footer_social_link" target="_blank">
+                  <img src="./assets/svg/insta.svg" alt="insta" class="footer_social_img">
+                </a>
+              </div>
+              <div class="footer_social_item">
+                <a href="https://www.facebook.com/museedulouvre" class="footer_social_link" target="_blank">
+                  <img src="./assets/svg/facebook.svg" alt="facebook" class="footer_social_img">
+                </a>
+              </div>
+              <div class="footer_social_item">
+                <a href="http://twitter.com/museelouvre" class="footer_social_link" target="_blank">
+                  <img src="./assets/svg/twitter.svg" alt="twitter" class="footer_social_img">
+                </a>
+              </div>
+              <div class="footer_social_item">
+                <a href="https://www.pinterest.fr/museedulouvre/" class="footer_social_link" target="_blank">
+                  <img src="./assets/svg/pint.svg" alt="pinterest" class="footer_social_img">
+                </a>
+              </div>
+            </div>
+          </div>
+        </nav>
       </div>
     </div>
   </header>
+
   <main class="main">
     <section class="welcome">
       <div class="container">
@@ -91,24 +133,26 @@
                     class="welcome_slider_img_5 welcome_slider_img">
                 </div>
               </div>
-              <div class="welcome_slider_controls">
-                <div class="welcome_controls_number">
-                  <p class="welcome_controls_num">01</p>
-                  <span class="welcome_controls_stick">|</span>
-                  <p class="welcome_controls_num">05</p>
-                </div>
-                <div class="welcome_controls_btns">
-                  <button class="welcome_controls_btn welcome_controls_btn_active" type="button"></button>
-                  <button class="welcome_controls_btn" type="button"></button>
-                  <button class="welcome_controls_btn" type="button"></button>
-                  <button class="welcome_controls_btn" type="button"></button>
-                  <button class="welcome_controls_btn" type="button"></button>
-                </div>
-                <div class="welcome_controls_arrows">
-                  <img src="./assets/svg/welcome_arrow_left.svg" alt="arrow_left"
-                    class="welcome_control_arrow_left welcome_control_arrow">
-                  <img src="./assets/svg/welcome_arrow_right.svg" alt="arrow_left"
-                    class="welcome_control_arrow_right welcome_control_arrow">
+              <div class="welcome_slider_controls_inner">
+                <div class="welcome_slider_controls">
+                  <div class="welcome_controls_number">
+                    <p class="welcome_controls_num">01</p>
+                    <span class="welcome_controls_stick">|</span>
+                    <p class="welcome_controls_num">05</p>
+                  </div>
+                  <div class="welcome_controls_btns">
+                    <button class="welcome_controls_btn welcome_controls_btn_active" type="button"></button>
+                    <button class="welcome_controls_btn" type="button"></button>
+                    <button class="welcome_controls_btn" type="button"></button>
+                    <button class="welcome_controls_btn" type="button"></button>
+                    <button class="welcome_controls_btn" type="button"></button>
+                  </div>
+                  <div class="welcome_controls_arrows">
+                    <img src="./assets/svg/welcome_arrow_left.svg" alt="arrow_left"
+                      class="welcome_control_arrow_left welcome_control_arrow">
+                    <img src="./assets/svg/welcome_arrow_right.svg" alt="arrow_left"
+                      class="welcome_control_arrow_right welcome_control_arrow">
+                  </div>
                 </div>
               </div>
             </div>
@@ -116,7 +160,7 @@
         </div>
       </div>
     </section>
-    <section class="tour" id="tour">
+    <!--   <section class="tour" id="tour">
       <div class="container">
         <div class="tour_inner">
           <h3 class="tour_title">Virtual tour</h3>
@@ -161,7 +205,7 @@
         </div>
       </div>
     </section>
-    <section class="explore" id="explore">
+      <section class="explore" id="explore">
       <div class="container">
         <div class="explore_inner">
           <div class="explore_left">
@@ -762,7 +806,7 @@
         <a class="footer_author" href="https://github.com/pain4metoo" target="_blank">pain4metoo</a>
       </div>
     </div>
-  </footer>
+  </footer> -->
 </body>
 
 </html>

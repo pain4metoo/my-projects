@@ -93,8 +93,10 @@
     border-radius: 50%;
     border: 1px solid #666;
     position: relative;
-    margin-right: 2.5rem;
     transition: 0.5s ease;
+    &:not(:last-child) {
+      margin-right: 2.5rem;
+    }
     &:hover .footer_social_img {
       transition: 0.5s ease;
       filter: invert(55%) sepia(16%) saturate(704%) hue-rotate(356deg) brightness(95%) contrast(89%);
@@ -127,5 +129,40 @@
     text-decoration: none;
     color: $text-light;
     margin: 0;
+  }
+}
+
+@media (max-width: 1500px) {
+  .footer {
+    padding-top: 6.1rem;
+    &::after {
+      bottom: 14.6rem;
+    }
+    &_nav {
+      margin-right: 6.5rem;
+      margin-top: -1.8rem;
+      max-width: 30.9rem;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+    &_logo_block {
+      margin-right: 0;
+      margin-left: 0.6rem;
+    }
+    &_inner {
+      justify-content: space-between;
+    }
+    &_nav_left {
+      margin-right: 0;
+    }
+    &_social {
+      position: relative;
+      left: -1rem;
+      top: 0.6rem;
+    }
+    &_year {
+      margin-left: 1rem;
+    }
   }
 }

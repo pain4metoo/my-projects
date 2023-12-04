@@ -169,6 +169,9 @@
 
 @media (max-width: 1024px) {
   .welcome {
+    &_inner {
+      padding-bottom: 6.6rem;
+    }
     &_left {
       margin-top: 6.6rem;
       margin-left: 1rem;
@@ -385,6 +388,9 @@
     }
     &_control_arrow {
       width: 2rem;
+    }
+    &_slider_img {
+      object-fit: cover;
     }
   }
 }

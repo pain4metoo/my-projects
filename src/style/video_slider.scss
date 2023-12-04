@@ -47,13 +47,13 @@
 }
 
 .tns-nav button {
-  width: 12px;
-  height: 12px;
+  width: 1.2rem;
+  height: 1.2rem;
   border-radius: 50%;
   border: none;
   background-color: #999999;
   outline: none;
-  margin-right: 20px;
+  margin-right: 2rem;
   cursor: pointer;
   transition: all 0.5s;
   position: absolute;
@@ -85,4 +85,35 @@
 
 .tns-nav .tns-nav-active {
   background-color: #333333;
+}
+
+@media (max-width: 1024px) {
+  .tns-controls [data-controls='prev'] {
+    bottom: -52px;
+    left: 39.9%;
+  }
+  .tns-nav [data-nav='0'] {
+    bottom: -52px;
+    left: 43%;
+  }
+  .tns-nav [data-nav='1'] {
+    bottom: -52px;
+    left: 46.2%;
+  }
+  .tns-nav [data-nav='2'] {
+    bottom: -52px;
+    left: 49.3%;
+  }
+  .tns-nav [data-nav='3'] {
+    bottom: -52px;
+    left: 52.5%;
+  }
+  .tns-nav [data-nav='4'] {
+    bottom: -52px;
+    left: 55.8%;
+  }
+  .tns-controls [data-controls='next'] {
+    bottom: -52px;
+    left: 58.9%;
+  }
 }

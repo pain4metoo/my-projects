@@ -246,3 +246,78 @@
     top: 50%;
   }
 }
+
+@media (max-width: 1024px) {
+  .gallery {
+    padding-top: 5.3rem;
+    &_title {
+      font-size: 5rem;
+      margin-left: 1rem;
+    }
+    &_items {
+      margin-top: 5.2rem;
+      padding-left: 1rem;
+      grid-gap: 2.4rem 2.6rem;
+    }
+    &_item {
+      &_1 {
+        max-width: 30.4rem;
+        height: 30.4rem;
+        margin-top: 5rem;
+      }
+      &_2 {
+        max-width: 30.4rem;
+        height: 38rem;
+      }
+      &_3 {
+        max-width: 30.4rem;
+        height: 22.8rem;
+        margin-top: 5rem;
+      }
+      &_4 {
+        max-width: 30.4rem;
+        height: 38rem;
+        margin-top: -2.5rem;
+      }
+      &_5 {
+        max-width: 30.4rem;
+        height: 38rem;
+        margin-top: 0rem;
+      }
+      &_6 {
+        max-width: 30.4rem;
+        height: 38rem;
+        margin-top: -10.2rem;
+      }
+      &_7 {
+        max-width: 30.4rem;
+        height: 30.4rem;
+        margin-top: -2.6rem;
+      }
+      &_8 {
+        max-width: 30.4rem;
+        height: 22.8rem;
+        margin-top: 0rem;
+      }
+      &_9 {
+        max-width: 30.4rem;
+        height: 30.4rem;
+        margin-top: -10.2rem;
+      }
+      &_10 {
+        max-width: 30.4rem;
+        height: 15.5rem;
+      }
+      &_11 {
+        max-width: 30.4rem;
+        height: 20rem;
+        margin-top: -5rem;
+      }
+      &_12 {
+        max-width: 30.4rem;
+        height: 22.7rem;
+        margin-top: -7.6rem;
+      }
+    }
+  }
+}

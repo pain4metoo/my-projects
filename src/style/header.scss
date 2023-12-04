@@ -260,12 +260,32 @@
       font-size: 1.6rem;
       font-weight: 400;
     }
+    &_nav_show {
+      top: 10rem;
+    }
     &_logo {
       width: 2.9rem;
       height: 1.8rem;
     }
     &_burger {
       top: 1.6rem;
+    }
+    &_list {
+      margin-left: 1rem;
+    }
+    &_nav_img {
+      max-width: 12rem;
+      object-fit: cover;
+    }
+    &_nav_images {
+      justify-content: center;
+    }
+    &_nav_container_images {
+      max-width: initial;
+      width: initial;
+    }
+    &_nav_img_3 {
+      margin-right: 0;
     }
   }
 }
@@ -274,6 +294,30 @@
   .header {
     &_inner {
       padding: 3.5rem 0rem;
+    }
+    &_nav_show {
+      top: 10.2rem;
+    }
+    &_nav_img {
+      width: 9.5rem;
+      height: 9.5rem;
+    }
+    &_list {
+      margin-left: 5.5rem;
+    }
+    &_nav_images::after {
+      max-width: 31rem;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      bottom: -2rem;
+    }
+    &_social {
+      margin-top: 2rem;
+      padding-left: 0;
+    }
+    &_social_item {
+      margin-right: 0.5rem;
     }
   }
 }

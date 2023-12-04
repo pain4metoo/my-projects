@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 .video {
   padding-top: 7.5rem;
   padding-bottom: 12.7rem;
@@ -183,6 +185,7 @@
     max-width: 45.2rem !important;
     width: 100% !important;
     height: 25.4rem;
+    margin-right: 1rem;
   }
   &_iframe_container {
     position: relative;
@@ -206,6 +209,7 @@
     width: 100%;
     height: 100%;
     border: none;
+    object-fit: cover;
   }
   &_iframe_button {
     position: absolute;
@@ -250,4 +254,84 @@
 
 .tns-outer {
   position: relative;
+}
+
+@media (max-width: 1360px) {
+  .video {
+    &_title {
+      font-size: 5rem;
+      line-height: 7.5rem;
+    }
+    &_title_text {
+      max-width: 52rem;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .video {
+    padding-top: 0rem;
+    overflow: hidden;
+    padding-bottom: 11.2rem;
+    &_title {
+      margin-left: 1rem;
+      margin-top: 6rem;
+    }
+    &_title_text {
+      display: none;
+    }
+    &_player {
+      max-width: 98.4rem;
+      margin-top: -1.5rem;
+      margin-left: 1rem;
+    }
+    &_iframe_container {
+      max-width: 30rem;
+      width: 100%;
+      height: 17rem;
+    }
+    &_btn_play {
+      width: 15.2rem;
+      height: 15.2rem;
+    }
+    &_player_small_item {
+      margin-right: 0;
+      max-width: 30rem !important;
+      height: 17rem;
+    }
+    &_slider_description {
+      max-width: 30rem;
+      height: 17rem;
+    }
+    &_iframe_img {
+      height: 17rem;
+    }
+    &_controls {
+      height: 6rem;
+    }
+    &_controls_inner {
+      padding-top: 1.4rem;
+      padding-left: 3.5rem;
+    }
+    &_control_play {
+      margin-right: 2.3rem;
+    }
+    &_control_progress[type='range'] {
+      max-width: 56.4rem;
+      margin-right: 3.4rem;
+    }
+    &_control_volume {
+      width: 2.6rem;
+      height: 2rem;
+      margin-right: 3rem;
+    }
+    &_control_progress_vol[type='range'] {
+      max-width: 14.3rem;
+      margin-right: 3rem;
+    }
+    &_control_full {
+      width: 2.6rem;
+      height: 2.6rem;
+    }
+  }
 }

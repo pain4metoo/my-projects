@@ -76,7 +76,9 @@
   &_left {
     display: flex;
     flex-direction: column;
-    margin-right: 2.1rem;
+    max-width: 40rem;
+    width: 100%;
+    margin-right: 4.1rem;
   }
   &_logo {
     width: 8.5rem;
@@ -283,6 +285,7 @@
     border: 0.1rem solid $dark;
     margin-bottom: 2rem;
     position: relative;
+    outline: none;
   }
   &_name_label {
     &::after {
@@ -305,7 +308,6 @@
     top: 0;
     bottom: 0;
     padding-left: 4.3rem;
-    padding-bottom: 0.5rem;
     border: none;
     outline: none;
     &::placeholder {
@@ -336,7 +338,6 @@
     top: 0;
     bottom: 0;
     padding-left: 4.4rem;
-    padding-bottom: 0.6rem;
     border: none;
     outline: none;
     &::placeholder {
@@ -917,5 +918,115 @@
   }
   100% {
     left: 50%;
+  }
+}
+
+@media (max-width: 1460px) {
+  .form {
+    padding: 0;
+    &_inner {
+      max-width: 97rem;
+      width: 100%;
+      margin: 0 auto;
+      margin-top: 8rem;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .form {
+    height: 76.8rem;
+  }
+}
+
+@media (max-width: 980px) {
+  .form {
+    height: 100%;
+    max-width: 76.8rem;
+    &_inner {
+      flex-direction: column;
+      overflow-y: scroll;
+      height: 100%;
+      max-width: 59rem;
+    }
+    &_left {
+      max-width: 59rem;
+      width: 100%;
+      margin: 0 auto;
+      margin-bottom: 5rem;
+    }
+    &_right {
+      max-width: 53rem;
+      margin-bottom: 10rem;
+    }
+    &_el_inner {
+      max-width: 53rem;
+      justify-content: space-between;
+    }
+    &_date_label {
+      max-width: 25.1rem;
+      width: 100%;
+    }
+    &_time {
+      max-width: 25.1rem;
+      width: 100%;
+    }
+    &_label_default {
+      max-width: 53rem;
+    }
+    &_select {
+      max-width: 53rem;
+    }
+    &_entry_ticket {
+      max-width: 53rem;
+    }
+    &_entry_basic {
+      margin: 2.3rem 0rem 0rem 1.5rem;
+      max-width: 50rem;
+    }
+    &_entry_senior {
+      margin: 2.3rem 0rem 1.7rem 1.5rem;
+      max-width: 50rem;
+    }
+    &_entry_title {
+      &::after {
+        max-width: 50rem;
+      }
+    }
+    &_right_btn {
+      display: block;
+      position: static;
+      margin-left: auto;
+      margin-right: 0;
+      margin-top: 6rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .form {
+    max-width: 59rem;
+    &_el_inner {
+      margin-top: 4.7rem;
+    }
+    &_left {
+      max-width: 53rem;
+    }
+    &_right {
+      max-width: 53rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 2.6rem;
+      margin-bottom: 10rem;
+    }
+    &_title_text::after {
+      max-width: 100%;
+      bottom: -0.7rem;
+    }
+    &_amount_num {
+      width: 3.5rem;
+    }
+    &_right_card {
+      margin-top: 1.5rem;
+    }
   }
 }

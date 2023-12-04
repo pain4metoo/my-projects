@@ -161,3 +161,75 @@
     border-radius: 50%;
   }
 }
+
+@media (max-width: 1370px) {
+  .ticket {
+    &_img {
+      max-width: 50rem;
+      object-fit: cover;
+      margin-right: 1rem;
+    }
+    &_type {
+      margin-left: 1rem;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .ticket {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    &_title {
+      font-size: 5rem;
+      line-height: 7.5rem;
+      margin-left: 1rem;
+      &::after {
+        bottom: -2.3rem;
+      }
+    }
+    &_type {
+      display: none;
+    }
+    &_blocks {
+      margin-top: 8.3rem;
+      justify-content: initial;
+    }
+    &_img {
+      max-width: 70rem;
+      height: 44rem;
+      margin-left: 1rem;
+      margin-right: 4rem;
+    }
+    &_amount_title {
+      text-align: initial;
+      margin-left: 4rem;
+      margin-bottom: 2.8rem;
+    }
+    &_amount_text {
+      margin-bottom: 0.9rem;
+    }
+    &_amount_counter {
+      width: 17.5rem;
+      height: 5rem;
+      padding: 0;
+    }
+    &_amount_item:not(:first-child) {
+      margin-bottom: 2.9rem;
+    }
+    &_amount_plus {
+      margin-right: 0.8rem;
+    }
+    &_amount_minus {
+      margin-left: 0.8rem;
+    }
+    &_amount_total {
+      margin: 0;
+      margin-left: 4rem;
+      margin-top: -0.5rem;
+    }
+    &_btn {
+      margin-left: 4rem;
+      margin-top: 6.9rem;
+    }
+  }
+}

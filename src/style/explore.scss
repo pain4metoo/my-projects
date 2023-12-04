@@ -50,3 +50,64 @@
     }
   }
 }
+
+@media (max-width: 1440px) {
+  .explore {
+    &_title {
+      font-size: 5rem;
+      line-height: 7.5rem;
+      &:after {
+        width: 100%;
+      }
+    }
+    &_left {
+      margin-right: 1rem;
+    }
+    &_slider_after {
+      height: 100%;
+    }
+    &_img_before {
+      max-width: 72rem;
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 1100px) {
+  .explore {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    &_title {
+      &::after {
+        bottom: -2.3rem;
+      }
+    }
+    &_inner {
+      flex-direction: column;
+    }
+    &_text_1 {
+      margin-top: 8.2rem;
+      line-height: 3.85rem;
+    }
+    &_text {
+      font-size: 2rem;
+      font-weight: 300;
+      max-width: 100%;
+      margin-bottom: 0rem;
+      letter-spacing: initial;
+    }
+    &_text_2 {
+      line-height: 3.5rem;
+      margin-top: 0;
+    }
+    &_text_3 {
+      display: none;
+    }
+    &_left {
+      margin-left: 1.1rem;
+    }
+    &_right {
+      margin: 6.3rem auto 0rem;
+    }
+  }
+}

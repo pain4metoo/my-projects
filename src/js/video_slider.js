@@ -19,7 +19,7 @@ import poster4 from '../assets/image/poster4.webp';
     navAsThumbnails: true,
     arrowKeys: true,
     responsive: {
-      1000: {
+      1020: {
         items: 3,
       },
       390: {

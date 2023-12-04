@@ -117,3 +117,34 @@
     left: 58.9%;
   }
 }
+
+@media (max-width: 768px) {
+  .tns-controls [data-controls='prev'] {
+    bottom: -34px;
+    left: 37%;
+  }
+  .tns-nav [data-nav='0'] {
+    bottom: -33px;
+    left: 41.2%;
+  }
+  .tns-nav [data-nav='1'] {
+    bottom: -33px;
+    left: 45.2%;
+  }
+  .tns-nav [data-nav='2'] {
+    bottom: -33px;
+    left: 49.2%;
+  }
+  .tns-nav [data-nav='3'] {
+    bottom: -33px;
+    left: 53.2%;
+  }
+  .tns-nav [data-nav='4'] {
+    bottom: -33px;
+    left: 57.2%;
+  }
+  .tns-controls [data-controls='next'] {
+    bottom: -34px;
+    left: 61%;
+  }
+}

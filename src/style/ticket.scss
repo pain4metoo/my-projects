@@ -233,3 +233,11 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .ticket {
+    &_blocks {
+      flex-direction: column;
+    }
+  }
+}

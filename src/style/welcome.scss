@@ -258,7 +258,7 @@
 
 @media (max-width: 768px) {
   .welcome {
-    padding-bottom: 4rem;
+    padding-bottom: 2.8rem;
     &_inner {
       flex-direction: column;
       margin-top: -1rem;
@@ -343,6 +343,7 @@
 
 @media (max-width: 420px) {
   .welcome {
+    padding-bottom: 1.3rem;
     &_slider_controls {
       padding-top: 0.9rem;
       margin-left: 0.5rem;

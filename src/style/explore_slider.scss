@@ -58,3 +58,41 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .explore {
+    &_change {
+      top: 51.8%;
+      &::before {
+        top: -17.4rem;
+        height: 34.3rem;
+      }
+      &::after {
+        top: 20rem;
+        height: 34rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .explore {
+    padding-bottom: 4rem;
+    &_change {
+      height: 2rem;
+      width: 2rem;
+      border: 0.2rem solid #fff;
+      top: 51.5%;
+      &::before {
+        top: -17.4rem;
+        height: 34.3rem;
+        width: 0.2rem;
+      }
+      &::after {
+        top: 20rem;
+        height: 36rem;
+        width: 0.2rem;
+      }
+    }
+  }
+}

@@ -4,3 +4,9 @@
   background: url('../assets/image/parallax.jpg') no-repeat center/cover;
   background-attachment: fixed;
 }
+
+@media (max-width: 768px) {
+  .parallax {
+    height: 300px;
+  }
+}

@@ -102,3 +102,73 @@
     height: 45.4rem;
   }
 }
+
+@media (max-width: 768px) {
+  .contacts {
+    padding-top: 4rem;
+    padding-bottom: 6.7rem;
+    &_title {
+      font-size: 4rem;
+      line-height: 6rem;
+      &::after {
+        bottom: -2.3rem;
+        width: 98.6%;
+      }
+    }
+    &_blocks {
+      flex-direction: column;
+    }
+    &_left {
+      margin-bottom: 4rem;
+    }
+    &_name {
+      font-size: 2rem;
+      font-weight: 500;
+      max-width: 16.5rem;
+      font-style: normal;
+      text-decoration: none;
+    }
+    &_text {
+      font-size: 1.8rem;
+      font-weight: 300;
+      font-style: normal;
+      text-decoration: none;
+    }
+    &_blocks {
+      margin-top: 6.2rem;
+    }
+    &_adress_1 {
+      margin-top: 4rem;
+    }
+    &_phone {
+      margin-top: 1rem;
+    }
+  }
+  #map {
+    max-width: 72.8rem;
+    height: 47.6rem;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 420px) {
+  .contacts {
+    padding-bottom: 4.2rem;
+    &_title {
+      font-size: 2.8rem;
+      line-height: 4rem;
+    }
+    &_name {
+      font-size: 1.6rem;
+      max-width: 13.5rem;
+    }
+    &_text {
+      font-size: 1.6rem;
+    }
+  }
+  #map {
+    max-width: 38rem;
+    height: 24.8rem;
+    margin: 0 auto;
+  }
+}

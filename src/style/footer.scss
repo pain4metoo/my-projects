@@ -166,3 +166,199 @@
     }
   }
 }
+
+@media (max-width: 1024px) {
+  .footer {
+    height: 37rem;
+    &::after {
+      bottom: 12.4rem;
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .footer {
+    &_nav {
+      margin: 0;
+    }
+    &_inner {
+      justify-content: space-around;
+    }
+    &_social {
+      position: absolute;
+      bottom: 0;
+      left: 2rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding-top: 4.7rem;
+    height: 41.1rem;
+    &::after {
+      bottom: 10rem;
+      height: 0.1rem;
+    }
+    &_nav_left {
+      margin-top: 0.5rem;
+    }
+    &_nav_right {
+      margin-top: 0.5rem;
+      margin-right: 10rem;
+    }
+    &_inner {
+      justify-content: space-between;
+    }
+    &_nav {
+      max-width: 44.2rem;
+      width: 100%;
+    }
+    &_list_link {
+      font-size: 1.8rem;
+      font-weight: 100;
+      letter-spacing: 0.2rem;
+    }
+    &_list_item {
+      margin-bottom: 2rem;
+    }
+    &_social {
+      right: 11.1rem;
+      top: 19.9rem;
+      left: initial;
+      height: 5rem;
+    }
+    &_bottom {
+      display: flex;
+      justify-content: space-between;
+      position: absolute;
+      bottom: 4rem;
+      left: 0;
+      right: 0;
+      margin: 0;
+    }
+    &_year {
+      margin-left: 2rem;
+    }
+    &_author {
+      margin-right: 2rem;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .footer {
+    &_inner {
+      flex-direction: column;
+    }
+    &_logo_block {
+      margin: 0;
+      justify-content: initial;
+    }
+    &_logo_text {
+      font-size: 1.6rem;
+    }
+    &_logo {
+      width: 2.9rem;
+      height: 1.6rem;
+    }
+    &_social {
+      left: initial;
+      right: initial;
+      top: initial;
+      bottom: initial;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 60%;
+    }
+    &_nav {
+      max-width: 100%;
+      width: 100%;
+      justify-content: space-around;
+    }
+    &_nav_right {
+      margin-right: 0;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .footer {
+    padding-top: 4.2rem;
+    height: 40rem;
+    &_logo_block {
+      margin-left: 1rem;
+    }
+    &_logo {
+      margin-right: 2rem;
+    }
+    &_list_link {
+      font-size: 1.6rem;
+      font-weight: 100;
+      letter-spacing: 0.2rem;
+    }
+    &_list_item {
+      position: relative;
+      &_3 {
+        left: 16rem;
+        top: -9.4rem;
+      }
+      &_4 {
+        right: 16.2rem;
+        top: 5rem;
+      }
+      &_5 {
+        right: 2rem;
+        top: -4.7rem;
+      }
+      &_6 {
+        right: 2rem;
+        top: -4.5rem;
+      }
+    }
+    &_social {
+      top: 53%;
+    }
+    &_social_item {
+      &:not(:last-child) {
+        margin-right: 0.5rem;
+      }
+    }
+    &_nav {
+      justify-content: space-between;
+      margin-left: 1rem;
+    }
+    &_nav_left {
+      margin-top: 1.7rem;
+      column-count: 1;
+    }
+    &_nav_right {
+      margin-top: 1.7rem;
+      column-count: 1;
+    }
+    &_year {
+      font-size: 1.6rem;
+      font-weight: 100;
+      letter-spacing: 0.2rem;
+    }
+    &_author {
+      font-size: 1.6rem;
+      font-weight: 100;
+      letter-spacing: 0.2rem;
+    }
+  }
+}
+
+@media (max-width: 415px) {
+  .footer {
+    &_nav {
+      margin-left: 0rem;
+    }
+    &_list_item {
+      position: static;
+    }
+    &_social {
+      top: 60%;
+    }
+  }
+}

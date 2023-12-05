@@ -25,6 +25,9 @@ import poster4 from '../assets/image/poster4.webp';
       390: {
         items: 2,
       },
+      320: {
+        items: 2,
+      },
     },
   });
 

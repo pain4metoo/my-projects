@@ -1030,3 +1030,79 @@
     }
   }
 }
+
+@media (max-width: 690px) {
+  .form {
+    max-width: 42rem;
+    &_title {
+      font-size: 3.2rem;
+      font-weight: 400;
+    }
+    &_logo {
+      margin-bottom: 0.5rem;
+    }
+    &_left {
+      max-width: 36rem;
+    }
+    &_right {
+      max-width: 36rem;
+    }
+    &_entry_title {
+      margin: 0;
+    }
+    &_entry_ticket {
+      padding: 1rem;
+    }
+    &_entry_basic {
+      margin: 2.2rem 0rem 0rem 0rem;
+    }
+    &_entry_senior {
+      margin: 1.9rem 0rem 1.7rem 0rem;
+    }
+    &_right_card_2 {
+      position: relative;
+      top: 2.4rem;
+    }
+    &_info_img {
+      width: 12rem;
+      height: 9.6rem;
+    }
+    &_el_inner {
+      flex-direction: column;
+    }
+    &_date_label {
+      max-width: 100%;
+      margin: 0;
+      margin-bottom: 2rem;
+    }
+    &_time {
+      max-width: 100%;
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 350px) {
+  .form_right_card_1::after {
+    width: 3.5rem;
+    right: 1rem;
+    background-size: contain;
+  }
+  .form_right_card_1::before {
+    width: 3.5rem;
+    right: 1rem;
+    background-size: contain;
+  }
+  .form_right_info_text {
+    font-size: 1.4rem;
+  }
+  .form_right_data::after {
+    bottom: 0.2rem;
+  }
+  .form_right_time::after {
+    bottom: 0.2rem;
+  }
+  .form_right_type::after {
+    bottom: 0.2rem;
+  }
+}

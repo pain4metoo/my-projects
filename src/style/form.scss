@@ -906,10 +906,10 @@
     }
   }
   &_valid {
-    border: 1px solid green;
+    border: 1.5px solid #08fdd8;
   }
   &_invalid {
-    border: 1px solid red;
+    border: 1.5px solid #ff2253;
   }
 }
 
@@ -1028,6 +1028,15 @@
     }
     &_right_card {
       margin-top: 1.5rem;
+    }
+    &_right_info_text {
+      font-size: 1.6rem;
+    }
+    &_right_order_sum {
+      font-size: 1.9rem;
+    }
+    &_right_order_num {
+      font-size: 1.7rem;
     }
   }
 }

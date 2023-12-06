@@ -27,3 +27,4 @@ import './js/form_validation.js';
 import './js/iframe_fix.js';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './js/mapbox.js';
+import './js/loader.js';

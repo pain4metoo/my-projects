@@ -32,7 +32,7 @@
   }
   &_img {
     max-width: 72rem;
-    width: 100%;
+    width: 72rem;
     height: 55rem;
     margin-right: 6rem;
   }
@@ -167,6 +167,7 @@
   .ticket {
     &_img {
       max-width: 50rem;
+      width: 50rem;
       object-fit: cover;
       margin-right: 1rem;
     }
@@ -197,6 +198,7 @@
     }
     &_img {
       max-width: 70rem;
+      width: 70rem;
       height: 44rem;
       margin-left: 1rem;
       margin-right: 4rem;
@@ -242,6 +244,7 @@
     }
     &_img {
       max-width: 54rem;
+      width: 54rem;
     }
   }
 }
@@ -250,6 +253,7 @@
   .ticket {
     &_img {
       max-width: 47rem;
+      width: 47rem;
     }
   }
 }
@@ -271,6 +275,7 @@
     }
     &_img {
       max-width: 44.4rem;
+      width: 44.4rem;
       height: 34rem;
     }
     &_amount {
@@ -299,7 +304,8 @@
       align-items: center;
     }
     &_img {
-      max-width: 100%;
+      max-width: 68rem;
+      width: 100%;
       height: 16rem;
       margin: 0 auto;
     }
@@ -321,6 +327,7 @@
     }
     &_img {
       max-width: 38rem;
+      width: 100%;
     }
     &_amount_title {
       font-size: 1.6rem;

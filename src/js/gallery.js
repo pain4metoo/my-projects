@@ -1,20 +1,20 @@
 import { isVisibleEl } from './additional.js';
 import { PICTURE } from './picture_info.js';
-import img1 from '../assets/image/gallery_1.jpg';
-import img2 from '../assets/image/gallery_2.jpg';
-import img3 from '../assets/image/gallery_3.jpg';
-import img4 from '../assets/image/gallery_4.jpg';
-import img5 from '../assets/image/gallery_5.jpg';
-import img6 from '../assets/image/gallery_6.jpg';
-import img7 from '../assets/image/gallery_7.jpg';
-import img8 from '../assets/image/gallery_8.jpg';
-import img9 from '../assets/image/gallery_9.jpg';
-import img10 from '../assets/image/gallery_10.jpg';
-import img11 from '../assets/image/gallery_11.jpg';
-import img12 from '../assets/image/gallery_12.jpg';
-import img13 from '../assets/image/gallery_13.jpg';
-import img14 from '../assets/image/gallery_14.jpg';
-import img15 from '../assets/image/gallery_15.jpg';
+import img1 from '../assets/image/gallery_1.webp';
+import img2 from '../assets/image/gallery_2.webp';
+import img3 from '../assets/image/gallery_3.webp';
+import img4 from '../assets/image/gallery_4.webp';
+import img5 from '../assets/image/gallery_5.webp';
+import img6 from '../assets/image/gallery_6.webp';
+import img7 from '../assets/image/gallery_7.webp';
+import img8 from '../assets/image/gallery_8.webp';
+import img9 from '../assets/image/gallery_9.webp';
+import img10 from '../assets/image/gallery_10.webp';
+import img11 from '../assets/image/gallery_11.webp';
+import img12 from '../assets/image/gallery_12.webp';
+import img13 from '../assets/image/gallery_13.webp';
+import img14 from '../assets/image/gallery_14.webp';
+import img15 from '../assets/image/gallery_15.webp';
 
 {
   const galleryImages = document.querySelectorAll('.gallery_img');

@@ -17,8 +17,9 @@ import { isVisibleEl } from './additional';
       return;
     }
     const keyCode = e.code;
+    const form = document.querySelector('.form_layout');
 
-    if (isVisibleEl(video)) {
+    if (isVisibleEl(video) && !form.classList.contains('form_layout_show')) {
       switch (keyCode) {
         case 'ArrowUp':
           event.preventDefault();

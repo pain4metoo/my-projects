@@ -109,12 +109,13 @@ import poster4 from '../assets/image/poster4.webp';
     };
 
     const onKeyDownHandler = (e) => {
+      const form = document.querySelector('.form_layout');
       if (document.fullscreenElement) {
         return;
       }
       const keyCode = e.code;
 
-      if (isVisibleEl(videoTAG)) {
+      if (isVisibleEl(videoTAG) && !form.classList.contains('form_layout_show')) {
         switch (keyCode) {
           case 'ArrowLeft':
             e.preventDefault();

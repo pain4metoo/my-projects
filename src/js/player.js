@@ -2,12 +2,12 @@ import { isVisibleEl } from './additional';
 
 {
   const setVolume = () => {
-    if (!localStorage.getItem('volume')) {
-      localStorage.setItem('volume', 0.4);
+    if (!localStorage.getItem('museumvolume')) {
+      localStorage.setItem('museumvolume', 0.4);
     }
 
-    video.volume = +localStorage.getItem('volume');
-    progressVol.value = +localStorage.getItem('volume') * 100;
+    video.volume = +localStorage.getItem('museumvolume');
+    progressVol.value = +localStorage.getItem('museumvolume') * 100;
 
     onShowProgressVol();
   };
@@ -173,7 +173,7 @@ import { isVisibleEl } from './additional';
       volumeIMG.classList.remove('video_control_volume_off');
     }
 
-    localStorage.setItem('volume', progressVol.value / 100);
+    localStorage.setItem('museumvolume', progressVol.value / 100);
 
     progressVol.style.background = `linear-gradient(to right, #710707 0%, #710707 ${progressVol.value}%, #fff ${progressVol.value}%, white 100%)`;
   };

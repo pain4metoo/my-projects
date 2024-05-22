@@ -2,24 +2,24 @@ import validation from './form_validation.js';
 
 {
   window.onload = () => {
-    if (!localStorage.getItem('basic') || !localStorage.getItem('senior')) {
-      localStorage.setItem('basic', '0');
-      localStorage.setItem('senior', '0');
+    if (!localStorage.getItem('museumbasic') || !localStorage.getItem('museumsenior')) {
+      localStorage.setItem('museumbasic', '0');
+      localStorage.setItem('museumsenior', '0');
     }
-    if (!localStorage.getItem('type')) {
-      localStorage.setItem('type', '0');
+    if (!localStorage.getItem('museumtype')) {
+      localStorage.setItem('museumtype', '0');
     }
-    if (!localStorage.getItem('total')) {
-      localStorage.setItem('total', '0');
+    if (!localStorage.getItem('museumtotal')) {
+      localStorage.setItem('museumtotal', '0');
     }
-    if (!localStorage.getItem('time')) {
-      localStorage.setItem('time', '');
+    if (!localStorage.getItem('museumtime')) {
+      localStorage.setItem('museumtime', '');
     }
-    if (!localStorage.getItem('date')) {
-      localStorage.setItem('date', '');
+    if (!localStorage.getItem('museumdate')) {
+      localStorage.setItem('museumdate', '');
     }
-    if (!localStorage.getItem('faq')) {
-      localStorage.setItem('faq', '0');
+    if (!localStorage.getItem('museumfaq')) {
+      localStorage.setItem('museumfaq', '0');
     }
 
     setTotal();
@@ -150,9 +150,9 @@ import validation from './form_validation.js';
     input.value--;
 
     if (isBasic) {
-      localStorage.setItem('basic', `${input.value}`);
+      localStorage.setItem('museumbasic', `${input.value}`);
     } else {
-      localStorage.setItem('senior', `${input.value}`);
+      localStorage.setItem('museumsenior', `${input.value}`);
     }
 
     setTotal();
@@ -166,9 +166,9 @@ import validation from './form_validation.js';
     input.value++;
 
     if (isBasic) {
-      localStorage.setItem('basic', `${input.value}`);
+      localStorage.setItem('museumbasic', `${input.value}`);
     } else {
-      localStorage.setItem('senior', `${input.value}`);
+      localStorage.setItem('museumsenior', `${input.value}`);
     }
 
     setTotal();
@@ -181,7 +181,7 @@ import validation from './form_validation.js';
 
   ticketTypes.forEach((el, i) => {
     el.onclick = () => {
-      localStorage.setItem('type', i);
+      localStorage.setItem('museumtype', i);
       setTotal();
       updateTicket();
       updateForm();
@@ -192,11 +192,11 @@ import validation from './form_validation.js';
   const totalTicket = document.querySelector('.ticket_amount_total');
 
   const setTotal = () => {
-    const type = localStorage.getItem('type');
-    const basic = +localStorage.getItem('basic');
-    const senior = +localStorage.getItem('senior');
+    const type = localStorage.getItem('museumtype');
+    const basic = +localStorage.getItem('museumbasic');
+    const senior = +localStorage.getItem('museumsenior');
 
-    localStorage.setItem('total', `${price[type].basic * basic + price[type].senior * senior}`);
+    localStorage.setItem('museumtotal', `${price[type].basic * basic + price[type].senior * senior}`);
   };
 
   const formMinusBasic = document.getElementById('form_minus_basic');
@@ -230,7 +230,7 @@ import validation from './form_validation.js';
   const formTicketType = document.querySelectorAll('.form_select_option');
   const formSelect = document.querySelector('.form_select');
   formSelect.onchange = () => {
-    localStorage.setItem('type', formSelect.value);
+    localStorage.setItem('museumtype', formSelect.value);
     setTotal();
     updateTicket();
     updateForm();
@@ -242,21 +242,21 @@ import validation from './form_validation.js';
   const formTimeText = document.getElementById('form_time_text');
 
   const updateForm = () => {
-    formCounterBasic.value = localStorage.getItem('basic');
-    formCounterSenior.value = localStorage.getItem('senior');
-    formBasicCounter.textContent = localStorage.getItem('basic');
-    formSeniorCounter.textContent = localStorage.getItem('senior');
-    formTotal.textContent = `${localStorage.getItem('total')} €`;
-    formTypeText.textContent = `${typesArr[localStorage.getItem('type')]}`;
+    formCounterBasic.value = localStorage.getItem('museumbasic');
+    formCounterSenior.value = localStorage.getItem('museumsenior');
+    formBasicCounter.textContent = localStorage.getItem('museumbasic');
+    formSeniorCounter.textContent = localStorage.getItem('museumsenior');
+    formTotal.textContent = `${localStorage.getItem('museumtotal')} €`;
+    formTypeText.textContent = `${typesArr[localStorage.getItem('museumtype')]}`;
 
-    if (localStorage.getItem('time')) {
-      formTimeText.textContent = localStorage.getItem('time');
+    if (localStorage.getItem('museumtime')) {
+      formTimeText.textContent = localStorage.getItem('museumtime');
     }
-    if (localStorage.getItem('date')) {
-      formDateText.textContent = localStorage.getItem('date');
+    if (localStorage.getItem('museumdate')) {
+      formDateText.textContent = localStorage.getItem('museumdate');
     }
 
-    const type = +localStorage.getItem('type');
+    const type = +localStorage.getItem('museumtype');
 
     formTicketType.forEach((el, i) => {
       if (type === i) {
@@ -268,11 +268,11 @@ import validation from './form_validation.js';
   };
 
   const updateTicket = () => {
-    ticketBasicInp.value = localStorage.getItem('basic');
-    ticketSeniorInp.value = localStorage.getItem('senior');
-    totalTicket.textContent = `Total €${localStorage.getItem('total')}`;
+    ticketBasicInp.value = localStorage.getItem('museumbasic');
+    ticketSeniorInp.value = localStorage.getItem('museumsenior');
+    totalTicket.textContent = `Total €${localStorage.getItem('museumtotal')}`;
 
-    const type = +localStorage.getItem('type');
+    const type = +localStorage.getItem('museumtype');
 
     ticketTypes.forEach((el, i) => {
       if (type === i) {
@@ -337,7 +337,7 @@ import validation from './form_validation.js';
 
     formDateText.textContent = result;
 
-    localStorage.setItem('date', result);
+    localStorage.setItem('museumdate', result);
   };
 
   const time = document.querySelector('.form_time_select');
@@ -361,7 +361,7 @@ import validation from './form_validation.js';
       return;
     }
 
-    localStorage.setItem('time', time.value);
+    localStorage.setItem('museumtime', time.value);
 
     updateForm();
   };
@@ -414,7 +414,7 @@ import validation from './form_validation.js';
 
   const ticketCountsField = document.querySelector('.form_entry_ticket');
   const checkValidTicketsCount = () => {
-    validation.isValidTickets = localStorage.getItem('basic') || localStorage.getItem('senior');
+    validation.isValidTickets = localStorage.getItem('museumbasic') || localStorage.getItem('museumsenior');
 
     if (validation.isValidTickets) {
       isValidField(ticketCountsField, true);
@@ -425,7 +425,7 @@ import validation from './form_validation.js';
 
   const ticketTypeField = document.querySelector('.form_select');
   const checkValidTicketType = () => {
-    validation.isValidTypeTicket = localStorage.getItem('type');
+    validation.isValidTypeTicket = localStorage.getItem('museumtype');
 
     if (validation.isValidTypeTicket) {
       isValidField(ticketTypeField, true);

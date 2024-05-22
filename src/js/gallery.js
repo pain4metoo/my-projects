@@ -77,7 +77,7 @@ import img15 from '../assets/image/gallery_15.webp';
 
   const faq = document.querySelector('.gallery_faq_block');
   faq.onclick = () => {
-    localStorage.setItem('faq', '1');
+    localStorage.setItem('museumfaq', '1');
     faq.classList.remove('gallery_faq_show');
   };
 
@@ -86,7 +86,7 @@ import img15 from '../assets/image/gallery_15.webp';
       if (isVisibleEl(el)) {
         el.classList.add('gallery_item_anim');
         if (!faq.classList.contains('gallery_faq_show')) {
-          if (localStorage.getItem('faq') === '0') {
+          if (localStorage.getItem('museumfaq') === '0') {
             faq.classList.add('gallery_faq_show');
           }
         }

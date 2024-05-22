@@ -96,7 +96,7 @@ class Validation {
   }
 
   set isValidTickets(tickets) {
-    if ((localStorage.getItem('basic') === '0' && localStorage.getItem('senior') === '0') || !tickets) {
+    if ((localStorage.getItem('museumbasic') === '0' && localStorage.getItem('museumsenior') === '0') || !tickets) {
       this._isValidTickets = false;
     } else {
       this._isValidTickets = true;

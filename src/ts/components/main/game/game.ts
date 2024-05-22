@@ -18,7 +18,7 @@ interface AvailableMovesFromEmptySquare {
 export class Game extends Control {
   private gameListener: (type: StateOptions) => void;
   private gameSquareHTML: Array<HTMLElement> = [];
-  public results = (lStorage.get('results') as Array<Result>) || [];
+  public results = (lStorage.get('gemresults') as Array<Result>) || [];
   private queueEL: Array<HTMLElement> = [];
   private queueFontSize: Array<string> = [];
   private intervalExtremeMode!: number;
@@ -465,7 +465,7 @@ export class Game extends Control {
     const arrayAfterSort: Array<Result> = this.sortValue(this.results);
     arrayAfterSort.length > maxItemsInLocal ? arrayAfterSort.splice(arrayAfterSort.length - 1, 1) : null;
 
-    lStorage.put('results', this.results);
+    lStorage.put('gemresults', this.results);
   }
 
   public deleteResult(targetIndex?: number): void {
@@ -475,7 +475,7 @@ export class Game extends Control {
       this.results.splice(0);
     }
 
-    lStorage.put('results', this.results);
+    lStorage.put('gemresults', this.results);
   }
 
   private sortValue(results: Array<Result>): Array<Result> {

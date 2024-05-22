@@ -195,6 +195,6 @@ export class Switcher extends Control {
       state.setGameMode(flag);
     }
 
-    lStorage.put('settings', state.getSettings());
+    lStorage.put('gemsettings', state.getSettings());
   }
 }

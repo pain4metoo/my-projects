@@ -8,11 +8,11 @@ export interface Result {
 
 class LocalStorage {
   public put(key: string, value: Array<Result> | AppSettings): void {
-    localStorage.setItem(`${key}`, JSON.stringify(value));
+    localStorage.setItem(`gem${key}`, JSON.stringify(value));
   }
 
   public get(key: string): Array<Result> | AppSettings | null {
-    const findKey = localStorage.getItem(`${key}`);
+    const findKey = localStorage.getItem(`gem${key}`);
 
     if (findKey !== null) {
       return JSON.parse(findKey);
@@ -22,7 +22,7 @@ class LocalStorage {
   }
 
   public remove(key: string): void {
-    localStorage.removeItem(key);
+    localStorage.removeItem(`gem${key}`);
   }
 }
 

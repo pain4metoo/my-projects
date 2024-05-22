@@ -45,7 +45,7 @@ export class Volume extends Control {
   public setVolume(value: string): void {
     state.setLastVolume(value);
     state.setVolume(value);
-    lStorage.put('settings', state.getSettings());
+    lStorage.put('gemsettings', state.getSettings());
     this.showChanges();
   }
 
@@ -80,7 +80,7 @@ export class Volume extends Control {
     } else {
       state.setVolume(state.getLastVolume());
     }
-    lStorage.put('settings', state.getSettings());
+    lStorage.put('gemsettings', state.getSettings());
 
     this.showChanges();
   }

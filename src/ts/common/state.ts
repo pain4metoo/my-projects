@@ -311,7 +311,7 @@ class State {
 
   public initLocalStorage(): void {
     try {
-      const appSettings = lStorage.get('settings') as AppSettings;
+      const appSettings = lStorage.get('gemsettings') as AppSettings;
       this._data.appSettings.animation = appSettings.animation;
       this._data.appSettings.language = appSettings.language;
       this._data.appSettings.lastVolume = appSettings.lastVolume;

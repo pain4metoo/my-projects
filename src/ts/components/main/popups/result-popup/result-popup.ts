@@ -16,7 +16,7 @@ export class ResultPopup extends Control {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'popups_result');
 
-    const localStorageResult = (lStorage.get('results') as Array<Result>) || [];
+    const localStorageResult = (lStorage.get('gemresults') as Array<Result>) || [];
 
     this.createTable(localStorageResult);
 

@@ -49,8 +49,8 @@ export class Popups extends Control {
           newGameBtn.node.textContent = state.getLanguage() ? 'delete all results' : 'очистить результаты';
           newGameBtn.node.onclick = (): void => this.showWarning(StateOptions.showResultPopup);
 
-          if (lStorage.get('results') !== null) {
-            if ((lStorage.get('results') as Array<Result>).length > 0) {
+          if (lStorage.get('gemresults') !== null) {
+            if ((lStorage.get('gemresults') as Array<Result>).length > 0) {
               newGameBtn.node.disabled = false;
             } else {
               newGameBtn.node.disabled = true;
@@ -62,8 +62,8 @@ export class Popups extends Control {
           break;
 
         case StateOptions.deleteTargetFromStorage:
-          if (lStorage.get('results') !== null) {
-            if ((lStorage.get('results') as Array<Result>).length > 0) {
+          if (lStorage.get('gemresults') !== null) {
+            if ((lStorage.get('gemresults') as Array<Result>).length > 0) {
               newGameBtn.node.disabled = false;
             } else {
               newGameBtn.node.disabled = true;
@@ -88,8 +88,8 @@ export class Popups extends Control {
         case StateOptions.clearLocalStorage:
           this.popupResult.destroy();
           this.popupResult = new ResultPopup(popupsInner.node);
-          if (lStorage.get('results') !== null) {
-            if ((lStorage.get('results') as Array<Result>).length > 0) {
+          if (lStorage.get('gemresults') !== null) {
+            if ((lStorage.get('gemresults') as Array<Result>).length > 0) {
               newGameBtn.node.disabled = false;
             } else {
               newGameBtn.node.disabled = true;
@@ -153,7 +153,7 @@ export class Popups extends Control {
 
   private resetSettings(): void {
     state.resetSettings();
-    lStorage.remove('settings');
+    lStorage.remove('gemsettings');
   }
 
   private deleteResults(): void {
